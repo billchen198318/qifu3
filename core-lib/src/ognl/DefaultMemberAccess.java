@@ -110,8 +110,9 @@ public class DefaultMemberAccess implements MemberAccess
 
         if (isAccessible(context, target, member, propertyName)) {
             AccessibleObject    accessible = (AccessibleObject)member;
-
-            if (!accessible.isAccessible()) {
+            
+            // if (!accessible.isAccessible()) {
+            if (!accessible.canAccess(member)) { // JDK9 Deprecated isAccessible, change to canAccess.
                 result = Boolean.TRUE;
                 accessible.setAccessible(true);
             }
