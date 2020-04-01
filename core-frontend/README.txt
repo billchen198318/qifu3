@@ -1,0 +1,1 @@
+frontend page in this folder.
