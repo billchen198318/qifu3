@@ -23,11 +23,8 @@ package org.qifu.base;
 
 import java.io.File;
 import java.io.IOException;
-import java.util.HashMap;
-import java.util.Map;
 
 import org.apache.commons.io.FileUtils;
-import org.apache.commons.lang3.StringUtils;
 import org.qifu.base.model.YesNo;
 
 public class Constants {
@@ -93,6 +90,8 @@ public class Constants {
 	public static final String ID_DELIMITER = ";"; // 有時要將多筆 OID 或 key 組成一組字串 , 這是就用這個符號來區分	
 	
 	public static final String INPUT_NAME_DELIMITER = ":"; // 有時輸入欄位id或名稱,想要有區分一些有意義的資料時用
+	
+	public static final String DEFAULT_SPLIT_DELIMITER = ";|,";
 	
 	public static final String TMP_SUB_DIR_NAME = "qifu";
 	
