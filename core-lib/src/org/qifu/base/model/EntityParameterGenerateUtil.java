@@ -105,12 +105,12 @@ public class EntityParameterGenerateUtil implements EntityParameterGenerate {
 		return ukMap;
 	}	
 	
-	public static String getPrimaryKeyFieldName(Object entityObject) {
+	public static EntityPK getPrimaryKeyField(Object entityObject) {
 		Method[] methods=entityObject.getClass().getMethods();
 		if (methods==null) {
 			return null;
 		}
-		String fieldName = "";
+		EntityPK field = null;
 		for (int ix=0; ix<methods.length; ix++) {
 			Annotation[] annotations=methods[ix].getDeclaredAnnotations();
 			if (annotations==null) {
@@ -118,11 +118,11 @@ public class EntityParameterGenerateUtil implements EntityParameterGenerate {
 			}
 			for(Annotation annotation : annotations) {
 				if(annotation instanceof EntityPK) {
-					fieldName = ((EntityPK)annotation).name();					
+					field = ((EntityPK)annotation);			
 				}
 			}
 		}
-		return fieldName;
+		return field;
 	}		
 	
 	public static String getUpdateUserFieldName(Object entityObject) {

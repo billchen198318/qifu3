@@ -31,10 +31,12 @@ import org.qifu.base.exception.ServiceException;
 import org.qifu.base.mapper.IBaseMapper;
 import org.qifu.base.message.BaseSystemMessage;
 import org.qifu.base.model.DefaultResult;
+import org.qifu.base.model.EntityPK;
 import org.qifu.base.model.EntityParameterGenerateUtil;
 import org.qifu.base.model.PageOf;
 import org.qifu.base.model.QueryResult;
 import org.qifu.base.util.UserLocalUtils;
+import org.qifu.util.SimpleUtils;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -51,7 +53,8 @@ public abstract class BaseService<T extends java.io.Serializable, K extends java
 	
 	protected abstract IBaseMapper<T, K> getBaseMapper();
 	
-	protected abstract K generatePrimaryKey();
+	// 自訂義主鍵值生成abstract
+	protected abstract K generateCustomPrimaryKey();
 	
 	private OgnlContext ognlContextForGet = new OgnlContext(null,null,new DefaultMemberAccess(true));
 	
@@ -60,16 +63,21 @@ public abstract class BaseService<T extends java.io.Serializable, K extends java
 	}	
 	
 	private void setEntityPrimaryKey(T entity) {
-		Object value = this.generatePrimaryKey();
+		EntityPK primaryKeyField = EntityParameterGenerateUtil.getPrimaryKeyField(entity);
+		if ( null == primaryKeyField || StringUtils.isBlank(primaryKeyField.name()) ) {
+			return;
+		}
+		Object value = null;
+		if (primaryKeyField.autoUuid()) {
+			value = SimpleUtils.getUUIDStr();
+		} else {
+			value = this.generateCustomPrimaryKey();
+		}
 		if (null == value) {
 			return;
-		}
-		String primaryKeyName = EntityParameterGenerateUtil.getPrimaryKeyFieldName(entity);
-		if (StringUtils.isBlank(primaryKeyName)) {
-			return;
-		}
+		}		
 		try {
-			Ognl.setValue(primaryKeyName, this.ognlContextForGet, entity, value);
+			Ognl.setValue(primaryKeyField.name(), this.ognlContextForGet, entity, value);
 		} catch (OgnlException e) {
 			e.printStackTrace();
 		}
