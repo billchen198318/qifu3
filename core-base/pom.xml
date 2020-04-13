@@ -248,6 +248,14 @@
 <!-- 		    <version>0.0.1</version> -->
 <!-- 		    <systemPath>${workspaceDir}/thirdpartylib/DFKai-SB.jar</systemPath> -->
 <!-- 		</dependency>					 -->
+
+		<dependency>
+		    <groupId>org.qifu</groupId>
+		    <artifactId>core-lib</artifactId>
+		    <scope>system</scope>
+		    <version>0.0.1-SNAPSHOT</version>
+		    <systemPath>${workspaceDir}/core-lib/target/core-lib-0.0.1-SNAPSHOT.jar</systemPath>
+		</dependency>
         
   </dependencies>
   
