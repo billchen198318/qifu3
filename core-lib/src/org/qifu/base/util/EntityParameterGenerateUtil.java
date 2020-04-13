@@ -19,13 +19,21 @@
  * contact: chen.xin.nien@gmail.com
  * 
  */
-package org.qifu.base.model;
+package org.qifu.base.util;
 
 import java.lang.annotation.Annotation;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.util.HashMap;
 import java.util.Map;
+
+import org.qifu.base.model.CreateDateField;
+import org.qifu.base.model.CreateUserField;
+import org.qifu.base.model.EntityPK;
+import org.qifu.base.model.EntityParameterGenerate;
+import org.qifu.base.model.EntityUK;
+import org.qifu.base.model.UpdateDateField;
+import org.qifu.base.model.UpdateUserField;
 
 public class EntityParameterGenerateUtil implements EntityParameterGenerate {
 	
