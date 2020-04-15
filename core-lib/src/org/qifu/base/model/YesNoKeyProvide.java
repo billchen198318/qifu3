@@ -21,7 +21,7 @@
  */
 package org.qifu.base.model;
 
-public interface YesNoKeyProvide {
+public interface YesNoKeyProvide extends java.io.Serializable {
 	public static final String YES = "Y";
 	public static final String NO = "N";
 	public void setKey(String key);

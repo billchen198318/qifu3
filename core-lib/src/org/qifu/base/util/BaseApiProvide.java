@@ -29,10 +29,12 @@ import org.qifu.base.model.SearchBody;
 import org.qifu.base.model.YesNo;
 
 public class BaseApiProvide extends YesNo {
+	
+	private static final long serialVersionUID = -3934810030443337825L;
 
 //	@Autowired
 //	TokenFlagCheckConfigProperties tokenFlagCheckConfigProperties;
-	
+
 	protected QueryParamBuilder queryParameter() {
 		return QueryParamBuilder.build();
 	}

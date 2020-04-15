@@ -22,6 +22,8 @@
 package org.qifu.base.model;
 
 public class YesNo implements YesNoKeyProvide {
+	private static final long serialVersionUID = -6243933633323014763L;
+	
 	private String key = YES;
 	
 	@Override

@@ -30,6 +30,8 @@ import org.qifu.base.util.UserLocalUtils;
 
 public class CoreApiProvide extends BaseApiProvide {
 	
+	private static final long serialVersionUID = -4750183395777134636L;	
+	
 	/*
 	@Autowired
 	RoleCheckUtils roleCheckUtils;
@@ -106,7 +108,7 @@ public class CoreApiProvide extends BaseApiProvide {
 		UserBuilder.logout();
 	}
 	*/
-	
+
 	public <T> void fillEventResult2ResponseResult(DefaultResult<T> queryResult, DefaultResult<T> responseResult) {
 		if (queryResult == null || responseResult == null) {
 			return;
