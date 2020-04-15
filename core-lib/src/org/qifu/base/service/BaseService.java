@@ -73,7 +73,7 @@ public abstract class BaseService<T extends java.io.Serializable, K extends java
 			return;
 		}
 		Object value = null;
-		if (primaryKeyField.autoUuid()) {
+		if (primaryKeyField.autoUUID()) {
 			value = SimpleUtils.getUUIDStr();
 		} /* else {
 			value = this.generateCustomPrimaryKey();
