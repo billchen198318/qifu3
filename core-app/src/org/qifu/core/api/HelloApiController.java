@@ -21,7 +21,11 @@
  */
 package org.qifu.core.api;
 
+import org.qifu.base.model.DefaultResult;
+import org.qifu.core.mapper.TbAccount;
+import org.qifu.core.service.IAccountService;
 import org.qifu.core.util.CoreApiSupport;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -38,11 +42,32 @@ public class HelloApiController extends CoreApiSupport {
 	
 	private static final long serialVersionUID = -2710621780849674671L;
 	
+	/*
+	@Autowired
+	IAccountService<TbAccount, String> accountService;
+	*/
+	
 	@ApiOperation(value="測試", notes="測試用的接口")
     @ApiImplicitParam(name = "msg", value = "訊息字串", required = true, dataType = "String")
 	@ResponseBody
 	@GetMapping("/play")
 	public String play(String msg) {
+		
+		/*
+		try {
+			DefaultResult<TbAccount> result = accountService.selectByPrimaryKey("15822da5-25dc-490c-bdfb-be75f5ff4843");
+			if (result.getValue() != null) {
+				System.out.println("OOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOO");
+				System.out.println( result.getValue().getAccount() );
+			} else {
+				System.out.println("XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX");
+			}
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		*/
+		
 		return "測試=" + msg;
 	}	
 	

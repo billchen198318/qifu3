@@ -10,8 +10,8 @@
         </Console>
  
         <RollingFile name="appLog"
-            fileName="${APP_LOG_ROOT}/commission-app/commission.log"
-            filePattern="${APP_LOG_ROOT}/commission-app/commission-%d{yyyy-MM-dd}-%i.log">
+            fileName="${APP_LOG_ROOT}/core-app/core-app.log"
+            filePattern="${APP_LOG_ROOT}/core-app/core-app-%d{yyyy-MM-dd}-%i.log">
             <PatternLayout pattern="${LOG_PATTERN}" />
             <Policies>
                 <SizeBasedTriggeringPolicy size="19500KB" />
@@ -30,7 +30,7 @@
     	<logger name="org.springframework.web" level="info"></logger>      
     	-->   
     	
-        <Logger name="com.wwunion" level="trace" additivity="false">
+        <Logger name="org.qifu" level="trace" additivity="false">
             <AppenderRef ref="appLog" />
             <AppenderRef ref="Console" />
         </Logger>

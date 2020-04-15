@@ -13,7 +13,7 @@
     <result column="UDATE" jdbcType="TIMESTAMP" property="udate" />
   </resultMap>
   
-  <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
+  <select id="selectByPrimaryKey" parameterType="java.lang.String" resultMap="BaseResultMap">
     select *
     from <include refid="org.qifu.core.mapper.DB1Config.schema"/>tb_account
     where OID = #{oid,jdbcType=CHAR}
