@@ -28,6 +28,7 @@ import java.util.Arrays;
 import javax.annotation.Resource;
 import javax.sql.DataSource;
 
+import org.qifu.base.AppContext;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
@@ -64,6 +65,7 @@ public class Application {
 	
 	public static void main(String args[]) {
 		ConfigurableApplicationContext context = SpringApplication.run(Application.class, args);
+		AppContext.init(context);
 		Application.context = context;
 	}
 	
