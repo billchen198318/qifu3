@@ -57,11 +57,8 @@ public class Application {
 	public static ApplicationContext context;
 	
 	@Autowired
-	private DataSource dataSource;	
-	
-	@Autowired
 	@Resource(name = "dataSource")
-	private DataSource datasourceFns;	
+	private DataSource dataSource;	
 	
 	public static void main(String args[]) {
 		ConfigurableApplicationContext context = SpringApplication.run(Application.class, args);
