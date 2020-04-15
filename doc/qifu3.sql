@@ -1729,7 +1729,7 @@ CREATE TABLE `tb_account` (
   `CDATE` datetime DEFAULT NULL,
   `UUSERID` varchar(24) DEFAULT NULL,
   `UDATE` datetime DEFAULT NULL,
-  PRIMARY KEY (`OID`,`ACCOUNT`),
+  PRIMARY KEY (`OID`),
   UNIQUE KEY `UK_1` (`ACCOUNT`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
@@ -2911,4 +2911,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2020-04-15 10:16:51
+-- Dump completed on 2020-04-15 10:50:17
