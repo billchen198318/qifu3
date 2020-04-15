@@ -56,7 +56,7 @@ public abstract class BaseService<T extends java.io.Serializable, K extends java
 	// 自訂義主鍵值生成abstract , 移動到 IBaseServiceCustomPrimaryKeyProvide
 	//protected abstract K generateCustomPrimaryKey();
 	
-	private OgnlContext ognlContextForGet = new OgnlContext(null,null,new DefaultMemberAccess(true));
+	private OgnlContext ognlContext = new OgnlContext(null,null,new DefaultMemberAccess(true));
 	private boolean foundCustomPrimaryKeyProvide = false;
 	
 	public BaseService() {
@@ -85,7 +85,7 @@ public abstract class BaseService<T extends java.io.Serializable, K extends java
 			return;
 		}		
 		try {
-			Ognl.setValue(primaryKeyField.name(), this.ognlContextForGet, entity, value);
+			Ognl.setValue(primaryKeyField.name(), this.ognlContext, entity, value);
 		} catch (OgnlException e) {
 			e.printStackTrace();
 		}
@@ -97,14 +97,14 @@ public abstract class BaseService<T extends java.io.Serializable, K extends java
 		if (!StringUtils.isBlank(createUserFieldName)) {
 			try {
 				// FIXME: 要改 UserLocalUtils 為 Apache-shiro 或別的登入session管理元件
-				Ognl.setValue(createUserFieldName, this.ognlContextForGet, entity, UserLocalUtils.getUserInfo().getUserId());
+				Ognl.setValue(createUserFieldName, this.ognlContext, entity, UserLocalUtils.getUserInfo().getUserId());
 			} catch (OgnlException oe) {
 				oe.printStackTrace();
 			}			
 		}
 		if (!StringUtils.isBlank(createDateFieldName)) {
 			try {
-				Ognl.setValue(createDateFieldName, this.ognlContextForGet, entity, new Date());
+				Ognl.setValue(createDateFieldName, this.ognlContext, entity, new Date());
 			} catch (OgnlException oe) {
 				oe.printStackTrace();
 			}
@@ -117,14 +117,14 @@ public abstract class BaseService<T extends java.io.Serializable, K extends java
 		if (!StringUtils.isBlank(updateUserFieldName)) {
 			try {
 				// FIXME: 要改 UserLocalUtils 為 Apache-shiro 或別的登入session管理元件
-				Ognl.setValue(updateUserFieldName, this.ognlContextForGet, entity, UserLocalUtils.getUserInfo().getUserId());
+				Ognl.setValue(updateUserFieldName, this.ognlContext, entity, UserLocalUtils.getUserInfo().getUserId());
 			} catch (OgnlException oe) {
 				oe.printStackTrace();
 			}
 		}
 		if (!StringUtils.isBlank(updateDateFieldName)) {
 			try {
-				Ognl.setValue(updateDateFieldName, this.ognlContextForGet, entity, new Date());
+				Ognl.setValue(updateDateFieldName, this.ognlContext, entity, new Date());
 			} catch (OgnlException oe) {
 				oe.printStackTrace();
 			}
