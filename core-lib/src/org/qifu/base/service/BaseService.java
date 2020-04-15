@@ -39,7 +39,6 @@ import org.qifu.base.util.UserLocalUtils;
 import org.qifu.util.SimpleUtils;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
-import org.springframework.util.ClassUtils;
 
 import ognl.DefaultMemberAccess;
 import ognl.Ognl;
@@ -58,16 +57,12 @@ public abstract class BaseService<T extends java.io.Serializable, K extends java
 	//protected abstract K generateCustomPrimaryKey();
 	
 	private OgnlContext ognlContextForGet = new OgnlContext(null,null,new DefaultMemberAccess(true));
-	private Class<?> serviceIntf[] = null;
 	private boolean foundCustomPrimaryKeyProvide = false;
 	
 	public BaseService() {
 		super();
-		serviceIntf = ClassUtils.getAllInterfaces( this );
-		for (int i = 0; serviceIntf != null && i < serviceIntf.length; i++) {
-			if ( serviceIntf[i].getName().equals("IBaseServiceCustomPrimaryKeyProvide") ) {
-				foundCustomPrimaryKeyProvide = true;
-			}
+		if ( this instanceof IBaseServiceCustomPrimaryKeyProvide ) { // check實作類是否有 implements IBaseServiceCustomPrimaryKeyProvide, 自定義 PK生成method.
+			foundCustomPrimaryKeyProvide = true;
 		}
 	}	
 	
