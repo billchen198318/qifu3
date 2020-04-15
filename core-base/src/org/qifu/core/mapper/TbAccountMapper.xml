@@ -16,7 +16,7 @@
   <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
     select *
     from <include refid="org.qifu.core.mapper.DB1Config.schema"/>tb_account
-    where OID = #{oid,jdbcType=BIGINT}
+    where OID = #{oid,jdbcType=CHAR}
   </select>  
   
   <select id="selectListByParams" parameterType="java.util.HashMap" resultMap="BaseResultMap">
