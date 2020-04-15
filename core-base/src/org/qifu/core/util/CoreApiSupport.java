@@ -25,10 +25,10 @@ import org.apache.commons.lang3.StringUtils;
 import org.qifu.base.model.DefaultResult;
 import org.qifu.base.model.PageOf;
 import org.qifu.base.model.QueryResult;
-import org.qifu.base.util.BaseApiProvide;
+import org.qifu.base.util.BaseApiSupport;
 import org.qifu.base.util.UserLocalUtils;
 
-public class CoreApiProvide extends BaseApiProvide {
+public class CoreApiSupport extends BaseApiSupport {
 	
 	private static final long serialVersionUID = -4750183395777134636L;	
 	

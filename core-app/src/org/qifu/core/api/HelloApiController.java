@@ -21,7 +21,7 @@
  */
 package org.qifu.core.api;
 
-import org.qifu.core.util.CoreApiProvide;
+import org.qifu.core.util.CoreApiSupport;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -34,7 +34,7 @@ import io.swagger.annotations.ApiOperation;
 @Api
 @Controller
 @RequestMapping(value = "/helloApi")
-public class HelloApiController extends CoreApiProvide {
+public class HelloApiController extends CoreApiSupport {
 	
 	private static final long serialVersionUID = -2710621780849674671L;
 	

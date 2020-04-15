@@ -28,7 +28,7 @@ import org.qifu.base.model.QueryResult;
 import org.qifu.base.model.SearchBody;
 import org.qifu.base.model.YesNo;
 
-public class BaseApiProvide extends YesNo {
+public class BaseApiSupport extends YesNo {
 	
 	private static final long serialVersionUID = -3934810030443337825L;
 
