@@ -48,19 +48,19 @@ import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 	@ComponentScan("org.qifu.*")
 })
 @EnableWebMvc
-//@EnableAutoConfiguration(exclude={DataSourceAutoConfiguration.class})
+@EnableAutoConfiguration(exclude={DataSourceAutoConfiguration.class})
 @EnableCaching
 @EnableScheduling
 public class Application {
 	
 	public static ApplicationContext context;
 	
-//	@Autowired
-//	private DataSource dataSource;	
-//	
-//	@Autowired
-//	@Resource(name = "datasourceFns")
-//	private DataSource datasourceFns;	
+	@Autowired
+	private DataSource dataSource;	
+	
+	@Autowired
+	@Resource(name = "dataSource")
+	private DataSource datasourceFns;	
 	
 	public static void main(String args[]) {
 		ConfigurableApplicationContext context = SpringApplication.run(Application.class, args);
@@ -70,7 +70,6 @@ public class Application {
     @Bean
     public CommandLineRunner commandLineRunner(ApplicationContext ctx) {
     	
-    	/*
 		System.out.println("test DataBase connection....");
 		try (Connection connection = this.dataSource.getConnection()) {
 			System.out.println("DataBase [" + this.dataSource.toString() + "] connection success.");
@@ -78,15 +77,6 @@ public class Application {
 			e.printStackTrace();
 			System.out.println("*** FAIL ***, test DataBase connection....");
 		}
-    	
-		System.out.println("test DataBase(FNS) connection....");
-		try (Connection connection = this.datasourceFns.getConnection()) {
-			System.out.println("DataBase [" + this.datasourceFns.toString() + "] connection success.");
-		} catch (SQLException e) {
-			e.printStackTrace();
-			System.out.println("*** FAIL ***, test DataBase(OldCoreSystem) connection....");
-		}	
-		*/
 		
         return args -> {
             System.out.println("Let's inspect the beans provided by Spring Boot:");

@@ -58,7 +58,7 @@
 	</if>
   </select>  
   
-  <insert id="insert" parameterType="org.qifu.core.mapper.SysTemplate"> 
+  <insert id="insert" parameterType="org.qifu.core.mapper.TbAccount"> 
     insert into <include refid="org.qifu.core.mapper.DB1Config.schema"/>tb_account
     <trim prefix="(" suffix=")" suffixOverrides=",">
       <if test="oid != null">
@@ -114,7 +114,7 @@
     </trim>
   </insert>  
   
-  <update id="update" parameterType="org.qifu.core.mapper.SysTemplate">
+  <update id="update" parameterType="org.qifu.core.mapper.TbAccount">
     update <include refid="org.qifu.core.mapper.DB1Config.schema"/>tb_account
     <set>
       <if test="password != null">
@@ -141,7 +141,7 @@
     where OID = #{oid,jdbcType=CHAR}
   </update>  
   
-  <delete id="delete" parameterType="org.qifu.core.mapper.SysTemplate">
+  <delete id="delete" parameterType="org.qifu.core.mapper.TbAccount">
     delete from <include refid="org.qifu.core.mapper.DB1Config.schema"/>tb_account
     where OID = #{oid,jdbcType=CHAR}
   </delete>  
