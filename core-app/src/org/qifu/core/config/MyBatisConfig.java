@@ -38,9 +38,6 @@ import org.springframework.context.annotation.PropertySource;
 import org.springframework.core.env.Environment;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
 
-/** 
- * @author 4753
- */
 @MapperScan(basePackages = "org.qifu.core.mapper", sqlSessionFactoryRef = "sqlSessionFactory")
 @Configuration
 @EnableAutoConfiguration
