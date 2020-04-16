@@ -48,7 +48,7 @@ import net.sf.jasperreports.export.SimplePdfExporterConfiguration;
 @Component
 public class JReportUtils {
 	
-	private static final String OWNER_PASSWORD = "qifu3";
+	//private static final String OWNER_PASSWORD = "qifu3";
 	
 	@Autowired
 	DataSource dataSource;
@@ -112,7 +112,9 @@ public class JReportUtils {
 		    jrPdfExporter.setExporterOutput(new SimpleOutputStreamExporterOutput(outputStream));		    
 		    SimplePdfExporterConfiguration configuration = new SimplePdfExporterConfiguration();
 		    jrPdfExporter.setConfiguration(configuration);
-		    configuration.setOwnerPassword( JReportUtils.OWNER_PASSWORD );
+		    if ( !StringUtils.isBlank(jasperreportConfigProperties.getOwner()) ) {
+		    	configuration.setOwnerPassword( jasperreportConfigProperties.getOwner() );
+		    }
 		    jrPdfExporter.exportReport();
 		    outputStream.flush();
 		    outputStream.close();

@@ -31,6 +31,8 @@ import org.springframework.context.annotation.PropertySource;
 public class JasperreportConfigProperties {
 	
 	private String source;
+	
+	private String owner;
 
 	public String getSource() {
 		return source;
@@ -38,6 +40,14 @@ public class JasperreportConfigProperties {
 
 	public void setSource(String source) {
 		this.source = source;
+	}
+
+	public String getOwner() {
+		return owner;
+	}
+
+	public void setOwner(String owner) {
+		this.owner = owner;
 	}
 	
 }
