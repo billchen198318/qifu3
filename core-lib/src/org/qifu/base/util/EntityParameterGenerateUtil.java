@@ -28,11 +28,13 @@ import java.util.HashMap;
 import java.util.Map;
 
 import org.qifu.base.model.CreateDateField;
+import org.qifu.base.model.CreateField;
 import org.qifu.base.model.CreateUserField;
 import org.qifu.base.model.EntityPK;
 import org.qifu.base.model.EntityParameterGenerate;
 import org.qifu.base.model.EntityUK;
 import org.qifu.base.model.UpdateDateField;
+import org.qifu.base.model.UpdateField;
 import org.qifu.base.model.UpdateUserField;
 
 public class EntityParameterGenerateUtil implements EntityParameterGenerate {
@@ -133,84 +135,50 @@ public class EntityParameterGenerateUtil implements EntityParameterGenerate {
 		return field;
 	}		
 	
-	public static String getUpdateUserFieldName(Object entityObject) {
+	public static UpdateField getUpdateField(Object entityObject) {
 		Method[] methods=entityObject.getClass().getMethods();
 		if (methods==null) {
 			return null;
 		}
-		String fieldName = "";
+		UpdateField field = new UpdateField();
 		for (int ix=0; ix<methods.length; ix++) {
 			Annotation[] annotations=methods[ix].getDeclaredAnnotations();
 			if (annotations==null) {
 				continue;
 			}
 			for(Annotation annotation : annotations) {
-				if(annotation instanceof UpdateUserField) {
-					fieldName = ((UpdateUserField)annotation).name();					
+				if (annotation instanceof UpdateUserField) {
+					field.setUpdateUserField( (UpdateUserField)annotation );					
+				}
+				if (annotation instanceof UpdateDateField) {
+					field.setUpdateDateField( (UpdateDateField)annotation );
 				}
 			}
 		}
-		return fieldName;
+		return field;
 	}	
 	
-	public static String getUpdateDateFieldName(Object entityObject) {
+	public static CreateField getCreateField(Object entityObject) {
 		Method[] methods=entityObject.getClass().getMethods();
 		if (methods==null) {
 			return null;
 		}
-		String fieldName = "";
+		CreateField field = new CreateField();
 		for (int ix=0; ix<methods.length; ix++) {
 			Annotation[] annotations=methods[ix].getDeclaredAnnotations();
 			if (annotations==null) {
 				continue;
 			}
 			for(Annotation annotation : annotations) {
-				if(annotation instanceof UpdateDateField) {
-					fieldName = ((UpdateDateField)annotation).name();					
+				if (annotation instanceof CreateUserField) {
+					field.setCreateUserField( (CreateUserField)annotation );		
+				}
+				if (annotation instanceof CreateDateField) {
+					field.setCreateDateField( (CreateDateField)annotation );
 				}
 			}
 		}
-		return fieldName;
-	}
-	
-	public static String getCreateUserFieldName(Object entityObject) {
-		Method[] methods=entityObject.getClass().getMethods();
-		if (methods==null) {
-			return null;
-		}
-		String fieldName = "";
-		for (int ix=0; ix<methods.length; ix++) {
-			Annotation[] annotations=methods[ix].getDeclaredAnnotations();
-			if (annotations==null) {
-				continue;
-			}
-			for(Annotation annotation : annotations) {
-				if(annotation instanceof CreateUserField) {
-					fieldName = ((CreateUserField)annotation).name();					
-				}
-			}
-		}
-		return fieldName;
-	}	
-	
-	public static String getCreateDateFieldName(Object entityObject) {
-		Method[] methods=entityObject.getClass().getMethods();
-		if (methods==null) {
-			return null;
-		}
-		String fieldName = "";
-		for (int ix=0; ix<methods.length; ix++) {
-			Annotation[] annotations=methods[ix].getDeclaredAnnotations();
-			if (annotations==null) {
-				continue;
-			}
-			for(Annotation annotation : annotations) {
-				if(annotation instanceof CreateDateField) {
-					fieldName = ((CreateDateField)annotation).name();					
-				}
-			}
-		}
-		return fieldName;
+		return field;		
 	}
 	
 }

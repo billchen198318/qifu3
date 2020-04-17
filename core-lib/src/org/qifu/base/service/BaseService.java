@@ -30,10 +30,12 @@ import org.apache.commons.lang3.StringUtils;
 import org.qifu.base.exception.ServiceException;
 import org.qifu.base.mapper.IBaseMapper;
 import org.qifu.base.message.BaseSystemMessage;
+import org.qifu.base.model.CreateField;
 import org.qifu.base.model.DefaultResult;
 import org.qifu.base.model.EntityPK;
 import org.qifu.base.model.PageOf;
 import org.qifu.base.model.QueryResult;
+import org.qifu.base.model.UpdateField;
 import org.qifu.base.util.EntityParameterGenerateUtil;
 import org.qifu.base.util.UserLocalUtils;
 import org.qifu.util.SimpleUtils;
@@ -92,19 +94,21 @@ public abstract class BaseService<T extends java.io.Serializable, K extends java
 	}
 	
 	private void setEntityCreateUserField(T entity) {
-		String createUserFieldName = EntityParameterGenerateUtil.getCreateUserFieldName(entity);
-		String createDateFieldName = EntityParameterGenerateUtil.getCreateDateFieldName(entity);
-		if (!StringUtils.isBlank(createUserFieldName)) {
+		CreateField field = EntityParameterGenerateUtil.getCreateField(entity);
+		if (null == field) {
+			return;
+		}
+		if ( field.getCreateUserField() != null && !StringUtils.isBlank(field.getCreateUserField().name()) ) {
 			try {
 				// FIXME: 要改 UserLocalUtils 為 Apache-shiro 或別的登入session管理元件
-				Ognl.setValue(createUserFieldName, this.ognlContext, entity, UserLocalUtils.getUserInfo().getUserId());
+				Ognl.setValue(field.getCreateUserField().name(), this.ognlContext, entity, UserLocalUtils.getUserInfo().getUserId());
 			} catch (OgnlException oe) {
 				oe.printStackTrace();
 			}			
 		}
-		if (!StringUtils.isBlank(createDateFieldName)) {
+		if ( field.getCreateDateField() != null && !StringUtils.isBlank(field.getCreateDateField().name()) ) {
 			try {
-				Ognl.setValue(createDateFieldName, this.ognlContext, entity, new Date());
+				Ognl.setValue(field.getCreateDateField().name(), this.ognlContext, entity, new Date());
 			} catch (OgnlException oe) {
 				oe.printStackTrace();
 			}
@@ -112,19 +116,21 @@ public abstract class BaseService<T extends java.io.Serializable, K extends java
 	}
 	
 	private void setEntityUpdateField(T entity) {
-		String updateUserFieldName = EntityParameterGenerateUtil.getUpdateUserFieldName(entity);
-		String updateDateFieldName = EntityParameterGenerateUtil.getUpdateDateFieldName(entity);
-		if (!StringUtils.isBlank(updateUserFieldName)) {
+		UpdateField field = EntityParameterGenerateUtil.getUpdateField(entity);
+		if (null == field) {
+			return;
+		}
+		if ( field.getUpdateUserField() != null && !StringUtils.isBlank(field.getUpdateUserField().name()) ) {
 			try {
 				// FIXME: 要改 UserLocalUtils 為 Apache-shiro 或別的登入session管理元件
-				Ognl.setValue(updateUserFieldName, this.ognlContext, entity, UserLocalUtils.getUserInfo().getUserId());
+				Ognl.setValue(field.getUpdateUserField().name(), this.ognlContext, entity, UserLocalUtils.getUserInfo().getUserId());
 			} catch (OgnlException oe) {
 				oe.printStackTrace();
 			}
 		}
-		if (!StringUtils.isBlank(updateDateFieldName)) {
+		if ( field.getUpdateDateField() != null && !StringUtils.isBlank(field.getUpdateDateField().name()) ) {
 			try {
-				Ognl.setValue(updateDateFieldName, this.ognlContext, entity, new Date());
+				Ognl.setValue(field.getUpdateDateField().name(), this.ognlContext, entity, new Date());
 			} catch (OgnlException oe) {
 				oe.printStackTrace();
 			}
