@@ -32,10 +32,13 @@ import java.util.Map;
 import java.util.stream.Stream;
 
 import org.apache.commons.io.IOUtils;
+import org.qifu.base.message.BaseSystemMessage;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 public class CoreAppConstants {
+	
+	// ======================================================================================
 	
 	private static final String _CONFIG_ExcludePathPatterns = "excludePathPatterns.json";
 	
@@ -148,5 +151,47 @@ public class CoreAppConstants {
 		Object[] arr = Stream.concat( Arrays.stream(WebConfig_interceptorExcludePathPatterns), Arrays.stream( excludePathPatterns.toArray()) ).toArray();
 		return ( excludePathPatternsArray = Arrays.copyOf(arr, arr.length, String[].class) );
 	}	
+	
+	// ======================================================================================
+	
+	private static final String _CONFIG_ContentCachingRequestWrapperFilter = "org/qifu/core/filter/ContentCachingRequestWrapperFilter.json";
+	
+	private static Map<String, Object> contentCachingRequestWrapperFilter_excludePathPatternsMap = null;
+	
+	private static String _contentCachingRequestWrapperFilter_excludePathPatternsDatas = " { } ";
+	
+	static {
+		try {
+			InputStream is = BaseSystemMessage.class.getClassLoader().getResource( _CONFIG_ContentCachingRequestWrapperFilter ).openStream();
+			_contentCachingRequestWrapperFilter_excludePathPatternsDatas = IOUtils.toString(is, Constants.BASE_ENCODING);
+			is.close();
+			is = null;
+			contentCachingRequestWrapperFilter_excludePathPatternsMap = loadDatas_contentCachingRequestWrapperFilter_excludePathPatterns();
+		} catch (IOException e) {
+			e.printStackTrace();
+		} finally {
+			if (null==contentCachingRequestWrapperFilter_excludePathPatternsMap) {
+				contentCachingRequestWrapperFilter_excludePathPatternsMap = new HashMap<String, Object>();
+			}
+		}
+	}
+	
+	@SuppressWarnings("unchecked")
+	private static Map<String, Object> loadDatas_contentCachingRequestWrapperFilter_excludePathPatterns() {
+		Map<String, Object> datas = null;
+		try {
+			datas = (Map<String, Object>)new ObjectMapper().readValue( _contentCachingRequestWrapperFilter_excludePathPatternsDatas, LinkedHashMap.class );
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return datas;
+	}		
+	
+	@SuppressWarnings("unchecked")
+	public static List<String> getContentCachingRequestWrapperFilterExcludePathPatterns() {
+		return (List<String>) contentCachingRequestWrapperFilter_excludePathPatternsMap.get("excludePathPatterns");
+	}
+	
+	// ======================================================================================
 	
 }

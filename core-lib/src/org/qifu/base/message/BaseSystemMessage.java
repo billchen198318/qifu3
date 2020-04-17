@@ -53,7 +53,7 @@ public class BaseSystemMessage implements java.io.Serializable {
 		} catch (IOException e) {
 			e.printStackTrace();
 		} finally {
-			if (null==_messageDatas) {
+			if (null==messageMap) {
 				messageMap = new HashMap<String, Object>();
 			}
 		}

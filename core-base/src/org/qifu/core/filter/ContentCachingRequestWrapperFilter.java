@@ -26,6 +26,7 @@ import java.io.UnsupportedEncodingException;
 import java.math.BigDecimal;
 import java.util.Enumeration;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import javax.servlet.Filter;
@@ -39,6 +40,7 @@ import javax.servlet.http.HttpServletRequest;
 
 import org.apache.commons.lang3.StringUtils;
 import org.qifu.base.Constants;
+import org.qifu.base.CoreAppConstants;
 import org.springframework.core.annotation.Order;
 import org.springframework.stereotype.Component;
 import org.springframework.web.util.ContentCachingRequestWrapper;
@@ -61,9 +63,11 @@ public class ContentCachingRequestWrapperFilter implements Filter {
 		ContentCachingRequestWrapper requestWrapper = new ContentCachingRequestWrapper((HttpServletRequest) request);
 		chain.doFilter(requestWrapper, response);	
 		String uri = StringUtils.defaultString( requestWrapper.getRequestURI() ).trim();
-		if ("/sysApiEventLog/findPage".equals(uri)) {
+		List<String> excludePathPatternsList = CoreAppConstants.getContentCachingRequestWrapperFilterExcludePathPatterns();
+		if (null != excludePathPatternsList && excludePathPatternsList.contains(uri)) {
 			return;
 		}
+		
 		String queryStr = "";
 		try {
 			queryStr = StringUtils.defaultString(this.getQueryString(requestWrapper, requestWrapper));
