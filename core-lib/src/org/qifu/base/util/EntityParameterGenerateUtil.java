@@ -44,6 +44,26 @@ public class EntityParameterGenerateUtil {
 		return paramMap;
 	}
 	
+	public static boolean foundUniqueKey(Object entityObject) {
+		Method[] methods = entityObject.getClass().getMethods();
+		if (methods==null) {
+			return false;
+		}
+		boolean found = false;
+		for (int ix = 0; ix < methods.length && !found; ix++) {
+			Annotation[] annotations = methods[ix].getDeclaredAnnotations();
+			if (annotations == null) {
+				continue;
+			}
+			for(Annotation annotation : annotations) {
+				if(annotation instanceof EntityUK) {
+					found = true;
+				}
+			}
+		}
+		return found;
+	}
+	
 	public static Map<String, Object> getUKParameter(Object entityObject) {
 		Method[] methods=entityObject.getClass().getMethods();
 		if (methods==null) {

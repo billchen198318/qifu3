@@ -45,7 +45,8 @@ public interface IBaseService<T extends java.io.Serializable, K extends java.io.
 	
 	public DefaultResult<T> insert(T mapperObj) throws ServiceException, Exception;
 	
-	public DefaultResult<T> insertIgnoreUK(T mapperObj) throws ServiceException, Exception;
+	// 不需要, 改 insert method 內容, 自己判別是否有Unique Key欄位, 有的話要去count檢查
+	//public DefaultResult<T> insertIgnoreUK(T mapperObj) throws ServiceException, Exception;
 	
 	public DefaultResult<T> update(T mapperObj) throws ServiceException, Exception;
 	

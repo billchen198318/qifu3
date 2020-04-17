@@ -206,8 +206,10 @@ public abstract class BaseService<T extends java.io.Serializable, K extends java
 			throw new ServiceException(BaseSystemMessage.objectNull());
 		}
 		DefaultResult<T> result = new DefaultResult<T>();
-		if (this.countByUK(mapperObj) > 0) {
-			throw new ServiceException(BaseSystemMessage.dataIsExist());
+		if (EntityParameterGenerateUtil.foundUniqueKey(mapperObj)) {
+			if (this.countByUK(mapperObj) > 0) {
+				throw new ServiceException(BaseSystemMessage.dataIsExist());
+			}			
 		}
 		this.setEntityPrimaryKey(mapperObj);
 		this.setEntityCreateUserField(mapperObj);
@@ -219,6 +221,8 @@ public abstract class BaseService<T extends java.io.Serializable, K extends java
 		return result;
 	}
 	
+	// 不需要, 改 insert method 內容, 自己判別是否有Unique Key欄位, 有的話要去count檢查
+	/*
 	@Transactional(
 			propagation=Propagation.REQUIRED, 
 			readOnly=false,
@@ -236,7 +240,8 @@ public abstract class BaseService<T extends java.io.Serializable, K extends java
 		result.setValue(mapperObj);
 		result.setMessage(BaseSystemMessage.insertSuccess());
 		return result;
-	}	
+	}
+	*/	
 	
 	@Transactional(
 			propagation=Propagation.REQUIRED, 
