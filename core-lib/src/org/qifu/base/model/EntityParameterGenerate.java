@@ -21,6 +21,10 @@
  */
 package org.qifu.base.model;
 
+/**
+ * 早期用hibernate時的 bambooBSC,bambooCORE,qifu2 的 EntityParameterGenerateUtil 才有需要用到這個
+ */
+@Deprecated
 public interface EntityParameterGenerate {
 	public static final String RETURN_SQL="sql";
 	public static final String RETURN_PARAMS="params";

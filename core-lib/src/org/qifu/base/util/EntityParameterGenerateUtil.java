@@ -31,13 +31,12 @@ import org.qifu.base.model.CreateDateField;
 import org.qifu.base.model.CreateField;
 import org.qifu.base.model.CreateUserField;
 import org.qifu.base.model.EntityPK;
-import org.qifu.base.model.EntityParameterGenerate;
 import org.qifu.base.model.EntityUK;
 import org.qifu.base.model.UpdateDateField;
 import org.qifu.base.model.UpdateField;
 import org.qifu.base.model.UpdateUserField;
 
-public class EntityParameterGenerateUtil implements EntityParameterGenerate {
+public class EntityParameterGenerateUtil {
 	
 	public static Map<String, Object> createParamMap(String paramName, String value) {
 		Map<String, Object> paramMap = new HashMap<String, Object>();
