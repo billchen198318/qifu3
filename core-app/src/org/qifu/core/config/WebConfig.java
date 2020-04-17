@@ -21,15 +21,14 @@
  */
 package org.qifu.core.config;
 
-import org.qifu.base.Constants;
 import org.qifu.base.CoreAppConstants;
+import org.qifu.base.interceptor.MDCInterceptor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
 import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
-
 
 @Configuration
 @EnableWebMvc
@@ -42,26 +41,29 @@ public class WebConfig implements WebMvcConfigurer {
         .addResourceLocations( CoreAppConstants.WebConfig_resourceLocations );
     }
     
-    /*
     @Bean
     MDCInterceptor MDCInterceptor() {
     	return new MDCInterceptor();
     }
     
+    /*
     @Bean
     UserBuilderInterceptor UserBuilderInterceptor() {
     	return new UserBuilderInterceptor();
     }
+    */
     
     @Override
     public void addInterceptors(InterceptorRegistry registry) {
         registry.addInterceptor(MDCInterceptor())
         	.addPathPatterns("/*", "/**")
-        	.excludePathPatterns( Constants.WebConfig_interceptorExcludePathPatterns );
+        	.excludePathPatterns( CoreAppConstants.WebConfig_interceptorExcludePathPatterns );
+        
+        /*
         registry.addInterceptor(UserBuilderInterceptor())
         	.addPathPatterns("/*", "/**")
-        	.excludePathPatterns( Constants.getWebConfiginterceptorExcludePathPatterns() );         
+        	.excludePathPatterns( Constants.getWebConfiginterceptorExcludePathPatterns() );
+        */  
     }
-    */
     
 }
