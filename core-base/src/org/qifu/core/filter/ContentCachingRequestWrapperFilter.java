@@ -60,6 +60,17 @@ public class ContentCachingRequestWrapperFilter implements Filter {
 	
 	@Override
 	public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain) throws IOException, ServletException {
+		/*
+		 * 到時候步驟改成類似的方法試試看!!
+		 * https://stackoverflow.com/questions/49250367/using-contentcachingrequestwrapper-causes-empty-parameters-map
+		 * 
+		 * final HttpServletRequest req = (HttpServletRequest) request;
+		 * HttpServletRequest servletRequest = new ContentCachingRequestWrapper(req);
+		 * servletRequest.getParameterMap(); // needed for caching!!
+		 * 
+		 * String read = ByteSource.wrap(servletRequest.getContentAsByteArray()).asCharSource(StandardCharsets.UTF_8).read(); // Please note that we're not touching input stream!!
+		 */
+		
 		ContentCachingRequestWrapper requestWrapper = new ContentCachingRequestWrapper((HttpServletRequest) request);
 		chain.doFilter(requestWrapper, response);	
 		String uri = StringUtils.defaultString( requestWrapper.getRequestURI() ).trim();
