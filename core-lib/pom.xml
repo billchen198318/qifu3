@@ -13,7 +13,7 @@
   <properties>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     <java.version>11</java.version>
-    <workspaceDir>D:/home/git/qifu3/</workspaceDir>
+    <workspaceDir>/home/git7/qifu/</workspaceDir>
   </properties>
   
   <parent>
@@ -34,10 +34,13 @@
 			<artifactId>spring-boot-starter-test</artifactId>
 			<scope>test</scope>
 		</dependency>        
+	    
+	    <!--  
 		<dependency> 
 		    <groupId>org.springframework.boot</groupId> 
 		    <artifactId>spring-boot-starter-thymeleaf</artifactId> 
 		</dependency>        
+		-->
 		
 		<dependency>
     		<groupId>org.springframework.boot</groupId>
