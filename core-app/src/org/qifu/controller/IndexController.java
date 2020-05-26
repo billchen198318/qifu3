@@ -12,9 +12,9 @@ public class IndexController {
 	@RequestMapping("/")
 	public String index(ModelMap mm, HttpServletRequest request) {
 		
-		mm.addAttribute("testMessage", "測試beetl ~~ !!");
+		mm.addAttribute("testMessage", "測試 freemarker ~~ !!");
 		
-		return "index.html";
+		return "index";
 	}
 	
 }
