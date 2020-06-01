@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="org.qifu.core.mapper.TbSysJreportParamParamMapper">
+<mapper namespace="org.qifu.core.mapper.TbSysJreportParamMapper">
 
   <resultMap id="BaseResultMap" type="org.qifu.core.mapper.TbSysJreportParam">
     <id column="OID" jdbcType="CHAR" property="oid" />
