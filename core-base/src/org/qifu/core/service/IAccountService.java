@@ -22,7 +22,7 @@
 package org.qifu.core.service;
 
 import org.qifu.base.service.IBaseService;
-import org.qifu.core.mapper.TbAccount;
+import org.qifu.core.entity.TbAccount;
 
 public interface IAccountService<T, E> extends IBaseService<TbAccount, String> {
 	

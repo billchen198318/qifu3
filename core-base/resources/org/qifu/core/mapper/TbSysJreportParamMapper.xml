@@ -2,7 +2,7 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="org.qifu.core.mapper.TbSysJreportParamMapper">
 
-  <resultMap id="BaseResultMap" type="org.qifu.core.mapper.TbSysJreportParam">
+  <resultMap id="BaseResultMap" type="org.qifu.core.entity.TbSysJreportParam">
     <id column="OID" jdbcType="CHAR" property="oid" />
     <result column="REPORT_ID" jdbcType="VARCHAR" property="reportId" />
     <result column="URL_PARAM" jdbcType="VARCHAR" property="urlParam" />
@@ -67,7 +67,7 @@
 	</if>	
   </select>  
   
-  <insert id="insert" parameterType="org.qifu.core.mapper.TbSysJreportParam"> 
+  <insert id="insert" parameterType="org.qifu.core.entity.TbSysJreportParam"> 
     insert into <include refid="org.qifu.core.mapper.DB1Config.schema"/>tb_sys_jreport_param
     <trim prefix="(" suffix=")" suffixOverrides=",">
       <if test="oid != null">
@@ -123,7 +123,7 @@
     </trim>
   </insert>  
   
-  <update id="update" parameterType="org.qifu.core.mapper.TbSysJreportParam">
+  <update id="update" parameterType="org.qifu.core.entity.TbSysJreportParam">
     update <include refid="org.qifu.core.mapper.DB1Config.schema"/>tb_sys_jreport_param
     <set>
       <if test="reportId != null">
@@ -153,7 +153,7 @@
     where OID = #{oid,jdbcType=CHAR}
   </update>  
   
-  <delete id="delete" parameterType="org.qifu.core.mapper.TbSysJreportParam">
+  <delete id="delete" parameterType="org.qifu.core.entity.TbSysJreportParam">
     delete from <include refid="org.qifu.core.mapper.DB1Config.schema"/>tb_sys_jreport_param
     where OID = #{oid,jdbcType=CHAR}
   </delete>  

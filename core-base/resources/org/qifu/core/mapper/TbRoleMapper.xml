@@ -2,7 +2,7 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="org.qifu.core.mapper.TbRoleMapper">
 
-  <resultMap id="BaseResultMap" type="org.qifu.core.mapper.TbRole">
+  <resultMap id="BaseResultMap" type="org.qifu.core.entity.TbRole">
     <id column="OID" jdbcType="CHAR" property="oid" />
     <result column="ROLE" jdbcType="VARCHAR" property="role" />
     <result column="DESCRIPTION" jdbcType="VARCHAR" property="description" />
@@ -48,7 +48,7 @@
 	</if>		
   </select>  
   
-  <insert id="insert" parameterType="org.qifu.core.mapper.TbRole"> 
+  <insert id="insert" parameterType="org.qifu.core.entity.TbRole"> 
     insert into <include refid="org.qifu.core.mapper.DB1Config.schema"/>tb_role
     <trim prefix="(" suffix=")" suffixOverrides=",">
       <if test="oid != null">
@@ -98,7 +98,7 @@
     </trim>
   </insert>  
   
-  <update id="update" parameterType="org.qifu.core.mapper.TbRole">
+  <update id="update" parameterType="org.qifu.core.entity.TbRole">
     update <include refid="org.qifu.core.mapper.DB1Config.schema"/>tb_role
     <set>
       <if test="role != null">
@@ -125,7 +125,7 @@
     where OID = #{oid,jdbcType=CHAR}
   </update>  
   
-  <delete id="delete" parameterType="org.qifu.core.mapper.TbRole">
+  <delete id="delete" parameterType="org.qifu.core.entity.TbRole">
     delete from <include refid="org.qifu.core.mapper.DB1Config.schema"/>tb_role
     where OID = #{oid,jdbcType=CHAR}
   </delete>  

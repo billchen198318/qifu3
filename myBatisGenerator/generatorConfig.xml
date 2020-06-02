@@ -6,10 +6,10 @@
 
   <context id="context1" targetRuntime="MyBatis3">
     <jdbcConnection connectionURL="jdbc:mysql://localhost/qifu3?serverTimezone=UTC" driverClass="com.mysql.cj.jdbc.Driver" userId="root" password="password" />
-    <javaModelGenerator targetPackage="org.qifu.core.mapper" targetProject="myBatisGenerator" />
+    <javaModelGenerator targetPackage="org.qifu.core.entity" targetProject="myBatisGenerator" />
     <sqlMapGenerator targetPackage="org.qifu.core.mapper" targetProject="myBatisGenerator" />
     <javaClientGenerator targetPackage="org.qifu.core.mapper" targetProject="myBatisGenerator" type="XMLMAPPER" />
-    <table schema="" tableName="tb_account">
+    <table schema="" tableName="tb_sys_prog">
     </table>
   </context>
   

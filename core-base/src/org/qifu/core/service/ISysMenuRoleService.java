@@ -22,7 +22,7 @@
 package org.qifu.core.service;
 
 import org.qifu.base.service.IBaseService;
-import org.qifu.core.mapper.TbSysMenuRole;
+import org.qifu.core.entity.TbSysMenuRole;
 
 public interface ISysMenuRoleService<T, E> extends IBaseService<TbSysMenuRole, String> {
 	

@@ -1,4 +1,4 @@
-package org.qifu.core.mapper;
+package org.qifu.core.entity;
 
 import java.util.Date;
 
@@ -9,13 +9,11 @@ import org.qifu.base.model.EntityUK;
 import org.qifu.base.model.UpdateDateField;
 import org.qifu.base.model.UpdateUserField;
 
-public class TbSysTemplate implements java.io.Serializable {
-	private static final long serialVersionUID = 5160068468504927877L;
+public class TbRole implements java.io.Serializable {
+	private static final long serialVersionUID = -7550308927111896713L;
 	
 	private String oid;
-	private String templateId;
-	private String title;
-	private String message;
+	private String role;
 	private String description;
 	private String cuserid;
 	private Date cdate;
@@ -31,29 +29,13 @@ public class TbSysTemplate implements java.io.Serializable {
 		this.oid = oid;
 	}
 	
-	@EntityUK(name = "templateId")
-	public String getTemplateId() {
-		return templateId;
+	@EntityUK(name = "role")
+	public String getRole() {
+		return role;
 	}
 	
-	public void setTemplateId(String templateId) {
-		this.templateId = templateId;
-	}
-	
-	public String getTitle() {
-		return title;
-	}
-	
-	public void setTitle(String title) {
-		this.title = title;
-	}
-	
-	public String getMessage() {
-		return message;
-	}
-	
-	public void setMessage(String message) {
-		this.message = message;
+	public void setRole(String role) {
+		this.role = role;
 	}
 	
 	public String getDescription() {

@@ -22,7 +22,7 @@
 package org.qifu.core.service;
 
 import org.qifu.base.service.IBaseService;
-import org.qifu.core.mapper.TbSysExpression;
+import org.qifu.core.entity.TbSysExpression;
 
 public interface ISysExpressionService<T, E> extends IBaseService<TbSysExpression, String> {
 	

@@ -2,7 +2,7 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="org.qifu.core.mapper.TbSysMenuMapper">
 
-  <resultMap id="BaseResultMap" type="org.qifu.core.mapper.TbSysMenu">
+  <resultMap id="BaseResultMap" type="org.qifu.core.entity.TbSysMenu">
     <id column="OID" jdbcType="CHAR" property="oid" />
     <result column="PROG_ID" jdbcType="VARCHAR" property="progId" />
     <result column="PARENT_OID" jdbcType="CHAR" property="parentOid" />
@@ -67,7 +67,7 @@
 	</if>
   </select>  
   
-  <insert id="insert" parameterType="org.qifu.core.mapper.TbSysMenu"> 
+  <insert id="insert" parameterType="org.qifu.core.entity.TbSysMenu"> 
     insert into <include refid="org.qifu.core.mapper.DB1Config.schema"/>tb_sys_menu
     <trim prefix="(" suffix=")" suffixOverrides=",">
       <if test="oid != null">
@@ -123,7 +123,7 @@
     </trim>
   </insert>  
   
-  <update id="update" parameterType="org.qifu.core.mapper.TbSysMenu">
+  <update id="update" parameterType="org.qifu.core.entity.TbSysMenu">
     update <include refid="org.qifu.core.mapper.DB1Config.schema"/>tb_sys_menu
     <set>
       <if test="progId != null">
@@ -153,7 +153,7 @@
     where OID = #{oid,jdbcType=CHAR}
   </update>  
   
-  <delete id="delete" parameterType="org.qifu.core.mapper.TbSysMenu">
+  <delete id="delete" parameterType="org.qifu.core.entity.TbSysMenu">
     delete from <include refid="org.qifu.core.mapper.DB1Config.schema"/>tb_sys_menu
     where OID = #{oid,jdbcType=CHAR}
   </delete>  

@@ -1,4 +1,4 @@
-package org.qifu.core.mapper;
+package org.qifu.core.entity;
 
 import org.qifu.base.model.EntityPK;
 

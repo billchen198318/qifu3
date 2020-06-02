@@ -23,7 +23,7 @@ package org.qifu.core.service.impl;
 
 import org.qifu.base.mapper.IBaseMapper;
 import org.qifu.base.service.BaseService;
-import org.qifu.core.mapper.TbSysJreport;
+import org.qifu.core.entity.TbSysJreport;
 import org.qifu.core.mapper.TbSysJreportMapper;
 import org.qifu.core.service.ISysJreportService;
 import org.springframework.beans.factory.annotation.Autowired;

@@ -22,6 +22,7 @@
 package org.qifu.core.mapper;
 
 import org.qifu.base.mapper.IBaseMapper;
+import org.qifu.core.entity.TbSysExpression;
 
 public interface TbSysExpressionMapper extends IBaseMapper<TbSysExpression, String> {
 	

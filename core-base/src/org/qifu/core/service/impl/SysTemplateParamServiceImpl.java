@@ -23,7 +23,7 @@ package org.qifu.core.service.impl;
 
 import org.qifu.base.mapper.IBaseMapper;
 import org.qifu.base.service.BaseService;
-import org.qifu.core.mapper.TbSysTemplateParam;
+import org.qifu.core.entity.TbSysTemplateParam;
 import org.qifu.core.mapper.TbSysTemplateParamMapper;
 import org.qifu.core.service.ISysTemplateParamService;
 import org.springframework.beans.factory.annotation.Autowired;

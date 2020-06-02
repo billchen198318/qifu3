@@ -2,7 +2,7 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="org.qifu.core.mapper.TbSysUsessMapper">
 
-  <resultMap id="BaseResultMap" type="org.qifu.core.mapper.TbSysUsess">
+  <resultMap id="BaseResultMap" type="org.qifu.core.entity.TbSysUsess">
     <id column="OID" jdbcType="CHAR" property="oid" />
     <id column="SESSION_ID" jdbcType="VARCHAR" property="sessionId" />
     <result column="ACCOUNT" jdbcType="VARCHAR" property="account" />
@@ -67,7 +67,7 @@
 	</if>
   </select>  
   
-  <insert id="insert" parameterType="org.qifu.core.mapper.TbSysUsess"> 
+  <insert id="insert" parameterType="org.qifu.core.entity.TbSysUsess"> 
     insert into <include refid="org.qifu.core.mapper.DB1Config.schema"/>tb_sys_usess
     <trim prefix="(" suffix=")" suffixOverrides=",">
       <if test="oid != null">
@@ -123,7 +123,7 @@
     </trim>
   </insert>  
   
-  <update id="update" parameterType="org.qifu.core.mapper.TbSysUsess">
+  <update id="update" parameterType="org.qifu.core.entity.TbSysUsess">
     update <include refid="org.qifu.core.mapper.DB1Config.schema"/>tb_sys_usess
     <set>
       <if test="account != null">
@@ -150,7 +150,7 @@
     where OID = #{oid,jdbcType=CHAR}
   </update>  
   
-  <delete id="delete" parameterType="org.qifu.core.mapper.TbSysUsess">
+  <delete id="delete" parameterType="org.qifu.core.entity.TbSysUsess">
     delete from <include refid="org.qifu.core.mapper.DB1Config.schema"/>tb_sys_usess
     where OID = #{oid,jdbcType=CHAR}
   </delete>  

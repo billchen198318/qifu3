@@ -1,4 +1,4 @@
-package org.qifu.core.mapper;
+package org.qifu.core.entity;
 
 import java.util.Date;
 
@@ -9,14 +9,13 @@ import org.qifu.base.model.EntityUK;
 import org.qifu.base.model.UpdateDateField;
 import org.qifu.base.model.UpdateUserField;
 
-public class TbSysTemplateParam implements java.io.Serializable {
-	private static final long serialVersionUID = -8665399628955892299L;
+public class TbSysJreportParam implements java.io.Serializable {
+	private static final long serialVersionUID = 3958361031577724660L;
 	
 	private String oid;
-	private String templateId;
-	private String isTitle;
-	private String templateVar;
-	private String objectVar;
+	private String reportId;
+	private String urlParam;
+	private String rptParam;
 	private String cuserid;
 	private Date cdate;
 	private String uuserid;
@@ -31,39 +30,30 @@ public class TbSysTemplateParam implements java.io.Serializable {
 		this.oid = oid;
 	}
 	
-	@EntityUK(name = "templateId")
-	public String getTemplateId() {
-		return templateId;
+	@EntityUK(name = "reportId")
+	public String getReportId() {
+		return reportId;
 	}
 	
-	public void setTemplateId(String templateId) {
-		this.templateId = templateId;
+	public void setReportId(String reportId) {
+		this.reportId = reportId;
 	}
 	
-	@EntityUK(name = "isTitle")
-	public String getIsTitle() {
-		return isTitle;
+	public String getUrlParam() {
+		return urlParam;
 	}
 	
-	public void setIsTitle(String isTitle) {
-		this.isTitle = isTitle;
+	public void setUrlParam(String urlParam) {
+		this.urlParam = urlParam;
 	}
 	
-	@EntityUK(name = "templateVar")
-	public String getTemplateVar() {
-		return templateVar;
+	@EntityUK(name = "rptParam")
+	public String getRptParam() {
+		return rptParam;
 	}
 	
-	public void setTemplateVar(String templateVar) {
-		this.templateVar = templateVar;
-	}
-	
-	public String getObjectVar() {
-		return objectVar;
-	}
-	
-	public void setObjectVar(String objectVar) {
-		this.objectVar = objectVar;
+	public void setRptParam(String rptParam) {
+		this.rptParam = rptParam;
 	}
 	
 	@CreateUserField(name = "cuserid")

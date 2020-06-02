@@ -1,4 +1,4 @@
-package org.qifu.core.mapper;
+package org.qifu.core.entity;
 
 import java.util.Date;
 
@@ -9,11 +9,14 @@ import org.qifu.base.model.EntityUK;
 import org.qifu.base.model.UpdateDateField;
 import org.qifu.base.model.UpdateUserField;
 
-public class TbRole implements java.io.Serializable {
-	private static final long serialVersionUID = -7550308927111896713L;
+public class TbSysExpression implements java.io.Serializable {
+	private static final long serialVersionUID = 4688539226430461746L;
 	
 	private String oid;
-	private String role;
+	private String exprId;
+	private String type;
+	private String name;
+	private String content;
 	private String description;
 	private String cuserid;
 	private Date cdate;
@@ -29,13 +32,37 @@ public class TbRole implements java.io.Serializable {
 		this.oid = oid;
 	}
 	
-	@EntityUK(name = "role")
-	public String getRole() {
-		return role;
+	@EntityUK(name = "exprId")
+	public String getExprId() {
+		return exprId;
 	}
 	
-	public void setRole(String role) {
-		this.role = role;
+	public void setExprId(String exprId) {
+		this.exprId = exprId;
+	}
+	
+	public String getType() {
+		return type;
+	}
+	
+	public void setType(String type) {
+		this.type = type;
+	}
+	
+	public String getName() {
+		return name;
+	}
+	
+	public void setName(String name) {
+		this.name = name;
+	}
+	
+	public String getContent() {
+		return content;
+	}
+	
+	public void setContent(String content) {
+		this.content = content;
 	}
 	
 	public String getDescription() {

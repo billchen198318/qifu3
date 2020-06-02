@@ -2,7 +2,7 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="org.qifu.core.mapper.TbSysIconMapper">
 
-  <resultMap id="BaseResultMap" type="org.qifu.core.mapper.TbSysIcon">
+  <resultMap id="BaseResultMap" type="org.qifu.core.entity.TbSysIcon">
     <id column="OID" jdbcType="CHAR" property="oid" />
     <result column="ICON_ID" jdbcType="VARCHAR" property="iconId" />
     <result column="FILE_NAME" jdbcType="VARCHAR" property="fileName" />
@@ -48,7 +48,7 @@
 	</if>		
   </select>  
   
-  <insert id="insert" parameterType="org.qifu.core.mapper.TbSysIcon"> 
+  <insert id="insert" parameterType="org.qifu.core.entity.TbSysIcon"> 
     insert into <include refid="org.qifu.core.mapper.DB1Config.schema"/>tb_sys_icon
     <trim prefix="(" suffix=")" suffixOverrides=",">
       <if test="oid != null">
@@ -98,7 +98,7 @@
     </trim>
   </insert>  
   
-  <update id="update" parameterType="org.qifu.core.mapper.TbSysIcon">
+  <update id="update" parameterType="org.qifu.core.entity.TbSysIcon">
     update <include refid="org.qifu.core.mapper.DB1Config.schema"/>tb_sys_icon
     <set>
       <if test="iconId != null">
@@ -125,7 +125,7 @@
     where OID = #{oid,jdbcType=CHAR}
   </update>  
   
-  <delete id="delete" parameterType="org.qifu.core.mapper.TbSysIcon">
+  <delete id="delete" parameterType="org.qifu.core.entity.TbSysIcon">
     delete from <include refid="org.qifu.core.mapper.DB1Config.schema"/>tb_sys_icon
     where OID = #{oid,jdbcType=CHAR}
   </delete>  

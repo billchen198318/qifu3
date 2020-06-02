@@ -1,4 +1,4 @@
-package org.qifu.core.mapper;
+package org.qifu.core.entity;
 
 import java.util.Date;
 
@@ -9,13 +9,12 @@ import org.qifu.base.model.EntityUK;
 import org.qifu.base.model.UpdateDateField;
 import org.qifu.base.model.UpdateUserField;
 
-public class TbSysMenu implements java.io.Serializable {
-	private static final long serialVersionUID = -7256453969483284068L;
+public class TbSysIcon implements java.io.Serializable {
+	private static final long serialVersionUID = 4851384099525054862L;
 	
 	private String oid;
-	private String progId;
-	private String parentOid;
-	private String enableFlag;
+	private String iconId;
+	private String fileName;
 	private String cuserid;
 	private Date cdate;
 	private String uuserid;
@@ -30,30 +29,21 @@ public class TbSysMenu implements java.io.Serializable {
 		this.oid = oid;
 	}
 	
-	@EntityUK(name = "progId")
-	public String getProgId() {
-		return progId;
+	@EntityUK(name = "iconId")
+	public String getIconId() {
+		return iconId;
 	}
 	
-	public void setProgId(String progId) {
-		this.progId = progId;
+	public void setIconId(String iconId) {
+		this.iconId = iconId;
 	}
 	
-	@EntityUK(name = "parentOid")
-	public String getParentOid() {
-		return parentOid;
+	public String getFileName() {
+		return fileName;
 	}
 	
-	public void setParentOid(String parentOid) {
-		this.parentOid = parentOid;
-	}
-	
-	public String getEnableFlag() {
-		return enableFlag;
-	}
-	
-	public void setEnableFlag(String enableFlag) {
-		this.enableFlag = enableFlag;
+	public void setFileName(String fileName) {
+		this.fileName = fileName;
 	}
 	
 	@CreateUserField(name = "cuserid")

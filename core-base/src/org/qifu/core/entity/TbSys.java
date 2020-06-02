@@ -1,4 +1,4 @@
-package org.qifu.core.mapper;
+package org.qifu.core.entity;
 
 import java.util.Date;
 
@@ -9,18 +9,16 @@ import org.qifu.base.model.EntityUK;
 import org.qifu.base.model.UpdateDateField;
 import org.qifu.base.model.UpdateUserField;
 
-public class TbSysCode implements java.io.Serializable {
-	private static final long serialVersionUID = 3286831622624752995L;
+public class TbSys implements java.io.Serializable {
+	private static final long serialVersionUID = -2582579499622971172L;
 	
 	private String oid;
-	private String code;
-	private String type;
+	private String sysId;
 	private String name;
-	private String param1;
-	private String param2;
-	private String param3;
-	private String param4;
-	private String param5;
+	private String host;
+	private String contextPath;
+	private String isLocal;
+	private String icon;
 	private String cuserid;
 	private Date cdate;
 	private String uuserid;
@@ -35,21 +33,13 @@ public class TbSysCode implements java.io.Serializable {
 		this.oid = oid;
 	}
 	
-	@EntityUK(name = "code")
-	public String getCode() {
-		return code;
+	@EntityUK(name = "sysId")
+	public String getSysId() {
+		return sysId;
 	}
 	
-	public void setCode(String code) {
-		this.code = code;
-	}
-	
-	public String getType() {
-		return type;
-	}
-	
-	public void setType(String type) {
-		this.type = type;
+	public void setSysId(String sysId) {
+		this.sysId = sysId;
 	}
 	
 	public String getName() {
@@ -60,44 +50,36 @@ public class TbSysCode implements java.io.Serializable {
 		this.name = name;
 	}
 	
-	public String getParam1() {
-		return param1;
+	public String getHost() {
+		return host;
 	}
 	
-	public void setParam1(String param1) {
-		this.param1 = param1;
+	public void setHost(String host) {
+		this.host = host;
 	}
 	
-	public String getParam2() {
-		return param2;
+	public String getContextPath() {
+		return contextPath;
 	}
 	
-	public void setParam2(String param2) {
-		this.param2 = param2;
+	public void setContextPath(String contextPath) {
+		this.contextPath = contextPath;
 	}
 	
-	public String getParam3() {
-		return param3;
+	public String getIsLocal() {
+		return isLocal;
 	}
 	
-	public void setParam3(String param3) {
-		this.param3 = param3;
+	public void setIsLocal(String isLocal) {
+		this.isLocal = isLocal;
 	}
 	
-	public String getParam4() {
-		return param4;
+	public String getIcon() {
+		return icon;
 	}
 	
-	public void setParam4(String param4) {
-		this.param4 = param4;
-	}
-	
-	public String getParam5() {
-		return param5;
-	}
-	
-	public void setParam5(String param5) {
-		this.param5 = param5;
+	public void setIcon(String icon) {
+		this.icon = icon;
 	}
 	
 	@CreateUserField(name = "cuserid")

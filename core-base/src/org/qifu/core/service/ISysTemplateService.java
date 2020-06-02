@@ -22,7 +22,7 @@
 package org.qifu.core.service;
 
 import org.qifu.base.service.IBaseService;
-import org.qifu.core.mapper.TbSysTemplate;
+import org.qifu.core.entity.TbSysTemplate;
 
 public interface ISysTemplateService<T, E> extends IBaseService<TbSysTemplate, String> {
 	

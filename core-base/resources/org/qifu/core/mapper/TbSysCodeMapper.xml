@@ -2,7 +2,7 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="org.qifu.core.mapper.TbSysCodeMapper">
 
-  <resultMap id="BaseResultMap" type="org.qifu.core.mapper.TbSysCode">
+  <resultMap id="BaseResultMap" type="org.qifu.core.entity.TbSysCode">
     <id column="OID" jdbcType="CHAR" property="oid" />
     <result column="CODE" jdbcType="VARCHAR" property="code" />
     <result column="TYPE" jdbcType="VARCHAR" property="type" />
@@ -63,7 +63,7 @@
 	</if>		
   </select>  
   
-  <insert id="insert" parameterType="org.qifu.core.mapper.TbSysCode"> 
+  <insert id="insert" parameterType="org.qifu.core.entity.TbSysCode"> 
     insert into <include refid="org.qifu.core.mapper.DB1Config.schema"/>tb_sys_code
     <trim prefix="(" suffix=")" suffixOverrides=",">
       <if test="oid != null">
@@ -149,7 +149,7 @@
     </trim>
   </insert>  
   
-  <update id="update" parameterType="org.qifu.core.mapper.TbSysCode">
+  <update id="update" parameterType="org.qifu.core.entity.TbSysCode">
     update <include refid="org.qifu.core.mapper.DB1Config.schema"/>tb_sys_code
     <set>
       <if test="code != null">
@@ -194,7 +194,7 @@
     where OID = #{oid,jdbcType=CHAR}
   </update>  
   
-  <delete id="delete" parameterType="org.qifu.core.mapper.TbSysCode">
+  <delete id="delete" parameterType="org.qifu.core.entity.TbSysCode">
     delete from <include refid="org.qifu.core.mapper.DB1Config.schema"/>tb_sys_code
     where OID = #{oid,jdbcType=CHAR}
   </delete>  

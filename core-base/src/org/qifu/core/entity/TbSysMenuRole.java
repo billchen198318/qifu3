@@ -1,4 +1,4 @@
-package org.qifu.core.mapper;
+package org.qifu.core.entity;
 
 import java.util.Date;
 
@@ -9,14 +9,12 @@ import org.qifu.base.model.EntityUK;
 import org.qifu.base.model.UpdateDateField;
 import org.qifu.base.model.UpdateUserField;
 
-public class TbRolePermission implements java.io.Serializable {
-	private static final long serialVersionUID = 1812183578931128351L;
+public class TbSysMenuRole implements java.io.Serializable {
+	private static final long serialVersionUID = 864326251043399135L;
 	
 	private String oid;
+	private String progId;
 	private String role;
-	private String permission;
-	private String permType;
-	private String description;
 	private String cuserid;
 	private Date cdate;
 	private String uuserid;
@@ -31,6 +29,15 @@ public class TbRolePermission implements java.io.Serializable {
 		this.oid = oid;
 	}
 	
+	@EntityUK(name = "progId")
+	public String getProgId() {
+		return progId;
+	}
+	
+	public void setProgId(String progId) {
+		this.progId = progId;
+	}
+	
 	@EntityUK(name = "role")
 	public String getRole() {
 		return role;
@@ -38,31 +45,6 @@ public class TbRolePermission implements java.io.Serializable {
 	
 	public void setRole(String role) {
 		this.role = role;
-	}
-	
-	@EntityUK(name = "permission")
-	public String getPermission() {
-		return permission;
-	}
-	
-	public void setPermission(String permission) {
-		this.permission = permission;
-	}
-	
-	public String getPermType() {
-		return permType;
-	}
-	
-	public void setPermType(String permType) {
-		this.permType = permType;
-	}
-	
-	public String getDescription() {
-		return description;
-	}
-	
-	public void setDescription(String description) {
-		this.description = description;
 	}
 	
 	@CreateUserField(name = "cuserid")

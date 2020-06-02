@@ -22,7 +22,7 @@
 package org.qifu.core.service;
 
 import org.qifu.base.service.IBaseService;
-import org.qifu.core.mapper.TbSysCode;
+import org.qifu.core.entity.TbSysCode;
 
 public interface ISysCodeService<T, E> extends IBaseService<TbSysCode, String> {
 	

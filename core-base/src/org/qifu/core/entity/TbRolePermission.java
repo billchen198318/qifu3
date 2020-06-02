@@ -1,4 +1,4 @@
-package org.qifu.core.mapper;
+package org.qifu.core.entity;
 
 import java.util.Date;
 
@@ -9,16 +9,14 @@ import org.qifu.base.model.EntityUK;
 import org.qifu.base.model.UpdateDateField;
 import org.qifu.base.model.UpdateUserField;
 
-public class TbSys implements java.io.Serializable {
-	private static final long serialVersionUID = -2582579499622971172L;
+public class TbRolePermission implements java.io.Serializable {
+	private static final long serialVersionUID = 1812183578931128351L;
 	
 	private String oid;
-	private String sysId;
-	private String name;
-	private String host;
-	private String contextPath;
-	private String isLocal;
-	private String icon;
+	private String role;
+	private String permission;
+	private String permType;
+	private String description;
 	private String cuserid;
 	private Date cdate;
 	private String uuserid;
@@ -33,53 +31,38 @@ public class TbSys implements java.io.Serializable {
 		this.oid = oid;
 	}
 	
-	@EntityUK(name = "sysId")
-	public String getSysId() {
-		return sysId;
+	@EntityUK(name = "role")
+	public String getRole() {
+		return role;
 	}
 	
-	public void setSysId(String sysId) {
-		this.sysId = sysId;
+	public void setRole(String role) {
+		this.role = role;
 	}
 	
-	public String getName() {
-		return name;
+	@EntityUK(name = "permission")
+	public String getPermission() {
+		return permission;
 	}
 	
-	public void setName(String name) {
-		this.name = name;
+	public void setPermission(String permission) {
+		this.permission = permission;
 	}
 	
-	public String getHost() {
-		return host;
+	public String getPermType() {
+		return permType;
 	}
 	
-	public void setHost(String host) {
-		this.host = host;
+	public void setPermType(String permType) {
+		this.permType = permType;
 	}
 	
-	public String getContextPath() {
-		return contextPath;
+	public String getDescription() {
+		return description;
 	}
 	
-	public void setContextPath(String contextPath) {
-		this.contextPath = contextPath;
-	}
-	
-	public String getIsLocal() {
-		return isLocal;
-	}
-	
-	public void setIsLocal(String isLocal) {
-		this.isLocal = isLocal;
-	}
-	
-	public String getIcon() {
-		return icon;
-	}
-	
-	public void setIcon(String icon) {
-		this.icon = icon;
+	public void setDescription(String description) {
+		this.description = description;
 	}
 	
 	@CreateUserField(name = "cuserid")

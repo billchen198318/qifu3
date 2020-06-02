@@ -1,45 +1,23 @@
-package org.qifu.core.mapper;
+package org.qifu.core.entity;
 
 import java.util.Date;
 
 import org.qifu.base.model.CreateDateField;
 import org.qifu.base.model.CreateUserField;
-import org.qifu.base.model.EntityPK;
 import org.qifu.base.model.EntityUK;
 import org.qifu.base.model.UpdateDateField;
 import org.qifu.base.model.UpdateUserField;
 
-public class TbUserRole implements java.io.Serializable {
-	private static final long serialVersionUID = -7339988300440734279L;
+public class TbSysUsess extends TbSysUsessKey {
+	private static final long serialVersionUID = 4699630657747152165L;
 	
-	private String oid;
-	private String role;
 	private String account;
-	private String description;
+	private String currentId;
 	private String cuserid;
 	private Date cdate;
 	private String uuserid;
 	private Date udate;
 	
-	@EntityPK(name = "oid", autoUUID = true)
-	public String getOid() {
-		return oid;
-	}
-	
-	public void setOid(String oid) {
-		this.oid = oid;
-	}
-	
-	@EntityUK(name = "role")
-	public String getRole() {
-		return role;
-	}
-	
-	public void setRole(String role) {
-		this.role = role;
-	}
-	
-	@EntityUK(name = "account")
 	public String getAccount() {
 		return account;
 	}
@@ -48,12 +26,13 @@ public class TbUserRole implements java.io.Serializable {
 		this.account = account;
 	}
 	
-	public String getDescription() {
-		return description;
+	@EntityUK(name = "currentId")
+	public String getCurrentId() {
+		return currentId;
 	}
 	
-	public void setDescription(String description) {
-		this.description = description;
+	public void setCurrentId(String currentId) {
+		this.currentId = currentId;
 	}
 	
 	@CreateUserField(name = "cuserid")

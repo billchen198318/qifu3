@@ -23,7 +23,7 @@ package org.qifu.core.service.impl;
 
 import org.qifu.base.mapper.IBaseMapper;
 import org.qifu.base.service.BaseService;
-import org.qifu.core.mapper.TbUserRole;
+import org.qifu.core.entity.TbUserRole;
 import org.qifu.core.mapper.TbUserRoleMapper;
 import org.qifu.core.service.IUserRoleService;
 import org.springframework.beans.factory.annotation.Autowired;

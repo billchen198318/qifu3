@@ -23,7 +23,7 @@ package org.qifu.core.service.impl;
 
 import org.qifu.base.mapper.IBaseMapper;
 import org.qifu.base.service.BaseService;
-import org.qifu.core.mapper.TbSysMenuRole;
+import org.qifu.core.entity.TbSysMenuRole;
 import org.qifu.core.mapper.TbSysMenuRoleMapper;
 import org.qifu.core.service.ISysMenuRoleService;
 import org.springframework.beans.factory.annotation.Autowired;

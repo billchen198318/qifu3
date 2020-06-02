@@ -22,7 +22,7 @@
 package org.qifu.core.mapper;
 
 import org.qifu.base.mapper.IBaseMapper;
-import org.qifu.core.mapper.TbAccount;
+import org.qifu.core.entity.TbAccount;
 
 public interface TbAccountMapper extends IBaseMapper<TbAccount, String> {
 	

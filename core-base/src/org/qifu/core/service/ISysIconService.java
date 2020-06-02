@@ -22,7 +22,7 @@
 package org.qifu.core.service;
 
 import org.qifu.base.service.IBaseService;
-import org.qifu.core.mapper.TbSysIcon;
+import org.qifu.core.entity.TbSysIcon;
 
 public interface ISysIconService<T, E> extends IBaseService<TbSysIcon, String> {
 	

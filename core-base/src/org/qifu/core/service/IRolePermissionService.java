@@ -22,7 +22,7 @@
 package org.qifu.core.service;
 
 import org.qifu.base.service.IBaseService;
-import org.qifu.core.mapper.TbRolePermission;
+import org.qifu.core.entity.TbRolePermission;
 
 public interface IRolePermissionService<T, E> extends IBaseService<TbRolePermission, String> {
 	

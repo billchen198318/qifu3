@@ -23,7 +23,7 @@ package org.qifu.core.service.impl;
 
 import org.qifu.base.mapper.IBaseMapper;
 import org.qifu.base.service.BaseService;
-import org.qifu.core.mapper.TbAccount;
+import org.qifu.core.entity.TbAccount;
 import org.qifu.core.mapper.TbAccountMapper;
 import org.qifu.core.service.IAccountService;
 import org.springframework.beans.factory.annotation.Autowired;
