@@ -2,7 +2,11 @@ package org.qifu.core.mapper;
 
 import java.util.Date;
 
+import org.qifu.base.model.CreateDateField;
+import org.qifu.base.model.CreateUserField;
 import org.qifu.base.model.EntityUK;
+import org.qifu.base.model.UpdateDateField;
+import org.qifu.base.model.UpdateUserField;
 
 public class TbSysUsess extends TbSysUsessKey {
 	private static final long serialVersionUID = 4699630657747152165L;
@@ -31,6 +35,7 @@ public class TbSysUsess extends TbSysUsessKey {
 		this.currentId = currentId;
 	}
 	
+	@CreateUserField(name = "cuserid")
 	public String getCuserid() {
 		return cuserid;
 	}
@@ -39,6 +44,7 @@ public class TbSysUsess extends TbSysUsessKey {
 		this.cuserid = cuserid;
 	}
 	
+	@CreateDateField(name = "cdate")
 	public Date getCdate() {
 		return cdate;
 	}
@@ -47,6 +53,7 @@ public class TbSysUsess extends TbSysUsessKey {
 		this.cdate = cdate;
 	}
 	
+	@UpdateUserField(name = "uuserid")
 	public String getUuserid() {
 		return uuserid;
 	}
@@ -55,6 +62,7 @@ public class TbSysUsess extends TbSysUsessKey {
 		this.uuserid = uuserid;
 	}
 	
+	@UpdateDateField(name = "udate")
 	public Date getUdate() {
 		return udate;
 	}

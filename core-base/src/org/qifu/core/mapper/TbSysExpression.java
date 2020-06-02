@@ -9,13 +9,14 @@ import org.qifu.base.model.EntityUK;
 import org.qifu.base.model.UpdateDateField;
 import org.qifu.base.model.UpdateUserField;
 
-public class TbSysTemplate implements java.io.Serializable {
-	private static final long serialVersionUID = 5160068468504927877L;
+public class TbSysExpression implements java.io.Serializable {
+	private static final long serialVersionUID = 4688539226430461746L;
 	
 	private String oid;
-	private String templateId;
-	private String title;
-	private String message;
+	private String exprId;
+	private String type;
+	private String name;
+	private String content;
 	private String description;
 	private String cuserid;
 	private Date cdate;
@@ -31,29 +32,37 @@ public class TbSysTemplate implements java.io.Serializable {
 		this.oid = oid;
 	}
 	
-	@EntityUK(name = "templateId")
-	public String getTemplateId() {
-		return templateId;
+	@EntityUK(name = "exprId")
+	public String getExprId() {
+		return exprId;
 	}
 	
-	public void setTemplateId(String templateId) {
-		this.templateId = templateId;
+	public void setExprId(String exprId) {
+		this.exprId = exprId;
 	}
 	
-	public String getTitle() {
-		return title;
+	public String getType() {
+		return type;
 	}
 	
-	public void setTitle(String title) {
-		this.title = title;
+	public void setType(String type) {
+		this.type = type;
 	}
 	
-	public String getMessage() {
-		return message;
+	public String getName() {
+		return name;
 	}
 	
-	public void setMessage(String message) {
-		this.message = message;
+	public void setName(String name) {
+		this.name = name;
+	}
+	
+	public String getContent() {
+		return content;
+	}
+	
+	public void setContent(String content) {
+		this.content = content;
 	}
 	
 	public String getDescription() {
