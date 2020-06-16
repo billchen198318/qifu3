@@ -77,39 +77,18 @@ public class CoreAppConstants {
 	
 	public static final String [] WebConfig_resource = {
 			"/webjars/**",
-            "/bootbox/**",
-            "/bootstrap-vali/**",
-            "/css/**",
-            "/font-awesome/**",
-            "/icons/**",
-            "/images/**",
-            "/jquery/**",
-            "/js/**",
-            "/popper-js/**",
-            "/tether/**",
-            "/toastr/**",
-            "swagger-ui.html",
-            "/frontend/**" // frontend static html/js resource
+			"swagger-ui.html",
+            "/**" // frontend static html/js resource
 	};
 	
 	public static final String[] WebConfig_resourceLocations = {
             "classpath:/META-INF/resources/webjars/",
-            "classpath:/static/bootbox/",
-            "classpath:/static/bootstrap-vali/",
-            "classpath:/static/css/",
-            "classpath:/static/font-awesome/",
-            "classpath:/static/icons/",
-            "classpath:/static/images/",
-            "classpath:/static/jquery/",
-            "classpath:/static/js/",
-            "classpath:/static/popper-js/",
-            "classpath:/static/tether/",
-            "classpath:/static/toastr/",
             "classpath:/META-INF/resources/",
-            "classpath:/static/frontend/" // put my webpack out frontend static html/js resource file
+            "classpath:/static/" // frontend static html/js/image resource
 	};
 	
 	public static final String [] WebConfig_interceptorExcludePathPatterns = {
+			"/ui5/**", 
 			"/webjars/**", 
 			"/bootbox/**", 
 			"/bootstrap-vali/**", 
@@ -132,10 +111,7 @@ public class CoreAppConstants {
 			"/springfox.js",
 			"/springfox.js/**",
 			"/csrf",
-			"/csrf/**",
-			"/token4sinosoft/**", 
-			"/token4oldcoresystem/**",
-			"/frontend/**" // frontend static html/js resource
+			"/csrf/**"
 	};	
 	
 	public static String[] getWebConfiginterceptorExcludePathPatterns() {
