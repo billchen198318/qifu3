@@ -30,9 +30,13 @@ import java.util.Map;
 import javax.servlet.http.HttpServletRequest;
 
 import org.apache.commons.lang3.StringUtils;
+import org.apache.commons.lang3.math.NumberUtils;
 import org.qifu.base.Constants;
 import org.qifu.base.exception.BaseSysException;
 import org.qifu.base.exception.ControllerException;
+import org.qifu.base.model.DefaultControllerJsonResultObj;
+import org.qifu.base.model.PageOf;
+import org.qifu.base.model.QueryControllerJsonResultObj;
 import org.qifu.base.model.YesNo;
 import org.qifu.util.SimpleUtils;
 import org.springframework.ui.ModelMap;
@@ -112,83 +116,6 @@ public abstract class BaseController {
 	public String getLoginCaptchaCodeEnable() {
 		return Constants.getLoginCaptchaCodeEnable();
 	}
-	
-	public String getGoogleMapEnable() {
-		return String.valueOf( Constants.getSettingsMap().get("googleMap.enable") );
-	}	
-	
-	public String getGoogleMapUrl() {
-		return String.valueOf( Constants.getSettingsMap().get("googleMap.url") );
-	}
-	
-	public String getGoogleMapKey() {
-		return String.valueOf( Constants.getSettingsMap().get("googleMap.key") );
-	}	
-	
-	public String getGoogleMapDefaultLat() {
-		return String.valueOf( Constants.getSettingsMap().get("googleMap.defaultLat") );
-	}	
-	
-	public String getGoogleMapDefaultLng() {
-		return String.valueOf( Constants.getSettingsMap().get("googleMap.defaultLng") );
-	}		
-	
-	public String getGoogleMapLanguage() {
-		return String.valueOf( Constants.getSettingsMap().get("googleMap.language") );
-	}	
-	
-	public String getGoogleMapClientLocationEnable() {
-		return String.valueOf( Constants.getSettingsMap().get("googleMap.clientLocationEnable") );
-	}
-	
-	public String getTwitterEnable() {
-		return String.valueOf( Constants.getSettingsMap().get("twitter.enable") );
-	}
-	
-	public String getJqXhrType() {
-		return String.valueOf( Constants.getSettingsMap().get("basePage.jqXhrType") );
-	}
-	
-	public String getJqXhrTimeout() {
-		return String.valueOf( Constants.getSettingsMap().get("basePage.jqXhrTimeout") );
-	}
-	
-	public boolean getJqXhrCache() {
-		return (YesNo.YES.equals( Constants.getSettingsMap().get("basePage.jqXhrCache") ) ? true : false);
-	}
-	
-	public boolean getJqXhrAsync() {
-		return (YesNo.YES.equals( Constants.getSettingsMap().get("basePage.jqXhrAsync") ) ? true : false);
-	}
-	*/
-	
-	/*
-	public String getMaxUploadSize() {
-		return String.valueOf( UploadSupportUtils.getUploadMaxSize() );
-	}
-	
-	public String getMaxUploadSizeMb() {
-		return String.valueOf( UploadSupportUtils.getUploadMaxSize() / 1048576 );
-	}	
-	*/
-	
-	/*
-	public boolean isSuperRole() {
-		Subject subject = SecurityUtils.getSubject();
-		if (subject.hasRole(Constants.SUPER_ROLE_ADMIN) || subject.hasRole(Constants.SUPER_ROLE_ALL)) {
-			return true;
-		}
-		return false;
-	}
-	
-	public Subject getSubject() {
-		return SecurityUtils.getSubject();
-	}
-	
-	public String getAccountId() {		
-		Subject subject = SecurityUtils.getSubject();		
-		return this.defaultString((String)subject.getPrincipal());		
-	}	
 	*/
 	
 	public String generateOid() {
@@ -223,11 +150,9 @@ public abstract class BaseController {
 		mm.addAttribute(Constants.PAGE_MESSAGE, pageMessage);
 	}
 	
-	/*
-	protected void setPageErrorContact(ModelAndView mv) {
-		mv.addObject("errorContact", this.getErrorContact());
-	}	
-	*/
+//	protected void setPageErrorContact(ModelMap mm) {
+//		mv.addObject("errorContact", this.getErrorContact());
+//	}	
 	
 	protected String getNowDate() {
 		return SimpleUtils.getStrYMD("/");
@@ -236,8 +161,6 @@ public abstract class BaseController {
 	protected String getNowDate2() {
 		return SimpleUtils.getStrYMD("-");
 	}		
-	
-	/*
 	
 	protected <T> DefaultControllerJsonResultObj<T> getDefaultJsonResult(String progId) {
 		DefaultControllerJsonResultObj<T> result = DefaultControllerJsonResultObj.build();
@@ -252,6 +175,7 @@ public abstract class BaseController {
 	}	
 	
 	private void setResultDefaultValue(DefaultControllerJsonResultObj<?> result, String progId) {
+		/*
 		if (!StringUtils.isBlank(this.getAccountId())) {
 			result.setLogin( YES );
 			Subject subject = this.getSubject();
@@ -266,7 +190,8 @@ public abstract class BaseController {
 			}
 		} else {
 			result.setMessage( "Please login!" );
-		}		
+		}
+		*/		
 	}
 	
 	protected boolean isAuthorizeAndLoginFromControllerJsonResult(DefaultControllerJsonResultObj<?> result) {
@@ -281,7 +206,6 @@ public abstract class BaseController {
 		result.setMessage( e.getMessage().toString() );
 		result.setSuccess( EXCEPTION );
 	}
-	*/
 	
 	protected String getExceptionMessage(Exception e) {
 		String str = "";
@@ -342,36 +266,34 @@ public abstract class BaseController {
 		}
 	}
 	
-	/*
-	protected PageOf getPageOf(HttpServletRequest request) {
-		PageOf pageOf = new PageOf();
-		fillObjectFromRequest(request, pageOf);
-		return pageOf;
-	}
-	
-	protected SearchValue getSearchValue(HttpServletRequest request) {
-		SearchValue searchValue = new SearchValue();
-		fillObjectFromRequest(request, searchValue);
-		return searchValue;
-	}	
-	
-	protected <T> void setQueryGridJsonResult(QueryControllerJsonResultObj<T> jsonResult, QueryResult<T> queryResult, PageOf pageOf) {
-		if (queryResult.getValue() != null) {
-			jsonResult.setValue( queryResult.getValue() );
-			jsonResult.setPageOfCountSize( queryResult.getRowCount() );
-			jsonResult.setPageOfSelect( NumberUtils.toInt(pageOf.getSelect(), 1) );
-			jsonResult.setPageOfShowRow( NumberUtils.toInt(pageOf.getShowRow(), PageOf.Rows[0]) );
-			jsonResult.setPageOfSize( NumberUtils.toInt(pageOf.getSize(), 1) );
-			jsonResult.setSuccess(YesNo.YES);
-		} else {
-			jsonResult.setMessage( queryResult.getSystemMessage().getValue() );
-		}		
-	}
-	
-	protected <T> CheckControllerFieldHandler<T> getCheckControllerFieldHandler(DefaultControllerJsonResultObj<T> result) {
-		return CheckControllerFieldHandler.build(result);
-	}
-	*/
+//	protected PageOf getPageOf(HttpServletRequest request) {
+//		PageOf pageOf = new PageOf();
+//		fillObjectFromRequest(request, pageOf);
+//		return pageOf;
+//	}
+//	
+//	protected SearchValue getSearchValue(HttpServletRequest request) {
+//		SearchValue searchValue = new SearchValue();
+//		fillObjectFromRequest(request, searchValue);
+//		return searchValue;
+//	}	
+//	
+//	protected <T> void setQueryGridJsonResult(QueryControllerJsonResultObj<T> jsonResult, QueryResult<T> queryResult, PageOf pageOf) {
+//		if (queryResult.getValue() != null) {
+//			jsonResult.setValue( queryResult.getValue() );
+//			jsonResult.setPageOfCountSize( queryResult.getRowCount() );
+//			jsonResult.setPageOfSelect( NumberUtils.toInt(pageOf.getSelect(), 1) );
+//			jsonResult.setPageOfShowRow( NumberUtils.toInt(pageOf.getShowRow(), PageOf.Rows[0]) );
+//			jsonResult.setPageOfSize( NumberUtils.toInt(pageOf.getSize(), 1) );
+//			jsonResult.setSuccess(YesNo.YES);
+//		} else {
+//			jsonResult.setMessage( queryResult.getSystemMessage().getValue() );
+//		}		
+//	}
+//	
+//	protected <T> CheckControllerFieldHandler<T> getCheckControllerFieldHandler(DefaultControllerJsonResultObj<T> result) {
+//		return CheckControllerFieldHandler.build(result);
+//	}
 	
 	protected boolean noSelect(String selectValue) {
 		if (StringUtils.isBlank(selectValue) || Constants.HTML_SELECT_NO_SELECT_ID.equals(selectValue)) {
