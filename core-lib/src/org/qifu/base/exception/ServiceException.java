@@ -21,7 +21,7 @@
  */
 package org.qifu.base.exception;
 
-public class ServiceException extends RuntimeException {
+public class ServiceException extends BaseSysException {
 	private static final long serialVersionUID = 8986003473341314573L;
 	
 	public ServiceException() {

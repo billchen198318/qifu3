@@ -21,17 +21,16 @@
  */
 package org.qifu.base.exception;
 
-public class ControllerException extends BaseSysException {
-	private static final long serialVersionUID = -767925711525514382L;
+public class BaseSysException extends RuntimeException {
+	private static final long serialVersionUID = 3799827669096819441L;
 	
-	public static final String PAGE_EXCEPTION_CODE = "E";
-	
-	public ControllerException() {
-		
+	public BaseSysException() {
+		super();
 	}
 	
-	public ControllerException(String msg) {
-		super(msg);
-	}	
+	public BaseSysException(String message) {
+		super(message);
+	}
+	
 	
 }

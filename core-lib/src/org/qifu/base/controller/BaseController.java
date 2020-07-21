@@ -21,6 +21,7 @@
  */
 package org.qifu.base.controller;
 
+import java.util.Enumeration;
 import java.util.LinkedHashMap;
 import java.util.LinkedList;
 import java.util.List;
@@ -30,10 +31,14 @@ import javax.servlet.http.HttpServletRequest;
 
 import org.apache.commons.lang3.StringUtils;
 import org.qifu.base.Constants;
+import org.qifu.base.exception.BaseSysException;
 import org.qifu.base.exception.ControllerException;
 import org.qifu.base.model.YesNo;
 import org.qifu.util.SimpleUtils;
 import org.springframework.ui.ModelMap;
+
+import ognl.Ognl;
+import ognl.OgnlException;
 
 public abstract class BaseController {
 	protected static final String PAGE_SYS_LOGIN = "system/login";
@@ -198,7 +203,6 @@ public abstract class BaseController {
 		return StringUtils.defaultString(str);
 	}
 	
-	/*
 	protected void setPageMessage(HttpServletRequest request, String pageMessage) {
 		if (null!=pageMessage && pageMessage.length()>=500) {
 			pageMessage=pageMessage.substring(0, 500);
@@ -206,17 +210,20 @@ public abstract class BaseController {
 		request.setAttribute(Constants.PAGE_MESSAGE, pageMessage);
 	}	
 	
+	/*
 	protected void setPageErrorContact(HttpServletRequest request) {
 		request.setAttribute("errorContact", this.getErrorContact());
 	}
+	*/
 	
-	protected void setPageMessage(ModelAndView mv, String pageMessage) {
+	protected void setPageMessage(ModelMap mm, String pageMessage) {
 		if (null!=pageMessage && pageMessage.length()>=500) {
 			pageMessage=pageMessage.substring(0, 500);
 		}
-		mv.addObject(Constants.PAGE_MESSAGE, pageMessage);
-	}	
+		mm.addAttribute(Constants.PAGE_MESSAGE, pageMessage);
+	}
 	
+	/*
 	protected void setPageErrorContact(ModelAndView mv) {
 		mv.addObject("errorContact", this.getErrorContact());
 	}	
@@ -290,14 +297,13 @@ public abstract class BaseController {
 		return str;
 	}
 	
-	/*
 	protected String getAuthorityExceptionPage(BaseSysException e, HttpServletRequest request) {
 		this.setPageMessage(request, this.getExceptionMessage(e));
 		return PAGE_SYS_NO_AUTH;
 	}
 	
-	protected String getAuthorityExceptionPage(BaseSysException e, ModelAndView mv) {
-		this.setPageMessage(mv, this.getExceptionMessage(e));
+	protected String getAuthorityExceptionPage(BaseSysException e, ModelMap mm) {
+		this.setPageMessage(mm, this.getExceptionMessage(e));
 		return PAGE_SYS_NO_AUTH;
 	}	
 	
@@ -306,8 +312,8 @@ public abstract class BaseController {
 		return PAGE_SYS_SEARCH_NO_DATA;
 	}
 		
-	protected String getServiceOrControllerExceptionPage(BaseSysException e, ModelAndView mv) {
-		this.setPageMessage(mv, this.getExceptionMessage(e));
+	protected String getServiceOrControllerExceptionPage(BaseSysException e, ModelMap mm) {
+		this.setPageMessage(mm, this.getExceptionMessage(e));
 		return PAGE_SYS_SEARCH_NO_DATA;
 	}	
 	
@@ -317,9 +323,9 @@ public abstract class BaseController {
 		return PAGE_SYS_ERROR;
 	}
 	
-	protected String getExceptionPage(Exception e, ModelAndView mv) {
+	protected String getExceptionPage(Exception e, ModelMap mm) {
 		e.printStackTrace();
-		this.setPageMessage(mv, this.getExceptionMessage(e));
+		this.setPageMessage(mm, this.getExceptionMessage(e));
 		return PAGE_SYS_ERROR;
 	}
 	
@@ -335,7 +341,6 @@ public abstract class BaseController {
 			}
 		}
 	}
-	*/
 	
 	/*
 	protected PageOf getPageOf(HttpServletRequest request) {
