@@ -26,8 +26,15 @@ import java.io.IOException;
 
 import org.apache.commons.io.FileUtils;
 import org.qifu.base.model.YesNo;
+import org.springframework.context.ApplicationContext;
 
 public class Constants {
+	
+	/**
+	 * Spring ApplicationContext
+	 */
+	public static ApplicationContext context;
+	
 	/**
 	 * 不要更改這個設定
 	 */

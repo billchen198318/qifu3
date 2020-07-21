@@ -53,7 +53,7 @@ public abstract class BaseController {
 		return "redirect:/" + url;
 	}	
 	
-	public ModelMap getDefaultModelAndView() {
+	public ModelMap getDefaultModelMap() {
 		ModelMap mm = new ModelMap();
 		/*
 		mm.addAttribute("errorContact", this.getErrorContact());
@@ -79,17 +79,17 @@ public abstract class BaseController {
 		return mm;
 	}
 	
-	public ModelMap getDefaultModelAndView(String progId) {
-		ModelMap mm = this.getDefaultModelAndView();
-		if (StringUtils.isBlank(progId)) {
-			return mm;
-		}
-		/*
-		mm.addAttribute("programId", progId);
-		mm.addAttribute("programName", MenuSupportUtils.getProgramName(progId));
-		*/
-		return mm;
-	}	
+//	public ModelMap getDefaultModelMap(String progId) {
+//		ModelMap mm = this.getDefaultModelMap();
+//		if (StringUtils.isBlank(progId)) {
+//			return mm;
+//		}
+//		/*
+//		mm.addAttribute("programId", progId);
+//		mm.addAttribute("programName", MenuSupportUtils.getProgramName(progId));
+//		*/
+//		return mm;
+//	}	
 	
 	/*
 	public String getErrorContact() {
