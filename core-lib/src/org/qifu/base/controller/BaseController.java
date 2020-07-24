@@ -34,9 +34,12 @@ import org.apache.commons.lang3.math.NumberUtils;
 import org.qifu.base.Constants;
 import org.qifu.base.exception.BaseSysException;
 import org.qifu.base.exception.ControllerException;
+import org.qifu.base.model.CheckControllerFieldHandler;
 import org.qifu.base.model.DefaultControllerJsonResultObj;
 import org.qifu.base.model.PageOf;
 import org.qifu.base.model.QueryControllerJsonResultObj;
+import org.qifu.base.model.QueryResult;
+import org.qifu.base.model.SearchValue;
 import org.qifu.base.model.YesNo;
 import org.qifu.util.SimpleUtils;
 import org.springframework.ui.ModelMap;
@@ -266,34 +269,36 @@ public abstract class BaseController {
 		}
 	}
 	
-//	protected PageOf getPageOf(HttpServletRequest request) {
-//		PageOf pageOf = new PageOf();
-//		fillObjectFromRequest(request, pageOf);
-//		return pageOf;
-//	}
-//	
-//	protected SearchValue getSearchValue(HttpServletRequest request) {
-//		SearchValue searchValue = new SearchValue();
-//		fillObjectFromRequest(request, searchValue);
-//		return searchValue;
-//	}	
-//	
-//	protected <T> void setQueryGridJsonResult(QueryControllerJsonResultObj<T> jsonResult, QueryResult<T> queryResult, PageOf pageOf) {
-//		if (queryResult.getValue() != null) {
-//			jsonResult.setValue( queryResult.getValue() );
-//			jsonResult.setPageOfCountSize( queryResult.getRowCount() );
-//			jsonResult.setPageOfSelect( NumberUtils.toInt(pageOf.getSelect(), 1) );
-//			jsonResult.setPageOfShowRow( NumberUtils.toInt(pageOf.getShowRow(), PageOf.Rows[0]) );
-//			jsonResult.setPageOfSize( NumberUtils.toInt(pageOf.getSize(), 1) );
-//			jsonResult.setSuccess(YesNo.YES);
-//		} else {
-//			jsonResult.setMessage( queryResult.getSystemMessage().getValue() );
-//		}		
-//	}
-//	
-//	protected <T> CheckControllerFieldHandler<T> getCheckControllerFieldHandler(DefaultControllerJsonResultObj<T> result) {
-//		return CheckControllerFieldHandler.build(result);
-//	}
+	protected PageOf getPageOf(HttpServletRequest request) {
+		PageOf pageOf = new PageOf();
+		fillObjectFromRequest(request, pageOf);
+		return pageOf;
+	}
+	
+	protected SearchValue getSearchValue(HttpServletRequest request) {
+		SearchValue searchValue = new SearchValue();
+		fillObjectFromRequest(request, searchValue);
+		return searchValue;
+	}	
+	
+	/*
+	protected <T> void setQueryGridJsonResult(QueryControllerJsonResultObj<T> jsonResult, QueryResult<T> queryResult, PageOf pageOf) {
+		if (queryResult.getValue() != null) {
+			jsonResult.setValue( queryResult.getValue() );
+			jsonResult.setPageOfCountSize( queryResult.getRowCount() );
+			jsonResult.setPageOfSelect( NumberUtils.toInt(pageOf.getSelect(), 1) );
+			jsonResult.setPageOfShowRow( NumberUtils.toInt(pageOf.getShowRow(), PageOf.Rows[0]) );
+			jsonResult.setPageOfSize( NumberUtils.toInt(pageOf.getSize(), 1) );
+			jsonResult.setSuccess(YesNo.YES);
+		} else {
+			jsonResult.setMessage( queryResult.getSystemMessage().getValue() );
+		}		
+	}
+	*/
+	
+	protected <T> CheckControllerFieldHandler<T> getCheckControllerFieldHandler(DefaultControllerJsonResultObj<T> result) {
+		return CheckControllerFieldHandler.build(result);
+	}
 	
 	protected boolean noSelect(String selectValue) {
 		if (StringUtils.isBlank(selectValue) || Constants.HTML_SELECT_NO_SELECT_ID.equals(selectValue)) {
