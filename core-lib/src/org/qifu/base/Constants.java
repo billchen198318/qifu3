@@ -122,4 +122,6 @@ public class Constants {
 		return dirPath;
 	}
 	
+	public static final int MAX_SYS_DESCRIPTION_LENGTH = 500;
+	
 }

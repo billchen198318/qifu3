@@ -134,8 +134,8 @@ public abstract class BaseController {
 	}
 	
 	protected void setPageMessage(HttpServletRequest request, String pageMessage) {
-		if (null!=pageMessage && pageMessage.length()>=500) {
-			pageMessage=pageMessage.substring(0, 500);
+		if (null!=pageMessage && pageMessage.length()>=Constants.MAX_SYS_DESCRIPTION_LENGTH) {
+			pageMessage=pageMessage.substring(0, Constants.MAX_SYS_DESCRIPTION_LENGTH);
 		}
 		request.setAttribute(Constants.PAGE_MESSAGE, pageMessage);
 	}	
@@ -147,8 +147,8 @@ public abstract class BaseController {
 	*/
 	
 	protected void setPageMessage(ModelMap mm, String pageMessage) {
-		if (null!=pageMessage && pageMessage.length()>=500) {
-			pageMessage=pageMessage.substring(0, 500);
+		if (null!=pageMessage && pageMessage.length()>=Constants.MAX_SYS_DESCRIPTION_LENGTH) {
+			pageMessage=pageMessage.substring(0, Constants.MAX_SYS_DESCRIPTION_LENGTH);
 		}
 		mm.addAttribute(Constants.PAGE_MESSAGE, pageMessage);
 	}
