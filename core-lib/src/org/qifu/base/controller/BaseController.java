@@ -42,7 +42,9 @@ import org.qifu.base.model.QueryControllerJsonResultObj;
 import org.qifu.base.model.QueryResult;
 import org.qifu.base.model.SearchValue;
 import org.qifu.base.model.YesNo;
+import org.qifu.base.properties.BaseInfoConfigProperties;
 import org.qifu.util.SimpleUtils;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.context.request.RequestContextHolder;
 import org.springframework.web.context.request.ServletRequestAttributes;
@@ -64,6 +66,9 @@ public abstract class BaseController {
 	protected static final String NO = YesNo.NO;
 	protected static final String EXCEPTION = ControllerException.PAGE_EXCEPTION_CODE;
 	
+	@Autowired
+	BaseInfoConfigProperties baseInfoConfigProperties;
+	
 	public String getPageRedirect(String url) {
 		return "redirect:/" + url;
 	}	
@@ -74,13 +79,13 @@ public abstract class BaseController {
 	    //HttpServletResponse response = servletRequestAttributes.getResponse();
 	    
 		String basePath = this.getBasePath(request);
-		mm.addAttribute("basePath", basePath);
+		mm.addAttribute("qifu_basePath", basePath);
+		mm.addAttribute("qifu_errorContact", baseInfoConfigProperties.getErrorContact());
+		mm.addAttribute("qifu_verMsg", baseInfoConfigProperties.getVerMsg());
+		mm.addAttribute("qifu_jsVerBuild", baseInfoConfigProperties.getJsVerBuild());
+		mm.addAttribute("qifu_loginCaptchaCodeEnable", baseInfoConfigProperties.getLoginCaptchaCodeEnable());
 		
 		/*
-		mm.addAttribute("errorContact", this.getErrorContact());
-		mm.addAttribute("verMsg", this.getVerMsg());
-		mm.addAttribute("jsVerBuild", this.getJsVerBuild());
-		mm.addAttribute("loginCaptchaCodeEnable", this.getLoginCaptchaCodeEnable());
 		mm.addAttribute("googleMapEnable", this.getGoogleMapEnable());
 		mm.addAttribute("googleMapUrl", this.getGoogleMapUrl());
 		mm.addAttribute("googleMapKey", this.getGoogleMapKey());
