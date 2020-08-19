@@ -71,11 +71,11 @@ public class Constants {
 	
 	public static final String SERVICE_ID_TYPE_DISTINGUISH_SYMBOL = "#"; // logic service 用來組 service id 與 ServiceMethodType 成字串, 查有沒有權限
 	
-	public static final String SESS_ACCOUNT="SESSION_QIFU_ACCOUNT"; // 登入 account id 放到 session 變數名
-	public static final String SESS_LANG = "SESSION_QIFU_LANG";
-	public static final String SESS_SYSCURRENT_ID = "SESSION_QIFU_SYSCURRENT_ID";
+	public static final String SESS_ACCOUNT="SESSION_QIFU3_ACCOUNT"; // 登入 account id 放到 session 變數名
+	public static final String SESS_LANG = "SESSION_QIFU3_LANG";
+	public static final String SESS_SYSCURRENT_ID = "SESSION_QIFU3_SYSCURRENT_ID";
 	
-	public static final String APP_SITE_CURRENTID_COOKIE_NAME = "QIFU_SYSCURRENT_ID"; // 跨站 cookie 要用的名稱
+	public static final String APP_SITE_CURRENTID_COOKIE_NAME = "QIFU3_SYSCURRENT_ID"; // 跨站 cookie 要用的名稱
 	
 	public static final String QIFU_PAGE_IN_TAB_IFRAME = "isQifuPageChange";
 	public static final String QIFU_PAGE_PROG_PARAM = "qifuProgId";
@@ -100,7 +100,7 @@ public class Constants {
 	
 	public static final String DEFAULT_SPLIT_DELIMITER = ";|,";
 	
-	public static final String TMP_SUB_DIR_NAME = "qifu";
+	public static final String TMP_SUB_DIR_NAME = "qifu3";
 	
 	public static final String HTML_BR = "<br>";
 	
