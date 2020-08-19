@@ -28,6 +28,7 @@ import java.util.List;
 import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 
 import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.lang3.math.NumberUtils;
@@ -43,6 +44,8 @@ import org.qifu.base.model.SearchValue;
 import org.qifu.base.model.YesNo;
 import org.qifu.util.SimpleUtils;
 import org.springframework.ui.ModelMap;
+import org.springframework.web.context.request.RequestContextHolder;
+import org.springframework.web.context.request.ServletRequestAttributes;
 
 import ognl.Ognl;
 import ognl.OgnlException;
@@ -66,7 +69,15 @@ public abstract class BaseController {
 	}	
 	
 	public ModelMap getDefaultModelMap() {
+	    ServletRequestAttributes servletRequestAttributes = (ServletRequestAttributes) RequestContextHolder.getRequestAttributes();
+	    HttpServletRequest request = servletRequestAttributes.getRequest();
+	    //HttpServletResponse response = servletRequestAttributes.getResponse();
+	    
 		ModelMap mm = new ModelMap();
+		
+		String basePath = this.getBasePath(request);
+		mm.addAttribute("basePath", basePath);
+		
 		/*
 		mm.addAttribute("errorContact", this.getErrorContact());
 		mm.addAttribute("verMsg", this.getVerMsg());
@@ -88,6 +99,7 @@ public abstract class BaseController {
 		mm.addAttribute("maxUploadSize", this.getMaxUploadSize());
 		mm.addAttribute("maxUploadSizeMb", this.getMaxUploadSizeMb());
 		*/
+		
 		return mm;
 	}
 	
