@@ -12,7 +12,7 @@ public class IndexController extends BaseController {
 	
 	@RequestMapping({"/", "/index"})
 	public String index(ModelMap mm, HttpServletRequest request) {
-		
+		this.getDefaultModelMap(mm);
 		mm.addAttribute("testMessage", "測試 freemarker ~~ !!");
 		
 		return "index";

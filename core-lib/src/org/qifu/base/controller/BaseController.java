@@ -68,13 +68,11 @@ public abstract class BaseController {
 		return "redirect:/" + url;
 	}	
 	
-	public ModelMap getDefaultModelMap() {
+	public ModelMap getDefaultModelMap(ModelMap mm) {
 	    ServletRequestAttributes servletRequestAttributes = (ServletRequestAttributes) RequestContextHolder.getRequestAttributes();
 	    HttpServletRequest request = servletRequestAttributes.getRequest();
 	    //HttpServletResponse response = servletRequestAttributes.getResponse();
 	    
-		ModelMap mm = new ModelMap();
-		
 		String basePath = this.getBasePath(request);
 		mm.addAttribute("basePath", basePath);
 		
