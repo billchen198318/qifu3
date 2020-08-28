@@ -1,13 +1,13 @@
--- MySQL dump 10.16  Distrib 10.1.41-MariaDB, for Win64 (AMD64)
+-- MySQL dump 10.17  Distrib 10.3.23-MariaDB, for FreeBSD12.1 (amd64)
 --
 -- Host: localhost    Database: qifu3
 -- ------------------------------------------------------
--- Server version	10.1.41-MariaDB
+-- Server version	10.3.23-MariaDB
 
 /*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
 /*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
 /*!40101 SET @OLD_COLLATION_CONNECTION=@@COLLATION_CONNECTION */;
-/*!40101 SET NAMES utf8 */;
+/*!40101 SET NAMES utf8mb4 */;
 /*!40103 SET @OLD_TIME_ZONE=@@TIME_ZONE */;
 /*!40103 SET TIME_ZONE='+00:00' */;
 /*!40014 SET @OLD_UNIQUE_CHECKS=@@UNIQUE_CHECKS, UNIQUE_CHECKS=0 */;
@@ -26,7 +26,7 @@ CREATE TABLE `qrtz_blob_triggers` (
   `SCHED_NAME` varchar(120) NOT NULL,
   `TRIGGER_NAME` varchar(200) NOT NULL,
   `TRIGGER_GROUP` varchar(200) NOT NULL,
-  `BLOB_DATA` blob,
+  `BLOB_DATA` blob DEFAULT NULL,
   PRIMARY KEY (`SCHED_NAME`,`TRIGGER_NAME`,`TRIGGER_GROUP`),
   KEY `SCHED_NAME` (`SCHED_NAME`,`TRIGGER_NAME`,`TRIGGER_GROUP`),
   CONSTRAINT `qrtz_blob_triggers_ibfk_1` FOREIGN KEY (`SCHED_NAME`, `TRIGGER_NAME`, `TRIGGER_GROUP`) REFERENCES `qrtz_triggers` (`SCHED_NAME`, `TRIGGER_NAME`, `TRIGGER_GROUP`)
@@ -151,7 +151,7 @@ CREATE TABLE `qrtz_job_details` (
   `IS_NONCONCURRENT` varchar(1) NOT NULL,
   `IS_UPDATE_DATA` varchar(1) NOT NULL,
   `REQUESTS_RECOVERY` varchar(1) NOT NULL,
-  `JOB_DATA` blob,
+  `JOB_DATA` blob DEFAULT NULL,
   PRIMARY KEY (`SCHED_NAME`,`JOB_NAME`,`JOB_GROUP`),
   KEY `IDX_QRTZ_J_REQ_RECOVERY` (`SCHED_NAME`,`REQUESTS_RECOVERY`),
   KEY `IDX_QRTZ_J_GRP` (`SCHED_NAME`,`JOB_GROUP`)
@@ -328,7 +328,7 @@ CREATE TABLE `qrtz_triggers` (
   `END_TIME` bigint(13) DEFAULT NULL,
   `CALENDAR_NAME` varchar(200) DEFAULT NULL,
   `MISFIRE_INSTR` smallint(2) DEFAULT NULL,
-  `JOB_DATA` blob,
+  `JOB_DATA` blob DEFAULT NULL,
   PRIMARY KEY (`SCHED_NAME`,`TRIGGER_NAME`,`TRIGGER_GROUP`),
   KEY `IDX_QRTZ_T_J` (`SCHED_NAME`,`JOB_NAME`,`JOB_GROUP`),
   KEY `IDX_QRTZ_T_JG` (`SCHED_NAME`,`JOB_GROUP`),
@@ -383,7 +383,7 @@ CREATE TABLE `tb_account` (
 
 LOCK TABLES `tb_account` WRITE;
 /*!40000 ALTER TABLE `tb_account` DISABLE KEYS */;
-INSERT INTO `tb_account` VALUES ('0','admin','b7f1acbdc67d3b2a68d36a5d7a29b228','Y','admin','2012-11-11 10:56:23','admin','2014-04-19 11:32:04'),('15822da5-25dc-490c-bdfb-be75f5ff4843','tester','5c06e78482c0a8b9cefb34e5cad64941','Y','admin','2015-04-23 11:26:53','admin','2015-08-29 17:54:08'),('52cb274e-388d-419f-a81e-67ca599bfb63','steven','953703bc964d40ce93dc90e2e012062e','Y','admin','2015-09-11 10:33:53',NULL,NULL),('9c239d19-3646-41db-b394-d34c5bf34671','tiffany','a4c1cfdf17b58a01e778a8b4c5701ea5','Y','admin','2015-09-11 10:15:29',NULL,NULL);
+INSERT INTO `tb_account` VALUES ('0','admin','$2y$12$Q4x02Q0WKHWXAQ.NoGCs8ObX4sac890xeRnaNUxNnz/VEiHWazIp.','Y','admin','2012-11-11 10:56:23','admin','2014-04-19 11:32:04'),('15822da5-25dc-490c-bdfb-be75f5ff4843','tester','$2y$12$Q4x02Q0WKHWXAQ.NoGCs8ObX4sac890xeRnaNUxNnz/VEiHWazIp.','Y','admin','2015-04-23 11:26:53','admin','2015-08-29 17:54:08'),('52cb274e-388d-419f-a81e-67ca599bfb63','steven','$2y$12$Q4x02Q0WKHWXAQ.NoGCs8ObX4sac890xeRnaNUxNnz/VEiHWazIp.','Y','admin','2015-09-11 10:33:53',NULL,NULL),('9c239d19-3646-41db-b394-d34c5bf34671','tiffany','$2y$12$Q4x02Q0WKHWXAQ.NoGCs8ObX4sac890xeRnaNUxNnz/VEiHWazIp.','Y','admin','2015-09-11 10:15:29',NULL,NULL);
 /*!40000 ALTER TABLE `tb_account` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -558,7 +558,7 @@ CREATE TABLE `tb_sys_bean_help_expr_map` (
   `HELP_EXPR_OID` char(36) NOT NULL,
   `METHOD_RESULT_FLAG` varchar(1) NOT NULL DEFAULT 'N',
   `METHOD_PARAM_CLASS` varchar(255) NOT NULL DEFAULT ' ',
-  `METHOD_PARAM_INDEX` int(3) NOT NULL DEFAULT '0',
+  `METHOD_PARAM_INDEX` int(3) NOT NULL DEFAULT 0,
   `VAR_NAME` varchar(255) NOT NULL,
   `CUSERID` varchar(24) NOT NULL,
   `CDATE` datetime NOT NULL,
@@ -885,7 +885,7 @@ CREATE TABLE `tb_sys_mail_helper` (
   `OID` char(36) NOT NULL,
   `MAIL_ID` varchar(17) NOT NULL,
   `SUBJECT` varchar(200) NOT NULL,
-  `TEXT` blob,
+  `TEXT` blob DEFAULT NULL,
   `MAIL_FROM` varchar(100) NOT NULL,
   `MAIL_TO` varchar(100) NOT NULL,
   `MAIL_CC` varchar(1000) DEFAULT NULL,
@@ -987,8 +987,8 @@ CREATE TABLE `tb_sys_prog` (
   `URL` varchar(255) NOT NULL,
   `EDIT_MODE` varchar(1) NOT NULL DEFAULT 'N',
   `IS_DIALOG` varchar(1) NOT NULL DEFAULT 'N',
-  `DIALOG_W` int(4) NOT NULL DEFAULT '0',
-  `DIALOG_H` int(4) NOT NULL DEFAULT '0',
+  `DIALOG_W` int(4) NOT NULL DEFAULT 0,
+  `DIALOG_H` int(4) NOT NULL DEFAULT 0,
   `PROG_SYSTEM` varchar(10) NOT NULL,
   `ITEM_TYPE` varchar(10) NOT NULL,
   `ICON` varchar(20) NOT NULL,
@@ -1123,7 +1123,7 @@ CREATE TABLE `tb_sys_upload` (
   `FILE_NAME` varchar(50) NOT NULL,
   `SHOW_NAME` varchar(255) NOT NULL,
   `IS_FILE` varchar(1) NOT NULL DEFAULT 'Y',
-  `CONTENT` mediumblob,
+  `CONTENT` mediumblob DEFAULT NULL,
   `CUSERID` varchar(24) NOT NULL,
   `CDATE` datetime NOT NULL,
   `UUSERID` varchar(24) DEFAULT NULL,
@@ -1213,4 +1213,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2020-06-01 17:28:12
+-- Dump completed on 2020-08-28 16:26:39
