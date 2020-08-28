@@ -181,11 +181,11 @@ public abstract class BaseService<T extends java.io.Serializable, K extends java
 			throw new ServiceException(BaseSystemMessage.parameterIncorrect() + " , please set @EntityUK.");
 		}
 		List<T> searchList = (List<T>) this.getBaseMapper().selectListByParams(paramMap);
-		if (null != searchList && searchList.size() > 0) {
+		if (null != searchList && searchList.size() > 1) {
 			throw new ServiceException(BaseSystemMessage.dataErrors());
 		}
 		T value = null;
-		if (searchList.size() == 1) {
+		if (searchList != null && searchList.size() == 1) {
 			value = searchList.get(0);
 		}
 		DefaultResult<T> result = new DefaultResult<T>();
