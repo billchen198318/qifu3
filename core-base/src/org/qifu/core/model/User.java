@@ -23,25 +23,25 @@ package org.qifu.core.model;
 
 import org.qifu.base.model.BaseUserInfo;
 import org.qifu.base.model.YesNo;
-import org.qifu.core.entity.TbRole;
 import org.qifu.core.entity.TbUserRole;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.List;
 
 public class User extends BaseUserInfo implements UserDetails {
-
-    private String oid;
+	private static final long serialVersionUID = 8145283038236989680L;
+	
+	private String oid;
     private String username;
     private String password;
     private List<TbUserRole> roles;
     private String onJob;
 
-    public User(String username, String password, String onJob, List<TbUserRole> roles) {
+    public User(String oid, String username, String password, String onJob, List<TbUserRole> roles) {
+    	this.oid = oid;
         this.username = username;
         this.password = password;
         this.onJob = onJob;
@@ -87,5 +87,17 @@ public class User extends BaseUserInfo implements UserDetails {
     public boolean isEnabled() {
         return (YesNo.YES.equals(this.onJob) ? true : false);
     }
+
+	public String getOid() {
+		return oid;
+	}
+
+	public List<TbUserRole> getRoles() {
+		return roles;
+	}
+
+	public String getOnJob() {
+		return onJob;
+	}
     
 }

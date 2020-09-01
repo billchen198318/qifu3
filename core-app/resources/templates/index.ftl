@@ -134,6 +134,8 @@ ${testMessage}
 basePath: ${qifu_basePath}
 <br/>
 errorContact: ${qifu_errorContact}
+<br>
+${qifu_user.oid}&nbsp;=&nbsp;${qifu_user.username}
 
     </body>
 </html>

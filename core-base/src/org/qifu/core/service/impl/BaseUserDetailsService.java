@@ -77,8 +77,7 @@ public class BaseUserDetailsService implements UserDetailsService {
         }
         accObj = result.getValue();
         //String encodePwd = new BCryptPasswordEncoder().encode(accObj.getPassword());
-        String encodePwd = accObj.getPassword(); // 原本DB就有編碼了
-        return new User(accObj.getAccount(), encodePwd, accObj.getOnJob(), this.findUserRoleList(username));
+        return new User(accObj.getOid(), accObj.getAccount(), accObj.getPassword(), accObj.getOnJob(), this.findUserRoleList(username));
     }
 
     private List<TbUserRole> findUserRoleList(String username) {

@@ -28,10 +28,8 @@ import java.util.List;
 import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
 
 import org.apache.commons.lang3.StringUtils;
-import org.apache.commons.lang3.math.NumberUtils;
 import org.qifu.base.Constants;
 import org.qifu.base.exception.BaseSysException;
 import org.qifu.base.exception.ControllerException;
@@ -39,12 +37,14 @@ import org.qifu.base.model.CheckControllerFieldHandler;
 import org.qifu.base.model.DefaultControllerJsonResultObj;
 import org.qifu.base.model.PageOf;
 import org.qifu.base.model.QueryControllerJsonResultObj;
-import org.qifu.base.model.QueryResult;
 import org.qifu.base.model.SearchValue;
 import org.qifu.base.model.YesNo;
 import org.qifu.base.properties.BaseInfoConfigProperties;
 import org.qifu.util.SimpleUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.context.request.RequestContextHolder;
 import org.springframework.web.context.request.ServletRequestAttributes;
@@ -74,10 +74,12 @@ public abstract class BaseController {
 	}	
 	
 	public ModelMap getDefaultModelMap(ModelMap mm) {
+		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+		if (auth.getPrincipal() instanceof UserDetails) {
+			mm.put("qifu_user", auth.getPrincipal());
+		}
 	    ServletRequestAttributes servletRequestAttributes = (ServletRequestAttributes) RequestContextHolder.getRequestAttributes();
 	    HttpServletRequest request = servletRequestAttributes.getRequest();
-	    //HttpServletResponse response = servletRequestAttributes.getResponse();
-	    
 		String basePath = this.getBasePath(request);
 		mm.addAttribute("qifu_basePath", basePath);
 		mm.addAttribute("qifu_errorContact", baseInfoConfigProperties.getErrorContact());
