@@ -1,30 +1,19 @@
 <!DOCTYPE html>
 <html lang="en">
   <head>
-    <meta name="description" content="Vali is a responsive and free admin theme built with Bootstrap 4, SASS and PUG.js. It's fully customizable and modular.">
-    <!-- Twitter meta-->
-    <meta property="twitter:card" content="summary_large_image">
-    <meta property="twitter:site" content="@pratikborsadiya">
-    <meta property="twitter:creator" content="@pratikborsadiya">
-    <!-- Open Graph Meta-->
-    <meta property="og:type" content="website">
-    <meta property="og:site_name" content="Vali Admin">
-    <meta property="og:title" content="Vali - Free Bootstrap 4 admin theme">
-    <meta property="og:url" content="http://pratikborsadiya.in/blog/vali-admin">
-    <meta property="og:image" content="http://pratikborsadiya.in/blog/vali-admin/hero-social.png">
-    <meta property="og:description" content="Vali is a responsive and free admin theme built with Bootstrap 4, SASS and PUG.js. It's fully customizable and modular.">
-    <title>Form Samples - Vali Admin</title>
+    <meta name="description" content="QiFu 3 is an JAVA base backend WEB system.">
+    <title>QiFu-3</title>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <!-- Main CSS-->
-    <link rel="stylesheet" type="text/css" href="/css/main.css">
+    <link rel="stylesheet" type="text/css" href="${qifu_basePath}css/main.css">
     <!-- Font-icon css-->
-    <link rel="stylesheet" type="text/css" href="/font-awesome/css/font-awesome.min.css">
+    <link rel="stylesheet" type="text/css" href="${qifu_basePath}font-awesome/css/font-awesome.min.css">
   </head>
   <body class="app sidebar-mini">
     <!-- Navbar-->
-    <header class="app-header"><a class="app-header__logo" href="index.html">Vali</a>
+    <header class="app-header"><a class="app-header__logo" href="${qifu_basePath}index">QiFu</a>
       <!-- Sidebar toggle button--><a class="app-sidebar__toggle" href="#" data-toggle="sidebar" aria-label="Hide Sidebar"></a>
       <!-- Navbar Right Menu-->
       <ul class="app-nav">
@@ -282,12 +271,12 @@
     </main>
     
     <!-- Essential javascripts for application to work-->
-    <script src="/js/jquery-3.3.1.min.js"></script>
-    <script src="/js/popper.min.js"></script>
-    <script src="/js/bootstrap.min.js"></script>
-    <script src="/js/main.js"></script>
+    <script src="${qifu_basePath}js/jquery-3.3.1.min.js"></script>
+    <script src="${qifu_basePath}js/popper.min.js"></script>
+    <script src="${qifu_basePath}js/bootstrap.min.js"></script>
+    <script src="${qifu_basePath}js/main.js"></script>
     <!-- The javascript plugin to display page loading on top-->
-    <script src="/js/plugins/pace.min.js"></script>
+    <script src="${qifu_basePath}js/plugins/pace.min.js"></script>
     
   </body>
 </html>
