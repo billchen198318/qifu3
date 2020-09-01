@@ -30,10 +30,15 @@ import org.springframework.web.bind.annotation.RequestMapping;
 @Controller
 public class LoginController {
 	
-	@RequestMapping("/login")
+	@RequestMapping("/loginPage")
 	public String loginPage(ModelMap mm, HttpServletRequest request) {
-		
+		mm.put("errMsg", "");
+		if ( request.getSession().getAttribute("SPRING_SECURITY_LAST_EXCEPTION") != null ) {
+			String errMsg = ((Exception) request.getSession().getAttribute("SPRING_SECURITY_LAST_EXCEPTION")).getMessage();
+			request.getSession().removeAttribute("SPRING_SECURITY_LAST_EXCEPTION");
+			mm.put("errMsg", errMsg);
+		}
 		return "login";
 	}
-
+	
 }

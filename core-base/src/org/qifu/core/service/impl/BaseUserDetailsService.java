@@ -21,6 +21,8 @@
  */
 package org.qifu.core.service.impl;
 
+import org.apache.commons.lang3.StringUtils;
+import org.qifu.base.message.BaseSystemMessage;
 import org.qifu.base.model.DefaultResult;
 import org.qifu.core.entity.TbAccount;
 import org.qifu.core.entity.TbUserRole;
@@ -33,7 +35,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Propagation;
@@ -59,6 +60,10 @@ public class BaseUserDetailsService implements UserDetailsService {
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
         logger.info("login account: {}", username);
+        if (StringUtils.isBlank(username)) {
+        	logger.warn("account value blank.");
+        	throw new UsernameNotFoundException( BaseSystemMessage.parameterBlank() );
+        }
         TbAccount accObj = new TbAccount();
         accObj.setAccount(username);
         DefaultResult<TbAccount> result = null;

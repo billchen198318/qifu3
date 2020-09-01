@@ -55,8 +55,8 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     	//http.cors().configurationSource(request -> new CorsConfiguration().applyPermitDefaultValues());
     	http.cors().and().csrf().disable()
                 .formLogin()
-                .loginPage("/login")
-                .loginProcessingUrl("/doLogin")
+                .loginPage("/loginPage")
+                .loginProcessingUrl("/login")
                 .permitAll()
                 .defaultSuccessUrl("/index", true)
                 .and()
