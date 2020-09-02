@@ -1,4 +1,4 @@
-
+/* Custom method */
 function logoutEvent() {
 	bootbox.confirm(
 			"Logout! are you sure?", 
