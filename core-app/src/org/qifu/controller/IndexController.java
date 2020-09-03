@@ -23,7 +23,7 @@ package org.qifu.controller;
 
 import javax.servlet.http.HttpServletRequest;
 
-import org.qifu.base.controller.BaseController;
+import org.qifu.base.controller.BaseControllerSupport;
 import org.qifu.base.exception.ServiceException;
 import org.qifu.core.model.MenuResult;
 import org.qifu.core.util.MenuSupportUtils;
@@ -32,7 +32,7 @@ import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 @Controller
-public class IndexController extends BaseController {
+public class IndexController extends BaseControllerSupport {
 	
 	@RequestMapping({"/", "/index"})
 	public String index(ModelMap mm, HttpServletRequest request) {

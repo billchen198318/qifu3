@@ -52,7 +52,7 @@ import org.springframework.web.context.request.ServletRequestAttributes;
 import ognl.Ognl;
 import ognl.OgnlException;
 
-public abstract class BaseController {
+public abstract class BaseControllerSupport {
 	protected static final String PAGE_SYS_LOGIN = "system/login";
 	protected static final String PAGE_SYS_SEARCH_NO_DATA = "system/searchNoData";
 	protected static final String PAGE_SYS_LOGIN_AGAIN = "system/login_again";

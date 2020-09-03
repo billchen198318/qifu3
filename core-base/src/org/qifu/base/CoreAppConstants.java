@@ -112,12 +112,13 @@ public class CoreAppConstants {
 			"/swagger-ui.html",
 			"/swagger-ui.html/**",
 			"/swagger**",
-			"/api-docs**",
-			"/api-docs/**",
+			"/v2**", //"/api-docs**",
+			"/v2/**", //"/api-docs/**",
 			"/springfox.js",
 			"/springfox.js/**",
 			"/csrf",
-			"/csrf/**"
+			"/csrf/**",
+			"/configJs.js"
 	};	
 	
 	public static String[] getWebConfiginterceptorExcludePathPatterns() {

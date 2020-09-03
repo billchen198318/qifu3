@@ -23,6 +23,7 @@ package org.qifu.core.config;
 
 import java.util.Arrays;
 
+import org.qifu.base.CoreAppConstants;
 import org.qifu.core.service.impl.BaseUserDetailsService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
@@ -61,7 +62,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .defaultSuccessUrl("/index", true)
                 .and()
                 .authorizeRequests()
-                .antMatchers("/css/**", "/js/**", "/frontend/**", "/font-awesome/**")
+                .antMatchers( CoreAppConstants.getWebConfiginterceptorExcludePathPatterns() )
                 .permitAll()
                 .anyRequest()
                 .authenticated();

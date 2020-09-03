@@ -333,8 +333,12 @@ ${menuResult.modalHtmlData}
       </div>
     </main>
     
+    <!-- Config variable -->
+    <script src="${qifu_basePath}configJs.js"></script>
+    
 <script type="text/javascript">
 var qifu_basePath = '${qifu_basePath}';
+var _m_PAGE_CHANGE_URL_PARAM = _qifu_pageInTabIframeParamName;
 
 ${menuResult.javascriptData}
 

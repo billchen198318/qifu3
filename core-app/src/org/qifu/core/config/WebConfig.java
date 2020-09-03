@@ -57,7 +57,7 @@ public class WebConfig implements WebMvcConfigurer {
     public void addInterceptors(InterceptorRegistry registry) {
         registry.addInterceptor(MDCInterceptor())
         	.addPathPatterns("/*", "/**")
-        	.excludePathPatterns( CoreAppConstants.WebConfig_interceptorExcludePathPatterns );
+        	.excludePathPatterns( CoreAppConstants.getWebConfiginterceptorExcludePathPatterns() );
         
         /*
         registry.addInterceptor(UserBuilderInterceptor())
