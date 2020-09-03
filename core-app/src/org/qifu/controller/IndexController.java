@@ -40,11 +40,6 @@ public class IndexController extends BaseController {
 		MenuResult menuResult = null;
 		try {
 			menuResult = MenuSupportUtils.getMenuData( this.getBasePath(request) );
-			System.out.println( "---------------------------------------------------------" );
-			System.out.println( menuResult.getNavItemHtmlData() );
-			System.out.println( menuResult.getJavascriptData() );
-			System.out.println( menuResult.getModalHtmlData() );
-			System.out.println( "---------------------------------------------------------" );
 		} catch (ServiceException se) {
 			se.printStackTrace();
 		} catch (Exception e) {

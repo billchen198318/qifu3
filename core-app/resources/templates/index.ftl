@@ -16,6 +16,44 @@
     
   </head>
   <body class="app sidebar-mini">
+  
+  
+<!-- Modal Start here -->
+<div class="modal fade bd-example-modal-sm" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true" id="myPleaseWait" data-keyboard="false" data-backdrop="static">
+  <div class="modal-dialog modal-sm">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h4 class="modal-title" id="mySmallModalLabel">Please wait!</h4>
+      </div>
+      <div class="modal-body">
+        <img alt="loading" src="./images/loadingAnimation.gif" border="0">
+      </div>
+    </div>
+  </div>
+</div>
+<!-- Modal ends Here -->
+
+<!-- Modal Start here for page query grid -->
+<div class="modal fade bd-example-modal-sm" tabindex="-1" role="dialog" aria-labelledby="mySmallQueryGridModalLabel" aria-hidden="true" id="myPleaseWaitForQueryGrid" data-keyboard="false" data-backdrop="static">
+  <div class="modal-dialog modal-sm">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h4 class="modal-title" id="mySmallQueryGridModalLabel">Please wait!</h4>
+      </div>
+      <div class="modal-body">
+        <img alt="loading" src="./images/loadingAnimation.gif" border="0">
+      </div>
+    </div>
+  </div>
+</div>
+<!-- Modal ends Here for page query grid -->
+
+
+<!-- ##################### Modal for Program ##################### -->
+${menuResult.modalHtmlData}
+<!-- ##################### Modal for Program ##################### -->  
+  
+  
     <!-- Navbar-->
     <header class="app-header"><a class="app-header__logo" href="${qifu_basePath}index">QiFu</a>
       <!-- Sidebar toggle button--><a class="app-sidebar__toggle" href="#" data-toggle="sidebar" aria-label="Hide Sidebar"></a>
@@ -84,6 +122,7 @@
         </li>
       </ul>
     </header>
+    
     <!-- Sidebar menu-->
     <div class="app-sidebar__overlay" data-toggle="sidebar"></div>
     <aside class="app-sidebar">
@@ -98,6 +137,7 @@
       -->
       
       <ul class="app-menu">
+      	<!-- 
         <li><a class="app-menu__item" href="dashboard.html"><i class="app-menu__icon fa fa-dashboard"></i><span class="app-menu__label">Dashboard</span></a></li>
         <li class="treeview"><a class="app-menu__item" href="#" data-toggle="treeview"><i class="app-menu__icon fa fa-laptop"></i><span class="app-menu__label">UI Elements</span><i class="treeview-indicator fa fa-angle-right"></i></a>
           <ul class="treeview-menu">
@@ -135,8 +175,15 @@
           </ul>
         </li>
         <li><a class="app-menu__item" href="docs.html"><i class="app-menu__icon fa fa-file-code-o"></i><span class="app-menu__label">Docs</span></a></li>
+        -->
+        
+        ${menuResult.navItemHtmlData}
+        
       </ul>
     </aside>
+    
+    
+    
     <main class="app-content">
       <div class="app-title">
         <div>
@@ -288,6 +335,9 @@
     
 <script type="text/javascript">
 var qifu_basePath = '${qifu_basePath}';
+
+${menuResult.javascriptData}
+
 </script>    
     
     <!-- Essential javascripts for application to work-->

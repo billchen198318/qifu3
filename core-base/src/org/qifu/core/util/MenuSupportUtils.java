@@ -126,7 +126,7 @@ public class MenuSupportUtils {
 			return url;
 		}
 		if (YesNo.YES.equals(sys.getIsLocal())) {
-			url = basePath + "/" + sysProg.getUrl() + ( (sysProg.getUrl().indexOf("?")>0 || sysProg.getUrl().indexOf("&")>0) ? "&" : "?" ) + Constants.QIFU_PAGE_IN_TAB_IFRAME + "=" + YesNo.YES;
+			url = basePath + sysProg.getUrl() + ( (sysProg.getUrl().indexOf("?")>0 || sysProg.getUrl().indexOf("&")>0) ? "&" : "?" ) + Constants.QIFU_PAGE_IN_TAB_IFRAME + "=" + YesNo.YES;
 		} else {
 			String head = "http://";
 			if (basePath.startsWith("https")) {
@@ -188,23 +188,20 @@ public class MenuSupportUtils {
 				if (null == pSysProg) {
 					throw new ServiceException( BaseSystemMessage.dataErrors() );
 				}
-				navHtmlSb.append("<ul class=\"nav nav-pills flex-column\">");
-				navHtmlSb.append("<li class=\"nav-item\">");
-				navHtmlSb.append(IconUtils.getHtmlImg(basePath, pSysProg.getIcon()) + "&nbsp;<font color=\"#848484\"><b>" + pSysProg.getName() + "</b></font>");
-				navHtmlSb.append("</li>");
+				
+				navHtmlSb.append("<li class=\"treeview\"><a class=\"app-menu__item\" href=\"#\" data-toggle=\"treeview\"><i class=\"app-menu__icon fa fa-folder\"></i><span class=\"app-menu__label\">" + pSysProg.getName() + "</span><i class=\"treeview-indicator fa fa-angle-right\"></i></a>");
+				navHtmlSb.append("<ul class=\"treeview-menu\">");
 				
 				for (SysMenuVO cMenu : childSysMenuList) {
 					TbSysProg cSysProg = searchProg(cMenu, sysProgList);
 					if (null == cSysProg) {
 						throw new ServiceException( BaseSystemMessage.dataErrors() );
 					}
-					navHtmlSb.append("<li class=\"nav-item\">");
-					navHtmlSb.append("<a class=\"nav-link\" href=\"#\" onclick=\"addTab('" + cSysProg.getProgId() + "', null);\">" + IconUtils.getHtmlImg(basePath, cSysProg.getIcon()) + "&nbsp;&nbsp;" + cSysProg.getName() + "</a>");
-					navHtmlSb.append("</li>");
-					
+					navHtmlSb.append("<li><a class=\"treeview-item\" href=\"#\" onclick=\"addTab('" + cSysProg.getProgId() + "', null);\"><i class=\"icon fa fa-circle-o\"></i>" + "&nbsp;&nbsp;" + cSysProg.getName() + "</a></li>");
 				}
 				
 				navHtmlSb.append("</ul>");
+				navHtmlSb.append("</li>");
 				
 			}
 			
