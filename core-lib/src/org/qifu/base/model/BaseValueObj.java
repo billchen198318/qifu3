@@ -1,5 +1,5 @@
 /* 
- * Copyright 2019-2021 qifu of copyright Chen Xin Nien
+ * Copyright 2012-2017 qifu of copyright Chen Xin Nien
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -19,18 +19,27 @@
  * contact: chen.xin.nien@gmail.com
  * 
  */
-package org.qifu.core.service;
+package org.qifu.base.model;
 
-import java.util.List;
+import java.util.Date;
 
-import org.qifu.base.exception.ServiceException;
-import org.qifu.base.model.DefaultResult;
-import org.qifu.base.service.IBaseService;
-import org.qifu.core.entity.TbSysMenu;
-import org.qifu.core.vo.SysMenuVO;
+import org.qifu.util.SimpleUtils;
 
-public interface ISysMenuService<T, E> extends IBaseService<TbSysMenu, String> {
+public abstract class BaseValueObj {
+	public abstract String getOid();	
 	
-	public DefaultResult<List<SysMenuVO>> findForMenuGenerator(String sysId, String account) throws ServiceException, Exception;
+	protected String getDateDisplayValue(Date date, String split) {
+		if (null == date) {
+			return "";
+		}
+		return SimpleUtils.getStrYMD(date, split);
+	}
+	
+	protected String getDateDisplayValue(String yyyymmdd, String split) {
+		if (null == yyyymmdd) {
+			return "";
+		}
+		return SimpleUtils.getStrYMD(yyyymmdd, split);
+	}
 	
 }

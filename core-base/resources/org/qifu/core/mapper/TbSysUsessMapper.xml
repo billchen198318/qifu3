@@ -31,6 +31,9 @@
 	</if>
 	<if test="currentId != null and currentId != '' ">
 		AND CURRENT_ID = #{currentId,jdbcType=VARCHAR}
+	</if>	
+	<if test="orderBy != null and orderBy != '' and sortType != null and sortType != '' ">
+		ORDER BY  ${orderBy} ${sortType}
 	</if>				
   </select>    
   

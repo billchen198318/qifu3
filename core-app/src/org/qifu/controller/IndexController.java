@@ -24,6 +24,9 @@ package org.qifu.controller;
 import javax.servlet.http.HttpServletRequest;
 
 import org.qifu.base.controller.BaseController;
+import org.qifu.base.exception.ServiceException;
+import org.qifu.core.model.MenuResult;
+import org.qifu.core.util.MenuSupportUtils;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -34,9 +37,24 @@ public class IndexController extends BaseController {
 	@RequestMapping({"/", "/index"})
 	public String index(ModelMap mm, HttpServletRequest request) {
 		this.getDefaultModelMap(mm);
-		mm.addAttribute("testMessage", "測試 freemarker ~~ !!");
-		
-		return "index";
+		MenuResult menuResult = null;
+		try {
+			menuResult = MenuSupportUtils.getMenuData( this.getBasePath(request) );
+			System.out.println( "---------------------------------------------------------" );
+			System.out.println( menuResult.getNavItemHtmlData() );
+			System.out.println( menuResult.getJavascriptData() );
+			System.out.println( menuResult.getModalHtmlData() );
+			System.out.println( "---------------------------------------------------------" );
+		} catch (ServiceException se) {
+			se.printStackTrace();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		if (menuResult == null) {
+			menuResult = new MenuResult();
+		}
+		mm.put("menuResult", menuResult);
+		return REDIRECT_INDEX;
 	}
 	
 }

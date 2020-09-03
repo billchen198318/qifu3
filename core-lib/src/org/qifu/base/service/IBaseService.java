@@ -39,7 +39,13 @@ public interface IBaseService<T extends java.io.Serializable, K extends java.io.
 	
 	public DefaultResult<T> selectByPrimaryKey(K pk) throws ServiceException, Exception;
 	
+	public DefaultResult<List<T>> selectList() throws ServiceException, Exception;
+	
 	public DefaultResult<List<T>> selectListByParams(Map<String, Object> paramMap) throws ServiceException, Exception;
+	
+	public DefaultResult<List<T>> selectList(String orderBy, String sortType) throws ServiceException, Exception;
+	
+	public DefaultResult<List<T>> selectListByParams(Map<String, Object> paramMap, String orderBy, String sortType) throws ServiceException, Exception;
 	
 	public DefaultResult<T> selectByUniqueKey(T mapperObj) throws ServiceException, Exception;
 	

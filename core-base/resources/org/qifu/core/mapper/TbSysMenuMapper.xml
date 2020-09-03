@@ -13,6 +13,19 @@
     <result column="UDATE" jdbcType="TIMESTAMP" property="udate" />
   </resultMap>
   
+  <!-- 組成選單需要的資料 -->
+  <resultMap id="MenuGeneratorResultMap" type="org.qifu.core.vo.SysMenuVO">
+  	<result column="OID" jdbcType="CHAR" property="oid" />
+  	<result column="PROG_ID" jdbcType="VARCHAR" property="progId" />
+  	<result column="PARENT_OID" jdbcType="CHAR" property="parentOid" />
+  	<result column="ENABLE_FLAG" jdbcType="VARCHAR" property="enableFlag" />
+  	<result column="NAME" jdbcType="VARCHAR" property="name" />
+  	<result column="URL" jdbcType="VARCHAR" property="url" />
+  	<result column="PROG_SYSTEM" jdbcType="VARCHAR" property="progSystem" />
+  	<result column="ITEM_TYPE" jdbcType="VARCHAR" property="itemType" />
+  	<result column="ICON" jdbcType="VARCHAR" property="icon" />
+  </resultMap>
+  
   <select id="selectByPrimaryKey" parameterType="java.lang.String" resultMap="BaseResultMap">
     select *
     from <include refid="org.qifu.core.mapper.DB1Config.schema"/>tb_sys_menu
@@ -32,6 +45,9 @@
 	<if test="enableFlag != null and enableFlag != '' ">
 		AND ENABLE_FLAG = #{enableFlag,jdbcType=VARCHAR}
 	</if>			
+	<if test="orderBy != null and orderBy != '' and sortType != null and sortType != '' ">
+		ORDER BY  ${orderBy} ${sortType}
+	</if>	
   </select>    
   
   <select id="findPage" parameterType="java.util.HashMap" resultMap="BaseResultMap">
@@ -157,5 +173,32 @@
     delete from <include refid="org.qifu.core.mapper.DB1Config.schema"/>tb_sys_menu
     where OID = #{oid,jdbcType=CHAR}
   </delete>  
+  
+  <!-- 組成選單需要的資料 -->
+  <select id="selectForMenuGenerator" parameterType="java.util.HashMap" resultMap="MenuGeneratorResultMap">
+	SELECT 
+		sm.OID, 
+		sm.PROG_ID, 
+		sm.PARENT_OID, 
+		sm.ENABLE_FLAG, 
+		sp.NAME, 
+		sp.URL, 
+		sp.PROG_SYSTEM, 
+		sp.ITEM_TYPE, 
+		sp.ICON
+	FROM 
+	<include refid="org.qifu.core.mapper.DB1Config.schema"/>tb_sys_menu sm,
+	<include refid="org.qifu.core.mapper.DB1Config.schema"/>tb_sys_prog sp
+	WHERE sm.PROG_ID = sp.PROG_ID
+	AND sp.PROG_SYSTEM = #{progSystem,jdbcType=VARCHAR}
+	<if test="account != null and account != '' ">
+	AND sm.PROG_ID IN (
+		SELECT PROG_ID FROM tb_sys_menu_role WHERE ROLE IN (
+			SELECT ROLE FROM tb_user_role WHERE ACCOUNT = #{account,jdbcType=VARCHAR}
+		)
+	)
+	ORDER BY sp.PROG_ID, sp.NAME ASC
+	</if>
+  </select> 
   
 </mapper>

@@ -31,6 +31,9 @@
 	<if test="logStatus != null and logStatus != '' ">
 		AND LOG_STATUS = #{logStatus,jdbcType=VARCHAR}
 	</if>			
+	<if test="orderBy != null and orderBy != '' and sortType != null and sortType != '' ">
+		ORDER BY  ${orderBy} ${sortType}
+	</if>	
   </select>    
   
   <select id="findPage" parameterType="java.util.HashMap" resultMap="BaseResultMap">

@@ -1,5 +1,5 @@
 /* 
- * Copyright 2019-2021 qifu of copyright Chen Xin Nien
+ * Copyright 2012-2017 qifu of copyright Chen Xin Nien
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -19,18 +19,19 @@
  * contact: chen.xin.nien@gmail.com
  * 
  */
-package org.qifu.core.service;
+package org.qifu.core.model;
 
-import java.util.List;
+public class MenuItemType implements java.io.Serializable {
+	private static final long serialVersionUID = -611707319025098617L;
 
-import org.qifu.base.exception.ServiceException;
-import org.qifu.base.model.DefaultResult;
-import org.qifu.base.service.IBaseService;
-import org.qifu.core.entity.TbSysMenu;
-import org.qifu.core.vo.SysMenuVO;
-
-public interface ISysMenuService<T, E> extends IBaseService<TbSysMenu, String> {
+	/**
+	 * 目錄類
+	 */
+	public static final String FOLDER = "FOLDER";
 	
-	public DefaultResult<List<SysMenuVO>> findForMenuGenerator(String sysId, String account) throws ServiceException, Exception;
+	/**
+	 * 一般功能項目
+	 */
+	public static final String ITEM = "ITEM";	
 	
 }

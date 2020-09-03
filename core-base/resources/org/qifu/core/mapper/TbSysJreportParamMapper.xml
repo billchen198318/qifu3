@@ -32,6 +32,9 @@
 	<if test="rptParam != null and rptParam != '' ">
 		AND RPT_PARAM = #{rptParam,jdbcType=VARCHAR}
 	</if>	
+	<if test="orderBy != null and orderBy != '' and sortType != null and sortType != '' ">
+		ORDER BY  ${orderBy} ${sortType}
+	</if>	
   </select>    
   
   <select id="findPage" parameterType="java.util.HashMap" resultMap="BaseResultMap">

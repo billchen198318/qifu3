@@ -23,10 +23,12 @@ package org.qifu.base.service;
 
 import java.io.IOException;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
 import org.apache.commons.lang3.StringUtils;
+import org.qifu.base.Constants;
 import org.qifu.base.exception.ServiceException;
 import org.qifu.base.mapper.IBaseMapper;
 import org.qifu.base.message.BaseSystemMessage;
@@ -35,10 +37,13 @@ import org.qifu.base.model.DefaultResult;
 import org.qifu.base.model.EntityPK;
 import org.qifu.base.model.PageOf;
 import org.qifu.base.model.QueryResult;
+import org.qifu.base.model.SortType;
 import org.qifu.base.model.UpdateField;
 import org.qifu.base.util.EntityParameterGenerateUtil;
 import org.qifu.base.util.UserLocalUtils;
 import org.qifu.util.SimpleUtils;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -52,6 +57,8 @@ import ognl.OgnlException;
  * @param <K>	PK屬性
  */
 public abstract class BaseService<T extends java.io.Serializable, K extends java.io.Serializable> implements IBaseService<T, K> {
+	
+	protected Logger logger = LoggerFactory.getLogger(getClass()); 
 	
 	protected abstract IBaseMapper<T, K> getBaseMapper();
 	
@@ -157,6 +164,18 @@ public abstract class BaseService<T extends java.io.Serializable, K extends java
 	}
 	
 	@Transactional(propagation=Propagation.REQUIRED, timeout=300, readOnly=true)
+	public DefaultResult<List<T>> selectList() throws ServiceException, Exception {
+		DefaultResult<List<T>> result = new DefaultResult<List<T>>();
+		List<T> value = (List<T>) this.getBaseMapper().selectListByParams(null);
+		if (value != null) {
+			result.setValue(value);
+		} else {
+			result.setMessage(BaseSystemMessage.searchNoData());
+		}
+		return result;		
+	}
+	
+	@Transactional(propagation=Propagation.REQUIRED, timeout=300, readOnly=true)
 	public DefaultResult<List<T>> selectListByParams(Map<String, Object> paramMap) throws ServiceException, Exception {
 		if (null == paramMap || paramMap.size() < 1) {
 			throw new ServiceException(BaseSystemMessage.parameterIncorrect());
@@ -169,6 +188,38 @@ public abstract class BaseService<T extends java.io.Serializable, K extends java
 			result.setMessage(BaseSystemMessage.searchNoData());
 		}
 		return result;
+	}
+	
+	private void setReservedParamOrderBy(Map<String, Object> paramMap, String orderBy, String sortType) throws ServiceException, Exception {
+		if (!StringUtils.isBlank(sortType) && !StringUtils.isBlank(orderBy)) {
+			if (!SortType.isAllow(sortType)) {
+				throw new ServiceException( BaseSystemMessage.parameterIncorrect() + " sort type error!");
+			}			
+			if (paramMap.get(Constants._RESERVED_PARAM_NAME_QUERY_ORDER_BY) != null) {
+				logger.warn("has found orderBy value: {} , replace to: {}", paramMap.get(Constants._RESERVED_PARAM_NAME_QUERY_ORDER_BY), orderBy);
+			}
+			if (paramMap.get(Constants._RESERVED_PARAM_NAME_QUERY_SORT_TYPE) != null) {
+				logger.warn("has found sortType value: {} , replace to: {}", paramMap.get(Constants._RESERVED_PARAM_NAME_QUERY_SORT_TYPE), sortType);
+			}
+			paramMap.put(Constants._RESERVED_PARAM_NAME_QUERY_ORDER_BY, orderBy);
+			paramMap.put(Constants._RESERVED_PARAM_NAME_QUERY_SORT_TYPE, sortType);
+		}		
+	}
+	
+	@Transactional(propagation=Propagation.REQUIRED, timeout=300, readOnly=true)
+	public DefaultResult<List<T>> selectList(String orderBy, String sortType) throws ServiceException, Exception {
+		Map<String, Object> paramMap = new HashMap<String, Object>();
+		this.setReservedParamOrderBy(paramMap, orderBy, sortType);
+		return this.selectListByParams(paramMap);
+	}	
+	
+	@Transactional(propagation=Propagation.REQUIRED, timeout=300, readOnly=true)
+	public DefaultResult<List<T>> selectListByParams(Map<String, Object> paramMap, String orderBy, String sortType) throws ServiceException, Exception {
+		if (null == paramMap || paramMap.size() < 1) {
+			throw new ServiceException(BaseSystemMessage.parameterIncorrect());
+		}
+		this.setReservedParamOrderBy(paramMap, orderBy, sortType);
+		return this.selectListByParams(paramMap);
 	}
 	
 	@Transactional(propagation=Propagation.REQUIRED, timeout=300, readOnly=true)

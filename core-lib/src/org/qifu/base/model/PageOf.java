@@ -112,8 +112,8 @@ public class PageOf implements java.io.Serializable {
 	public String getSortType() {
 		if (!StringUtils.isBlank(sortType)) {
 			sortType = sortType.toUpperCase().trim();
-			if (!"ASC".equals(sortType) && !"DESC".equals(sortType)) {
-				sortType = "ASC";
+			if (!SortType.isAllow(sortType)) {
+				sortType = SortType.ASC;
 			}
 		}
 		return sortType;

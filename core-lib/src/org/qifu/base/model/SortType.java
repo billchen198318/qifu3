@@ -19,18 +19,21 @@
  * contact: chen.xin.nien@gmail.com
  * 
  */
-package org.qifu.core.service;
+package org.qifu.base.model;
 
-import java.util.List;
+import org.apache.commons.lang3.StringUtils;
 
-import org.qifu.base.exception.ServiceException;
-import org.qifu.base.model.DefaultResult;
-import org.qifu.base.service.IBaseService;
-import org.qifu.core.entity.TbSysMenu;
-import org.qifu.core.vo.SysMenuVO;
-
-public interface ISysMenuService<T, E> extends IBaseService<TbSysMenu, String> {
+public class SortType {
 	
-	public DefaultResult<List<SysMenuVO>> findForMenuGenerator(String sysId, String account) throws ServiceException, Exception;
+	public static final String ASC = "ASC";
+	
+	public static final String DESC = "DESC";
+	
+	public static boolean isAllow(String type) {
+		if (StringUtils.defaultString(type).toUpperCase().equals(ASC) || StringUtils.defaultString(type).toUpperCase().equals(DESC)) {
+			return true;
+		}
+		return false;
+	}
 	
 }
