@@ -26,6 +26,7 @@ import javax.servlet.http.HttpServletRequest;
 import org.qifu.base.controller.BaseControllerSupport;
 import org.qifu.base.exception.ServiceException;
 import org.qifu.core.model.MenuResult;
+import org.qifu.core.util.IconUtils;
 import org.qifu.core.util.MenuSupportUtils;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
@@ -38,8 +39,12 @@ public class IndexController extends BaseControllerSupport {
 	public String index(ModelMap mm, HttpServletRequest request) {
 		this.getDefaultModelMap(mm);
 		MenuResult menuResult = null;
+		String iconJavascriptData = "";
+		String firstLoadJavascript = "";
 		try {
 			menuResult = MenuSupportUtils.getMenuData( this.getBasePath(request) );
+			firstLoadJavascript = MenuSupportUtils.getFirstLoadJavascript();
+			iconJavascriptData = IconUtils.getJsData();
 		} catch (ServiceException se) {
 			se.printStackTrace();
 		} catch (Exception e) {
@@ -49,6 +54,8 @@ public class IndexController extends BaseControllerSupport {
 			menuResult = new MenuResult();
 		}
 		mm.put("menuResult", menuResult);
+		mm.put("firstLoadJavascript", firstLoadJavascript);
+		mm.put("iconJavascriptData", iconJavascriptData);
 		return REDIRECT_INDEX;
 	}
 	

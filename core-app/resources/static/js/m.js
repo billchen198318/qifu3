@@ -205,7 +205,7 @@ function logoutEvent() {
 				if (!result) {
 					return;
 				}
-				window.location = qifu_basePath + "logout";
+				window.location = _qifu_basePath + "logout";
 			}
 	);	
 }
