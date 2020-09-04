@@ -38,7 +38,7 @@ public class LoginController {
 			request.getSession().removeAttribute("SPRING_SECURITY_LAST_EXCEPTION");
 			mm.put("errMsg", errMsg);
 		}
-		return "login";
+		return "system/login";
 	}
 	
 }
