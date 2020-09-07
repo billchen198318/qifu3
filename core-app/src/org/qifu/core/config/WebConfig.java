@@ -25,6 +25,7 @@ import org.qifu.base.CoreAppConstants;
 import org.qifu.base.interceptor.MDCInterceptor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.web.servlet.config.annotation.CorsRegistry;
 import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
 import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry;
@@ -64,6 +65,16 @@ public class WebConfig implements WebMvcConfigurer {
         	.addPathPatterns("/*", "/**")
         	.excludePathPatterns( Constants.getWebConfiginterceptorExcludePathPatterns() );
         */  
+    }
+    
+    @Override
+    public void addCorsMappings(CorsRegistry registry) {
+    	registry.addMapping("/**")
+    		.allowedOrigins("*")
+    		.allowedMethods("GET", "HEAD", "POST", "PUT", "DELETE", "OPTIONS")
+    		.allowCredentials(true)
+    		.maxAge(3600)
+    		.allowedHeaders("*");
     }
     
 }

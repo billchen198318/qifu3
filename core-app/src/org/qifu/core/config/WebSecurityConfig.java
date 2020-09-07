@@ -21,8 +21,6 @@
  */
 package org.qifu.core.config;
 
-import java.util.Arrays;
-
 import org.qifu.base.CoreAppConstants;
 import org.qifu.core.service.impl.BaseUserDetailsService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -33,9 +31,6 @@ import org.springframework.security.config.annotation.web.configuration.EnableWe
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
-import org.springframework.web.cors.CorsConfiguration;
-import org.springframework.web.cors.CorsConfigurationSource;
-import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
 import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 
 @Configuration
@@ -54,6 +49,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     @Override
     protected void configure(HttpSecurity http) throws Exception {
     	//http.cors().configurationSource(request -> new CorsConfiguration().applyPermitDefaultValues());
+    	http.headers().frameOptions().sameOrigin();
     	http.cors().and().csrf().disable()
                 .formLogin()
                 .loginPage("/loginPage")
@@ -68,16 +64,21 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .authenticated();
     }
     
+    /*
     @Bean
     CorsConfigurationSource corsConfigurationSource() {
         UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
         CorsConfiguration configuration = new CorsConfiguration();
-        configuration.setAllowedOrigins(Arrays.asList("*"));
-        configuration.setAllowedMethods(Arrays.asList("*"));
-        configuration.setAllowedHeaders(Arrays.asList("*"));
+        configuration.addAllowedOrigin("*");
+        configuration.addAllowedHeader("*");
+        configuration.addAllowedMethod("*");
+//        configuration.setAllowedOrigins(Arrays.asList("*"));
+//        configuration.setAllowedMethods(Arrays.asList("*"));
+//        configuration.setAllowedHeaders(Arrays.asList("*"));
         configuration.setAllowCredentials(true);
-        source.registerCorsConfiguration("/**", configuration.applyPermitDefaultValues());
+        source.registerCorsConfiguration("/**", configuration);
         return source;
     }
+    */
     
 }
