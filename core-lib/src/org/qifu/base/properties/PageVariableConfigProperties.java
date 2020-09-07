@@ -21,73 +21,67 @@
  */
 package org.qifu.base.properties;
 
+import org.apache.commons.lang3.math.NumberUtils;
 import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.PropertySource;
 
 @Configuration
 @PropertySource("classpath:appConfig.properties")
-@ConfigurationProperties(prefix = "base")
-public class BaseInfoConfigProperties {
+@ConfigurationProperties(prefix = "page")
+public class PageVariableConfigProperties {
 	
-	private String errorContact;
+	private String jqXhrType;
 	
-	private String verMsg;
+	private String jqXhrTimeout;
 	
-	private String jsVerBuild;
+	private String jqXhrCache;
 	
-	private String loginCaptchaCodeEnable;
+	private String jqXhrAsync;
 	
-	private String mainSystem;
-	
-	private String system;
+	private String maxUploadSize;
 
-	public String getErrorContact() {
-		return errorContact;
+	public String getJqXhrType() {
+		return jqXhrType;
 	}
 
-	public void setErrorContact(String errorContact) {
-		this.errorContact = errorContact;
+	public void setJqXhrType(String jqXhrType) {
+		this.jqXhrType = jqXhrType;
 	}
 
-	public String getVerMsg() {
-		return verMsg;
+	public String getJqXhrTimeout() {
+		return jqXhrTimeout;
 	}
 
-	public void setVerMsg(String verMsg) {
-		this.verMsg = verMsg;
+	public void setJqXhrTimeout(String jqXhrTimeout) {
+		this.jqXhrTimeout = jqXhrTimeout;
 	}
 
-	public String getJsVerBuild() {
-		return jsVerBuild;
+	public String getJqXhrCache() {
+		return jqXhrCache;
 	}
 
-	public void setJsVerBuild(String jsVerBuild) {
-		this.jsVerBuild = jsVerBuild;
+	public void setJqXhrCache(String jqXhrCache) {
+		this.jqXhrCache = jqXhrCache;
 	}
 
-	public String getLoginCaptchaCodeEnable() {
-		return loginCaptchaCodeEnable;
+	public String getJqXhrAsync() {
+		return jqXhrAsync;
 	}
 
-	public void setLoginCaptchaCodeEnable(String loginCaptchaCodeEnable) {
-		this.loginCaptchaCodeEnable = loginCaptchaCodeEnable;
+	public void setJqXhrAsync(String jqXhrAsync) {
+		this.jqXhrAsync = jqXhrAsync;
 	}
 
-	public String getMainSystem() {
-		return mainSystem;
+	public String getMaxUploadSize() {
+		if (NumberUtils.toInt(this.maxUploadSize, 0) < 1048576) {
+			return "1048576";
+		}
+		return maxUploadSize;
 	}
 
-	public void setMainSystem(String mainSystem) {
-		this.mainSystem = mainSystem;
-	}
-
-	public String getSystem() {
-		return system;
-	}
-
-	public void setSystem(String system) {
-		this.system = system;
+	public void setMaxUploadSize(String maxUploadSize) {
+		this.maxUploadSize = maxUploadSize;
 	}
 	
 }

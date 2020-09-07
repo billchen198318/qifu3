@@ -240,6 +240,13 @@
 		    <version>0.1.55</version>
 		</dependency>	
 		
+		<!-- JSP-API for tag -->
+		<dependency>
+   			<groupId>javax.servlet.jsp</groupId>
+   			<artifactId>jsp-api</artifactId>
+   			<version>2.1.1</version>
+		</dependency>			
+		
 <!-- 		<dependency> -->
 <!-- 		    <groupId>com.oracle</groupId> -->
 <!-- 		    <artifactId>ojdbc7</artifactId> -->

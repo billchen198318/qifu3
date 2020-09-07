@@ -291,6 +291,19 @@
 		</dependency>
 		-->
 		
+		<!-- JSP-API for tag -->
+		<dependency>
+   			<groupId>javax.servlet.jsp</groupId>
+   			<artifactId>jsp-api</artifactId>
+   			<version>2.1.1</version>
+		</dependency>			
+		
+		<!-- Spring security tag -->
+		<dependency>
+		    <groupId>org.springframework.security</groupId>
+		    <artifactId>spring-security-taglibs</artifactId>
+		</dependency>		
+		
 		<dependency>
 		    <groupId>org.qifu</groupId>
 		    <artifactId>core-lib</artifactId>

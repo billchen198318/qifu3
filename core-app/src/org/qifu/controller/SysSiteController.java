@@ -43,7 +43,7 @@ public class SysSiteController extends BaseControllerSupport {
 	@RequestMapping("/sysSitePage")
 	public String mainPage(ModelMap mm, HttpServletRequest request) {
 		String _page = PKG_NAME + "/" + "mainPage";
-		this.getDefaultModelMap(mm);
+		this.getDefaultModelMap(mm, "CORE_PROG001D0001Q");
 		try {
 			this.init("mainPage");
 		} catch (AuthorityException e) {
@@ -59,7 +59,7 @@ public class SysSiteController extends BaseControllerSupport {
 	@RequestMapping("/sysSiteCreatePage")
 	public String createPage(ModelMap mm, HttpServletRequest request) {
 		String _page = PKG_NAME + "/" + "createPage";
-		this.getDefaultModelMap(mm);
+		this.getDefaultModelMap(mm, "CORE_PROG001D0001A");
 		try {
 			this.init("createPage");
 		} catch (AuthorityException e) {
@@ -75,7 +75,7 @@ public class SysSiteController extends BaseControllerSupport {
 	@RequestMapping("/sysSiteEditPage")
 	public String editPage(ModelMap mm, HttpServletRequest request) {
 		String _page = PKG_NAME + "/" + "editPage";
-		this.getDefaultModelMap(mm);
+		this.getDefaultModelMap(mm, "CORE_PROG001D0001E");
 		try {
 			this.init("editPage");
 		} catch (AuthorityException e) {

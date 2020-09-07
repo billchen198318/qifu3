@@ -30,6 +30,7 @@ import java.util.Map;
 import javax.servlet.http.HttpServletRequest;
 
 import org.apache.commons.lang3.StringUtils;
+import org.apache.commons.lang3.math.NumberUtils;
 import org.qifu.base.Constants;
 import org.qifu.base.exception.BaseSysException;
 import org.qifu.base.exception.ControllerException;
@@ -40,6 +41,8 @@ import org.qifu.base.model.QueryControllerJsonResultObj;
 import org.qifu.base.model.SearchValue;
 import org.qifu.base.model.YesNo;
 import org.qifu.base.properties.BaseInfoConfigProperties;
+import org.qifu.base.properties.PageVariableConfigProperties;
+import org.qifu.core.util.MenuSupportUtils;
 import org.qifu.util.SimpleUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
@@ -70,6 +73,9 @@ public abstract class BaseControllerSupport {
 	@Autowired
 	BaseInfoConfigProperties baseInfoConfigProperties;
 	
+	@Autowired
+	PageVariableConfigProperties pageVariableConfigProperties;
+	
 	public String getPageRedirect(String url) {
 		return "redirect:/" + url;
 	}	
@@ -91,6 +97,14 @@ public abstract class BaseControllerSupport {
 		mm.addAttribute("qifu_verMsg", baseInfoConfigProperties.getVerMsg());
 		mm.addAttribute("qifu_jsVerBuild", baseInfoConfigProperties.getJsVerBuild());
 		mm.addAttribute("qifu_loginCaptchaCodeEnable", baseInfoConfigProperties.getLoginCaptchaCodeEnable());
+		mm.addAttribute("qifu_mainSystem", baseInfoConfigProperties.getMainSystem());
+		mm.addAttribute("qifu_system", baseInfoConfigProperties.getSystem());
+		mm.addAttribute("jqXhrType", this.getJqXhrType());
+		mm.addAttribute("jqXhrTimeout", this.getJqXhrTimeout());
+		mm.addAttribute("jqXhrCache", this.getJqXhrCache());
+		mm.addAttribute("jqXhrAsync", this.getJqXhrAsync());
+		mm.addAttribute("maxUploadSize", this.getMaxUploadSize());
+		mm.addAttribute("maxUploadSizeMb", NumberUtils.toInt(this.getMaxUploadSize(), 1048576)/1048576);
 		
 		/*
 		mm.addAttribute("googleMapEnable", this.getGoogleMapEnable());
@@ -101,47 +115,56 @@ public abstract class BaseControllerSupport {
 		mm.addAttribute("googleMapLanguage", this.getGoogleMapLanguage());
 		mm.addAttribute("googleMapClientLocationEnable", this.getGoogleMapClientLocationEnable());
 		mm.addAttribute("twitterEnable", this.getTwitterEnable());
-		mm.addAttribute("isSuperRole", this.isSuperRole());
-		mm.addAttribute("jqXhrType", this.getJqXhrType());
-		mm.addAttribute("jqXhrTimeout", this.getJqXhrTimeout());
-		mm.addAttribute("jqXhrCache", this.getJqXhrCache());
-		mm.addAttribute("jqXhrAsync", this.getJqXhrAsync());
-		mm.addAttribute("maxUploadSize", this.getMaxUploadSize());
-		mm.addAttribute("maxUploadSizeMb", this.getMaxUploadSizeMb());
 		*/
 		
 		return mm;
 	}
 	
-//	public ModelMap getDefaultModelMap(String progId) {
-//		ModelMap mm = this.getDefaultModelMap();
-//		if (StringUtils.isBlank(progId)) {
-//			return mm;
-//		}
-//		/*
-//		mm.addAttribute("programId", progId);
-//		mm.addAttribute("programName", MenuSupportUtils.getProgramName(progId));
-//		*/
-//		return mm;
-//	}	
+	public ModelMap getDefaultModelMap(ModelMap mm, String progId) {
+		this.getDefaultModelMap(mm);
+		if (StringUtils.isBlank(progId)) {
+			return mm;
+		}
+		mm.addAttribute("programId", progId);
+		mm.addAttribute("programName", MenuSupportUtils.getProgramName(progId));
+		return mm;
+	}	
 	
-	/*
 	public String getErrorContact() {
-		return String.valueOf( Constants.getSettingsMap().get("basePage.errorContact") );
+		return String.valueOf( baseInfoConfigProperties.getErrorContact() );
 	}
 	
 	public String getVerMsg() {
-		return String.valueOf( Constants.getSettingsMap().get("basePage.verMsg") );
+		return String.valueOf( baseInfoConfigProperties.getVerMsg() );
 	}
 	
 	public String getJsVerBuild() {
-		return String.valueOf( Constants.getSettingsMap().get("basePage.jsVerBuild") );
+		return String.valueOf( baseInfoConfigProperties.getJsVerBuild() );
 	}
 	
 	public String getLoginCaptchaCodeEnable() {
-		return Constants.getLoginCaptchaCodeEnable();
+		return baseInfoConfigProperties.getLoginCaptchaCodeEnable();
 	}
-	*/
+	
+	public String getJqXhrType() {
+		return pageVariableConfigProperties.getJqXhrType();
+	}
+
+	public String getJqXhrTimeout() {
+		return pageVariableConfigProperties.getJqXhrTimeout();
+	}
+
+	public String getJqXhrCache() {
+		return pageVariableConfigProperties.getJqXhrCache();
+	}
+
+	public String getJqXhrAsync() {
+		return pageVariableConfigProperties.getJqXhrAsync();
+	}
+
+	public String getMaxUploadSize() {
+		return pageVariableConfigProperties.getMaxUploadSize();
+	}	
 	
 	public String generateOid() {
 		return SimpleUtils.getUUIDStr();

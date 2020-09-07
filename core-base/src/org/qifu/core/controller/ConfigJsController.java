@@ -44,14 +44,12 @@ public class ConfigJsController extends BaseControllerSupport {
 		sb.append("var _qifu_please_select_name='").append(Constants.HTML_SELECT_NO_SELECT_NAME).append("';").append("\n");
 		sb.append("var _qifu_default_pageRowSize=").append(PageOf.Rows[0]).append(";").append("\n");
 		sb.append("var _qifu_basePath='").append( super.getBasePath(request) ).append("';").append("\n");
-		/*
 		sb.append("var _qifu_jqXhrType='").append( super.getJqXhrType() ).append("';").append("\n");
 		sb.append("var _qifu_jqXhrTimeout=").append( super.getJqXhrTimeout() ).append(";").append("\n");
 		sb.append("var _qifu_jqXhrCache=").append( super.getJqXhrCache() ).append(";").append("\n");
 		sb.append("var _qifu_jqXhrAsync=").append( super.getJqXhrAsync() ).append(";").append("\n");
-		*/
 		sb.append("var _qifu_defaultSelfPleaseWaitShow='").append(NO).append("';").append("\n"); // YES使用iframe 內部的 please wait, NO使用外部的 parent 的 please wait
-		//sb.append("var _qifu_maxUploadSize=").append( super.getMaxUploadSize() ).append(";").append("\n");
+		sb.append("var _qifu_maxUploadSize=").append( super.getMaxUploadSize() ).append(";").append("\n");
 		sb.append("var _qifu_pageInTabIframeParamName='").append(Constants.QIFU_PAGE_IN_TAB_IFRAME).append("';").append("\n");
 		return sb.toString();
 	}	
