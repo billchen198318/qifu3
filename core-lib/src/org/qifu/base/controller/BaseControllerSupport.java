@@ -53,12 +53,13 @@ import ognl.Ognl;
 import ognl.OgnlException;
 
 public abstract class BaseControllerSupport {
-	protected static final String PAGE_SYS_LOGIN = "view/system/login";
-	protected static final String PAGE_SYS_SEARCH_NO_DATA = "view/system/searchNoData";
-	protected static final String PAGE_SYS_LOGIN_AGAIN = "view/system/login_again";
-	protected static final String PAGE_SYS_NO_AUTH = "view/system/auth1";
-	protected static final String PAGE_SYS_ERROR = "view/system/error";
-	protected static final String PAGE_SYS_WARNING = "view/system/warning";
+	protected static final String VIEW_PAGE_PARENT_FOLDER = "view";
+	protected static final String PAGE_SYS_LOGIN = VIEW_PAGE_PARENT_FOLDER + "/system/login";
+	protected static final String PAGE_SYS_SEARCH_NO_DATA = VIEW_PAGE_PARENT_FOLDER + "/system/searchNoData";
+	protected static final String PAGE_SYS_LOGIN_AGAIN = VIEW_PAGE_PARENT_FOLDER + "/system/login_again";
+	protected static final String PAGE_SYS_NO_AUTH = VIEW_PAGE_PARENT_FOLDER + "/system/auth1";
+	protected static final String PAGE_SYS_ERROR = VIEW_PAGE_PARENT_FOLDER + "/system/error";
+	protected static final String PAGE_SYS_WARNING = VIEW_PAGE_PARENT_FOLDER + "/system/warning";
 	
 	protected static final String REDIRECT_INDEX = "index";
 	
@@ -74,7 +75,7 @@ public abstract class BaseControllerSupport {
 	}	
 	
 	public String viewPage(String page) {
-		return "view/" + page;
+		return VIEW_PAGE_PARENT_FOLDER + "/" + page;
 	}
 	
 	public ModelMap getDefaultModelMap(ModelMap mm) {
@@ -153,13 +154,6 @@ public abstract class BaseControllerSupport {
 	protected String defaultString(String str) {
 		return StringUtils.defaultString(str);
 	}
-	
-	protected void setPageMessage(HttpServletRequest request, String pageMessage) {
-		if (null!=pageMessage && pageMessage.length()>=Constants.MAX_SYS_DESCRIPTION_LENGTH) {
-			pageMessage=pageMessage.substring(0, Constants.MAX_SYS_DESCRIPTION_LENGTH);
-		}
-		request.setAttribute(Constants.PAGE_MESSAGE, pageMessage);
-	}	
 	
 	/*
 	protected void setPageErrorContact(HttpServletRequest request) {
@@ -245,31 +239,15 @@ public abstract class BaseControllerSupport {
 		return str;
 	}
 	
-	protected String getAuthorityExceptionPage(BaseSysException e, HttpServletRequest request) {
-		this.setPageMessage(request, this.getExceptionMessage(e));
-		return PAGE_SYS_NO_AUTH;
-	}
-	
 	protected String getAuthorityExceptionPage(BaseSysException e, ModelMap mm) {
 		this.setPageMessage(mm, this.getExceptionMessage(e));
 		return PAGE_SYS_NO_AUTH;
 	}	
 	
-	protected String getServiceOrControllerExceptionPage(BaseSysException e, HttpServletRequest request) {
-		this.setPageMessage(request, this.getExceptionMessage(e));
-		return PAGE_SYS_SEARCH_NO_DATA;
-	}
-		
 	protected String getServiceOrControllerExceptionPage(BaseSysException e, ModelMap mm) {
 		this.setPageMessage(mm, this.getExceptionMessage(e));
 		return PAGE_SYS_SEARCH_NO_DATA;
 	}	
-	
-	protected String getExceptionPage(Exception e, HttpServletRequest request) {
-		e.printStackTrace();
-		this.setPageMessage(request, this.getExceptionMessage(e));
-		return PAGE_SYS_ERROR;
-	}
 	
 	protected String getExceptionPage(Exception e, ModelMap mm) {
 		e.printStackTrace();
