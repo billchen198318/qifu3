@@ -156,7 +156,7 @@ public class MenuSupportUtils {
 		for (TbSys sys : sysListResult.getValue()) {
 			paramMap.clear();
 			paramMap.put("progSystem", sys.getSysId());
-			DefaultResult<List<TbSysProg>> sysProgListResult = sysProgService.selectListByParams(paramMap);
+			DefaultResult<List<TbSysProg>> sysProgListResult = sysProgService.selectListByParams(paramMap, "PROG_ID", SortType.ASC);
 			List<TbSysProg> sysProgList = sysProgListResult.getValue();
 			for (int i=0; sysProgListResult.getValue()!=null && i<sysProgListResult.getValue().size(); i++) {
 				TbSysProg sysProg = sysProgListResult.getValue().get(i);

@@ -197,8 +197,8 @@
 			SELECT ROLE FROM tb_user_role WHERE ACCOUNT = #{account,jdbcType=VARCHAR}
 		)
 	)
-	ORDER BY sp.PROG_ID, sp.NAME ASC
 	</if>
+	ORDER BY sp.PROG_ID, sp.NAME ASC
   </select> 
   
 </mapper>
