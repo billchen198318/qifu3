@@ -32,8 +32,11 @@
 	            <exclusion>
 	                <groupId>org.springframework.boot</groupId>
 	                <artifactId>spring-boot-starter-tomcat</artifactId> <!-- use undertow -->
-	                <!-- spring-boot-starter-logging -->
 	            </exclusion>
+	            <exclusion>
+	                <groupId>org.springframework.boot</groupId>
+	                <artifactId>spring-boot-starter-logging</artifactId>
+	            </exclusion>	            
 	        </exclusions>               
         </dependency>
         <!-- use undertow -->
