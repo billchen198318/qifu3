@@ -53,12 +53,12 @@ import ognl.Ognl;
 import ognl.OgnlException;
 
 public abstract class BaseControllerSupport {
-	protected static final String PAGE_SYS_LOGIN = "system/login";
-	protected static final String PAGE_SYS_SEARCH_NO_DATA = "system/searchNoData";
-	protected static final String PAGE_SYS_LOGIN_AGAIN = "system/login_again";
-	protected static final String PAGE_SYS_NO_AUTH = "system/auth1";
-	protected static final String PAGE_SYS_ERROR = "system/error";
-	protected static final String PAGE_SYS_WARNING = "system/warning";
+	protected static final String PAGE_SYS_LOGIN = "view/system/login";
+	protected static final String PAGE_SYS_SEARCH_NO_DATA = "view/system/searchNoData";
+	protected static final String PAGE_SYS_LOGIN_AGAIN = "view/system/login_again";
+	protected static final String PAGE_SYS_NO_AUTH = "view/system/auth1";
+	protected static final String PAGE_SYS_ERROR = "view/system/error";
+	protected static final String PAGE_SYS_WARNING = "view/system/warning";
 	
 	protected static final String REDIRECT_INDEX = "index";
 	
@@ -72,6 +72,10 @@ public abstract class BaseControllerSupport {
 	public String getPageRedirect(String url) {
 		return "redirect:/" + url;
 	}	
+	
+	public String viewPage(String page) {
+		return "view/" + page;
+	}
 	
 	public ModelMap getDefaultModelMap(ModelMap mm) {
 		Authentication auth = SecurityContextHolder.getContext().getAuthentication();

@@ -23,12 +23,13 @@ package org.qifu.controller;
 
 import javax.servlet.http.HttpServletRequest;
 
+import org.qifu.base.controller.BaseControllerSupport;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 @Controller
-public class LoginController {
+public class LoginController extends BaseControllerSupport {
 	
 	@RequestMapping("/loginPage")
 	public String loginPage(ModelMap mm, HttpServletRequest request) {
@@ -38,7 +39,7 @@ public class LoginController {
 			request.getSession().removeAttribute("SPRING_SECURITY_LAST_EXCEPTION");
 			mm.put("errMsg", errMsg);
 		}
-		return "system/login";
+		return PAGE_SYS_LOGIN;
 	}
 	
 }

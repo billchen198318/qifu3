@@ -56,7 +56,7 @@ public class IndexController extends BaseControllerSupport {
 		mm.put("menuResult", menuResult);
 		mm.put("firstLoadJavascript", firstLoadJavascript);
 		mm.put("iconJavascriptData", iconJavascriptData);
-		return REDIRECT_INDEX;
+		return this.viewPage("index");
 	}
 	
 }
