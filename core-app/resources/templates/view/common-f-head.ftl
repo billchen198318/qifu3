@@ -67,7 +67,7 @@ function hidePleaseWaitForQueryGrid() {
 		<div class="container-fluid">
 			<div class="row" style="width:370px; height:90px;"  >
 				<form method="post" action="core.commonUploadFileAction.action" name="commonUploadForm-${programId}" id="commonUploadForm-${programId}" enctype="multipart/form-data" >				
-					<label id="upload-label" for="upload"><img border="0" alt="help-icon" src="./icons/help-about.png"/>&nbsp;<font size='2'><strong>Drag file to color Box.</strong>&nbsp;(max size ${maxUploadSizeMb}mb)</font></label>
+					<label id="upload-label" for="upload"><img border="0" alt="help-icon" src="./icons/help-about.png"/>&nbsp;<font size='2'><strong>Drag file to color Box.</strong>&nbsp;(max size ${qifu_maxUploadSizeMb}mb)</font></label>
 					<input type="file" style="width: 360px; height: 65px;  border: 2px dotted #FFAD1C;  background: #FFEFD0; border-radius: 4px;" name="commonUploadFile" id="commonUploadFile" draggable="true" title="Drag file there." onchange="commonUploadDataEvent();"/>		
 					<input type="hidden" id="commonUploadFileType" name="commonUploadFileType" value="tmp" />
 					<input type="hidden" id="commonUploadFileIsFileMode" name="commonUploadFileIsFileMode" value="N" />
@@ -109,7 +109,7 @@ function commonUploadDataEvent() {
 	showPleaseWait();
 	$.ajax({
 		type : 'POST',
-	    url : '<%=mainBasePath%>/core.commonUploadFileJson.do',
+	    url : '${qifu_mainBasePath}core.commonUploadFileJson.do',
 	    timeout: _qifu_jqXhrTimeout,
 	    processData: false,  // tell jQuery not to process the data
 	    contentType: false,  // tell jQuery not to set contentType
@@ -171,14 +171,14 @@ function hiddenCommonUploadModal() {
 
 function commonDownloadFile(uploadOid) {
 	xhrSendParameterNoPleaseWait(
-			'<%=mainBasePath%>/core.commonCheckUploadFileJson.do', 
+			'${qifu_mainBasePath}core.commonCheckUploadFileJson.do', 
 			{ 'oid' : uploadOid}, 
 			function(data, textStatus) {
 				if ( _qifu_success_flag != data.success ) {
 					alert( data.message );
 					return;
 				}
-				$("#commonDownloadFile").attr('src', '<%=mainBasePath%>/core.commonDownloadFile.do?oid=' + uploadOid);
+				$("#commonDownloadFile").attr('src', '${qifu_mainBasePath}core.commonDownloadFile.do?oid=' + uploadOid);
 			}, 
 			function(jqXHR, textStatus, errorThrown) {
 				

@@ -1,6 +1,7 @@
 package org.qifu.core.entity;
 
 import java.util.Date;
+import java.util.List;
 
 import org.qifu.base.model.CreateDateField;
 import org.qifu.base.model.CreateUserField;
@@ -20,6 +21,9 @@ public class TbUserRole implements java.io.Serializable {
 	private Date cdate;
 	private String uuserid;
 	private Date udate;
+	
+	// for 權限檢核時要用, 準備User登入資料.
+	private List<TbRolePermission> rolePermission = null;
 	
 	@EntityPK(name = "oid", autoUUID = true)
 	public String getOid() {
@@ -90,6 +94,14 @@ public class TbUserRole implements java.io.Serializable {
 	
 	public void setUdate(Date udate) {
 		this.udate = udate;
+	}
+
+	public List<TbRolePermission> getRolePermission() {
+		return rolePermission;
+	}
+
+	public void setRolePermission(List<TbRolePermission> rolePermission) {
+		this.rolePermission = rolePermission;
 	}
 	
 }

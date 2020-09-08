@@ -25,9 +25,11 @@ import org.apache.commons.lang3.StringUtils;
 import org.qifu.base.message.BaseSystemMessage;
 import org.qifu.base.model.DefaultResult;
 import org.qifu.core.entity.TbAccount;
+import org.qifu.core.entity.TbRolePermission;
 import org.qifu.core.entity.TbUserRole;
 import org.qifu.core.model.User;
 import org.qifu.core.service.IAccountService;
+import org.qifu.core.service.IRolePermissionService;
 import org.qifu.core.service.IUserRoleService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -40,6 +42,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -56,6 +59,9 @@ public class BaseUserDetailsService implements UserDetailsService {
 
     @Autowired
     IUserRoleService<TbUserRole, String> userRoleService;
+    
+    @Autowired
+    IRolePermissionService<TbRolePermission, String> rolePermissionService;
 
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
@@ -89,7 +95,24 @@ public class BaseUserDetailsService implements UserDetailsService {
         } catch (Exception e) {
             e.printStackTrace();
         }
-        return result.getValue();
+        List<TbUserRole> roleList = result.getValue();
+        for (int i = 0; roleList != null && i < roleList.size(); i++) {
+        	TbUserRole userRole = roleList.get(i);
+        	paramMap.clear();
+        	paramMap.put("role", userRole.getRole());
+        	try {
+				DefaultResult<List<TbRolePermission>> permResult = rolePermissionService.selectListByParams(paramMap);
+				userRole.setRolePermission( permResult.getValue() );
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+        	if (userRole.getRolePermission() == null) {
+        		userRole.setRolePermission( new ArrayList<TbRolePermission>() );
+        	}
+        }
+        paramMap.clear();
+        paramMap = null;
+        return roleList;
     }
-
+    
 }

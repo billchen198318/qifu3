@@ -34,20 +34,22 @@ import org.apache.commons.lang3.math.NumberUtils;
 import org.qifu.base.Constants;
 import org.qifu.base.exception.BaseSysException;
 import org.qifu.base.exception.ControllerException;
+import org.qifu.base.message.BaseSystemMessage;
 import org.qifu.base.model.CheckControllerFieldHandler;
 import org.qifu.base.model.DefaultControllerJsonResultObj;
 import org.qifu.base.model.PageOf;
 import org.qifu.base.model.QueryControllerJsonResultObj;
+import org.qifu.base.model.QueryResult;
 import org.qifu.base.model.SearchValue;
 import org.qifu.base.model.YesNo;
 import org.qifu.base.properties.BaseInfoConfigProperties;
 import org.qifu.base.properties.PageVariableConfigProperties;
+import org.qifu.core.model.User;
+import org.qifu.core.util.ApplicationSiteUtils;
 import org.qifu.core.util.MenuSupportUtils;
+import org.qifu.core.util.UserUtils;
 import org.qifu.util.SimpleUtils;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.core.Authentication;
-import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.context.request.RequestContextHolder;
 import org.springframework.web.context.request.ServletRequestAttributes;
@@ -85,9 +87,9 @@ public abstract class BaseControllerSupport {
 	}
 	
 	public ModelMap getDefaultModelMap(ModelMap mm) {
-		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
-		if (auth.getPrincipal() instanceof UserDetails) {
-			mm.put("qifu_user", auth.getPrincipal());
+		User user = UserUtils.getCurrentUser();
+		if (user != null) {
+			mm.put("qifu_user", user);
 		}
 	    ServletRequestAttributes servletRequestAttributes = (ServletRequestAttributes) RequestContextHolder.getRequestAttributes();
 	    HttpServletRequest request = servletRequestAttributes.getRequest();
@@ -103,20 +105,16 @@ public abstract class BaseControllerSupport {
 		mm.addAttribute("jqXhrTimeout", this.getJqXhrTimeout());
 		mm.addAttribute("jqXhrCache", this.getJqXhrCache());
 		mm.addAttribute("jqXhrAsync", this.getJqXhrAsync());
-		mm.addAttribute("maxUploadSize", this.getMaxUploadSize());
-		mm.addAttribute("maxUploadSizeMb", NumberUtils.toInt(this.getMaxUploadSize(), 1048576)/1048576);
-		
-		/*
-		mm.addAttribute("googleMapEnable", this.getGoogleMapEnable());
-		mm.addAttribute("googleMapUrl", this.getGoogleMapUrl());
-		mm.addAttribute("googleMapKey", this.getGoogleMapKey());
-		mm.addAttribute("googleMapDefaultLat", this.getGoogleMapDefaultLat());
-		mm.addAttribute("googleMapDefaultLng", this.getGoogleMapDefaultLng());
-		mm.addAttribute("googleMapLanguage", this.getGoogleMapLanguage());
-		mm.addAttribute("googleMapClientLocationEnable", this.getGoogleMapClientLocationEnable());
-		mm.addAttribute("twitterEnable", this.getTwitterEnable());
-		*/
-		
+		mm.addAttribute("qifu_maxUploadSize", this.getMaxUploadSize());
+		int mbSize = NumberUtils.toInt(this.getMaxUploadSize(), 1048576)/1048576;
+		if (mbSize < 1) {
+			mbSize = 1;
+		}
+		mm.addAttribute("qifu_maxUploadSizeMb", mbSize+"");
+		mm.addAttribute("qifu_mainBasePath", basePath);
+		if (!baseInfoConfigProperties.getSystem().equals(baseInfoConfigProperties.getMainSystem())) {
+			mm.addAttribute("qifu_mainBasePath", ApplicationSiteUtils.getBasePath(baseInfoConfigProperties.getMainSystem(), request));
+		}
 		return mm;
 	}
 	
@@ -216,23 +214,21 @@ public abstract class BaseControllerSupport {
 	}	
 	
 	private void setResultDefaultValue(DefaultControllerJsonResultObj<?> result, String progId) {
-		/*
-		if (!StringUtils.isBlank(this.getAccountId())) {
-			result.setLogin( YES );
-			Subject subject = this.getSubject();
-			if (subject.hasRole(Constants.SUPER_ROLE_ALL) || subject.hasRole(Constants.SUPER_ROLE_ADMIN)) {
-				result.setIsAuthorize( YES );
-			}
-			if (subject.isPermitted(progId)) {
-				result.setIsAuthorize( YES );
-			}
-			if (!YES.equals(result.getIsAuthorize())) {
-				result.setMessage( "no authorize!" );
-			}
-		} else {
-			result.setMessage( "Please login!" );
+		User user = UserUtils.getCurrentUser();
+		if (user != null) {
+			result.setMessage( BaseSystemMessage.noLoginAccessDenied() );
+			return;
+		}				
+		result.setLogin( YES );
+		if (UserUtils.isAdmin()) {
+			result.setIsAuthorize( YES );
 		}
-		*/		
+		if (UserUtils.isPermitted(progId)) {
+			result.setIsAuthorize( YES );
+		}
+		if (!YES.equals(result.getIsAuthorize())) {
+			result.setMessage( BaseSystemMessage.noPermission() );
+		}	
 	}
 	
 	protected boolean isAuthorizeAndLoginFromControllerJsonResult(DefaultControllerJsonResultObj<?> result) {
@@ -303,20 +299,18 @@ public abstract class BaseControllerSupport {
 		return searchValue;
 	}	
 	
-	/*
 	protected <T> void setQueryGridJsonResult(QueryControllerJsonResultObj<T> jsonResult, QueryResult<T> queryResult, PageOf pageOf) {
 		if (queryResult.getValue() != null) {
 			jsonResult.setValue( queryResult.getValue() );
-			jsonResult.setPageOfCountSize( queryResult.getRowCount() );
+			jsonResult.setPageOfCountSize( NumberUtils.toInt(pageOf.getCountSize(), 0) ); // queryResult.getRowCount()
 			jsonResult.setPageOfSelect( NumberUtils.toInt(pageOf.getSelect(), 1) );
 			jsonResult.setPageOfShowRow( NumberUtils.toInt(pageOf.getShowRow(), PageOf.Rows[0]) );
 			jsonResult.setPageOfSize( NumberUtils.toInt(pageOf.getSize(), 1) );
 			jsonResult.setSuccess(YesNo.YES);
 		} else {
-			jsonResult.setMessage( queryResult.getSystemMessage().getValue() );
+			jsonResult.setMessage( queryResult.getMessage() );
 		}		
 	}
-	*/
 	
 	protected <T> CheckControllerFieldHandler<T> getCheckControllerFieldHandler(DefaultControllerJsonResultObj<T> result) {
 		return CheckControllerFieldHandler.build(result);

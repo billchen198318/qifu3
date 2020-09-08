@@ -21,7 +21,10 @@
  */
 package org.qifu.core.util;
 
+import org.apache.commons.lang3.StringUtils;
 import org.qifu.base.Constants;
+import org.qifu.core.entity.TbRolePermission;
+import org.qifu.core.entity.TbUserRole;
 import org.qifu.core.model.User;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -47,6 +50,42 @@ public class UserUtils {
 			}
 		}
 		return isAdm;
+	}
+	
+	public static boolean hasRole(String roleId) {
+		if (StringUtils.isBlank(roleId)) {
+			return false;
+		}
+		User user = getCurrentUser();
+		boolean hasRole = false;
+		if (user != null && user.getRoles() != null) {
+			for (int i = 0; i < user.getRoles().size() && !hasRole; i++) {
+				if (roleId.equals(user.getRoles().get(i).getRole())) {
+					hasRole = true;
+				}
+			}
+		}
+		return hasRole;		
+	}
+	
+	public static boolean isPermitted(String perm) {
+		if (StringUtils.isBlank(perm)) {
+			return false;
+		}
+		User user = getCurrentUser();
+		boolean isPrem = false;
+		if (user != null && user.getRoles() != null) {
+			for (int i = 0; i < user.getRoles().size() && !isPrem; i++) {
+				TbUserRole userRole = user.getRoles().get(i);
+				for (int j = 0; userRole.getRolePermission() != null && j < userRole.getRolePermission().size(); j++) {
+					TbRolePermission rolePerm = userRole.getRolePermission().get(j);
+					if (perm.equals(rolePerm.getPermission())) {
+						isPrem = true;
+					}
+				}
+			}
+		}
+		return isPrem;
 	}
 	
 }
