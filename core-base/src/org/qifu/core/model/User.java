@@ -53,7 +53,10 @@ public class User extends BaseUserInfo implements UserDetails {
     public List<GrantedAuthority> getAuthorities() {
         List<GrantedAuthority> auths = new ArrayList<GrantedAuthority>();
         for (TbUserRole userRole : this.roles) {
-            auths.add( new SimpleGrantedAuthority(userRole.getRole()) );
+            auths.add( new SimpleGrantedAuthority("ROLE_" + userRole.getRole()) );
+            for (int p = 0; userRole.getRolePermission() != null && p < userRole.getRolePermission().size(); p++) {
+            	auths.add( new SimpleGrantedAuthority(userRole.getRolePermission().get(p).getPermission()) );
+            }
         }
         return auths;
     }

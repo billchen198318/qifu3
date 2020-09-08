@@ -1,4 +1,4 @@
-<#assign security=JspTaglibs["http://www.springframework.org/security/tags"] />
+<#assign sec=JspTaglibs["http://www.springframework.org/security/tags"] />
 <#assign qifu=JspTaglibs["http://www.qifu.org/controller/tag"] />
 
 <html>
@@ -122,6 +122,6 @@ function deleteRecord(oid) {
 	id="CORE_PROG001D0001Q_grid"
 	queryFunction="queryGrid()"
 	clearFunction="clearQueryGridTable()" />
-
+	
 </body>
 </html>

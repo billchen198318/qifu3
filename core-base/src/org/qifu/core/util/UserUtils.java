@@ -36,6 +36,11 @@ public class UserUtils {
 		if (!(auth.getPrincipal() instanceof User)) {
 			return null;
 		}
+		/*
+		for (GrantedAuthority ga : auth.getAuthorities()) {
+			System.out.println(">>> GrantedAuthority:" + ga.getAuthority());
+		}
+		*/
 		return (User) auth.getPrincipal();
 	}
 	
