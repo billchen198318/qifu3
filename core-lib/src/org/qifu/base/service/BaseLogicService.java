@@ -40,7 +40,7 @@ public abstract class BaseLogicService {
 		if (auth != null && (auth.getPrincipal() instanceof UserDetails)) {
 			return ( (UserDetails) auth.getPrincipal() ).getUsername();
 		}
-		return "";
+		return null;
 	}
 	
 	public String generateOid() {

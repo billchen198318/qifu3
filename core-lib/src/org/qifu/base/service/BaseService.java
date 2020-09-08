@@ -40,11 +40,13 @@ import org.qifu.base.model.QueryResult;
 import org.qifu.base.model.SortType;
 import org.qifu.base.model.UpdateField;
 import org.qifu.base.util.EntityParameterGenerateUtil;
-import org.qifu.base.util.UserLocalUtils;
 import org.qifu.util.OgnlContextDefaultMemberAccessBuildUtils;
 import org.qifu.util.SimpleUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -73,6 +75,14 @@ public abstract class BaseService<T extends java.io.Serializable, K extends java
 			foundCustomPrimaryKeyProvide = true;
 		}
 	}	
+	
+	public String getAccountId() {
+		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+		if (auth != null && (auth.getPrincipal() instanceof UserDetails)) {
+			return ( (UserDetails) auth.getPrincipal() ).getUsername();
+		}
+		return null;
+	}
 	
 	@SuppressWarnings("unchecked")
 	private void setEntityPrimaryKey(T entity) {
@@ -107,7 +117,7 @@ public abstract class BaseService<T extends java.io.Serializable, K extends java
 		if ( field.getCreateUserField() != null && !StringUtils.isBlank(field.getCreateUserField().name()) ) {
 			try {
 				// FIXME: 要改 UserLocalUtils 為 Apache-shiro 或別的登入session管理元件
-				Ognl.setValue(field.getCreateUserField().name(), OgnlContextDefaultMemberAccessBuildUtils.newOgnlContext(), entity, UserLocalUtils.getUserInfo().getUserId());
+				Ognl.setValue(field.getCreateUserField().name(), OgnlContextDefaultMemberAccessBuildUtils.newOgnlContext(), entity, this.getAccountId());
 			} catch (OgnlException oe) {
 				oe.printStackTrace();
 			}			
@@ -129,7 +139,7 @@ public abstract class BaseService<T extends java.io.Serializable, K extends java
 		if ( field.getUpdateUserField() != null && !StringUtils.isBlank(field.getUpdateUserField().name()) ) {
 			try {
 				// FIXME: 要改 UserLocalUtils 為 Apache-shiro 或別的登入session管理元件
-				Ognl.setValue(field.getUpdateUserField().name(), OgnlContextDefaultMemberAccessBuildUtils.newOgnlContext(), entity, UserLocalUtils.getUserInfo().getUserId());
+				Ognl.setValue(field.getUpdateUserField().name(), OgnlContextDefaultMemberAccessBuildUtils.newOgnlContext(), entity, this.getAccountId());
 			} catch (OgnlException oe) {
 				oe.printStackTrace();
 			}
