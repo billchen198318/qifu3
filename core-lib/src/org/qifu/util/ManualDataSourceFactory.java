@@ -26,6 +26,7 @@ import javax.sql.DataSource;
 import org.apache.commons.lang3.StringUtils;
 
 import ognl.Ognl;
+import ognl.OgnlContext;
 
 public class ManualDataSourceFactory {
 	
@@ -51,10 +52,11 @@ public class ManualDataSourceFactory {
 			throw new Exception("url or user is required!");
 		}
 		DataSource ds = (DataSource)dataSourceClass.newInstance();
-		Ognl.setValue("url", ds, url);
-		Ognl.setValue("user", ds, user);
-		Ognl.setValue("password", ds, (null==password ? "" : password) );
+		OgnlContext ognlContext = OgnlContextDefaultMemberAccessBuildUtils.newOgnlContext();
+		Ognl.setValue("url", ognlContext, ds, url);
+		Ognl.setValue("user", ognlContext, ds, user);
+		Ognl.setValue("password", ognlContext, ds, (null==password ? "" : password) );
 		return ds;
 	}
-
+	
 }

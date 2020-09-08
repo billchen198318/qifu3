@@ -41,13 +41,13 @@ import org.qifu.base.model.SortType;
 import org.qifu.base.model.UpdateField;
 import org.qifu.base.util.EntityParameterGenerateUtil;
 import org.qifu.base.util.UserLocalUtils;
+import org.qifu.util.OgnlContextDefaultMemberAccessBuildUtils;
 import org.qifu.util.SimpleUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
-import ognl.DefaultMemberAccess;
 import ognl.Ognl;
 import ognl.OgnlContext;
 import ognl.OgnlException;
@@ -65,7 +65,6 @@ public abstract class BaseService<T extends java.io.Serializable, K extends java
 	// 自訂義主鍵值生成abstract , 移動到 IBaseServiceCustomPrimaryKeyProvide
 	//protected abstract K generateCustomPrimaryKey();
 	
-	private OgnlContext ognlContext = new OgnlContext(null,null,new DefaultMemberAccess(true));
 	private boolean foundCustomPrimaryKeyProvide = false;
 	
 	public BaseService() {
@@ -94,7 +93,7 @@ public abstract class BaseService<T extends java.io.Serializable, K extends java
 			return;
 		}		
 		try {
-			Ognl.setValue(primaryKeyField.name(), this.ognlContext, entity, value);
+			Ognl.setValue(primaryKeyField.name(), OgnlContextDefaultMemberAccessBuildUtils.newOgnlContext(), entity, value);
 		} catch (OgnlException e) {
 			e.printStackTrace();
 		}
@@ -108,14 +107,14 @@ public abstract class BaseService<T extends java.io.Serializable, K extends java
 		if ( field.getCreateUserField() != null && !StringUtils.isBlank(field.getCreateUserField().name()) ) {
 			try {
 				// FIXME: 要改 UserLocalUtils 為 Apache-shiro 或別的登入session管理元件
-				Ognl.setValue(field.getCreateUserField().name(), this.ognlContext, entity, UserLocalUtils.getUserInfo().getUserId());
+				Ognl.setValue(field.getCreateUserField().name(), OgnlContextDefaultMemberAccessBuildUtils.newOgnlContext(), entity, UserLocalUtils.getUserInfo().getUserId());
 			} catch (OgnlException oe) {
 				oe.printStackTrace();
 			}			
 		}
 		if ( field.getCreateDateField() != null && !StringUtils.isBlank(field.getCreateDateField().name()) ) {
 			try {
-				Ognl.setValue(field.getCreateDateField().name(), this.ognlContext, entity, new Date());
+				Ognl.setValue(field.getCreateDateField().name(), OgnlContextDefaultMemberAccessBuildUtils.newOgnlContext(), entity, new Date());
 			} catch (OgnlException oe) {
 				oe.printStackTrace();
 			}
@@ -130,14 +129,14 @@ public abstract class BaseService<T extends java.io.Serializable, K extends java
 		if ( field.getUpdateUserField() != null && !StringUtils.isBlank(field.getUpdateUserField().name()) ) {
 			try {
 				// FIXME: 要改 UserLocalUtils 為 Apache-shiro 或別的登入session管理元件
-				Ognl.setValue(field.getUpdateUserField().name(), this.ognlContext, entity, UserLocalUtils.getUserInfo().getUserId());
+				Ognl.setValue(field.getUpdateUserField().name(), OgnlContextDefaultMemberAccessBuildUtils.newOgnlContext(), entity, UserLocalUtils.getUserInfo().getUserId());
 			} catch (OgnlException oe) {
 				oe.printStackTrace();
 			}
 		}
 		if ( field.getUpdateDateField() != null && !StringUtils.isBlank(field.getUpdateDateField().name()) ) {
 			try {
-				Ognl.setValue(field.getUpdateDateField().name(), this.ognlContext, entity, new Date());
+				Ognl.setValue(field.getUpdateDateField().name(), OgnlContextDefaultMemberAccessBuildUtils.newOgnlContext(), entity, new Date());
 			} catch (OgnlException oe) {
 				oe.printStackTrace();
 			}
@@ -161,6 +160,14 @@ public abstract class BaseService<T extends java.io.Serializable, K extends java
 			result.setMessage(BaseSystemMessage.searchNoData());
 		}
 		return result;
+	}
+	
+	public DefaultResult<T> selectByObjPrimaryKey(T mapperObj) throws ServiceException, Exception {
+		Map<String, Object> paramMap = EntityParameterGenerateUtil.getPKParameter(mapperObj);
+		if (null == paramMap || paramMap.size() < 1) {
+			throw new ServiceException(BaseSystemMessage.parameterBlank());
+		}
+		return this.selectByPrimaryKey( (K) paramMap.get( paramMap.keySet().stream().findFirst().get() ) );
 	}
 	
 	@Transactional(propagation=Propagation.REQUIRED, timeout=300, readOnly=true)
@@ -371,7 +378,7 @@ public abstract class BaseService<T extends java.io.Serializable, K extends java
 		}
 		pageOf.setQueryOrderSortParameter(paramMap);	
 		QueryResult<List<VO>> result = new QueryResult<List<VO>>();
-		OgnlContext ognlContext = new OgnlContext(null,null,new DefaultMemberAccess(true));
+		OgnlContext ognlContext = OgnlContextDefaultMemberAccessBuildUtils.newOgnlContext();
 		ognlContext.put("paramMap", paramMap);
 		Object countSizeObj = Ognl.getValue(mapperCountMethodName+"(#paramMap)", ognlContext, this.getBaseMapper());
 		if (!(countSizeObj instanceof Long)) {

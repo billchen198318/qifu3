@@ -52,7 +52,7 @@ function deleteRecord(oid) {
 					return;
 				}
 				xhrSendParameter(
-						'./core.sysSiteDeleteJson.do', 
+						'./sysSiteDeleteJson', 
 						{ 'oid' : oid }, 
 						function(data) {
 							if ( _qifu_success_flag != data.success ) {

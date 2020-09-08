@@ -31,10 +31,9 @@ import java.util.Map;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.lang3.math.NumberUtils;
 import org.qifu.base.Constants;
+import org.qifu.util.OgnlContextDefaultMemberAccessBuildUtils;
 
-import ognl.DefaultMemberAccess;
 import ognl.Ognl;
-import ognl.OgnlContext;
 import ognl.OgnlException;
 
 public class QueryParamBuilder {
@@ -42,8 +41,6 @@ public class QueryParamBuilder {
 	private Map<String, Object> paramMap = new HashMap<String, Object>();
 	
 	private SearchBody searchBody = null;
-	
-	private OgnlContext ognlContext = new OgnlContext(null,null,new DefaultMemberAccess(true));
 	
 	public static QueryParamBuilder build(SearchBody searchBody) {
 		QueryParamBuilder paramBuilder = new QueryParamBuilder();
@@ -59,7 +56,7 @@ public class QueryParamBuilder {
 	private Object doExpression(String expression) {
 		Object val = null;
 		try {
-			val = Ognl.getValue(expression, this.ognlContext, this.searchBody.getField());
+			val = Ognl.getValue(expression, OgnlContextDefaultMemberAccessBuildUtils.newOgnlContext(), this.searchBody.getField());
 		} catch (OgnlException e) {
 			e.printStackTrace();
 		}

@@ -50,6 +50,7 @@ import org.qifu.core.model.User;
 import org.qifu.core.util.ApplicationSiteUtils;
 import org.qifu.core.util.MenuSupportUtils;
 import org.qifu.core.util.UserUtils;
+import org.qifu.util.OgnlContextDefaultMemberAccessBuildUtils;
 import org.qifu.util.SimpleUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.ui.ModelMap;
@@ -282,7 +283,7 @@ public abstract class BaseControllerSupport {
 			String key = pNames.nextElement();
 			Object value = request.getParameter(key);
 			try {
-				Ognl.setValue(key, root, value);
+				Ognl.setValue(key, OgnlContextDefaultMemberAccessBuildUtils.newOgnlContext(), root, value);
 			} catch (OgnlException e) {
 				//e.printStackTrace();
 			}

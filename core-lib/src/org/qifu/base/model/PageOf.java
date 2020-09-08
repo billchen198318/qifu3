@@ -243,4 +243,14 @@ public class PageOf implements java.io.Serializable {
 		return this;
 	}
 	
+	public PageOf sortTypeAsc() {
+		this.sortBy( SortType.ASC );
+		return this;
+	}
+	
+	public PageOf sortTypeDesc() {
+		this.sortBy( SortType.DESC );
+		return this;
+	}	
+	
 }

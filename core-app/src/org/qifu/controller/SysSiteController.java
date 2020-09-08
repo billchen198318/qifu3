@@ -22,6 +22,7 @@
 package org.qifu.controller;
 
 import java.util.List;
+import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 
@@ -29,13 +30,16 @@ import org.qifu.base.controller.BaseControllerSupport;
 import org.qifu.base.exception.AuthorityException;
 import org.qifu.base.exception.ControllerException;
 import org.qifu.base.exception.ServiceException;
+import org.qifu.base.model.DefaultControllerJsonResultObj;
+import org.qifu.base.model.DefaultResult;
 import org.qifu.base.model.PageOf;
 import org.qifu.base.model.QueryControllerJsonResultObj;
 import org.qifu.base.model.QueryResult;
 import org.qifu.base.model.SearchValue;
-import org.qifu.base.model.SortType;
 import org.qifu.core.entity.TbSys;
+import org.qifu.core.logic.IApplicationSystemLogicService;
 import org.qifu.core.service.ISysService;
+import org.qifu.core.util.IconUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.stereotype.Controller;
@@ -51,56 +55,69 @@ public class SysSiteController extends BaseControllerSupport {
 	@Autowired
 	ISysService<TbSys, String> sysService;
 	
-	private void init(String type) throws AuthorityException, ControllerException, ServiceException {
-		
+	@Autowired
+	IApplicationSystemLogicService applicationSystemLogicService;
+	
+	private void init(String type, ModelMap mm) throws AuthorityException, ControllerException, ServiceException, Exception {
+		if ("createPage".equals(type)) {
+			Map<String, String> iconDataMap = IconUtils.getIconsSelectData();
+			mm.put("iconDataMap", iconDataMap);
+			String firstIconKey = "";
+			for (Map.Entry<String, String> entry : iconDataMap.entrySet()) {
+				if ("".equals(firstIconKey)) {
+					firstIconKey = entry.getKey();
+				}
+			}
+			mm.put("firstIconKey", firstIconKey);
+		}
 	}
 	
 	@RequestMapping("/sysSitePage")
 	public String mainPage(ModelMap mm, HttpServletRequest request) {
-		String _page = PKG_NAME + "/" + "main-page";
+		String viewName = PKG_NAME + "/" + "main-page";
 		this.getDefaultModelMap(mm, "CORE_PROG001D0001Q");
 		try {
-			this.init("mainPage");
+			this.init("mainPage", mm);
 		} catch (AuthorityException e) {
-			_page = this.getAuthorityExceptionPage(e, mm);
+			viewName = this.getAuthorityExceptionPage(e, mm);
 		} catch (ControllerException | ServiceException e) {
-			_page = this.getServiceOrControllerExceptionPage(e, mm);
+			viewName = this.getServiceOrControllerExceptionPage(e, mm);
 		} catch (Exception e) {
-			_page = this.getExceptionPage(e, mm);
+			viewName = this.getExceptionPage(e, mm);
 		}
-		return this.viewPage(_page);
+		return this.viewPage(viewName);
 	}
 	
 	@RequestMapping("/sysSiteCreatePage")
 	public String createPage(ModelMap mm, HttpServletRequest request) {
-		String _page = PKG_NAME + "/" + "create-page";
+		String viewName = PKG_NAME + "/" + "create-page";
 		this.getDefaultModelMap(mm, "CORE_PROG001D0001A");
 		try {
-			this.init("createPage");
+			this.init("createPage", mm);
 		} catch (AuthorityException e) {
-			_page = this.getAuthorityExceptionPage(e, mm);
+			viewName = this.getAuthorityExceptionPage(e, mm);
 		} catch (ControllerException | ServiceException e) {
-			_page = this.getServiceOrControllerExceptionPage(e, mm);
+			viewName = this.getServiceOrControllerExceptionPage(e, mm);
 		} catch (Exception e) {
-			_page = this.getExceptionPage(e, mm);
+			viewName = this.getExceptionPage(e, mm);
 		}
-		return this.viewPage(_page);
+		return this.viewPage(viewName);
 	}	
 	
 	@RequestMapping("/sysSiteEditPage")
 	public String editPage(ModelMap mm, HttpServletRequest request) {
-		String _page = PKG_NAME + "/" + "edit-page";
+		String viewName = PKG_NAME + "/" + "edit-page";
 		this.getDefaultModelMap(mm, "CORE_PROG001D0001E");
 		try {
-			this.init("editPage");
+			this.init("editPage", mm);
 		} catch (AuthorityException e) {
-			_page = this.getAuthorityExceptionPage(e, mm);
+			viewName = this.getAuthorityExceptionPage(e, mm);
 		} catch (ControllerException | ServiceException e) {
-			_page = this.getServiceOrControllerExceptionPage(e, mm);
+			viewName = this.getServiceOrControllerExceptionPage(e, mm);
 		} catch (Exception e) {
-			_page = this.getExceptionPage(e, mm);
+			viewName = this.getExceptionPage(e, mm);
 		}	
-		return this.viewPage(_page);
+		return this.viewPage(viewName);
 	}	
 	
 	@RequestMapping(value = "/sysSiteQueryGridJson", produces = MediaType.APPLICATION_JSON_VALUE)	
@@ -112,7 +129,7 @@ public class SysSiteController extends BaseControllerSupport {
 		try {
 			QueryResult<List<TbSys>> queryResult = this.sysService.findPage(
 					this.queryParameter(searchValue, pageOf).fullEquals("sysId").fullLink("name").value(),
-					pageOf.orderBy("NAME").sortBy(SortType.ASC));
+					pageOf.orderBy("NAME").sortTypeAsc());
 			this.setQueryGridJsonResult(result, queryResult, pageOf);
 		} catch (AuthorityException | ServiceException | ControllerException e) {
 			result.setMessage( e.getMessage().toString() );			
@@ -122,9 +139,31 @@ public class SysSiteController extends BaseControllerSupport {
 		return result;
 	}	
 	
-	/*
+	private void delete(DefaultControllerJsonResultObj<Boolean> result, TbSys sys) throws AuthorityException, ControllerException, ServiceException, Exception {
+		DefaultResult<Boolean> sysResult = this.applicationSystemLogicService.delete(sys);
+		if (sysResult.getValue() != null) {
+			result.setSuccess( YES );
+		}
+		result.setMessage( sysResult.getMessage() );		
+	}	
 	
-	private void checkFields(DefaultControllerJsonResultObj<SysVO> result, SysVO sys) throws ControllerException, Exception {
+	@RequestMapping(value = "/sysSiteDeleteJson", produces = MediaType.APPLICATION_JSON_VALUE)			
+	public @ResponseBody DefaultControllerJsonResultObj<Boolean> doDelete(TbSys sys) {
+		DefaultControllerJsonResultObj<Boolean> result = this.getDefaultJsonResult("CORE_PROG001D0001D");
+		if (!this.isAuthorizeAndLoginFromControllerJsonResult(result)) {
+			return result;
+		}
+		try {
+			this.delete(result, sys);
+		} catch (AuthorityException | ServiceException | ControllerException e) {
+			result.setMessage( e.getMessage().toString() );			
+		} catch (Exception e) {
+			this.exceptionResult(result, e);
+		}
+		return result;
+	}	
+	
+	private void checkFields(DefaultControllerJsonResultObj<TbSys> result, TbSys sys) throws ControllerException, Exception {
 		this.getCheckControllerFieldHandler(result)
 		.testField("systemId", sys, "@org.apache.commons.lang3.StringUtils@isBlank(sysId)", "Id is blank!")
 		.testField("systemId", sys, "!@org.qifu.util.SimpleUtils@checkBeTrueOf_azAZ09(sysId)", "Id only normal character!")
@@ -135,16 +174,34 @@ public class SysSiteController extends BaseControllerSupport {
 		.throwMessage();		
 	}
 	
-	private void save(DefaultControllerJsonResultObj<SysVO> result, SysVO sys) throws AuthorityException, ControllerException, ServiceException, Exception {
+	private void save(DefaultControllerJsonResultObj<TbSys> result, TbSys sys) throws AuthorityException, ControllerException, ServiceException, Exception {
 		this.checkFields(result, sys);
-		DefaultResult<SysVO> sysResult = this.applicationSystemLogicService.create(sys, sys.getIcon());
+		DefaultResult<TbSys> sysResult = this.applicationSystemLogicService.create(sys, sys.getIcon());
 		if ( sysResult.getValue() != null ) {
 			result.setValue( sysResult.getValue() );
 			result.setSuccess( YES );
 		}
-		result.setMessage( sysResult.getSystemMessage().getValue() );		
+		result.setMessage( sysResult.getMessage() );		
 	}
 	
+	@RequestMapping(value = "/sysSiteSaveJson", produces = MediaType.APPLICATION_JSON_VALUE)		
+	public @ResponseBody DefaultControllerJsonResultObj<TbSys> doSave(TbSys sys) {
+		DefaultControllerJsonResultObj<TbSys> result = this.getDefaultJsonResult("CORE_PROG001D0001A");
+		if (!this.isAuthorizeAndLoginFromControllerJsonResult(result)) {
+			return result;
+		}
+		try {
+			this.save(result, sys);
+		} catch (AuthorityException | ServiceException | ControllerException e) {
+			result.setMessage( e.getMessage().toString() );			
+		} catch (Exception e) {
+			this.exceptionResult(result, e);
+		}
+		return result;
+	}
+	
+	
+	/*
 	private void update(DefaultControllerJsonResultObj<SysVO> result, SysVO sys) throws AuthorityException, ControllerException, ServiceException, Exception {
 		this.checkFields(result, sys);
 		DefaultResult<SysVO> sysResult = this.applicationSystemLogicService.update(sys, sys.getIcon());
@@ -161,23 +218,6 @@ public class SysSiteController extends BaseControllerSupport {
 			result.setSuccess( YES );
 		}
 		result.setMessage( sysResult.getSystemMessage().getValue() );		
-	}
-	
-	@ControllerMethodAuthority(check = true, programId = "CORE_PROG001D0001A")
-	@RequestMapping(value = "/core.sysSiteSaveJson.do", produces = MediaType.APPLICATION_JSON_VALUE)		
-	public @ResponseBody DefaultControllerJsonResultObj<SysVO> doSave(SysVO sys) {
-		DefaultControllerJsonResultObj<SysVO> result = this.getDefaultJsonResult("CORE_PROG001D0001A");
-		if (!this.isAuthorizeAndLoginFromControllerJsonResult(result)) {
-			return result;
-		}
-		try {
-			this.save(result, sys);
-		} catch (AuthorityException | ServiceException | ControllerException e) {
-			result.setMessage( e.getMessage().toString() );			
-		} catch (Exception e) {
-			this.exceptionResult(result, e);
-		}
-		return result;
 	}
 	
 	@ControllerMethodAuthority(check = true, programId = "CORE_PROG001D0001E")
