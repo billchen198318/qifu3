@@ -3,7 +3,7 @@
 <script type="text/javascript" src="${qifu_basePath}js/jquery-3.5.1.js?ver=${qifu_jsVerBuild}"></script>
 <link rel="stylesheet" href="${qifu_basePath}css/main.css?ver=${qifu_jsVerBuild}" >
 <link href="${qifu_basePath}font-awesome/css/font-awesome.min.css?ver=${qifu_jsVerBuild}" rel="stylesheet" type="text/css" />
-<script src="${qifu_basePath}js/bootstrap.min.js?ver=${qifu_jsVerBuild}" ></script>
+<script src="${qifu_basePath}js/bootstrap.js?ver=${qifu_jsVerBuild}" ></script>
 <script src="${qifu_basePath}configJs.js?ver=${qifu_jsVerBuild}" ></script>
 <script src="${qifu_basePath}js/f.js?ver=${qifu_jsVerBuild}" ></script>
 

@@ -136,7 +136,7 @@ function getIconUrlFromId(id) {
     <!-- Essential javascripts for application to work-->
     <script src="${qifu_basePath}js/jquery-3.3.1.min.js"></script>
     <script src="${qifu_basePath}js/popper.min.js"></script>
-    <script src="${qifu_basePath}js/bootstrap.min.js"></script>
+    <script src="${qifu_basePath}js/bootstrap.js"></script>
     <script src="${qifu_basePath}js/main.js"></script>
     <!-- The javascript plugin to display page loading on top-->
     <script src="${qifu_basePath}js/plugins/pace.min.js"></script>
