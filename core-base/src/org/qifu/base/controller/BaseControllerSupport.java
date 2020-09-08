@@ -39,7 +39,9 @@ import org.qifu.base.model.CheckControllerFieldHandler;
 import org.qifu.base.model.DefaultControllerJsonResultObj;
 import org.qifu.base.model.PageOf;
 import org.qifu.base.model.QueryControllerJsonResultObj;
+import org.qifu.base.model.QueryParamBuilder;
 import org.qifu.base.model.QueryResult;
+import org.qifu.base.model.SearchBody;
 import org.qifu.base.model.SearchValue;
 import org.qifu.base.model.YesNo;
 import org.qifu.base.properties.BaseInfoConfigProperties;
@@ -215,7 +217,7 @@ public abstract class BaseControllerSupport {
 	
 	private void setResultDefaultValue(DefaultControllerJsonResultObj<?> result, String progId) {
 		User user = UserUtils.getCurrentUser();
-		if (user != null) {
+		if (user == null) {
 			result.setMessage( BaseSystemMessage.noLoginAccessDenied() );
 			return;
 		}				
@@ -347,6 +349,19 @@ public abstract class BaseControllerSupport {
 			list.add(tmp[i]);
 		}
 		return list;
+	}	
+	
+	protected QueryParamBuilder queryParameter() {
+		return QueryParamBuilder.build();
+	}
+	
+	protected QueryParamBuilder queryParameter(SearchBody searchBody) {
+		return QueryParamBuilder.build(searchBody);
+	}		
+	
+	protected QueryParamBuilder queryParameter(SearchValue searchValue, PageOf pageOf) {
+		SearchBody searchBody = new SearchBody(pageOf, searchValue.getParameter());
+		return QueryParamBuilder.build(searchBody);
 	}	
 	
 }

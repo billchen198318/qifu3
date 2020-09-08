@@ -93,7 +93,35 @@ function deleteRecord(oid) {
 <#import "../common-f-head.ftl" as cfh />
 <@cfh.commonFormHeadContent /> 
 
+      <div class="row">
+        <div class="col-xs-6 col-md-6 col-lg-6">
+        	<@qifu.textbox name="id" value="" id="id" label="Id" placeholder="Enter Id" maxlength="10" />
+        </div>
+        <div class="col-xs-6 col-md-6 col-lg-6">
+        	<@qifu.textbox name="name" value="" id="name" label="Name" placeholder="Enter name" maxlength="100" />
+       </div>
+      </div>
+<p style="margin-bottom: 10px"></p>
+      
+<button type="button" class="btn btn-primary" id="btnQuery" onclick="queryGrid();">Query</button>
+<button type="button" class="btn btn-primary" id="btnClear" onclick="queryClear();">Clear</button>
 
+<p style="margin-bottom: 10px"></p>
+<p style="margin-bottom: 10px"></p>
+
+<@qifu.grid gridFieldStructure="getQueryGridHeader()" 
+	xhrParameter="
+	{
+		'parameter[sysId]'	: $('#id').val(),
+		'parameter[name]'	: $('#name').val(),
+		'select'			: getQueryGridSelect(),
+		'showRow'			: getQueryGridShowRow()	
+	}
+	"
+	xhrUrl="./sysSiteQueryGridJson" 
+	id="CORE_PROG001D0001Q_grid"
+	queryFunction="queryGrid()"
+	clearFunction="clearQueryGridTable()" />
 
 </body>
 </html>

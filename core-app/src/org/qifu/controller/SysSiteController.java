@@ -21,20 +21,35 @@
  */
 package org.qifu.controller;
 
+import java.util.List;
+
 import javax.servlet.http.HttpServletRequest;
 
 import org.qifu.base.controller.BaseControllerSupport;
 import org.qifu.base.exception.AuthorityException;
 import org.qifu.base.exception.ControllerException;
 import org.qifu.base.exception.ServiceException;
+import org.qifu.base.model.PageOf;
+import org.qifu.base.model.QueryControllerJsonResultObj;
+import org.qifu.base.model.QueryResult;
+import org.qifu.base.model.SearchValue;
+import org.qifu.base.model.SortType;
+import org.qifu.core.entity.TbSys;
+import org.qifu.core.service.ISysService;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.MediaType;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 @Controller
 public class SysSiteController extends BaseControllerSupport {
 	
 	protected static final String PKG_NAME = "sys_site";
+	
+	@Autowired
+	ISysService<TbSys, String> sysService;
 	
 	private void init(String type) throws AuthorityException, ControllerException, ServiceException {
 		
@@ -87,5 +102,117 @@ public class SysSiteController extends BaseControllerSupport {
 		}	
 		return this.viewPage(_page);
 	}	
+	
+	@RequestMapping(value = "/sysSiteQueryGridJson", produces = MediaType.APPLICATION_JSON_VALUE)	
+	public @ResponseBody QueryControllerJsonResultObj<List<TbSys>> queryGrid(SearchValue searchValue, PageOf pageOf) {
+		QueryControllerJsonResultObj<List<TbSys>> result = this.getQueryJsonResult("CORE_PROG001D0001Q");
+		if (!this.isAuthorizeAndLoginFromControllerJsonResult(result)) {
+			return result;
+		}
+		try {
+			QueryResult<List<TbSys>> queryResult = this.sysService.findPage(
+					this.queryParameter(searchValue, pageOf).fullEquals("sysId").fullLink("name").value(),
+					pageOf.orderBy("NAME").sortBy(SortType.ASC));
+			this.setQueryGridJsonResult(result, queryResult, pageOf);
+		} catch (AuthorityException | ServiceException | ControllerException e) {
+			result.setMessage( e.getMessage().toString() );			
+		} catch (Exception e) {
+			this.exceptionResult(result, e);
+		}
+		return result;
+	}	
+	
+	/*
+	
+	private void checkFields(DefaultControllerJsonResultObj<SysVO> result, SysVO sys) throws ControllerException, Exception {
+		this.getCheckControllerFieldHandler(result)
+		.testField("systemId", sys, "@org.apache.commons.lang3.StringUtils@isBlank(sysId)", "Id is blank!")
+		.testField("systemId", sys, "!@org.qifu.util.SimpleUtils@checkBeTrueOf_azAZ09(sysId)", "Id only normal character!")
+		.testField("systemId", ( this.noSelect(sys.getSysId()) ), "Please change Id value!") // Id 不能用  "all" 這個下拉值
+		.testField("systemName", sys, "@org.apache.commons.lang3.StringUtils@isBlank(name)", "Name is blank!")
+		.testField("systemHost", sys, "@org.apache.commons.lang3.StringUtils@isBlank(host)", "Host is blank!")
+		.testField("systemContextPath", sys, "@org.apache.commons.lang3.StringUtils@isBlank(contextPath)", "Context path is blank!")
+		.throwMessage();		
+	}
+	
+	private void save(DefaultControllerJsonResultObj<SysVO> result, SysVO sys) throws AuthorityException, ControllerException, ServiceException, Exception {
+		this.checkFields(result, sys);
+		DefaultResult<SysVO> sysResult = this.applicationSystemLogicService.create(sys, sys.getIcon());
+		if ( sysResult.getValue() != null ) {
+			result.setValue( sysResult.getValue() );
+			result.setSuccess( YES );
+		}
+		result.setMessage( sysResult.getSystemMessage().getValue() );		
+	}
+	
+	private void update(DefaultControllerJsonResultObj<SysVO> result, SysVO sys) throws AuthorityException, ControllerException, ServiceException, Exception {
+		this.checkFields(result, sys);
+		DefaultResult<SysVO> sysResult = this.applicationSystemLogicService.update(sys, sys.getIcon());
+		if ( sysResult.getValue() != null ) {
+			result.setValue( sysResult.getValue() );
+			result.setSuccess( YES );
+		}
+		result.setMessage( sysResult.getSystemMessage().getValue() );
+	}
+	
+	private void delete(DefaultControllerJsonResultObj<Boolean> result, SysVO sys) throws AuthorityException, ControllerException, ServiceException, Exception {
+		DefaultResult<Boolean> sysResult = this.applicationSystemLogicService.delete(sys);
+		if (sysResult.getValue() != null) {
+			result.setSuccess( YES );
+		}
+		result.setMessage( sysResult.getSystemMessage().getValue() );		
+	}
+	
+	@ControllerMethodAuthority(check = true, programId = "CORE_PROG001D0001A")
+	@RequestMapping(value = "/core.sysSiteSaveJson.do", produces = MediaType.APPLICATION_JSON_VALUE)		
+	public @ResponseBody DefaultControllerJsonResultObj<SysVO> doSave(SysVO sys) {
+		DefaultControllerJsonResultObj<SysVO> result = this.getDefaultJsonResult("CORE_PROG001D0001A");
+		if (!this.isAuthorizeAndLoginFromControllerJsonResult(result)) {
+			return result;
+		}
+		try {
+			this.save(result, sys);
+		} catch (AuthorityException | ServiceException | ControllerException e) {
+			result.setMessage( e.getMessage().toString() );			
+		} catch (Exception e) {
+			this.exceptionResult(result, e);
+		}
+		return result;
+	}
+	
+	@ControllerMethodAuthority(check = true, programId = "CORE_PROG001D0001E")
+	@RequestMapping(value = "/core.sysSiteUpdateJson.do", produces = MediaType.APPLICATION_JSON_VALUE)		
+	public @ResponseBody DefaultControllerJsonResultObj<SysVO> doUpdate(SysVO sys) {
+		DefaultControllerJsonResultObj<SysVO> result = this.getDefaultJsonResult("CORE_PROG001D0001E");
+		if (!this.isAuthorizeAndLoginFromControllerJsonResult(result)) {
+			return result;
+		}
+		try {
+			this.update(result, sys);
+		} catch (AuthorityException | ServiceException | ControllerException e) {
+			result.setMessage( e.getMessage().toString() );			
+		} catch (Exception e) {
+			this.exceptionResult(result, e);
+		}
+		return result;
+	}	
+	
+	@ControllerMethodAuthority(check = true, programId = "CORE_PROG001D0001D")
+	@RequestMapping(value = "/core.sysSiteDeleteJson.do", produces = MediaType.APPLICATION_JSON_VALUE)			
+	public @ResponseBody DefaultControllerJsonResultObj<Boolean> doDelete(SysVO sys) {
+		DefaultControllerJsonResultObj<Boolean> result = this.getDefaultJsonResult("CORE_PROG001D0001D");
+		if (!this.isAuthorizeAndLoginFromControllerJsonResult(result)) {
+			return result;
+		}
+		try {
+			this.delete(result, sys);
+		} catch (AuthorityException | ServiceException | ControllerException e) {
+			result.setMessage( e.getMessage().toString() );			
+		} catch (Exception e) {
+			this.exceptionResult(result, e);
+		}
+		return result;
+	}
+	 */
 	
 }

@@ -50,7 +50,7 @@
 		AND SYS_ID = #{sysId,jdbcType=VARCHAR}
 	</if>
 	<if test="name != null and name != '' ">
-		AND NAME = #{name,jdbcType=VARCHAR}
+		AND NAME LIKE #{name,jdbcType=VARCHAR}
 	</if>	
 	<if test="isLocal != null and isLocal != '' ">
 		AND IS_LOCAL = #{isLocal,jdbcType=VARCHAR}
@@ -66,7 +66,7 @@
 		AND SYS_ID = #{sysId,jdbcType=VARCHAR}
 	</if>
 	<if test="name != null and name != '' ">
-		AND NAME = #{name,jdbcType=VARCHAR}
+		AND NAME LIKE #{name,jdbcType=VARCHAR}
 	</if>	
 	<if test="isLocal != null and isLocal != '' ">
 		AND IS_LOCAL = #{isLocal,jdbcType=VARCHAR}

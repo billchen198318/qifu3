@@ -27,10 +27,20 @@ import java.util.Map;
 public class SearchBody implements java.io.Serializable {
 	private static final long serialVersionUID = -8184870209865241457L;
 	
-	private Map<String, String> field = new HashMap<String, String>();
+	private Map<String, String> field = null;
 	
-	private PageOf pageOf = new PageOf();
-
+	private PageOf pageOf = null;
+	
+	public SearchBody() {
+		this.pageOf = new PageOf();
+		this.field = new HashMap<String, String>();
+	}
+	
+	public SearchBody(PageOf pageOf, Map<String, String> field) {
+		this.pageOf = pageOf;
+		this.field = field;
+	}	
+	
 	public Map<String, String> getField() {
 		return field;
 	}
