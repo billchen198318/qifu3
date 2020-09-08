@@ -24,9 +24,9 @@ package org.qifu.base.interceptor;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import org.apache.log4j.LogManager;
-import org.apache.log4j.Logger;
-import org.apache.log4j.MDC;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.web.servlet.HandlerInterceptor;
 import org.springframework.web.servlet.ModelAndView;
 
@@ -34,12 +34,15 @@ public class MDCInterceptor implements HandlerInterceptor {
 	
 	private final static String _USERID_KEY_NAME = "userId";
 	
-	private static final Logger logger = LogManager.getLogger(MDCInterceptor.class.getName());
-	
 	@Override
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
-		// String logUserId = "";
-		// MDC.put(_USERID_KEY_NAME, logUserId);
+		String logUserId = "";
+		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+		if (auth != null && (auth.getPrincipal() instanceof UserDetails)) {
+			logUserId = ( (UserDetails) auth.getPrincipal() ).getUsername();
+		}
+		org.slf4j.MDC.put(_USERID_KEY_NAME, logUserId);
+		org.apache.log4j.MDC.put(_USERID_KEY_NAME, logUserId);
 		return true;
 	}
 	
@@ -50,7 +53,8 @@ public class MDCInterceptor implements HandlerInterceptor {
     
     @Override
     public void afterCompletion(HttpServletRequest request, HttpServletResponse response, Object handler, Exception ex) throws Exception {
-    	MDC.remove(_USERID_KEY_NAME);
+    	org.slf4j.MDC.remove(_USERID_KEY_NAME);
+    	org.apache.log4j.MDC.remove(_USERID_KEY_NAME);
     }	
     
 }
