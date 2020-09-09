@@ -63,6 +63,10 @@ public class SysSiteController extends BaseControllerSupport implements IPageNam
 	@Autowired
 	IApplicationSystemLogicService applicationSystemLogicService;
 	
+	public SysSiteController() {
+		super();
+	}
+	
 	@Override
 	public String viewPageNamespace() {
 		return "sys_site";
@@ -159,7 +163,7 @@ public class SysSiteController extends BaseControllerSupport implements IPageNam
 		}
 		try {
 			QueryResult<List<TbSys>> queryResult = this.sysService.findPage(
-					this.queryParameter(searchValue, pageOf).fullEquals("sysId").fullLink("name").value(),
+					this.queryParameter(searchValue).fullEquals("sysId").fullLink("name").value(),
 					pageOf.orderBy("NAME").sortTypeAsc());
 			this.setQueryGridJsonResult(result, queryResult, pageOf);
 		} catch (AuthorityException | ServiceException | ControllerException e) {

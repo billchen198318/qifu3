@@ -406,6 +406,11 @@ public abstract class BaseControllerSupport {
 		return QueryParamBuilder.build(searchBody);
 	}		
 	
+	protected QueryParamBuilder queryParameter(SearchValue searchValue) {
+		SearchBody searchBody = new SearchBody(searchValue.getParameter());
+		return QueryParamBuilder.build(searchBody);
+	}
+	
 	protected QueryParamBuilder queryParameter(SearchValue searchValue, PageOf pageOf) {
 		SearchBody searchBody = new SearchBody(pageOf, searchValue.getParameter());
 		return QueryParamBuilder.build(searchBody);
