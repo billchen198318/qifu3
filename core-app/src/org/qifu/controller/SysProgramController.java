@@ -24,6 +24,7 @@ package org.qifu.controller;
 import javax.servlet.http.HttpServletRequest;
 
 import org.qifu.base.controller.BaseControllerSupport;
+import org.qifu.base.controller.IPageNamespaceProvide;
 import org.qifu.base.exception.AuthorityException;
 import org.qifu.base.exception.ControllerException;
 import org.qifu.base.exception.ServiceException;
@@ -42,9 +43,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 @Controller
-public class SysProgramController extends BaseControllerSupport {
-	
-	protected static final String PKG_NAME = "sys_prog";
+public class SysProgramController extends BaseControllerSupport implements IPageNamespaceProvide {
 	
 	@Autowired
 	ISysProgService<TbSysProg, String> sysProgService;
@@ -57,6 +56,11 @@ public class SysProgramController extends BaseControllerSupport {
 	
 	@Autowired
 	ISystemProgramLogicService systemProgramLogicService;
+	
+	@Override
+	public String viewPageNamespace() {
+		return "sys_prog";
+	}	
 	
 	private void init(String type, ModelMap mm) throws AuthorityException, ControllerException, ServiceException, Exception {
 		mm.put( "sysMap", this.sysService.findSysMap(true) );
@@ -94,7 +98,7 @@ public class SysProgramController extends BaseControllerSupport {
 	
 	@RequestMapping("/sysProgramPage")
 	public String mainPage(ModelMap mm, HttpServletRequest request) {
-		String viewName = this.viewMainPage(PKG_NAME);
+		String viewName = this.viewMainPage();
 		this.getDefaultModelMap(mm, "CORE_PROG001D0002Q");
 		try {
 			this.init("mainPage", mm);
@@ -110,7 +114,7 @@ public class SysProgramController extends BaseControllerSupport {
 	
 	@RequestMapping("/sysProgramCreatePage")
 	public String createPage(ModelMap mm, HttpServletRequest request) {
-		String viewName = this.viewCreatePage(PKG_NAME);
+		String viewName = this.viewCreatePage();
 		this.getDefaultModelMap(mm, "CORE_PROG001D0002A");
 		try {
 			this.init("createPage", mm);
@@ -126,7 +130,7 @@ public class SysProgramController extends BaseControllerSupport {
 	
 	@RequestMapping("/sysProgramEditPage")
 	public String editPage(ModelMap mm, HttpServletRequest request, @RequestParam(name="oid") String oid) {
-		String viewName = this.viewEditPage(PKG_NAME);
+		String viewName = this.viewEditPage();
 		this.getDefaultModelMap(mm, "CORE_PROG001D0002E");
 		try {
 			this.init("editPage", mm);

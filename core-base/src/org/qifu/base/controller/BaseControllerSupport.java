@@ -114,6 +114,27 @@ public abstract class BaseControllerSupport {
 		return this.viewPage( packageName + "/" + CONTENT_MAIN_PAGE );
 	}		
 	
+	public String viewCreatePage() {
+		if ( this instanceof IPageNamespaceProvide ) {
+			return this.viewCreatePage( ((IPageNamespaceProvide)this).viewPageNamespace() );
+		}
+		return this.viewPage( CONTENT_CREATE_PAGE );
+	}
+	
+	public String viewEditPage() {
+		if ( this instanceof IPageNamespaceProvide ) {
+			return this.viewEditPage( ((IPageNamespaceProvide)this).viewPageNamespace() );
+		}
+		return this.viewPage( CONTENT_EDIT_PAGE );		
+	}
+	
+	public String viewMainPage() {
+		if ( this instanceof IPageNamespaceProvide ) {
+			return this.viewMainPage( ((IPageNamespaceProvide)this).viewPageNamespace() );
+		}
+		return this.viewPage( CONTENT_MAIN_PAGE );			
+	}
+	
 	public ModelMap getDefaultModelMap(ModelMap mm) {
 		User user = UserUtils.getCurrentUser();
 		if (user != null) {

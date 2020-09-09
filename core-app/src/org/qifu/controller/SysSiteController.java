@@ -27,6 +27,7 @@ import java.util.Map;
 import javax.servlet.http.HttpServletRequest;
 
 import org.qifu.base.controller.BaseControllerSupport;
+import org.qifu.base.controller.IPageNamespaceProvide;
 import org.qifu.base.exception.AuthorityException;
 import org.qifu.base.exception.ControllerException;
 import org.qifu.base.exception.ServiceException;
@@ -51,9 +52,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 @Controller
-public class SysSiteController extends BaseControllerSupport {
-	
-	protected static final String PKG_NAME = "sys_site";
+public class SysSiteController extends BaseControllerSupport implements IPageNamespaceProvide {
 	
 	@Autowired
 	ISysService<TbSys, String> sysService;
@@ -63,6 +62,11 @@ public class SysSiteController extends BaseControllerSupport {
 	
 	@Autowired
 	IApplicationSystemLogicService applicationSystemLogicService;
+	
+	@Override
+	public String viewPageNamespace() {
+		return "sys_site";
+	}	
 	
 	private void init(String type, ModelMap mm) throws AuthorityException, ControllerException, ServiceException, Exception {
 		if ("createPage".equals(type) || "editPage".equals(type)) {
@@ -100,7 +104,7 @@ public class SysSiteController extends BaseControllerSupport {
 	
 	@RequestMapping("/sysSitePage")
 	public String mainPage(ModelMap mm, HttpServletRequest request) {
-		String viewName = this.viewMainPage(PKG_NAME);
+		String viewName = this.viewMainPage();
 		this.getDefaultModelMap(mm, "CORE_PROG001D0001Q");
 		try {
 			this.init("mainPage", mm);
@@ -116,7 +120,7 @@ public class SysSiteController extends BaseControllerSupport {
 	
 	@RequestMapping("/sysSiteCreatePage")
 	public String createPage(ModelMap mm, HttpServletRequest request) {
-		String viewName = this.viewCreatePage(PKG_NAME);
+		String viewName = this.viewCreatePage();
 		this.getDefaultModelMap(mm, "CORE_PROG001D0001A");
 		try {
 			this.init("createPage", mm);
@@ -132,7 +136,7 @@ public class SysSiteController extends BaseControllerSupport {
 	
 	@RequestMapping("/sysSiteEditPage")
 	public String editPage(ModelMap mm, HttpServletRequest request, @RequestParam(name="oid") String oid) {
-		String viewName = this.viewEditPage(PKG_NAME);
+		String viewName = this.viewEditPage();
 		this.getDefaultModelMap(mm, "CORE_PROG001D0001E");
 		try {
 			this.init("editPage", mm);
