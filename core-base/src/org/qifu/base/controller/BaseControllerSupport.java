@@ -75,6 +75,10 @@ public abstract class BaseControllerSupport {
 	protected static final String NO = YesNo.NO;
 	protected static final String EXCEPTION = ControllerException.PAGE_EXCEPTION_CODE;
 	
+	protected static final String CONTENT_MAIN_PAGE = "main-page";
+	protected static final String CONTENT_CREATE_PAGE = "create-page";
+	protected static final String CONTENT_EDIT_PAGE = "edit-page";
+	
 	@Autowired
 	BaseInfoConfigProperties baseInfoConfigProperties;
 	
@@ -88,6 +92,27 @@ public abstract class BaseControllerSupport {
 	public String viewPage(String page) {
 		return VIEW_PAGE_PARENT_FOLDER + "/" + page;
 	}
+	
+	public String viewCreatePage(String packageName) {
+		if (StringUtils.isBlank(packageName)) {
+			return this.viewPage( CONTENT_CREATE_PAGE );
+		}
+		return this.viewPage( packageName + "/" + CONTENT_CREATE_PAGE );
+	}
+	
+	public String viewEditPage(String packageName) {
+		if (StringUtils.isBlank(packageName)) {
+			return this.viewPage( CONTENT_EDIT_PAGE );
+		}
+		return this.viewPage( packageName + "/" + CONTENT_EDIT_PAGE );
+	}
+	
+	public String viewMainPage(String packageName) {
+		if (StringUtils.isBlank(packageName)) {
+			return this.viewPage( CONTENT_MAIN_PAGE );
+		}
+		return this.viewPage( packageName + "/" + CONTENT_MAIN_PAGE );
+	}		
 	
 	public ModelMap getDefaultModelMap(ModelMap mm) {
 		User user = UserUtils.getCurrentUser();

@@ -21,6 +21,9 @@
  */
 package org.qifu.base.service;
 
+import java.util.LinkedHashMap;
+import java.util.Map;
+
 import org.apache.commons.lang3.RegExUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.qifu.base.Constants;
@@ -54,6 +57,14 @@ public abstract class BaseLogicService {
 	public boolean isBlank(String source) {
 		return StringUtils.isBlank(source);
 	}
+	
+	protected Map<String, String> providedSelectZeroDataMap(boolean pleaseSelectItem) {
+		Map<String, String> dataMap = new LinkedHashMap<String, String>();
+		if (pleaseSelectItem) {
+			dataMap.put(Constants.HTML_SELECT_NO_SELECT_ID, Constants.HTML_SELECT_NO_SELECT_NAME);
+		}
+		return dataMap;
+	}	
 
 	protected boolean isNoSelectId(String value) {
 		if (StringUtils.isBlank(value) || Constants.HTML_SELECT_NO_SELECT_ID.equals(value)) {

@@ -21,9 +21,14 @@
  */
 package org.qifu.core.service;
 
+import java.util.Map;
+
+import org.qifu.base.exception.ServiceException;
 import org.qifu.base.service.IBaseService;
 import org.qifu.core.entity.TbSys;
 
 public interface ISysService<T, E> extends IBaseService<TbSys, String> {
+	
+	public Map<String, String> findSysMap(boolean pleaseSelect) throws ServiceException, Exception;
 	
 }

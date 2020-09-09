@@ -27,6 +27,15 @@ import org.qifu.base.controller.BaseControllerSupport;
 import org.qifu.base.exception.AuthorityException;
 import org.qifu.base.exception.ControllerException;
 import org.qifu.base.exception.ServiceException;
+import org.qifu.core.entity.TbSys;
+import org.qifu.core.entity.TbSysIcon;
+import org.qifu.core.entity.TbSysProg;
+import org.qifu.core.logic.ISystemProgramLogicService;
+import org.qifu.core.service.ISysIconService;
+import org.qifu.core.service.ISysProgService;
+import org.qifu.core.service.ISysService;
+import org.qifu.core.util.IconUtils;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -37,17 +46,55 @@ public class SysProgramController extends BaseControllerSupport {
 	
 	protected static final String PKG_NAME = "sys_prog";
 	
+	@Autowired
+	ISysProgService<TbSysProg, String> sysProgService;
+	
+	@Autowired
+	ISysService<TbSys, String> sysService;
+	
+	@Autowired
+	ISysIconService<TbSysIcon, String> sysIconService;
+	
+	@Autowired
+	ISystemProgramLogicService systemProgramLogicService;
+	
 	private void init(String type, ModelMap mm) throws AuthorityException, ControllerException, ServiceException, Exception {
-		
+		mm.put( "sysMap", this.sysService.findSysMap(true) );
+		mm.put( "iconMap", IconUtils.getIconsSelectData() );		
 	}
 	
 	private void fetch(ModelMap mm, String oid) throws AuthorityException, ControllerException, ServiceException, Exception {
+		/*
+		DefaultResult<SysProgVO> result = this.sysProgService.findObjectByOid(sysProg);
+		if (result.getValue() == null) {
+			throw new ControllerException(result.getSystemMessage().getValue());
+		}
+		sysProg = result.getValue();
+		mv.addObject("sysProg", sysProg);
 		
+		TbSysIcon sysIcon = new TbSysIcon();
+		sysIcon.setIconId(sysProg.getIcon());
+		DefaultResult<TbSysIcon> iconResult = this.sysIconService.findEntityByUK(sysIcon);
+		if (iconResult.getValue() == null) {
+			throw new ControllerException( iconResult.getSystemMessage().getValue() );
+		}
+		sysIcon = iconResult.getValue();		
+		mv.addObject("iconSelectOid", sysIcon.getOid());
+		
+		TbSys sys = new TbSys();
+		sys.setSysId(sysProg.getProgSystem());
+		DefaultResult<TbSys> sysResult = this.sysService.findEntityByUK(sys);
+		if (sysResult.getValue() == null) {
+			throw new ControllerException( sysResult.getSystemMessage().getValue() );
+		}
+		sys = sysResult.getValue();
+		mv.addObject("sysSelectOid", sys.getOid());
+		 */
 	}
 	
 	@RequestMapping("/sysProgramPage")
 	public String mainPage(ModelMap mm, HttpServletRequest request) {
-		String viewName = PKG_NAME + "/" + "main-page";
+		String viewName = this.viewMainPage(PKG_NAME);
 		this.getDefaultModelMap(mm, "CORE_PROG001D0002Q");
 		try {
 			this.init("mainPage", mm);
@@ -58,12 +105,12 @@ public class SysProgramController extends BaseControllerSupport {
 		} catch (Exception e) {
 			viewName = this.getExceptionPage(e, mm);
 		}
-		return this.viewPage(viewName);
+		return viewName;
 	}
 	
 	@RequestMapping("/sysProgramCreatePage")
 	public String createPage(ModelMap mm, HttpServletRequest request) {
-		String viewName = PKG_NAME + "/" + "create-page";
+		String viewName = this.viewCreatePage(PKG_NAME);
 		this.getDefaultModelMap(mm, "CORE_PROG001D0002A");
 		try {
 			this.init("createPage", mm);
@@ -74,12 +121,12 @@ public class SysProgramController extends BaseControllerSupport {
 		} catch (Exception e) {
 			viewName = this.getExceptionPage(e, mm);
 		}
-		return this.viewPage(viewName);
+		return viewName;
 	}	
 	
 	@RequestMapping("/sysProgramEditPage")
 	public String editPage(ModelMap mm, HttpServletRequest request, @RequestParam(name="oid") String oid) {
-		String viewName = PKG_NAME + "/" + "edit-page";
+		String viewName = this.viewEditPage(PKG_NAME);
 		this.getDefaultModelMap(mm, "CORE_PROG001D0002E");
 		try {
 			this.init("editPage", mm);
@@ -91,7 +138,7 @@ public class SysProgramController extends BaseControllerSupport {
 		} catch (Exception e) {
 			viewName = this.getExceptionPage(e, mm);
 		}	
-		return this.viewPage(viewName);
+		return viewName;
 	}		
 	
 }

@@ -100,7 +100,7 @@ public class SysSiteController extends BaseControllerSupport {
 	
 	@RequestMapping("/sysSitePage")
 	public String mainPage(ModelMap mm, HttpServletRequest request) {
-		String viewName = PKG_NAME + "/" + "main-page";
+		String viewName = this.viewMainPage(PKG_NAME);
 		this.getDefaultModelMap(mm, "CORE_PROG001D0001Q");
 		try {
 			this.init("mainPage", mm);
@@ -111,12 +111,12 @@ public class SysSiteController extends BaseControllerSupport {
 		} catch (Exception e) {
 			viewName = this.getExceptionPage(e, mm);
 		}
-		return this.viewPage(viewName);
+		return viewName;
 	}
 	
 	@RequestMapping("/sysSiteCreatePage")
 	public String createPage(ModelMap mm, HttpServletRequest request) {
-		String viewName = PKG_NAME + "/" + "create-page";
+		String viewName = this.viewCreatePage(PKG_NAME);
 		this.getDefaultModelMap(mm, "CORE_PROG001D0001A");
 		try {
 			this.init("createPage", mm);
@@ -127,12 +127,12 @@ public class SysSiteController extends BaseControllerSupport {
 		} catch (Exception e) {
 			viewName = this.getExceptionPage(e, mm);
 		}
-		return this.viewPage(viewName);
+		return viewName;
 	}	
 	
 	@RequestMapping("/sysSiteEditPage")
 	public String editPage(ModelMap mm, HttpServletRequest request, @RequestParam(name="oid") String oid) {
-		String viewName = PKG_NAME + "/" + "edit-page";
+		String viewName = this.viewEditPage(PKG_NAME);
 		this.getDefaultModelMap(mm, "CORE_PROG001D0001E");
 		try {
 			this.init("editPage", mm);
@@ -144,7 +144,7 @@ public class SysSiteController extends BaseControllerSupport {
 		} catch (Exception e) {
 			viewName = this.getExceptionPage(e, mm);
 		}	
-		return this.viewPage(viewName);
+		return viewName;
 	}	
 	
 	@RequestMapping(value = "/sysSiteQueryGridJson", produces = MediaType.APPLICATION_JSON_VALUE)	

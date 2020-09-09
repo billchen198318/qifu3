@@ -37,6 +37,7 @@ public class IndexController extends BaseControllerSupport {
 	
 	@RequestMapping({"/", "/index"})
 	public String index(ModelMap mm, HttpServletRequest request) {
+		String viewName = this.viewPage( "index" );
 		this.getDefaultModelMap(mm);
 		MenuResult menuResult = null;
 		String iconJavascriptData = "";
@@ -46,9 +47,9 @@ public class IndexController extends BaseControllerSupport {
 			firstLoadJavascript = MenuSupportUtils.getFirstLoadJavascript();
 			iconJavascriptData = IconUtils.getJsData();
 		} catch (ServiceException se) {
-			se.printStackTrace();
+			viewName = this.getServiceOrControllerExceptionPage(se, mm);
 		} catch (Exception e) {
-			e.printStackTrace();
+			viewName = this.getExceptionPage(e, mm);
 		}
 		if (menuResult == null) {
 			menuResult = new MenuResult();
@@ -56,7 +57,7 @@ public class IndexController extends BaseControllerSupport {
 		mm.put("menuResult", menuResult);
 		mm.put("firstLoadJavascript", firstLoadJavascript);
 		mm.put("iconJavascriptData", iconJavascriptData);
-		return this.viewPage("index");
+		return viewName;
 	}
 	
 }

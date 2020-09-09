@@ -21,7 +21,12 @@
  */
 package org.qifu.core.service.impl;
 
+import java.util.List;
+import java.util.Map;
+
+import org.qifu.base.exception.ServiceException;
 import org.qifu.base.mapper.IBaseMapper;
+import org.qifu.base.model.DefaultResult;
 import org.qifu.base.service.BaseService;
 import org.qifu.core.entity.TbSys;
 import org.qifu.core.mapper.TbSysMapper;
@@ -43,6 +48,19 @@ public class SysServiceImpl extends BaseService<TbSys, String> implements ISysSe
 	@Override
 	protected IBaseMapper<TbSys, String> getBaseMapper() {
 		return this.tbSysMapper;
+	}
+
+	@Override
+	public Map<String, String> findSysMap(boolean pleaseSelect) throws ServiceException, Exception {
+		Map<String, String> sysMap = super.providedSelectZeroDataMap(pleaseSelect);
+		DefaultResult<List<TbSys>> searchResult = this.selectList();
+		if (searchResult.getValue()==null || searchResult.getValue().size()<1) {
+			return sysMap;
+		}
+		for (TbSys sys : searchResult.getValue()) {
+			sysMap.put(sys.getOid(), sys.getSysId() + " - " + sys.getName());
+		}
+		return sysMap;
 	}
 	
 }
