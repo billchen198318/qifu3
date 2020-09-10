@@ -29,7 +29,8 @@ import java.net.SocketException;
 
 import org.apache.commons.net.ftp.FTPClient;
 import org.apache.commons.net.ftp.FTPFile;
-import org.apache.log4j.Logger;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 public class FtpClientUtils { 
 	/* 
@@ -39,7 +40,7 @@ public class FtpClientUtils {
 	 * for a long period of time. The idle timeout time SHOULD be configurable, and the default should be at least 5 minutes. 
 	 */
 	public static final int TIME_OUT = 30000; // 30秒 , 5分鐘太久了
-	protected Logger logger = Logger.getLogger(FtpClientUtils.class);
+	protected Logger logger = LogManager.getLogger(FtpClientUtils.class);
 	protected FTPClient ftpClient;
 	private String ftpserver="";
 	private String ftpuser="";

@@ -34,7 +34,8 @@ import javax.servlet.http.HttpServletRequest;
 //import org.apache.commons.httpclient.params.HttpClientParams;
 //import org.apache.commons.io.FileUtils;
 import org.apache.commons.lang3.StringUtils;
-import org.apache.log4j.Logger;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.qifu.base.CoreAppConstants;
 import org.qifu.base.exception.ServiceException;
 import org.qifu.core.entity.TbSys;
@@ -45,7 +46,7 @@ import org.qifu.core.service.ISysService;
 //import com.fasterxml.jackson.databind.ObjectMapper;
 
 public class ApplicationSiteUtils {
-	protected static Logger logger = Logger.getLogger(ApplicationSiteUtils.class);
+	protected static Logger logger = LogManager.getLogger(ApplicationSiteUtils.class);
 	public static final String UPDATE_HOST_ALWAYS = "2";
 	public static final String UPDATE_HOST_ONLY_FIRST_ONE = "1";
 	private static final int TEST_JSON_HTTP_TIMEOUT = 3000; // 3秒

@@ -42,7 +42,6 @@ public class MDCInterceptor implements HandlerInterceptor {
 			logUserId = ( (UserDetails) auth.getPrincipal() ).getUsername();
 		}
 		org.slf4j.MDC.put(_USERID_KEY_NAME, logUserId);
-		org.apache.log4j.MDC.put(_USERID_KEY_NAME, logUserId);
 		return true;
 	}
 	
@@ -54,7 +53,6 @@ public class MDCInterceptor implements HandlerInterceptor {
     @Override
     public void afterCompletion(HttpServletRequest request, HttpServletResponse response, Object handler, Exception ex) throws Exception {
     	org.slf4j.MDC.remove(_USERID_KEY_NAME);
-    	org.apache.log4j.MDC.remove(_USERID_KEY_NAME);
     }	
     
 }

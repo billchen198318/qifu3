@@ -26,7 +26,8 @@ import java.util.HashMap;
 import java.util.Map;
 
 import org.apache.commons.lang3.StringUtils;
-import org.apache.log4j.Logger;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.qifu.base.exception.ServiceException;
 import org.qifu.base.message.BaseSystemMessage;
 import org.qifu.base.model.DefaultResult;
@@ -46,7 +47,7 @@ import org.springframework.transaction.annotation.Transactional;
 @Service
 @Transactional(propagation=Propagation.REQUIRED, readOnly=true)
 public class ApplicationSystemLogicServiceImpl extends BaseLogicService implements IApplicationSystemLogicService {
-	protected Logger logger=Logger.getLogger(ApplicationSystemLogicServiceImpl.class);
+	protected Logger logger=LogManager.getLogger(ApplicationSystemLogicServiceImpl.class);
 	
 	@Autowired
 	ISysIconService<TbSysIcon, String> sysIconService;

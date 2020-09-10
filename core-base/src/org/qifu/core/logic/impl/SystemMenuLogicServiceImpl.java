@@ -28,7 +28,8 @@ import java.util.List;
 import java.util.Map;
 
 import org.apache.commons.lang3.StringUtils;
-import org.apache.log4j.Logger;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.qifu.base.exception.ServiceException;
 import org.qifu.base.message.BaseSystemMessage;
 import org.qifu.base.model.DefaultResult;
@@ -49,7 +50,7 @@ import org.springframework.transaction.annotation.Transactional;
 @Service
 @Transactional(propagation=Propagation.REQUIRED, readOnly=true)
 public class SystemMenuLogicServiceImpl extends BaseLogicService implements ISystemMenuLogicService {
-	protected Logger logger=Logger.getLogger(SystemMenuLogicServiceImpl.class);
+	protected Logger logger=LogManager.getLogger(SystemMenuLogicServiceImpl.class);
 	
 	@Autowired
 	ISysProgService<TbSysProg, String> sysProgService;

@@ -25,7 +25,8 @@ import java.io.File;
 import java.util.List;
 import java.util.Vector;
 
-import org.apache.log4j.Logger;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 import com.jcraft.jsch.Channel;
 import com.jcraft.jsch.ChannelSftp;
@@ -36,7 +37,7 @@ import com.jcraft.jsch.Session;
 import com.jcraft.jsch.SftpException;
 
 public class SFtpClientUtils {
-	protected static Logger logger = Logger.getLogger(SFtpClientUtils.class);
+	protected static Logger logger = LogManager.getLogger(SFtpClientUtils.class);
 	private static JSch jsch=new JSch();
 	
 	private static Session getSession(String user, String password, String addr, int port) throws JSchException {
