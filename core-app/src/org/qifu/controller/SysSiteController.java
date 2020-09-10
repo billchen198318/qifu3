@@ -89,7 +89,7 @@ public class SysSiteController extends BaseControllerSupport implements IPageNam
 	private void fetch(ModelMap mm, String oid) throws AuthorityException, ControllerException, ServiceException, Exception {
 		TbSys sys = new TbSys();
 		sys.setOid(oid);
-		DefaultResult<TbSys> sysResult = this.sysService.selectByObjPrimaryKey(sys);
+		DefaultResult<TbSys> sysResult = this.sysService.selectByEntityPrimaryKey(sys);
 		if (sysResult.getValue() == null) {
 			throw new ControllerException(sysResult.getMessage());
 		}

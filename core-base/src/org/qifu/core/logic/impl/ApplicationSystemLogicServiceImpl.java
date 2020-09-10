@@ -103,7 +103,7 @@ public class ApplicationSystemLogicServiceImpl extends BaseLogicService implemen
 		if (sys==null || StringUtils.isBlank(sys.getOid()) ) {
 			throw new ServiceException( BaseSystemMessage.parameterBlank() );
 		}
-		DefaultResult<TbSys> sysResult = this.sysService.selectByObjPrimaryKey(sys);
+		DefaultResult<TbSys> sysResult = this.sysService.selectByEntityPrimaryKey(sys);
 		if (sysResult.getValue()==null) {
 			throw new ServiceException(sysResult.getMessage());
 		}

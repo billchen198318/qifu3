@@ -62,12 +62,12 @@ import ognl.OgnlException;
 
 public abstract class BaseControllerSupport {
 	protected static final String VIEW_PAGE_PARENT_FOLDER = "view";
-	protected static final String PAGE_SYS_LOGIN = VIEW_PAGE_PARENT_FOLDER + "/system/login";
-	protected static final String PAGE_SYS_SEARCH_NO_DATA = VIEW_PAGE_PARENT_FOLDER + "/system/searchNoData";
-	protected static final String PAGE_SYS_LOGIN_AGAIN = VIEW_PAGE_PARENT_FOLDER + "/system/login_again";
-	protected static final String PAGE_SYS_NO_AUTH = VIEW_PAGE_PARENT_FOLDER + "/system/auth1";
-	protected static final String PAGE_SYS_ERROR = VIEW_PAGE_PARENT_FOLDER + "/system/error";
-	protected static final String PAGE_SYS_WARNING = VIEW_PAGE_PARENT_FOLDER + "/system/warning";
+	protected static final String PAGE_SYS_LOGIN = VIEW_PAGE_PARENT_FOLDER + "/login";
+	protected static final String PAGE_SYS_SEARCH_NO_DATA = VIEW_PAGE_PARENT_FOLDER + "/searchNoData";
+	protected static final String PAGE_SYS_LOGIN_AGAIN = VIEW_PAGE_PARENT_FOLDER + "/login_again";
+	protected static final String PAGE_SYS_NO_AUTH = VIEW_PAGE_PARENT_FOLDER + "/auth1";
+	protected static final String PAGE_SYS_ERROR = VIEW_PAGE_PARENT_FOLDER + "/error";
+	protected static final String PAGE_SYS_WARNING = VIEW_PAGE_PARENT_FOLDER + "/warning";
 	
 	protected static final String REDIRECT_INDEX = "index";
 	

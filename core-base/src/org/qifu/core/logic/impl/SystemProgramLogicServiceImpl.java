@@ -89,14 +89,14 @@ public class SystemProgramLogicServiceImpl extends BaseLogicService implements I
 	public DefaultResult<TbSysProg> create(TbSysProg sysProg, String sysOid, String iconOid) throws ServiceException, Exception {
 		TbSys sys = new TbSys();
 		sys.setOid(sysOid);
-		DefaultResult<TbSys> sysResult = this.sysService.selectByObjPrimaryKey(sys);
+		DefaultResult<TbSys> sysResult = this.sysService.selectByEntityPrimaryKey(sys);
 		if (sysResult.getValue()==null) {
 			throw new ServiceException(sysResult.getMessage());
 		}
 		sys = sysResult.getValue();
 		TbSysIcon sysIcon = new TbSysIcon();
 		sysIcon.setOid(iconOid);
-		DefaultResult<TbSysIcon> iconResult = this.sysIconService.selectByObjPrimaryKey(sysIcon);
+		DefaultResult<TbSysIcon> iconResult = this.sysIconService.selectByEntityPrimaryKey(sysIcon);
 		if (iconResult.getValue()==null) {
 			throw new ServiceException(iconResult.getMessage());
 		}	
@@ -127,14 +127,14 @@ public class SystemProgramLogicServiceImpl extends BaseLogicService implements I
 		}
 		TbSys sys = new TbSys();
 		sys.setOid(sysOid);
-		DefaultResult<TbSys> sysResult = this.sysService.selectByObjPrimaryKey(sys);
+		DefaultResult<TbSys> sysResult = this.sysService.selectByEntityPrimaryKey(sys);
 		if (sysResult.getValue()==null) {
 			throw new ServiceException(sysResult.getMessage());
 		}
 		sys = sysResult.getValue();
 		TbSysIcon sysIcon = new TbSysIcon();
 		sysIcon.setOid(iconOid);
-		DefaultResult<TbSysIcon> iconResult = this.sysIconService.selectByObjPrimaryKey(sysIcon);
+		DefaultResult<TbSysIcon> iconResult = this.sysIconService.selectByEntityPrimaryKey(sysIcon);
 		if (iconResult.getValue()==null) {
 			throw new ServiceException(iconResult.getMessage());
 		}		
@@ -161,7 +161,7 @@ public class SystemProgramLogicServiceImpl extends BaseLogicService implements I
 		if (sysProg==null || StringUtils.isBlank(sysProg.getOid()) ) {
 			throw new ServiceException( BaseSystemMessage.parameterBlank() );
 		}		
-		DefaultResult<TbSysProg> sysProgResult = this.sysProgService.selectByObjPrimaryKey(sysProg);
+		DefaultResult<TbSysProg> sysProgResult = this.sysProgService.selectByEntityPrimaryKey(sysProg);
 		if (sysProgResult.getValue()==null) {
 			throw new ServiceException(sysProgResult.getMessage());
 		}

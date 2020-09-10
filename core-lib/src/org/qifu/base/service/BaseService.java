@@ -173,7 +173,7 @@ public abstract class BaseService<T extends java.io.Serializable, K extends java
 		return result;
 	}
 	
-	public DefaultResult<T> selectByObjPrimaryKey(T mapperObj) throws ServiceException, Exception {
+	public DefaultResult<T> selectByEntityPrimaryKey(T mapperObj) throws ServiceException, Exception {
 		Map<String, Object> paramMap = EntityParameterGenerateUtil.getPKParameter(mapperObj);
 		if (null == paramMap || paramMap.size() < 1) {
 			throw new ServiceException(BaseSystemMessage.parameterBlank());

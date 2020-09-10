@@ -5,5 +5,5 @@
 	<!-- run with Linux/FreeBSD UNIX, need settings "lower_case_table_names=1" on MySQL or MariaDB -->
 	<sql id="schema"></sql>
 	<sql id="sql1">SELECT A.* FROM (</sql>
-	<sql id="sql2"> ORDER BY  ${orderBy} ${sortType} ) A LIMIT ${startRow}, ${endRow}</sql>	
+	<sql id="sql2">) A ORDER BY ${orderBy} ${sortType} LIMIT ${startRow}, ${endRow}</sql>	
 </mapper>
