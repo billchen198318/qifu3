@@ -177,7 +177,7 @@ public class SysProgramController extends BaseControllerSupport implements IPage
 					pageOf);
 			this.setQueryGridJsonResult(result, queryResult, pageOf);
 		} catch (AuthorityException | ServiceException | ControllerException e) {
-			result.setMessage( e.getMessage().toString() );			
+			this.baseExceptionResult(result, e);
 		} catch (Exception e) {
 			this.exceptionResult(result, e);
 		}
@@ -247,7 +247,7 @@ public class SysProgramController extends BaseControllerSupport implements IPage
 					request.getParameter("dialogWidth"), 
 					request.getParameter("dialogHeight"));
 		} catch (AuthorityException | ServiceException | ControllerException e) {
-			result.setMessage( e.getMessage().toString() );			
+			this.baseExceptionResult(result, e);	
 		} catch (Exception e) {
 			this.exceptionResult(result, e);
 		}
@@ -269,7 +269,7 @@ public class SysProgramController extends BaseControllerSupport implements IPage
 					request.getParameter("dialogWidth"), 
 					request.getParameter("dialogHeight"));
 		} catch (AuthorityException | ServiceException | ControllerException e) {
-			result.setMessage( e.getMessage().toString() );			
+			this.baseExceptionResult(result, e);		
 		} catch (Exception e) {
 			this.exceptionResult(result, e);
 		}
@@ -285,7 +285,7 @@ public class SysProgramController extends BaseControllerSupport implements IPage
 		try {
 			this.delete(result, sysProg);
 		} catch (AuthorityException | ServiceException | ControllerException e) {
-			result.setMessage( e.getMessage().toString() );			
+			this.baseExceptionResult(result, e);
 		} catch (Exception e) {
 			this.exceptionResult(result, e);
 		}

@@ -287,9 +287,22 @@ public abstract class BaseControllerSupport {
 		return false;
 	}
 	
+	protected void baseExceptionResult(DefaultControllerJsonResultObj<?> result, BaseSysException e) {
+		if (e == null || e.getMessage() == null) {
+			result.setMessage( BaseSystemMessage.objectNull() );
+		} else {
+			result.setMessage( e.getMessage().toString() );
+		}
+		result.setSuccess( NO );		
+	}
+	
 	protected void exceptionResult(DefaultControllerJsonResultObj<?> result, Exception e) {
 		e.printStackTrace();
-		result.setMessage( e.getMessage().toString() );
+		if (e == null || e.getMessage() == null) {
+			result.setMessage( BaseSystemMessage.objectNull() );
+		} else {
+			result.setMessage( e.getMessage().toString() );
+		}
 		result.setSuccess( EXCEPTION );
 	}
 	

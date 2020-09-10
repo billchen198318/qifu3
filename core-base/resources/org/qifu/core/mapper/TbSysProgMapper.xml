@@ -249,4 +249,26 @@
     where OID = #{oid,jdbcType=CHAR}
   </delete>  
   
+  <!-- 找在選單中(FOLDER) 之下已存在的項目 -->
+  <select id="findForInTheFolderMenuItems" parameterType="java.util.HashMap" resultMap="BaseResultMap">
+    SELECT *
+    FROM <include refid="org.qifu.core.mapper.DB1Config.schema"/>tb_sys_prog
+    WHERE PROG_ID IN (
+    	SELECT PROG_ID
+    	FROM <include refid="org.qifu.core.mapper.DB1Config.schema"/>tb_sys_menu
+    	WHERE 1 = 1
+		<if test="menuParentOid != null and menuParentOid != '' ">
+			AND PARENT_OID = #{menuParentOid,jdbcType=CHAR}
+		</if>
+    )
+    AND EDIT_MODE = 'N'
+    <if test="progSystem != null and progSystem != '' ">
+    	AND PROG_SYSTEM = #{progSystem,jdbcType=VARCHAR}
+    </if>
+    <if test="itemType != null and itemType != '' ">
+    	AND ITEM_TYPE = #{itemType,jdbcType=VARCHAR}
+    </if>
+    ORDER BY PROG_ID ASC
+  </select>     
+  
 </mapper>

@@ -167,7 +167,7 @@ public class SysSiteController extends BaseControllerSupport implements IPageNam
 					pageOf.orderBy("NAME").sortTypeAsc());
 			this.setQueryGridJsonResult(result, queryResult, pageOf);
 		} catch (AuthorityException | ServiceException | ControllerException e) {
-			result.setMessage( e.getMessage().toString() );			
+			this.baseExceptionResult(result, e);
 		} catch (Exception e) {
 			this.exceptionResult(result, e);
 		}
@@ -191,7 +191,7 @@ public class SysSiteController extends BaseControllerSupport implements IPageNam
 		try {
 			this.delete(result, sys);
 		} catch (AuthorityException | ServiceException | ControllerException e) {
-			result.setMessage( e.getMessage().toString() );			
+			this.baseExceptionResult(result, e);
 		} catch (Exception e) {
 			this.exceptionResult(result, e);
 		}
@@ -228,7 +228,7 @@ public class SysSiteController extends BaseControllerSupport implements IPageNam
 		try {
 			this.save(result, sys);
 		} catch (AuthorityException | ServiceException | ControllerException e) {
-			result.setMessage( e.getMessage().toString() );			
+			this.baseExceptionResult(result, e);
 		} catch (Exception e) {
 			this.exceptionResult(result, e);
 		}
@@ -254,7 +254,7 @@ public class SysSiteController extends BaseControllerSupport implements IPageNam
 		try {
 			this.update(result, sys);
 		} catch (AuthorityException | ServiceException | ControllerException e) {
-			result.setMessage( e.getMessage().toString() );			
+			this.baseExceptionResult(result, e);
 		} catch (Exception e) {
 			this.exceptionResult(result, e);
 		}

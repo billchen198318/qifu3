@@ -21,9 +21,21 @@
  */
 package org.qifu.core.mapper;
 
+import java.util.List;
+import java.util.Map;
+
 import org.qifu.base.mapper.IBaseMapper;
 import org.qifu.core.entity.TbSysProg;
 
 public interface TbSysProgMapper extends IBaseMapper<TbSysProg, String> {
+	
+	/**
+	 * 找在選單中(FOLDER) 之下已存在的項目
+	 * 
+	 * @param paramMap
+	 * @return
+	 * @throws Exception
+	 */
+	public List<TbSysProg> findForInTheFolderMenuItems(Map<String, Object> paramMap) throws Exception;
 	
 }

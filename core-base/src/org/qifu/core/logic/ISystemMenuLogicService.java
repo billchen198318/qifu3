@@ -1,5 +1,5 @@
 /* 
- * Copyright 2019-2021 qifu of copyright Chen Xin Nien
+ * Copyright 2012-2016 bambooCORE, greenstep of copyright Chen Xin Nien
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -19,45 +19,41 @@
  * contact: chen.xin.nien@gmail.com
  * 
  */
-package org.qifu.core.service;
+package org.qifu.core.logic;
 
 import java.util.List;
 import java.util.Map;
 
 import org.qifu.base.exception.ServiceException;
-import org.qifu.base.service.IBaseService;
+import org.qifu.base.model.DefaultResult;
 import org.qifu.core.entity.TbSysProg;
 
-public interface ISysProgService<T, E> extends IBaseService<TbSysProg, String> {
-	
-	public Map<String, String> findSysProgFolderMap(String basePath, String progSystem, String itemType, boolean pleaseSelect) throws ServiceException, Exception;
+public interface ISystemMenuLogicService {
 	
 	/**
-	 * 找在選單中(FOLDER) 之下已存在的項目
+	 * 找出選單設定功能要的
+	 * 已在選單的程式 與 同SYS的程式
 	 * 
-	 * @param progSystem
-	 * @param menuParentOid
-	 * @param itemType
+	 * map 中的  key 
+	 * enable	- 已在選單的程式
+	 * all	- 同SYS的程式
+	 * 
+	 * @param folderProgramOid
 	 * @return
 	 * @throws ServiceException
 	 * @throws Exception
 	 */
-	public List<TbSysProg> findForInTheFolderMenuItems(String progSystem, String menuParentOid, String itemType) throws ServiceException, Exception;
+	public Map<String, List<TbSysProg>> findForMenuSettingsEnableAndAll(String folderProgramOid) throws ServiceException, Exception;
 	
 	/**
-	 * 找同 PROG_SYSTEM 的資料
+	 * 更新或是新增 TB_SYS_MENU 資料
 	 * 
-	 * select OID, PROG_ID, NAME, PROG_SYSTEM, ICON 
-	 * from tb_sys_prog 
-	 * where PROG_SYSTEM=:progSystem
-	 * and ITEM_TYPE='ITEM' 
-	 * and EDIT_MODE='N';
-	 * 
-	 * @param progSystem
+	 * @param folderProgramOid
+	 * @param childProgramOidList
 	 * @return
 	 * @throws ServiceException
 	 * @throws Exception
 	 */
-	public List<TbSysProg> findForSystemItems(String progSystem) throws ServiceException, Exception;	
+	public DefaultResult<Boolean> createOrUpdate(String folderProgramOid, List<String> childProgramOidList) throws ServiceException, Exception;
 	
 }
