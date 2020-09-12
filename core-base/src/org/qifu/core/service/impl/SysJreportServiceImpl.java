@@ -21,7 +21,14 @@
  */
 package org.qifu.core.service.impl;
 
+import java.util.List;
+import java.util.Map;
+
+import org.apache.commons.lang3.StringUtils;
+import org.qifu.base.exception.ServiceException;
 import org.qifu.base.mapper.IBaseMapper;
+import org.qifu.base.message.BaseSystemMessage;
+import org.qifu.base.model.DefaultResult;
 import org.qifu.base.service.BaseService;
 import org.qifu.core.entity.TbSysJreport;
 import org.qifu.core.mapper.TbSysJreportMapper;
@@ -43,6 +50,42 @@ public class SysJreportServiceImpl extends BaseService<TbSysJreport, String> imp
 	@Override
 	protected IBaseMapper<TbSysJreport, String> getBaseMapper() {
 		return this.sysJreportMapper;
+	}
+
+	/**
+	 * no CONTENT field for query , because sometime no need use this field, maybe field byte is big
+	 */
+	@Override
+	public DefaultResult<TbSysJreport> selectByPrimaryKeySimple(String oid) throws ServiceException, Exception {
+		if (null == oid || StringUtils.isBlank(oid)) {
+			throw new ServiceException(BaseSystemMessage.parameterBlank());
+		}
+		DefaultResult<TbSysJreport> result = new DefaultResult<TbSysJreport>();
+		TbSysJreport value = this.sysJreportMapper.selectByPrimaryKeySimple(oid);
+		if (value != null) {
+			result.setValue(value);
+		} else {
+			result.setMessage(BaseSystemMessage.searchNoData());
+		}
+		return result;
+	}
+	
+	/**
+	 * no CONTENT field for query , because sometime no need use this field, maybe field byte is big
+	 */
+	@Override
+	public DefaultResult<List<TbSysJreport>> selectListByParamsSimple(Map<String, Object> paramMap) throws ServiceException, Exception {
+		if (null == paramMap || paramMap.size() < 1) {
+			throw new ServiceException(BaseSystemMessage.parameterIncorrect());
+		}
+		DefaultResult<List<TbSysJreport>> result = new DefaultResult<List<TbSysJreport>>();
+		List<TbSysJreport> value = this.sysJreportMapper.selectListByParamsSimple(paramMap);
+		if (value != null) {
+			result.setValue(value);
+		} else {
+			result.setMessage(BaseSystemMessage.searchNoData());
+		}
+		return result;
 	}
 	
 }

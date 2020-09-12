@@ -21,9 +21,30 @@
  */
 package org.qifu.core.mapper;
 
+import java.util.List;
+import java.util.Map;
+
 import org.qifu.base.mapper.IBaseMapper;
 import org.qifu.core.entity.TbSysJreport;
 
 public interface TbSysJreportMapper extends IBaseMapper<TbSysJreport, String> {
+	
+	/**
+	 * no CONTENT field for query , because sometime no need use this field, maybe field byte is big
+	 * 
+	 * @param oid
+	 * @return
+	 * @throws Exception
+	 */
+	public TbSysJreport selectByPrimaryKeySimple(String oid) throws Exception;
+	
+	/**
+	 * no CONTENT field for query , because sometime no need use this field, maybe field byte is big
+	 * 
+	 * @param paramMap
+	 * @return
+	 * @throws Exception
+	 */
+	public List<TbSysJreport> selectListByParamsSimple(Map<String, Object> paramMap) throws Exception;
 	
 }

@@ -21,9 +21,29 @@
  */
 package org.qifu.core.mapper;
 
+import java.util.Map;
+
 import org.qifu.base.mapper.IBaseMapper;
 import org.qifu.core.entity.TbSysUpload;
 
 public interface TbSysUploadMapper extends IBaseMapper<TbSysUpload, String> {
+	
+	/**
+	 * no CONTENT field for query , because sometime no need use this field, maybe field byte is big
+	 * 
+	 * @param oid
+	 * @return
+	 * @throws Exception
+	 */
+	public TbSysUpload selectByPrimaryKeySimple(String oid) throws Exception;
+	
+	/**
+	 * 刪除 IS_FILE='N' && CONTENT 欄位放byte 類別為暫存的資料
+	 * 
+	 * @param paramMap
+	 * @return
+	 * @throws Exception
+	 */
+	public boolean deleteTmpContentBySystem(Map<String, Object> paramMap) throws Exception;
 	
 }

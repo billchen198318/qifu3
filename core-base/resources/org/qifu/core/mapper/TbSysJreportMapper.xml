@@ -15,6 +15,19 @@
     <result column="UDATE" jdbcType="TIMESTAMP" property="udate" />
   </resultMap>
   
+  <!-- no CONTENT field for query , because sometime no need use this field, maybe field byte is big -->
+  <resultMap id="SimpleBaseResultMap" type="org.qifu.core.entity.TbSysJreport">
+    <id column="OID" jdbcType="CHAR" property="oid" />
+    <result column="REPORT_ID" jdbcType="VARCHAR" property="reportId" />
+    <result column="FILE" jdbcType="VARCHAR" property="file" />
+    <result column="IS_COMPILE" jdbcType="VARCHAR" property="isCompile" />
+    <result column="DESCRIPTION" jdbcType="VARCHAR" property="description" />
+    <result column="CUSERID" jdbcType="VARCHAR" property="cuserid" />
+    <result column="CDATE" jdbcType="TIMESTAMP" property="cdate" />
+    <result column="UUSERID" jdbcType="VARCHAR" property="uuserid" />
+    <result column="UDATE" jdbcType="TIMESTAMP" property="udate" />
+  </resultMap>  
+  
   <select id="selectByPrimaryKey" parameterType="java.lang.String" resultMap="BaseResultMap">
     select *
     from <include refid="org.qifu.core.mapper.DB1Config.schema"/>tb_sys_jreport
@@ -162,5 +175,66 @@
     delete from <include refid="org.qifu.core.mapper.DB1Config.schema"/>tb_sys_jreport
     where OID = #{oid,jdbcType=CHAR}
   </delete>  
+  
+  <!-- no CONTENT field for query , because sometime no need use this field, maybe field byte is big -->
+  <select id="selectByPrimaryKeySimple" parameterType="java.lang.String" resultMap="SimpleBaseResultMap">
+    select
+		OID,
+		REPORT_ID,
+		FILE,
+		IS_COMPILE,
+		DESCRIPTION,
+		CUSERID,
+		CDATE,
+		UUSERID,
+		UDATE        
+    from <include refid="org.qifu.core.mapper.DB1Config.schema"/>tb_sys_jreport
+    where OID = #{oid,jdbcType=CHAR}
+  </select>  
+  
+  <!-- no CONTENT field for query , because sometime no need use this field, maybe field byte is big -->
+  <select id="selectListByParamsSimple" parameterType="java.util.HashMap" resultMap="SimpleBaseResultMap">
+    select
+		OID,
+		REPORT_ID,
+		FILE,
+		IS_COMPILE,
+		DESCRIPTION,
+		CUSERID,
+		CDATE,
+		UUSERID,
+		UDATE        
+    from <include refid="org.qifu.core.mapper.DB1Config.schema"/>tb_sys_jreport
+    WHERE 1=1
+	<if test="reportId != null and reportId != '' ">
+		AND REPORT_ID = #{reportId,jdbcType=VARCHAR}
+	</if>	
+	<if test="orderBy != null and orderBy != '' and sortType != null and sortType != '' ">
+		ORDER BY  ${orderBy} ${sortType}
+	</if>	
+  </select>    
+  
+  <!-- no CONTENT field for query , because sometime no need use this field, maybe field byte is big -->
+  <select id="findPageSimple" parameterType="java.util.HashMap" resultMap="SimpleBaseResultMap">
+  	<include refid="org.qifu.core.mapper.DB1Config.sql1"/>
+  	
+    select
+		OID,
+		REPORT_ID,
+		FILE,
+		IS_COMPILE,
+		DESCRIPTION,
+		CUSERID,
+		CDATE,
+		UUSERID,
+		UDATE    
+    from <include refid="org.qifu.core.mapper.DB1Config.schema"/>tb_sys_jreport
+    WHERE 1=1
+	<if test="reportId != null and reportId != '' ">
+		AND REPORT_ID = #{reportId,jdbcType=VARCHAR}
+	</if>	
+		
+	<include refid="org.qifu.core.mapper.DB1Config.sql2"/>
+  </select>    
   
 </mapper>

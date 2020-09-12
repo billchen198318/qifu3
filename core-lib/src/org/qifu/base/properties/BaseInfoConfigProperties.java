@@ -41,6 +41,8 @@ public class BaseInfoConfigProperties {
 	private String mainSystem;
 	
 	private String system;
+	
+	private String uploadDir;
 
 	public String getErrorContact() {
 		return errorContact;
@@ -88,6 +90,14 @@ public class BaseInfoConfigProperties {
 
 	public void setSystem(String system) {
 		this.system = system;
+	}
+
+	public String getUploadDir() {
+		return uploadDir;
+	}
+
+	public void setUploadDir(String uploadDir) {
+		this.uploadDir = uploadDir;
 	}
 	
 }

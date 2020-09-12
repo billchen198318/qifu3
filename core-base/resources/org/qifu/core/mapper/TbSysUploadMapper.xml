@@ -10,11 +10,27 @@
     <result column="FILE_NAME" jdbcType="VARCHAR" property="fileName" />
     <result column="SHOW_NAME" jdbcType="VARCHAR" property="showName" />
     <result column="IS_FILE" jdbcType="VARCHAR" property="isFile" />
+    <result column="CONTENT" jdbcType="LONGVARBINARY" property="content" />
     <result column="CUSERID" jdbcType="VARCHAR" property="cuserid" />
     <result column="CDATE" jdbcType="TIMESTAMP" property="cdate" />
     <result column="UUSERID" jdbcType="VARCHAR" property="uuserid" />
     <result column="UDATE" jdbcType="TIMESTAMP" property="udate" />
   </resultMap>
+  
+  <!-- no CONTENT field for query , because sometime no need use this field, maybe field byte is big -->
+  <resultMap id="SimpleBaseResultMap" type="org.qifu.core.entity.TbSysUpload">
+    <id column="OID" jdbcType="CHAR" property="oid" />
+    <result column="SYSTEM" jdbcType="VARCHAR" property="system" />
+    <result column="SUB_DIR" jdbcType="VARCHAR" property="subDir" />
+    <result column="TYPE" jdbcType="VARCHAR" property="type" />
+    <result column="FILE_NAME" jdbcType="VARCHAR" property="fileName" />
+    <result column="SHOW_NAME" jdbcType="VARCHAR" property="showName" />
+    <result column="IS_FILE" jdbcType="VARCHAR" property="isFile" />
+    <result column="CUSERID" jdbcType="VARCHAR" property="cuserid" />
+    <result column="CDATE" jdbcType="TIMESTAMP" property="cdate" />
+    <result column="UUSERID" jdbcType="VARCHAR" property="uuserid" />
+    <result column="UDATE" jdbcType="TIMESTAMP" property="udate" />
+  </resultMap>  
   
   <select id="selectByPrimaryKey" parameterType="java.lang.String" resultMap="BaseResultMap">
     select *
@@ -199,5 +215,31 @@
     delete from <include refid="org.qifu.core.mapper.DB1Config.schema"/>tb_sys_upload
     where OID = #{oid,jdbcType=CHAR}
   </delete>  
+  
+  <!-- no CONTENT field for query , because sometime no need use this field, maybe field byte is big -->
+  <select id="selectByPrimaryKeySimple" parameterType="java.lang.String" resultMap="SimpleBaseResultMap">
+    select
+		OID,
+		SYSTEM,
+		SUB_DIR,
+		TYPE,
+		FILE_NAME,
+		SHOW_NAME,
+		IS_FILE,
+		CUSERID,
+		CDATE,
+		UUSERID,
+		UDATE
+    from <include refid="org.qifu.core.mapper.DB1Config.schema"/>tb_sys_upload
+    where OID = #{oid,jdbcType=CHAR}
+  </select>    
+  
+  <!-- 刪除 IS_FILE='N' && CONTENT 欄位放byte 類別為暫存的資料 -->
+  <delete id="deleteTmpContentBySystem" parameterType="java.util.HashMap">
+    delete from <include refid="org.qifu.core.mapper.DB1Config.schema"/>tb_sys_upload
+    where SYSTEM = #{system,jdbcType=VARCHAR}
+    and TYPE = #{type,jdbcType=VARCHAR}
+    and IS_FILE = #{isFile,jdbcType=VARCHAR}
+  </delete>   
   
 </mapper>

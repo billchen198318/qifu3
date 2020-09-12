@@ -115,7 +115,7 @@ public class SystemJreportLogicServiceImpl extends BaseLogicService implements I
 		if (report==null || super.isBlank(report.getOid())) {
 			throw new ServiceException(BaseSystemMessage.parameterBlank());
 		}		
-		DefaultResult<TbSysJreport> mResult = this.sysJreportService.selectByEntityPrimaryKey(report);
+		DefaultResult<TbSysJreport> mResult = this.sysJreportService.selectByPrimaryKeySimple(report.getOid());
 		if (mResult.getValue()==null) {
 			throw new ServiceException(mResult.getMessage());
 		}
@@ -139,7 +139,7 @@ public class SystemJreportLogicServiceImpl extends BaseLogicService implements I
 		if (reportParam==null || super.isBlank(reportOid)) {
 			throw new ServiceException(BaseSystemMessage.parameterBlank());
 		}
-		DefaultResult<TbSysJreport> mResult = this.sysJreportService.selectByPrimaryKey(reportOid);
+		DefaultResult<TbSysJreport> mResult = this.sysJreportService.selectByPrimaryKeySimple(reportOid);
 		if (mResult.getValue()==null) {
 			throw new ServiceException(mResult.getMessage());
 		}

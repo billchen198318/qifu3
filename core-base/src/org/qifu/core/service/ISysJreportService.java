@@ -21,9 +21,34 @@
  */
 package org.qifu.core.service;
 
+import java.util.List;
+import java.util.Map;
+
+import org.qifu.base.exception.ServiceException;
+import org.qifu.base.model.DefaultResult;
 import org.qifu.base.service.IBaseService;
 import org.qifu.core.entity.TbSysJreport;
 
 public interface ISysJreportService<T, E> extends IBaseService<TbSysJreport, String> {
+	
+	/**
+	 * no CONTENT field for query , because sometime no need use this field, maybe field byte is big
+	 * 
+	 * @param oid
+	 * @return
+	 * @throws ServiceException
+	 * @throws Exception
+	 */
+	public DefaultResult<TbSysJreport> selectByPrimaryKeySimple(String oid) throws ServiceException, Exception;
+	
+	/**
+	 * no CONTENT field for query , because sometime no need use this field, maybe field byte is big
+	 * 
+	 * @param paramMap
+	 * @return
+	 * @throws ServiceException
+	 * @throws Exception
+	 */
+	public DefaultResult<List<TbSysJreport>> selectListByParamsSimple(Map<String, Object> paramMap) throws ServiceException, Exception;	
 	
 }
