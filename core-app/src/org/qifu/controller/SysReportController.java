@@ -22,26 +22,41 @@
 package org.qifu.controller;
 
 import java.io.IOException;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
+import javax.servlet.http.HttpServletRequest;
+
+import org.apache.commons.lang3.StringUtils;
 import org.qifu.base.controller.BaseControllerSupport;
 import org.qifu.base.controller.IPageNamespaceProvide;
 import org.qifu.base.exception.AuthorityException;
 import org.qifu.base.exception.ControllerException;
 import org.qifu.base.exception.ServiceException;
+import org.qifu.base.message.BaseSystemMessage;
 import org.qifu.base.model.DefaultControllerJsonResultObj;
 import org.qifu.base.model.DefaultResult;
+import org.qifu.base.model.PageOf;
+import org.qifu.base.model.QueryControllerJsonResultObj;
+import org.qifu.base.model.QueryResult;
+import org.qifu.base.model.SearchValue;
 import org.qifu.core.entity.TbSysJreport;
 import org.qifu.core.entity.TbSysJreportParam;
 import org.qifu.core.entity.TbSysUpload;
 import org.qifu.core.logic.ISystemJreportLogicService;
+import org.qifu.core.model.UploadTypes;
 import org.qifu.core.service.ISysJreportParamService;
 import org.qifu.core.service.ISysJreportService;
 import org.qifu.core.service.ISysUploadService;
+import org.qifu.core.util.JReportUtils;
+import org.qifu.core.util.UploadSupportUtils;
 import org.qifu.util.SimpleUtils;
 import org.springframework.http.MediaType;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 @Controller
@@ -74,31 +89,33 @@ public class SysReportController extends BaseControllerSupport implements IPageN
 	}
 	
 	@RequestMapping(value = "/sysReportPage")	
-	public ModelAndView queryPage(HttpServletRequest request) {
-		String viewName = PAGE_SYS_ERROR;
-		ModelAndView mv = this.getDefaultModelAndView("CORE_PROG001D0005Q");
+	public String mainPage(ModelMap mm, HttpServletRequest request) {
+		String viewName = this.viewMainPage();
+		this.getDefaultModelMap(mm, "CORE_PROG001D0005Q");
 		try {
-			this.init("queryPage", request, mv);
-			viewName = "sys-report/sys-report-management";
+			this.init("mainPage", mm);
 		} catch (AuthorityException e) {
-			viewName = this.getAuthorityExceptionPage(e, request);
-		} catch (ServiceException | ControllerException e) {
-			viewName = this.getServiceOrControllerExceptionPage(e, request);
+			viewName = this.getAuthorityExceptionPage(e, mm);
+		} catch (ControllerException | ServiceException e) {
+			viewName = this.getServiceOrControllerExceptionPage(e, mm);
 		} catch (Exception e) {
-			this.getExceptionPage(e, request);
+			viewName = this.getExceptionPage(e, mm);
 		}
-		mv.setViewName(viewName);
-		return mv;
+		return viewName;
 	}
 	
-	@RequestMapping(value = "/core.sysReportQueryGridJson.do", produces = MediaType.APPLICATION_JSON_VALUE)	
-	public @ResponseBody QueryControllerJsonResultObj< List<SysJreportVO>>  queryGrid(SearchValue searchValue, PageOf pageOf) {
-		QueryControllerJsonResultObj< List<SysJreportVO> > result = this.getQueryJsonResult("CORE_PROG001D0005Q");
+	@RequestMapping(value = "/sysReportQueryGridJson", produces = MediaType.APPLICATION_JSON_VALUE)	
+	public @ResponseBody QueryControllerJsonResultObj<List<TbSysJreport>>  queryGrid(SearchValue searchValue, PageOf pageOf) {
+		QueryControllerJsonResultObj< List<TbSysJreport> > result = this.getQueryJsonResult("CORE_PROG001D0005Q");
 		if (!this.isAuthorizeAndLoginFromControllerJsonResult(result)) {
 			return result;
 		}
 		try {
-			QueryResult< List<SysJreportVO> > queryResult = this.sysJreportService.findGridResult(searchValue, pageOf);
+			QueryResult< List<TbSysJreport> > queryResult = this.sysJreportService.findPage(
+					"count",
+					"findPageSimple",
+					this.queryParameter(searchValue).fullEquals("reportId").value(), 
+					pageOf.orderBy("REPORT_ID").sortTypeAsc());
 			this.setQueryGridJsonResult(result, queryResult, pageOf);
 		} catch (AuthorityException | ServiceException | ControllerException e) {
 			result.setMessage( e.getMessage().toString() );			
@@ -108,72 +125,66 @@ public class SysReportController extends BaseControllerSupport implements IPageN
 		return result;
 	}	
 	
-	@RequestMapping(value = "/core.sysReportCreate.do")
-	public ModelAndView createPage(HttpServletRequest request) {
-		String viewName = PAGE_SYS_ERROR;
-		ModelAndView mv = this.getDefaultModelAndView("CORE_PROG001D0005A");
+	@RequestMapping(value = "/sysReportCreatePage")
+	public String createPage(ModelMap mm, HttpServletRequest request) {
+		String viewName = this.viewCreatePage();
+		this.getDefaultModelMap(mm, "CORE_PROG001D0005A");
 		try {
-			this.init("createPage", request, mv);
-			viewName = "sys-report/sys-report-create";
+			this.init("createPage", mm);
 		} catch (AuthorityException e) {
-			viewName = this.getAuthorityExceptionPage(e, request);
-		} catch (ServiceException | ControllerException e) {
-			viewName = this.getServiceOrControllerExceptionPage(e, request);
+			viewName = this.getAuthorityExceptionPage(e, mm);
+		} catch (ControllerException | ServiceException e) {
+			viewName = this.getServiceOrControllerExceptionPage(e, mm);
 		} catch (Exception e) {
-			this.getExceptionPage(e, request);
+			viewName = this.getExceptionPage(e, mm);
 		}
-		mv.setViewName(viewName);
-		return mv;
+		return viewName;
 	}	
 	
-	@RequestMapping(value = "/core.sysReportEdit.do")
-	public ModelAndView editPage(HttpServletRequest request, SysJreportVO sysJreport) {
-		String viewName = PAGE_SYS_ERROR;
-		ModelAndView mv = this.getDefaultModelAndView("CORE_PROG001D0005E");
+	@RequestMapping(value = "/sysReportEditPage")
+	public String editPage(ModelMap mm, HttpServletRequest request, @RequestParam(name="oid") String oid) {
+		String viewName = this.viewEditPage();
+		this.getDefaultModelMap(mm, "CORE_PROG001D0005E");
 		try {
-			this.init("editPage", request, mv);
-			this.fetchData(sysJreport, mv);
-			viewName = "sys-report/sys-report-edit";
+			this.init("editPage", mm);
+			this.fetch(oid, mm);
 		} catch (AuthorityException e) {
-			viewName = this.getAuthorityExceptionPage(e, request);
-		} catch (ServiceException | ControllerException e) {
-			viewName = this.getServiceOrControllerExceptionPage(e, request);
+			viewName = this.getAuthorityExceptionPage(e, mm);
+		} catch (ControllerException | ServiceException e) {
+			viewName = this.getServiceOrControllerExceptionPage(e, mm);
 		} catch (Exception e) {
-			this.getExceptionMessage(e);
-		}
-		mv.setViewName(viewName);
-		return mv;
+			viewName = this.getExceptionPage(e, mm);
+		}	
+		return viewName;
 	}	
 	
-	@RequestMapping(value = "/core.sysReportParam.do")
-	public ModelAndView paramPage(HttpServletRequest request, @RequestParam(name="oid") String oid) {
-		String viewName = PAGE_SYS_ERROR;
-		ModelAndView mv = this.getDefaultModelAndView("CORE_PROG001D0005S01Q");
+	@RequestMapping(value = "/sysReportParamPage")
+	public String paramPage(ModelMap mm, HttpServletRequest request, @RequestParam(name="oid") String oid) {
+		String viewName = this.viewPageWithNamespace("param-page");
+		this.getDefaultModelMap(mm, "CORE_PROG001D0005S01Q");
 		try {
-			SysJreportVO sysJreport = new SysJreportVO();
-			sysJreport.setOid(oid);
-			this.init("editParamPage", request, mv);
-			this.fetchData(sysJreport, mv);
-			viewName = "sys-report/sys-report-param";
+			this.init("editParamPage", mm);
+			this.fetch(oid, mm);
 		} catch (AuthorityException e) {
-			viewName = this.getAuthorityExceptionPage(e, request);
-		} catch (ServiceException | ControllerException e) {
-			viewName = this.getServiceOrControllerExceptionPage(e, request);
+			viewName = this.getAuthorityExceptionPage(e, mm);
+		} catch (ControllerException | ServiceException e) {
+			viewName = this.getServiceOrControllerExceptionPage(e, mm);
 		} catch (Exception e) {
-			this.getExceptionPage(e, request);
-		}
-		mv.setViewName(viewName);
-		return mv;
+			viewName = this.getExceptionPage(e, mm);
+		}	
+		return viewName;
 	}		
 	
-	@RequestMapping(value = "/core.sysJreportParamQueryGridJson.do", produces = MediaType.APPLICATION_JSON_VALUE)	
-	public @ResponseBody QueryControllerJsonResultObj< List<SysJreportParamVO>>  paramQueryGrid(SearchValue searchValue, PageOf pageOf) {
-		QueryControllerJsonResultObj< List<SysJreportParamVO> > result = this.getQueryJsonResult("CORE_PROG001D0005S01Q");
+	@RequestMapping(value = "/sysJreportParamQueryGridJson", produces = MediaType.APPLICATION_JSON_VALUE)	
+	public @ResponseBody QueryControllerJsonResultObj< List<TbSysJreportParam>>  paramQueryGrid(SearchValue searchValue, PageOf pageOf) {
+		QueryControllerJsonResultObj< List<TbSysJreportParam> > result = this.getQueryJsonResult("CORE_PROG001D0005S01Q");
 		if (!this.isAuthorizeAndLoginFromControllerJsonResult(result)) {
 			return result;
 		}
 		try {
-			QueryResult< List<SysJreportParamVO> > queryResult = this.sysJreportParamService.findGridResult(searchValue, pageOf);
+			QueryResult< List<TbSysJreportParam> > queryResult = this.sysJreportParamService.findPage(
+					this.queryParameter(searchValue).fullEquals("reportId").value(), 
+					pageOf.orderBy("URL_PARAM").sortTypeAsc());
 			this.setQueryGridJsonResult(result, queryResult, pageOf);
 		} catch (AuthorityException | ServiceException | ControllerException e) {
 			result.setMessage( e.getMessage().toString() );			
@@ -183,33 +194,26 @@ public class SysReportController extends BaseControllerSupport implements IPageN
 		return result;
 	}
 	
-	@RequestMapping(value = "/core.sysReportPreview.do")
-	public ModelAndView previewPage(HttpServletRequest request, @RequestParam(name="oid") String oid) {
-		String viewName = PAGE_SYS_ERROR;
-		ModelAndView mv = this.getDefaultModelAndView("CORE_PROG001D0005S02Q");
+	@RequestMapping(value = "/sysReportPreviewPage")
+	public String previewPage(ModelMap mm, HttpServletRequest request, @RequestParam(name="oid") String oid) {	
+		String viewName = this.viewPageWithNamespace("preview-page");
+		this.getDefaultModelMap(mm, "CORE_PROG001D0005S01Q");
 		try {
-			SysJreportVO sysJreport = new SysJreportVO();
-			sysJreport.setOid(oid);
-			this.init("previewPage", request, mv);
-			this.fetchData(sysJreport, mv);
-			
-			sysJreport = (SysJreportVO) mv.getModel().get("sysJreport");
-			
+			this.init("previewPage", mm);
+			this.fetch(oid, mm);
+			TbSysJreport sysJreport = (TbSysJreport) mm.get("sysJreport");
 			Map<String, Object> paramMap = new HashMap<String, Object>();
-			paramMap.put("reportId", sysJreport.getReportId());
-			List<TbSysJreportParam> paramList = this.sysJreportParamService.findListByParams( paramMap );
-			mv.addObject("paramList", paramList);
-			
-			viewName = "sys-report/sys-report-preview";
+			paramMap.put("reportId", sysJreport.getReportId());			
+			DefaultResult<List<TbSysJreportParam>> paramListResult = this.sysJreportParamService.selectListByParams( paramMap );
+			mm.put("paramList", paramListResult.getValue());
 		} catch (AuthorityException e) {
-			viewName = this.getAuthorityExceptionPage(e, request);
-		} catch (ServiceException | ControllerException e) {
-			viewName = this.getServiceOrControllerExceptionPage(e, request);
+			viewName = this.getAuthorityExceptionPage(e, mm);
+		} catch (ControllerException | ServiceException e) {
+			viewName = this.getServiceOrControllerExceptionPage(e, mm);
 		} catch (Exception e) {
-			this.getExceptionPage(e, request);
-		}
-		mv.setViewName(viewName);
-		return mv;
+			viewName = this.getExceptionPage(e, mm);
+		}	
+		return viewName;		
 	}		
 	
 	private void checkFields(DefaultControllerJsonResultObj<TbSysJreport> result, TbSysJreport sysJreport) throws ControllerException, Exception {
@@ -239,30 +243,30 @@ public class SysReportController extends BaseControllerSupport implements IPageN
 		sysJreport.setContent( UploadSupportUtils.getDataBytes(uploadOid) );		
 	}
 	
-	private void save(DefaultControllerJsonResultObj<SysJreportVO> result, SysJreportVO sysJreport, String uploadOid) throws AuthorityException, ControllerException, ServiceException, Exception {
+	private void save(DefaultControllerJsonResultObj<TbSysJreport> result, TbSysJreport sysJreport, String uploadOid) throws AuthorityException, ControllerException, ServiceException, Exception {
 		this.checkFields(result, sysJreport);
 		if (StringUtils.isBlank(uploadOid)) {
 			throw new ControllerException("Please upload report file!");
 		}		
 		JReportUtils.selfTestDecompress4Upload(uploadOid);
 		this.fillUploadFileContent(result, sysJreport, uploadOid);
-		DefaultResult<SysJreportVO> rResult = this.systemJreportLogicService.create(sysJreport);
+		DefaultResult<TbSysJreport> rResult = this.systemJreportLogicService.create(sysJreport);
 		if ( rResult.getValue() != null ) {
 			JReportUtils.deployReport( rResult.getValue() );
 			rResult.getValue().setContent( null ); // 不傳回 content byte[] 內容
 			result.setValue( rResult.getValue() );
 			result.setSuccess( YES );
 		}
-		result.setMessage( rResult.getSystemMessage().getValue() );
+		result.setMessage( rResult.getMessage() );
 	}	
 	
-	private void update(DefaultControllerJsonResultObj<SysJreportVO> result, SysJreportVO sysJreport, String uploadOid) throws AuthorityException, ControllerException, ServiceException, Exception {
+	private void update(DefaultControllerJsonResultObj<TbSysJreport> result, TbSysJreport sysJreport, String uploadOid) throws AuthorityException, ControllerException, ServiceException, Exception {
 		this.checkFields(result, sysJreport);
 		if (!StringUtils.isBlank(uploadOid)) {
 			JReportUtils.selfTestDecompress4Upload(uploadOid);
 			this.fillUploadFileContent(result, sysJreport, uploadOid);
 		}
-		DefaultResult<SysJreportVO> rResult = this.systemJreportLogicService.update(sysJreport);
+		DefaultResult<TbSysJreport> rResult = this.systemJreportLogicService.update(sysJreport);
 		if ( rResult.getValue() != null ) {
 			if (!StringUtils.isBlank(uploadOid)) { // 由於 content 內容改變了(有重新上傳報表), 所以重新部屬
 				JReportUtils.deployReport( rResult.getValue() );
@@ -271,40 +275,40 @@ public class SysReportController extends BaseControllerSupport implements IPageN
 			result.setValue( rResult.getValue() );
 			result.setSuccess( YES );
 		}
-		result.setMessage( rResult.getSystemMessage().getValue() );		
+		result.setMessage( rResult.getMessage() );		
 	}
 	
-	private void delete(DefaultControllerJsonResultObj<Boolean> result, SysJreportVO sysJreport) throws AuthorityException, ControllerException, ServiceException, Exception {
+	private void delete(DefaultControllerJsonResultObj<Boolean> result, TbSysJreport sysJreport) throws AuthorityException, ControllerException, ServiceException, Exception {
 		DefaultResult<Boolean> tResult = this.systemJreportLogicService.delete(sysJreport);
 		if ( tResult.getValue() != null && tResult.getValue() ) {
 			result.setValue( Boolean.TRUE );
 			result.setSuccess( YES );
 		}
-		result.setMessage( tResult.getSystemMessage().getValue() );
+		result.setMessage( tResult.getMessage() );
 	}	
 	
-	private void saveParam(DefaultControllerJsonResultObj<SysJreportParamVO> result, SysJreportParamVO sysJreportParam, String reportOid) throws AuthorityException, ControllerException, ServiceException, Exception {
+	private void saveParam(DefaultControllerJsonResultObj<TbSysJreportParam> result, TbSysJreportParam sysJreportParam, String reportOid) throws AuthorityException, ControllerException, ServiceException, Exception {
 		this.checkFieldsForParam(result, sysJreportParam);
-		DefaultResult<SysJreportParamVO> pResult = this.systemJreportLogicService.createParam(sysJreportParam, reportOid);
+		DefaultResult<TbSysJreportParam> pResult = this.systemJreportLogicService.createParam(sysJreportParam, reportOid);
 		if ( pResult.getValue() != null ) {
 			result.setValue( pResult.getValue() );
 			result.setSuccess(YES);
 		}
-		result.setMessage( pResult.getSystemMessage().getValue() );
+		result.setMessage( pResult.getMessage() );
 	}
 	
-	private void deleteParam(DefaultControllerJsonResultObj<Boolean> result, SysJreportParamVO sysJreportParam) throws AuthorityException, ControllerException, ServiceException, Exception {
+	private void deleteParam(DefaultControllerJsonResultObj<Boolean> result, TbSysJreportParam sysJreportParam) throws AuthorityException, ControllerException, ServiceException, Exception {
 		DefaultResult<Boolean> pResult = this.systemJreportLogicService.deleteParam(sysJreportParam);
 		if ( pResult.getValue() != null && pResult.getValue() ) {
 			result.setValue( Boolean.TRUE );
 			result.setSuccess( YES );
 		}
-		result.setMessage( pResult.getSystemMessage().getValue() );
+		result.setMessage( pResult.getMessage() );
 	}
 	
-	@RequestMapping(value = "/core.sysReportSaveJson.do", produces = MediaType.APPLICATION_JSON_VALUE)		
-	public @ResponseBody DefaultControllerJsonResultObj<SysJreportVO> doSave(SysJreportVO sysJreport, @RequestParam("uploadOid") String uploadOid) {
-		DefaultControllerJsonResultObj<SysJreportVO> result = this.getDefaultJsonResult("CORE_PROG001D0005A");
+	@RequestMapping(value = "/sysReportSaveJson", produces = MediaType.APPLICATION_JSON_VALUE)		
+	public @ResponseBody DefaultControllerJsonResultObj<TbSysJreport> doSave(TbSysJreport sysJreport, @RequestParam("uploadOid") String uploadOid) {
+		DefaultControllerJsonResultObj<TbSysJreport> result = this.getDefaultJsonResult("CORE_PROG001D0005A");
 		if (!this.isAuthorizeAndLoginFromControllerJsonResult(result)) {
 			return result;
 		}
@@ -318,9 +322,9 @@ public class SysReportController extends BaseControllerSupport implements IPageN
 		return result;
 	}
 	
-	@RequestMapping(value = "/core.sysReportUpdateJson.do", produces = MediaType.APPLICATION_JSON_VALUE)
-	public @ResponseBody DefaultControllerJsonResultObj<SysJreportVO> doUpdate(SysJreportVO sysJreport, @RequestParam("uploadOid") String uploadOid) {
-		DefaultControllerJsonResultObj<SysJreportVO> result = this.getDefaultJsonResult("CORE_PROG001D0005E");
+	@RequestMapping(value = "/sysReportUpdateJson", produces = MediaType.APPLICATION_JSON_VALUE)
+	public @ResponseBody DefaultControllerJsonResultObj<TbSysJreport> doUpdate(TbSysJreport sysJreport, @RequestParam("uploadOid") String uploadOid) {
+		DefaultControllerJsonResultObj<TbSysJreport> result = this.getDefaultJsonResult("CORE_PROG001D0005E");
 		if (!this.isAuthorizeAndLoginFromControllerJsonResult(result)) {
 			return result;
 		}
@@ -334,8 +338,8 @@ public class SysReportController extends BaseControllerSupport implements IPageN
 		return result;
 	}	
 	
-	@RequestMapping(value = "/core.sysReportDeleteJson.do", produces = MediaType.APPLICATION_JSON_VALUE)		
-	public @ResponseBody DefaultControllerJsonResultObj<Boolean> doDelete(SysJreportVO sysJreport) {
+	@RequestMapping(value = "/sysReportDeleteJson", produces = MediaType.APPLICATION_JSON_VALUE)		
+	public @ResponseBody DefaultControllerJsonResultObj<Boolean> doDelete(TbSysJreport sysJreport) {
 		DefaultControllerJsonResultObj<Boolean> result = this.getDefaultJsonResult("CORE_PROG001D0005D");
 		if (!this.isAuthorizeAndLoginFromControllerJsonResult(result)) {
 			return result;
@@ -350,21 +354,21 @@ public class SysReportController extends BaseControllerSupport implements IPageN
 		return result;
 	}	
 	
-	@RequestMapping(value = "/core.sysReportDownloadContentJson.do", produces = MediaType.APPLICATION_JSON_VALUE)		
-	public @ResponseBody DefaultControllerJsonResultObj<String> doDownloadContent(SysJreportVO sysJreport) {
+	@RequestMapping(value = "/sysReportDownloadContentJson", produces = MediaType.APPLICATION_JSON_VALUE)		
+	public @ResponseBody DefaultControllerJsonResultObj<String> doDownloadContent(TbSysJreport sysJreport) {
 		DefaultControllerJsonResultObj<String> result = this.getDefaultJsonResult("CORE_PROG001D0005Q");
 		if (!this.isAuthorizeAndLoginFromControllerJsonResult(result)) {
 			return result;
 		}
 		try {
-			DefaultResult<SysJreportVO> rResult = this.sysJreportService.findObjectByOid(sysJreport);
+			DefaultResult<TbSysJreport> rResult = this.sysJreportService.selectByEntityPrimaryKey(sysJreport);
 			if ( rResult.getValue() == null ) {
-				throw new ControllerException( rResult.getSystemMessage().getValue() );
+				throw new ControllerException( rResult.getMessage() );
 			}
 			sysJreport = rResult.getValue();
-			result.setValue( UploadSupportUtils.create(Constants.getSystem(), UploadTypes.IS_TEMP, true, sysJreport.getContent(), sysJreport.getReportId()+".zip") );
+			result.setValue( UploadSupportUtils.create(this.getSystem(), UploadTypes.IS_TEMP, true, sysJreport.getContent(), sysJreport.getReportId()+".zip") );
 			result.setSuccess( YES );
-			result.setMessage( SysMessageUtil.get(SysMsgConstants.INSERT_SUCCESS) );
+			result.setMessage( BaseSystemMessage.insertSuccess() );
 		} catch (AuthorityException | ServiceException | ControllerException e) {
 			result.setMessage( e.getMessage().toString() );			
 		} catch (Exception e) {
@@ -373,9 +377,9 @@ public class SysReportController extends BaseControllerSupport implements IPageN
 		return result;
 	}	
 	
-	@RequestMapping(value = "/core.sysJreportParamSaveJson.do", produces = MediaType.APPLICATION_JSON_VALUE)		
-	public @ResponseBody DefaultControllerJsonResultObj<SysJreportParamVO> doParamSave(SysJreportParamVO sysJreportParam, @RequestParam("reportOid") String reportOid) {
-		DefaultControllerJsonResultObj<SysJreportParamVO> result = this.getDefaultJsonResult("CORE_PROG001D0005S01A");
+	@RequestMapping(value = "/sysJreportParamSaveJson", produces = MediaType.APPLICATION_JSON_VALUE)		
+	public @ResponseBody DefaultControllerJsonResultObj<TbSysJreportParam> doParamSave(TbSysJreportParam sysJreportParam, @RequestParam("reportOid") String reportOid) {
+		DefaultControllerJsonResultObj<TbSysJreportParam> result = this.getDefaultJsonResult("CORE_PROG001D0005S01A");
 		if (!this.isAuthorizeAndLoginFromControllerJsonResult(result)) {
 			return result;
 		}

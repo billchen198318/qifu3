@@ -93,6 +93,13 @@ public abstract class BaseControllerSupport {
 		return VIEW_PAGE_PARENT_FOLDER + "/" + page;
 	}
 	
+	public String viewPageWithNamespace(String page) {
+		if ( this instanceof IPageNamespaceProvide ) {
+			return VIEW_PAGE_PARENT_FOLDER + "/" + ((IPageNamespaceProvide)this).viewPageNamespace() + "/" + page;
+		}
+		return VIEW_PAGE_PARENT_FOLDER + "/" + page;
+	}	
+	
 	public String viewCreatePage(String packageName) {
 		if (StringUtils.isBlank(packageName)) {
 			return this.viewPage( CONTENT_CREATE_PAGE );
@@ -191,6 +198,14 @@ public abstract class BaseControllerSupport {
 	
 	public String getLoginCaptchaCodeEnable() {
 		return baseInfoConfigProperties.getLoginCaptchaCodeEnable();
+	}
+	
+	public String getSystem() {
+		return baseInfoConfigProperties.getSystem();
+	}
+	
+	public String getMainSystem() {
+		return baseInfoConfigProperties.getMainSystem();
 	}
 	
 	public String getJqXhrType() {

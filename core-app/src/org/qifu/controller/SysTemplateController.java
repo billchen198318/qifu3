@@ -131,7 +131,7 @@ public class SysTemplateController extends BaseControllerSupport implements IPag
 	
 	@RequestMapping(value = "/sysTemplateParam")
 	public String paramPage(ModelMap mm, HttpServletRequest request, @RequestParam(name="oid") String oid) {
-		String viewName = this.viewPage( this.viewPageNamespace() + "/" + "param-page" );
+		String viewName = this.viewPageWithNamespace("param-page");
 		this.getDefaultModelMap(mm, "CORE_PROG001D0004S01Q");
 		try {
 			this.init("editParamPage", mm);
