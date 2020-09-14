@@ -83,7 +83,7 @@ public class SysTemplateController extends BaseControllerSupport implements IPag
 	@RequestMapping(value = "/sysTemplatePage")	
 	public String mainPage(ModelMap mm, HttpServletRequest request) {
 		String viewName = this.viewMainPage();
-		this.getDefaultModelMap(mm, "CORE_PROG001D0001Q");
+		this.getDefaultModelMap(mm, "CORE_PROG001D0004Q");
 		try {
 			this.init("mainPage", mm);
 		} catch (AuthorityException e) {
