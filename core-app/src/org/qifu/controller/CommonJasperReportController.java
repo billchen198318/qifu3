@@ -39,7 +39,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 @Controller
-public class CommonJasperReportAction extends BaseControllerSupport {
+public class CommonJasperReportController extends BaseControllerSupport {
 	
 	//CORE_PROGCOMM0004Q
 	@RequestMapping(value = "/commonOpenJasperReport")

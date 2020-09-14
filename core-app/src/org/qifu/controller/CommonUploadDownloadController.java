@@ -56,7 +56,7 @@ import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 
 @EnableWebMvc
 @Controller
-public class CommonUploadDownloadAction extends BaseControllerSupport {
+public class CommonUploadDownloadController extends BaseControllerSupport {
 	
 	@Autowired
 	ISysUploadService<TbSysUpload, String> sysUploadService;
