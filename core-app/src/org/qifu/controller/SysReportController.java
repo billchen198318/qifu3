@@ -123,7 +123,7 @@ public class SysReportController extends BaseControllerSupport implements IPageN
 					pageOf.orderBy("REPORT_ID").sortTypeAsc());
 			this.setQueryGridJsonResult(result, queryResult, pageOf);
 		} catch (AuthorityException | ServiceException | ControllerException e) {
-			result.setMessage( e.getMessage().toString() );			
+			this.baseExceptionResult(result, e);	
 		} catch (Exception e) {
 			this.exceptionResult(result, e);
 		}
@@ -192,7 +192,7 @@ public class SysReportController extends BaseControllerSupport implements IPageN
 					pageOf.orderBy("URL_PARAM").sortTypeAsc());
 			this.setQueryGridJsonResult(result, queryResult, pageOf);
 		} catch (AuthorityException | ServiceException | ControllerException e) {
-			result.setMessage( e.getMessage().toString() );			
+			this.baseExceptionResult(result, e);	
 		} catch (Exception e) {
 			this.exceptionResult(result, e);
 		}
@@ -320,7 +320,7 @@ public class SysReportController extends BaseControllerSupport implements IPageN
 		try {
 			this.save(result, sysJreport, uploadOid);
 		} catch (AuthorityException | ServiceException | ControllerException e) {
-			result.setMessage( e.getMessage().toString() );			
+			this.baseExceptionResult(result, e);
 		} catch (Exception e) {
 			this.exceptionResult(result, e);
 		}
@@ -336,7 +336,7 @@ public class SysReportController extends BaseControllerSupport implements IPageN
 		try {
 			this.update(result, sysJreport, uploadOid);
 		} catch (AuthorityException | ServiceException | ControllerException e) {
-			result.setMessage( e.getMessage().toString() );			
+			this.baseExceptionResult(result, e);
 		} catch (Exception e) {
 			this.exceptionResult(result, e);
 		}
@@ -352,7 +352,7 @@ public class SysReportController extends BaseControllerSupport implements IPageN
 		try {
 			this.delete(result, sysJreport);
 		} catch (AuthorityException | ServiceException | ControllerException e) {
-			result.setMessage( e.getMessage().toString() );			
+			this.baseExceptionResult(result, e);		
 		} catch (Exception e) {
 			this.exceptionResult(result, e);
 		}
@@ -375,7 +375,7 @@ public class SysReportController extends BaseControllerSupport implements IPageN
 			result.setSuccess( YES );
 			result.setMessage( BaseSystemMessage.insertSuccess() );
 		} catch (AuthorityException | ServiceException | ControllerException e) {
-			result.setMessage( e.getMessage().toString() );			
+			this.baseExceptionResult(result, e);
 		} catch (Exception e) {
 			this.exceptionResult(result, e);
 		}
@@ -391,7 +391,7 @@ public class SysReportController extends BaseControllerSupport implements IPageN
 		try {
 			this.saveParam(result, sysJreportParam, reportOid);
 		} catch (AuthorityException | ServiceException | ControllerException e) {
-			result.setMessage( e.getMessage().toString() );			
+			this.baseExceptionResult(result, e);
 		} catch (Exception e) {
 			this.exceptionResult(result, e);
 		}
@@ -407,7 +407,7 @@ public class SysReportController extends BaseControllerSupport implements IPageN
 		try {
 			this.deleteParam(result, sysJreportParam);
 		} catch (AuthorityException | ServiceException | ControllerException e) {
-			result.setMessage( e.getMessage().toString() );			
+			this.baseExceptionResult(result, e);	
 		} catch (Exception e) {
 			this.exceptionResult(result, e);
 		}

@@ -63,7 +63,7 @@ import ognl.OgnlException;
 public abstract class BaseControllerSupport {
 	protected static final String VIEW_PAGE_PARENT_FOLDER = "view";
 	protected static final String PAGE_SYS_LOGIN = VIEW_PAGE_PARENT_FOLDER + "/login";
-	protected static final String PAGE_SYS_SEARCH_NO_DATA = VIEW_PAGE_PARENT_FOLDER + "/searchNoData";
+	protected static final String PAGE_SYS_SEARCH_NO_DATA = VIEW_PAGE_PARENT_FOLDER + "/search_no_data";
 	protected static final String PAGE_SYS_LOGIN_AGAIN = VIEW_PAGE_PARENT_FOLDER + "/login_again";
 	protected static final String PAGE_SYS_NO_AUTH = VIEW_PAGE_PARENT_FOLDER + "/auth1";
 	protected static final String PAGE_SYS_ERROR = VIEW_PAGE_PARENT_FOLDER + "/error";
@@ -343,6 +343,11 @@ public abstract class BaseControllerSupport {
 	protected String getServiceOrControllerExceptionPage(BaseSysException e, ModelMap mm) {
 		this.setPageMessage(mm, this.getExceptionMessage(e));
 		return PAGE_SYS_SEARCH_NO_DATA;
+	}	
+	
+	protected String getWarningPage(String message, ModelMap mm) {
+		this.setPageMessage(mm, message);
+		return PAGE_SYS_WARNING;
 	}	
 	
 	protected String getExceptionPage(Exception e, ModelMap mm) {

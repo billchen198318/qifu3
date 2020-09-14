@@ -21,7 +21,14 @@
  */
 package org.qifu.core.service.impl;
 
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
+import org.apache.commons.lang3.StringUtils;
+import org.qifu.base.exception.ServiceException;
 import org.qifu.base.mapper.IBaseMapper;
+import org.qifu.base.message.BaseSystemMessage;
 import org.qifu.base.service.BaseService;
 import org.qifu.core.entity.TbRole;
 import org.qifu.core.mapper.TbRoleMapper;
@@ -43,6 +50,42 @@ public class RoleServiceImpl extends BaseService<TbRole, String> implements IRol
 	@Override
 	protected IBaseMapper<TbRole, String> getBaseMapper() {
 		return this.roleMapper;
+	}
+	
+	/**
+	 * 查帳戶下有的 role
+	 * 
+	 * @param account
+	 * @return
+	 * @throws ServiceException
+	 * @throws Exception
+	 */	
+	@Override
+	public List<TbRole> findForAccount(String account) throws ServiceException, Exception {
+		if (StringUtils.isBlank(account)) {
+			throw new ServiceException(BaseSystemMessage.parameterBlank());
+		}		
+		Map<String, Object> paramMap = new HashMap<String, Object>();
+		paramMap.put("account", account);		
+		return this.roleMapper.findForAccount(paramMap);
+	}
+	
+	/**
+	 * 查某隻程式屬於的role
+	 * 
+	 * select OID, ROLE, DESCRIPTION from tb_role where ROLE in (
+	 * 		select ROLE from tb_sys_menu_role WHERE PROG_ID = :progId 
+	 * )
+	 * 
+	 */
+	@Override
+	public List<TbRole> findForProgram(String progId) throws ServiceException, Exception {
+		if (StringUtils.isBlank(progId)) {
+			throw new ServiceException(BaseSystemMessage.parameterBlank());
+		}
+		Map<String, Object> paramMap = new HashMap<String, Object>();
+		paramMap.put("progId", progId);
+		return this.roleMapper.findForProgram(paramMap);
 	}
 	
 }

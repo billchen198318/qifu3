@@ -21,9 +21,36 @@
  */
 package org.qifu.core.mapper;
 
+import java.util.List;
+import java.util.Map;
+
 import org.qifu.base.mapper.IBaseMapper;
 import org.qifu.core.entity.TbRole;
 
 public interface TbRoleMapper extends IBaseMapper<TbRole, String> {
+	
+	/**
+	 * 查某隻程式屬於的role
+	 * 
+	 * select OID, ROLE, DESCRIPTION from tb_role where ROLE in (
+	 * 		select ROLE from tb_sys_menu_role WHERE PROG_ID = :progId 
+	 * )
+	 * 
+	 * @param paramMap
+	 * @return
+	 */
+	public List<TbRole> findForProgram(Map<String, Object> paramMap);
+	
+	/**
+	 * 查帳戶下有的 role
+	 * SELECT * from tb_role 
+	 * WHERE ROLE in (	
+	 * 		select ROLE from tb_user_role WHERE ACCOUNT = :account
+	 * )
+	 * 
+	 * @param paramMap
+	 * @return
+	 */
+	public List<TbRole> findForAccount(Map<String, Object> paramMap);
 	
 }

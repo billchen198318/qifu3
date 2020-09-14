@@ -131,6 +131,20 @@
   <delete id="delete" parameterType="org.qifu.core.entity.TbRole">
     delete from <include refid="org.qifu.core.mapper.DB1Config.schema"/>tb_role
     where OID = #{oid,jdbcType=CHAR}
-  </delete>  
+  </delete>
+  
+  <select id="findForProgram" parameterType="java.util.HashMap" resultMap="BaseResultMap">
+	SELECT * FROM <include refid="org.qifu.core.mapper.DB1Config.schema"/>tb_role 
+	WHERE ROLE IN (
+		SELECT ROLE FROM <include refid="org.qifu.core.mapper.DB1Config.schema"/>tb_sys_menu_role WHERE PROG_ID = #{progId,jdbcType=VARCHAR}
+	)
+  </select>        
+  
+  <select id="findForAccount" parameterType="java.util.HashMap" resultMap="BaseResultMap">
+	SELECT * FROM <include refid="org.qifu.core.mapper.DB1Config.schema"/>tb_role 
+	WHERE ROLE in (	
+		SELECT ROLE FROM <include refid="org.qifu.core.mapper.DB1Config.schema"/>tb_user_role WHERE ACCOUNT = #{account,jdbcType=VARCHAR}
+	)  
+  </select>  
   
 </mapper>

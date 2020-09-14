@@ -32,7 +32,6 @@ import org.qifu.base.controller.IPageNamespaceProvide;
 import org.qifu.base.exception.AuthorityException;
 import org.qifu.base.exception.ControllerException;
 import org.qifu.base.exception.ServiceException;
-import org.qifu.base.message.BaseSystemMessage;
 import org.qifu.base.model.DefaultControllerJsonResultObj;
 import org.qifu.base.model.DefaultResult;
 import org.qifu.base.model.PageOf;
@@ -87,9 +86,6 @@ public class SysProgramController extends BaseControllerSupport implements IPage
 	}
 	
 	private void fetch(ModelMap mm, String oid) throws AuthorityException, ControllerException, ServiceException, Exception {
-		if (StringUtils.isBlank(oid)) {
-			throw new ControllerException( BaseSystemMessage.parameterBlank() );
-		}
 		DefaultResult<TbSysProg> result = this.sysProgService.selectByPrimaryKey(oid);
 		if (result.getValue() == null) {
 			throw new ControllerException(result.getMessage());
