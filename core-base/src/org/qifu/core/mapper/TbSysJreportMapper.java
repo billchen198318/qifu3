@@ -47,4 +47,12 @@ public interface TbSysJreportMapper extends IBaseMapper<TbSysJreport, String> {
 	 */
 	public List<TbSysJreport> selectListByParamsSimple(Map<String, Object> paramMap) throws Exception;
 	
+	/**
+	 * no CONTENT field for query , because sometime no need use this field, maybe field byte is big
+	 * 
+	 * @param paramMap
+	 * @return
+	 */
+	public List<TbSysJreport> findPageSimple(Map<String, Object> paramMap);
+	
 }

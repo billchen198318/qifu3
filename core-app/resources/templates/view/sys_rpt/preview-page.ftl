@@ -1,22 +1,14 @@
-<%@ page language="java" import="java.util.*" pageEncoding="UTF-8"%>
-<%@ page trimDirectiveWhitespaces="true"%>
-<%@ taglib prefix="spring" uri="http://www.springframework.org/tags"%>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<%@ taglib prefix="q" uri="http://www.qifu.org/controller/tag" %>
-<%
-String path = request.getContextPath();
-String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.getServerPort()+path+"/";
+<#assign sec=JspTaglibs["http://www.springframework.org/security/tags"] />
+<#assign qifu=JspTaglibs["http://www.qifu.org/controller/tag"] />
 
-%>
-
-<!DOCTYPE html>
 <html>
 <head>
 <title>qifu2</title>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 
-<jsp:include page="../common-f-inc.jsp"></jsp:include>
+<#import "../common-f-inc.ftl" as cfi />
+<@cfi.commonFormHeadResource /> 
 
 <style type="text/css">
 
@@ -36,12 +28,11 @@ $( document ).ready(function() {
 
 function previewReport() {
 	var paramData = [];
-	<q:if test=" null != paramList && paramList.size > 0 ">
-	<c:forEach items="${paramList}" var="item" varStatus="myIndex">
+	<@qifu.if test=" null != paramList && paramList.size > 0 ">
+	<#list paramList as item>
 	paramData.${item.urlParam} = $("#CORE_PROG001D0005S02Q_field\\:${item.urlParam}" ).val();
-	</c:forEach>
-	</q:if>
-	
+	</#list>	
+	</@qifu.if>
 	commonOpenJasperReport('${sysJreport.reportId}', paramData);
 }
 
@@ -51,7 +42,7 @@ function previewReport() {
 
 <body>
 
-<q:toolBar 
+<@qifu.toolBar 
 	id="CORE_PROG001D0005S02Q_toolbar" 
 	refreshEnable="Y"
 	refreshJsMethod="window.location=parent.getProgUrlForOid('CORE_PROG001D0005S02Q', '${sysJreport.oid}');" 
@@ -61,13 +52,14 @@ function previewReport() {
 	saveJsMethod="" 	
 	cancelEnable="Y" 
 	cancelJsMethod="parent.hideModal('CORE_PROG001D0005S02Q');">		
-</q:toolBar>
-<jsp:include page="../common-f-head.jsp"></jsp:include>
+</@qifu.toolBar>
+<#import "../common-f-head.ftl" as cfh />
+<@cfh.commonFormHeadContent /> 
 
-<q:if test=" null != paramList && paramList.size > 0 ">
+<@qifu.if test=" null != paramList && paramList.size > 0 ">
 	<div class="row">
 		<div class="col-xs-6 col-md-6 col-lg-6">
-			<q:button id="preview" label="Preview" onclick="previewReport();"></q:button>
+			<@qifu.button id="preview" label="Preview" onclick="previewReport();"></@qifu.button>
 		</div>
 	</div>
 	
@@ -81,23 +73,23 @@ function previewReport() {
 			<th>Variable value</th>
 		</tr>
 		</thead>
-		<tbody>
-			<c:forEach items="${paramList}" var="item" varStatus="myIndex">
+		<tbody>		
+			<#list paramList as item>
 			<tr>
 				<td>${item.urlParam} / ${item.rptParam}</td>
 				<td>
-					<q:textbox name="CORE_PROG001D0005S02Q_field:${item.urlParam}" id="CORE_PROG001D0005S02Q_field:${item.urlParam}" value="" maxlength="50" placeholder="Enter variable value"></q:textbox>
+					<@qifu.textbox name="CORE_PROG001D0005S02Q_field:${item.urlParam}" id="CORE_PROG001D0005S02Q_field:${item.urlParam}" value="" maxlength="50" placeholder="Enter variable value"></@qifu.textbox>
 				</td>
 			</tr>
-			</c:forEach>
+			</#list>
 		</tbody>
 		</table>
 		
 		
-</q:if>
-<q:else>
+</@qifu.if>
+<@qifu.else>
 	<h4><span class="badge badge-warning">No settings report parameter</span></h4>
-</q:else>
+</@qifu.else>
 
 </body>
 </html>

@@ -5,7 +5,6 @@ import java.util.Date;
 import org.qifu.base.model.CreateDateField;
 import org.qifu.base.model.CreateUserField;
 import org.qifu.base.model.EntityPK;
-import org.qifu.base.model.EntityUK;
 import org.qifu.base.model.UpdateDateField;
 import org.qifu.base.model.UpdateUserField;
 
@@ -34,7 +33,6 @@ public class TbSysUpload implements java.io.Serializable {
 		this.oid = oid;
 	}
 	
-	@EntityUK(name = "system")
 	public String getSystem() {
 		return system;
 	}
@@ -43,7 +41,6 @@ public class TbSysUpload implements java.io.Serializable {
 		this.system = system;
 	}
 	
-	@EntityUK(name = "subDir")
 	public String getSubDir() {
 		return subDir;
 	}
@@ -52,7 +49,6 @@ public class TbSysUpload implements java.io.Serializable {
 		this.subDir = subDir;
 	}
 	
-	@EntityUK(name = "type")
 	public String getType() {
 		return type;
 	}

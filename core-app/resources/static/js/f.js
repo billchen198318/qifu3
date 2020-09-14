@@ -295,7 +295,7 @@ function clearWarningMessageField(formGroups, fields) {
 }
 
 function commonOpenJasperReport(jreportId, paramData) {
-	var url = "./core.commonOpenJasperReport.do" + "?jreportId=" + jreportId;
+	var url = "./commonOpenJasperReport" + "?jreportId=" + jreportId;
 	for (var key in paramData) {
 		url += "&" + key + "=" + paramData[key];
 	}
@@ -312,7 +312,7 @@ function commonOpenJasperReport(jreportId, paramData) {
 }
 
 function commonViewUploadFile(oid) {
-	var url = "./core.commonViewFile.do" + "?oid=" + oid;
+	var url = "./commonViewFile" + "?oid=" + oid;
 	// 2018-03-29 rem
 	//window.open(url, "_blank", "resizable=yes, scrollbars=yes, titlebar=yes, width=970, height=700, top=10, left=10");
 	

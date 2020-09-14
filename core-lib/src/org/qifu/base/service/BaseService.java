@@ -41,6 +41,7 @@ import org.qifu.base.model.QueryResult;
 import org.qifu.base.model.SortType;
 import org.qifu.base.model.UpdateField;
 import org.qifu.base.util.EntityParameterGenerateUtil;
+import org.qifu.base.util.UserLocalUtils;
 import org.qifu.util.OgnlContextDefaultMemberAccessBuildUtils;
 import org.qifu.util.SimpleUtils;
 import org.slf4j.Logger;
@@ -82,6 +83,9 @@ public abstract class BaseService<T extends java.io.Serializable, K extends java
 		if (auth != null && (auth.getPrincipal() instanceof UserDetails)) {
 			return ( (UserDetails) auth.getPrincipal() ).getUsername();
 		}
+		if (UserLocalUtils.getUserInfo() != null) { // for JOB service
+			return UserLocalUtils.getUserInfo().getUserId();
+		}		
 		return null;
 	}
 	

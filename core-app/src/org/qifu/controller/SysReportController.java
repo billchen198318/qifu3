@@ -52,6 +52,7 @@ import org.qifu.core.service.ISysUploadService;
 import org.qifu.core.util.JReportUtils;
 import org.qifu.core.util.UploadSupportUtils;
 import org.qifu.util.SimpleUtils;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
@@ -62,12 +63,16 @@ import org.springframework.web.bind.annotation.ResponseBody;
 @Controller
 public class SysReportController extends BaseControllerSupport implements IPageNamespaceProvide {
 	
+	@Autowired
 	ISysJreportService<TbSysJreport, String> sysJreportService;
 	
+	@Autowired
 	ISysJreportParamService<TbSysJreportParam, String> sysJreportParamService;
 	
+	@Autowired
 	ISysUploadService<TbSysUpload, String> sysUploadService;
 	
+	@Autowired
 	ISystemJreportLogicService systemJreportLogicService;	
 	
 	@Override

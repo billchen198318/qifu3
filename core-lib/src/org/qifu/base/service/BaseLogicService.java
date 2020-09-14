@@ -27,6 +27,7 @@ import java.util.Map;
 import org.apache.commons.lang3.RegExUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.qifu.base.Constants;
+import org.qifu.base.util.UserLocalUtils;
 import org.qifu.util.OgnlContextDefaultMemberAccessBuildUtils;
 import org.qifu.util.SimpleUtils;
 import org.springframework.security.core.Authentication;
@@ -43,6 +44,9 @@ public abstract class BaseLogicService {
 		if (auth != null && (auth.getPrincipal() instanceof UserDetails)) {
 			return ( (UserDetails) auth.getPrincipal() ).getUsername();
 		}
+		if (UserLocalUtils.getUserInfo() != null) { // for JOB service
+			return UserLocalUtils.getUserInfo().getUserId();
+		}		
 		return null;
 	}
 	
