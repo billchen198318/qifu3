@@ -121,7 +121,6 @@ public abstract class BaseService<T extends java.io.Serializable, K extends java
 		}
 		if ( field.getCreateUserField() != null && !StringUtils.isBlank(field.getCreateUserField().name()) ) {
 			try {
-				// FIXME: 要改 UserLocalUtils 為 Apache-shiro 或別的登入session管理元件
 				Ognl.setValue(field.getCreateUserField().name(), OgnlContextDefaultMemberAccessBuildUtils.newOgnlContext(), entity, this.getAccountId());
 			} catch (OgnlException oe) {
 				oe.printStackTrace();
@@ -143,7 +142,6 @@ public abstract class BaseService<T extends java.io.Serializable, K extends java
 		}
 		if ( field.getUpdateUserField() != null && !StringUtils.isBlank(field.getUpdateUserField().name()) ) {
 			try {
-				// FIXME: 要改 UserLocalUtils 為 Apache-shiro 或別的登入session管理元件
 				Ognl.setValue(field.getUpdateUserField().name(), OgnlContextDefaultMemberAccessBuildUtils.newOgnlContext(), entity, this.getAccountId());
 			} catch (OgnlException oe) {
 				oe.printStackTrace();
