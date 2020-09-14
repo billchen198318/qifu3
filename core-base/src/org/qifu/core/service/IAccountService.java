@@ -21,9 +21,21 @@
  */
 package org.qifu.core.service;
 
+import java.util.Map;
+
+import org.qifu.base.exception.ServiceException;
 import org.qifu.base.service.IBaseService;
 import org.qifu.core.entity.TbAccount;
 
 public interface IAccountService<T, E> extends IBaseService<TbAccount, String> {
+	
+	/**
+	 * 下拉Select 要用
+	 * 
+	 * @return
+	 * @throws ServiceException
+	 * @throws Exception
+	 */	
+	public Map<String, String> findForAllMap(boolean pleaseSelect) throws ServiceException, Exception; 
 	
 }

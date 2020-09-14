@@ -21,7 +21,14 @@
  */
 package org.qifu.core.service.impl;
 
+import java.util.LinkedHashMap;
+import java.util.List;
+import java.util.Map;
+
+import org.qifu.base.Constants;
+import org.qifu.base.exception.ServiceException;
 import org.qifu.base.mapper.IBaseMapper;
+import org.qifu.base.model.SortType;
 import org.qifu.base.service.BaseService;
 import org.qifu.core.entity.TbAccount;
 import org.qifu.core.mapper.TbAccountMapper;
@@ -43,6 +50,25 @@ public class AccountServiceImpl extends BaseService<TbAccount, String> implement
 	@Override
 	protected IBaseMapper<TbAccount, String> getBaseMapper() {
 		return this.accountMapper;
+	}
+
+	/**
+	 * 下拉Select 要用
+	 */
+	@Override
+	public Map<String, String> findForAllMap(boolean pleaseSelect) throws ServiceException, Exception {
+		List<TbAccount> searchList = this.selectList("ACCOUNT", SortType.ASC).getValue();
+		Map<String, String> dataMap = new LinkedHashMap<String, String>();
+		if (pleaseSelect) {
+			dataMap.put(Constants.HTML_SELECT_NO_SELECT_ID, Constants.HTML_SELECT_NO_SELECT_NAME);
+		}
+		if (searchList==null || searchList.size()<1) {
+			return dataMap;
+		}
+		for (TbAccount account : searchList) {
+			dataMap.put(account.getOid(), account.getAccount());
+		}
+		return dataMap;
 	}
 	
 }

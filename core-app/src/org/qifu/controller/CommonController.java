@@ -21,10 +21,12 @@
  */
 package org.qifu.controller;
 
+import java.util.List;
 import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 
+import org.apache.commons.text.StringEscapeUtils;
 import org.qifu.base.controller.BaseControllerSupport;
 import org.qifu.base.exception.AuthorityException;
 import org.qifu.base.exception.ControllerException;
@@ -72,6 +74,31 @@ public class CommonController extends BaseControllerSupport {
 			result.setSuccess( YES );
 		} catch (AuthorityException | ServiceException | ControllerException e) {
 			baseExceptionResult(result, e);		
+		} catch (Exception e) {
+			exceptionResult(result, e);
+		}
+		return result;
+	}	
+	
+	@RequestMapping(value = "/getCommonProgramFolderMenuItemJson")	
+	public @ResponseBody DefaultControllerJsonResultObj<Map<String, String>> doQueryProgramList(HttpServletRequest request, @RequestParam(name="oid") String oid) {
+		DefaultControllerJsonResultObj<Map<String, String>> result = this.getDefaultJsonResult("CORE_PROGCOMM0002Q");
+		if (!this.isAuthorizeAndLoginFromControllerJsonResult(result)) {
+			result.setValue( this.getPleaseSelectMap(true) );
+			return result;
+		}		
+		try {
+			TbSys sys = this.findSys(oid);
+			List<TbSysProg> menuProgList = this.sysProgService.findForInTheFolderMenuItems(sys.getSysId(), null, null);
+			Map<String, String> dataMap = this.getPleaseSelectMap(true);
+			for (int i=0; menuProgList!=null && i<menuProgList.size(); i++) {
+				TbSysProg sysProg = menuProgList.get(i);
+				dataMap.put(sysProg.getOid(), StringEscapeUtils.escapeHtml4(sysProg.getName()));
+			}
+			result.setValue( dataMap );
+			result.setSuccess( YES );
+		} catch (AuthorityException | ServiceException | ControllerException e) {
+			baseExceptionResult(result, e);
 		} catch (Exception e) {
 			exceptionResult(result, e);
 		}
