@@ -21,6 +21,9 @@
  */
 package org.qifu.core.service.impl;
 
+import java.io.IOException;
+
+import org.qifu.base.exception.ServiceException;
 import org.qifu.base.mapper.IBaseMapper;
 import org.qifu.base.service.BaseService;
 import org.qifu.core.entity.TbSysLoginLog;
@@ -43,6 +46,15 @@ public class SysLoginLogServiceImpl extends BaseService<TbSysLoginLog, String> i
 	@Override
 	protected IBaseMapper<TbSysLoginLog, String> getBaseMapper() {
 		return this.tbSysLoginLogMapper;
+	}
+
+	@Transactional(
+			propagation=Propagation.REQUIRED, 
+			readOnly=false,
+			rollbackFor={RuntimeException.class, IOException.class, Exception.class} )		
+	@Override
+	public Boolean deleteAll() throws ServiceException, Exception {
+		return this.tbSysLoginLogMapper.deleteAll(null);
 	}
 	
 }

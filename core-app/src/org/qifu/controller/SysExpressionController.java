@@ -98,7 +98,7 @@ public class SysExpressionController extends BaseControllerSupport implements IP
 		}
 		try {
 			QueryResult< List<TbSysExpression> > queryResult = this.sysExpressionService.findPage(
-					"count",
+					"countPageSimple",
 					"findPageSimple",
 					this.queryParameter(searchValue).fullEquals("exprId").fullLink("name").selectOption("type").value(), 
 					pageOf.orderBy("EXPR_ID").sortTypeAsc());

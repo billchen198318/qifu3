@@ -21,9 +21,13 @@
  */
 package org.qifu.core.mapper;
 
+import java.util.Map;
+
 import org.qifu.base.mapper.IBaseMapper;
 import org.qifu.core.entity.TbSysExprJobLog;
 
 public interface TbSysExprJobLogMapper extends IBaseMapper<TbSysExprJobLog, String> {
+	
+	public Boolean deleteAll(Map<String, Object> paramMap);
 	
 }

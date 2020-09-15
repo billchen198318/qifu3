@@ -21,6 +21,9 @@
  */
 package org.qifu.core.service.impl;
 
+import java.io.IOException;
+
+import org.qifu.base.exception.ServiceException;
 import org.qifu.base.mapper.IBaseMapper;
 import org.qifu.base.service.BaseService;
 import org.qifu.core.entity.TbSysExprJobLog;
@@ -43,6 +46,15 @@ public class SysExprJobLogServiceImpl extends BaseService<TbSysExprJobLog, Strin
 	@Override
 	protected IBaseMapper<TbSysExprJobLog, String> getBaseMapper() {
 		return this.tbSysExprJobLogMapper;
+	}
+
+	@Transactional(
+			propagation=Propagation.REQUIRED, 
+			readOnly=false,
+			rollbackFor={RuntimeException.class, IOException.class, Exception.class} )		
+	@Override
+	public Boolean deleteAll() throws ServiceException, Exception {
+		return this.tbSysExprJobLogMapper.deleteAll(null);
 	}
 	
 }

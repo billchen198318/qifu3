@@ -21,9 +21,12 @@
  */
 package org.qifu.core.service;
 
+import org.qifu.base.exception.ServiceException;
 import org.qifu.base.service.IBaseService;
 import org.qifu.core.entity.TbSysExprJobLog;
 
 public interface ISysExprJobLogService<T, E> extends IBaseService<TbSysExprJobLog, String> {
+	
+	public Boolean deleteAll() throws ServiceException, Exception;
 	
 }

@@ -63,7 +63,7 @@
 		AND ID = #{id,jdbcType=VARCHAR}
 	</if>
 	<if test="name != null and name != '' ">
-		AND NAME = #{name,jdbcType=VARCHAR}
+		AND NAME LIKE #{name,jdbcType=VARCHAR}
 	</if>
 	<if test="active != null and active != '' ">
 		AND ACTIVE = #{active,jdbcType=VARCHAR}
@@ -82,7 +82,7 @@
 		AND ID = #{id,jdbcType=VARCHAR}
 	</if>
 	<if test="name != null and name != '' ">
-		AND NAME = #{name,jdbcType=VARCHAR}
+		AND NAME LIKE #{name,jdbcType=VARCHAR}
 	</if>
 	<if test="active != null and active != '' ">
 		AND ACTIVE = #{active,jdbcType=VARCHAR}

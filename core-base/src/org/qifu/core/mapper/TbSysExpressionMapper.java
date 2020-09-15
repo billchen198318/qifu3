@@ -39,6 +39,14 @@ public interface TbSysExpressionMapper extends IBaseMapper<TbSysExpression, Stri
 	public List<TbSysExpression> selectListByParamsSimple(Map<String, Object> paramMap) throws Exception;
 	
 	/**
+	 * for work with findPageSimple
+	 * 
+	 * @param paramMap
+	 * @return
+	 */
+	public Long countPageSimple(Map<String, Object> paramMap);
+	
+	/**
 	 * no CONTENT field for query , because sometime no need use this field, maybe field byte is big
 	 * 
 	 * @param paramMap

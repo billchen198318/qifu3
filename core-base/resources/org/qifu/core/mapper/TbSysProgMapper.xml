@@ -60,7 +60,7 @@
 		AND PROG_ID = #{progId,jdbcType=VARCHAR}
 	</if>
 	<if test="name != null and name != '' ">
-		AND NAME = #{name,jdbcType=VARCHAR}
+		AND NAME LIKE #{name,jdbcType=VARCHAR}
 	</if>	
 	<if test="editMode != null and editMode != '' ">
 		AND EDIT_MODE = #{editMode,jdbcType=VARCHAR}
@@ -82,7 +82,7 @@
 		AND PROG_ID = #{progId,jdbcType=VARCHAR}
 	</if>
 	<if test="name != null and name != '' ">
-		AND NAME = #{name,jdbcType=VARCHAR}
+		AND NAME LIKE #{name,jdbcType=VARCHAR}
 	</if>	
 	<if test="editMode != null and editMode != '' ">
 		AND EDIT_MODE = #{editMode,jdbcType=VARCHAR}

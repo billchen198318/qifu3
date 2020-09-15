@@ -123,4 +123,8 @@
     where OID = #{oid,jdbcType=CHAR}
   </delete>  
   
+  <delete id="deleteAll" parameterType="java.util.HashMap">
+  	delete from <include refid="org.qifu.core.mapper.DB1Config.schema"/>tb_sys_login_log
+  </delete>    
+  
 </mapper>

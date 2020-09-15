@@ -222,6 +222,20 @@
 	</if>	
   </select>   
   
+  <select id="countPageSimple" parameterType="java.util.HashMap" resultType="java.lang.Long">
+    select count(*) from <include refid="org.qifu.core.mapper.DB1Config.schema"/>tb_sys_expression
+    WHERE 1=1
+	<if test="exprId != null and exprId != '' ">
+		AND EXPR_ID = #{exprId,jdbcType=VARCHAR}
+	</if>
+	<if test="type != null and type != '' ">
+		AND TYPE = #{type,jdbcType=VARCHAR}
+	</if>
+	<if test="name != null and name != '' ">
+		AND NAME LIKE #{name,jdbcType=VARCHAR}
+	</if>
+  </select>    
+  
   <!-- no CONTENT field for query , because sometime no need use this field, maybe field byte is big -->
   <select id="findPageSimple" parameterType="java.util.HashMap" resultMap="SimpleBaseResultMap">
   	<include refid="org.qifu.core.mapper.DB1Config.sql1"/>
@@ -245,7 +259,7 @@
 		AND TYPE = #{type,jdbcType=VARCHAR}
 	</if>
 	<if test="name != null and name != '' ">
-		AND NAME = #{name,jdbcType=VARCHAR}
+		AND NAME LIKE #{name,jdbcType=VARCHAR}
 	</if>
 		
 	<include refid="org.qifu.core.mapper.DB1Config.sql2"/>
