@@ -432,4 +432,12 @@ public abstract class BaseControllerSupport {
 		return QueryParamBuilder.build(searchBody);
 	}	
 	
+	protected String getAccountId() {
+		User user = UserUtils.getCurrentUser();
+		if (user == null) {
+			return null;
+		}
+		return user.getUsername();
+	}
+	
 }

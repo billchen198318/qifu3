@@ -2,6 +2,7 @@ package org.qifu.core.entity;
 
 import java.util.Date;
 
+import org.apache.commons.lang3.StringUtils;
 import org.qifu.base.model.CreateDateField;
 import org.qifu.base.model.CreateUserField;
 import org.qifu.base.model.EntityPK;
@@ -30,6 +31,15 @@ public class TbSysExprJob implements java.io.Serializable {
 	private Date cdate;
 	private String uuserid;
 	private Date udate;
+	
+	// 查詢Grid 顯示用
+	public String getRunDatetime() {
+		return StringUtils.defaultString(this.runDayOfWeek) 
+				+ ( (!StringUtils.isBlank(this.runDayOfWeek) && !StringUtils.isBlank(this.runHour)) ? "/" : "" ) 
+				+ StringUtils.defaultString(this.runHour) 
+				+ ( (!StringUtils.isBlank(this.runHour) && !StringUtils.isBlank(this.runMinute)) ? "/" : "" )
+				+ StringUtils.defaultString(this.runMinute);
+	}	
 	
 	@EntityPK(name = "oid", autoUUID = true)
 	public String getOid() {

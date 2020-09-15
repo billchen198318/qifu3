@@ -23,6 +23,8 @@ package org.qifu.core.util;
 
 import org.apache.commons.lang3.StringUtils;
 import org.qifu.base.Constants;
+import org.qifu.base.model.BaseUserInfo;
+import org.qifu.base.util.UserLocalUtils;
 import org.qifu.core.entity.TbRolePermission;
 import org.qifu.core.entity.TbUserRole;
 import org.qifu.core.model.User;
@@ -31,8 +33,34 @@ import org.springframework.security.core.context.SecurityContextHolder;
 
 public class UserUtils {
 	
+	public static BaseUserInfo setUserInfoForUserLocalUtils() {
+		User user = getCurrentUser();
+		if (user == null) {
+			return null;
+		}
+		return setUserInfoForUserLocalUtils(user.getUsername());
+	}
+	
+	public static BaseUserInfo setUserInfoForUserLocalUtils(String accountId) {
+		BaseUserInfo userInfo = new BaseUserInfo();
+		userInfo.setUserId(accountId);
+		UserLocalUtils.setUserInfo(userInfo);
+		return userInfo;
+	}	
+	
+	public static BaseUserInfo setUserInfoForUserLocalUtilsBackgroundMode() {
+		return setUserInfoForUserLocalUtils( Constants.SYSTEM_BACKGROUND_USER );
+	}		
+	
+	public static void removeForUserLocalUtils() {
+		UserLocalUtils.remove();
+	}
+	
 	public static User getCurrentUser() {
 		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+		if (auth == null) {
+			return null;
+		}
 		if (!(auth.getPrincipal() instanceof User)) {
 			return null;
 		}

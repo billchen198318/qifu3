@@ -67,9 +67,9 @@ public class SysExpressionController extends BaseControllerSupport implements IP
 		mm.put("typeMap", ScriptTypeCode.getTypeMap(true));
 	}
 	
-	private void fetch(String sysExpressionOid, ModelMap mv) throws ServiceException, ControllerException, Exception {
+	private void fetch(String sysExpressionOid, ModelMap mm) throws ServiceException, ControllerException, Exception {
 		TbSysExpression sysExpression = this.sysExpressionService.selectByPrimaryKey(sysExpressionOid).getValueEmptyThrowMessage();
-		mv.put("sysExpression", sysExpression);
+		mm.put("sysExpression", sysExpression);
 	}
 	
 	//CORE_PROG003D0002Q

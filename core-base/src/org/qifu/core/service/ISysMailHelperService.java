@@ -21,9 +21,19 @@
  */
 package org.qifu.core.service;
 
+import java.util.List;
+
+import org.qifu.base.exception.ServiceException;
+import org.qifu.base.model.DefaultResult;
 import org.qifu.base.service.IBaseService;
 import org.qifu.core.entity.TbSysMailHelper;
 
 public interface ISysMailHelperService<T, E> extends IBaseService<TbSysMailHelper, String> {
+	
+	public DefaultResult<List<TbSysMailHelper>> findForJobList(String mailId) throws ServiceException, Exception;
+	
+	public String findForMaxMailId(String mailId) throws ServiceException, Exception;
+	
+	public String findForMaxMailIdComplete(String mailId) throws ServiceException, Exception;
 	
 }

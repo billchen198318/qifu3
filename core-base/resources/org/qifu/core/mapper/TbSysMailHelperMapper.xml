@@ -222,4 +222,14 @@
     where OID = #{oid,jdbcType=CHAR}
   </delete>  
   
+  <select id="findForMaxMailId" parameterType="java.util.HashMap" resultType="java.lang.String">
+  	SELECT max(MAIL_ID) as MAIL_ID FROM <include refid="org.qifu.core.mapper.DB1Config.schema"/>tb_sys_mail_helper 
+  	WHERE MAIL_ID LIKE #{mailId,jdbcType=VARCHAR} 
+  </select>  
+    
+  <select id="findForJobList" parameterType="java.util.HashMap" resultMap="BaseResultMap">
+  	SELECT * FROM <include refid="org.qifu.core.mapper.DB1Config.schema"/>tb_sys_mail_helper 
+  	WHERE MAIL_ID LIKE #{mailId,jdbcType=VARCHAR} AND SUCCESS_FLAG = 'N' LIMIT 100
+  </select>
+  
 </mapper>

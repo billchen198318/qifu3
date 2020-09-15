@@ -21,9 +21,16 @@
  */
 package org.qifu.core.mapper;
 
+import java.util.List;
+import java.util.Map;
+
 import org.qifu.base.mapper.IBaseMapper;
 import org.qifu.core.entity.TbSysMailHelper;
 
 public interface TbSysMailHelperMapper extends IBaseMapper<TbSysMailHelper, String> {
+	
+	public String findForMaxMailId(Map<String, Object> paramMap);
+	
+	public List<TbSysMailHelper> findForJobList(Map<String, Object> paramMap);
 	
 }

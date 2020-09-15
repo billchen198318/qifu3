@@ -21,11 +21,20 @@
  */
 package org.qifu.core.service.impl;
 
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
+import org.apache.commons.lang3.StringUtils;
+import org.qifu.base.exception.ServiceException;
 import org.qifu.base.mapper.IBaseMapper;
+import org.qifu.base.message.BaseSystemMessage;
+import org.qifu.base.model.DefaultResult;
 import org.qifu.base.service.BaseService;
 import org.qifu.core.entity.TbSysMailHelper;
 import org.qifu.core.mapper.TbSysMailHelperMapper;
 import org.qifu.core.service.ISysMailHelperService;
+import org.qifu.util.SimpleUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;
@@ -44,5 +53,56 @@ public class SysMailHelperServiceImpl extends BaseService<TbSysMailHelper, Strin
 	protected IBaseMapper<TbSysMailHelper, String> getBaseMapper() {
 		return this.tbSysMailHelperMapper;
 	}
+	
+	@Override
+	public DefaultResult<List<TbSysMailHelper>> findForJobList(String mailId) throws ServiceException, Exception {
+		if ( StringUtils.isBlank(mailId) ) {
+			throw new ServiceException(BaseSystemMessage.parameterBlank());
+		}
+		Map<String, Object> paramMap = new HashMap<String, Object>();
+		if (mailId.endsWith("%")) {
+			paramMap.put("mailId", mailId);
+		} else {
+			paramMap.put("mailId", mailId+"%");
+		}
+		DefaultResult<List<TbSysMailHelper>> result = new DefaultResult<List<TbSysMailHelper>>();
+		List<TbSysMailHelper> searchList = this.tbSysMailHelperMapper.findForJobList(paramMap);
+		if (searchList!=null && searchList.size()>0) {
+			result.setValue(searchList);
+		} else {
+			result.setMessage( BaseSystemMessage.searchNoData() );
+		}
+		return result;
+	}
+	
+	@Override
+	public String findForMaxMailId(String mailId) throws ServiceException, Exception {
+		if (StringUtils.isBlank(mailId)) {
+			throw new ServiceException(BaseSystemMessage.parameterBlank());
+		}		
+		Map<String, Object> paramMap = new HashMap<String, Object>();
+		if (mailId.endsWith("%")) {
+			paramMap.put("mailId", mailId);
+		} else {
+			paramMap.put("mailId", mailId+"%");
+		}
+		return this.tbSysMailHelperMapper.findForMaxMailId(paramMap);
+	}	
+	
+	@Override
+	public String findForMaxMailIdComplete(String mailId) throws ServiceException, Exception {
+		if (StringUtils.isBlank(mailId) || !SimpleUtils.isDate(mailId)) {
+			throw new ServiceException(BaseSystemMessage.parameterBlank());
+		}
+		String maxMailId = this.findForMaxMailId(mailId);
+		if (StringUtils.isBlank(maxMailId)) {
+			return mailId + "000000001";
+		}
+		int maxSeq = Integer.parseInt( maxMailId.substring(8, 17) ) + 1;
+		if (maxSeq > 999999999) {
+			throw new ServiceException(BaseSystemMessage.dataErrors() + " over max mail-id 999999999!");
+		}
+		return mailId + StringUtils.leftPad(String.valueOf(maxSeq), 9, "0");
+	}	
 	
 }
