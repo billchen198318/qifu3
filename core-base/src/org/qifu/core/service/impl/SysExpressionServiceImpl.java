@@ -21,7 +21,12 @@
  */
 package org.qifu.core.service.impl;
 
+import java.util.List;
+import java.util.Map;
+
+import org.qifu.base.exception.ServiceException;
 import org.qifu.base.mapper.IBaseMapper;
+import org.qifu.base.model.PleaseSelect;
 import org.qifu.base.service.BaseService;
 import org.qifu.core.entity.TbSysExpression;
 import org.qifu.core.mapper.TbSysExpressionMapper;
@@ -43,6 +48,17 @@ public class SysExpressionServiceImpl extends BaseService<TbSysExpression, Strin
 	@Override
 	protected IBaseMapper<TbSysExpression, String> getBaseMapper() {
 		return this.sysExpressionMapper;
+	}
+	
+	@Override
+	public Map<String, String> findExpressionMap(boolean pleaseSelect) throws ServiceException, Exception {
+		Map<String, String> dataMap = PleaseSelect.pageSelectMap(pleaseSelect);
+		List<TbSysExpression> searchList = this.sysExpressionMapper.selectListByParamsSimple(null);
+		for (int i=0; searchList!=null && i<searchList.size(); i++) {
+			TbSysExpression expression = searchList.get(i);
+			dataMap.put(expression.getOid(), expression.getExprId() + " - " + expression.getName());
+		}
+		return dataMap;
 	}
 	
 }

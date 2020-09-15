@@ -1,5 +1,5 @@
 /* 
- * Copyright 2012-2017 qifu of copyright Chen Xin Nien
+ * Copyright 2012-2016 bambooCORE, greenstep of copyright Chen Xin Nien
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -19,26 +19,28 @@
  * contact: chen.xin.nien@gmail.com
  * 
  */
-package org.qifu.base.model;
+package org.qifu.core.model;
 
 import java.util.Map;
 
-public class ScriptTypeCode {
-	//public static final String BSH = "BSH"; // beanShell2
-	public static final String GROOVY = "GROOVY"; // groovy
+import org.qifu.base.model.PleaseSelect;
+
+public class ScriptExpressionRunType {
+	public static final String IS_AFTER = "AFTER";
+	public static final String IS_BEFORE = "BEFORE";
 	
-	public static boolean isTypeCode(String type) {
-		if ( /*BSH.equals(type) ||*/ GROOVY.equals(type)) {
+	public static boolean isCode(String runType) {
+		if (IS_AFTER.equals(runType) || IS_BEFORE.equals(runType)) {
 			return true;
 		}
 		return false;
 	}
 	
-	public static Map<String, String> getTypeMap(boolean pleaseSelect) {
+	public static Map<String, String> getRunTypeMap(boolean pleaseSelect) {
 		Map<String, String> dataMap = PleaseSelect.pageSelectMap(pleaseSelect);
-		//dataMap.put(BSH, "java ( BeanShell2 )");
-		dataMap.put(GROOVY, "groovy");
+		dataMap.put(IS_BEFORE, IS_BEFORE);
+		dataMap.put(IS_AFTER, IS_AFTER);
 		return dataMap;
-	}	
+	}
 	
 }

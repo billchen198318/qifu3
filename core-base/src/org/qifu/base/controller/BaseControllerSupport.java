@@ -22,10 +22,8 @@
 package org.qifu.base.controller;
 
 import java.util.Enumeration;
-import java.util.LinkedHashMap;
 import java.util.LinkedList;
 import java.util.List;
-import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 
@@ -396,21 +394,6 @@ public abstract class BaseControllerSupport {
 	
 	protected <T> CheckControllerFieldHandler<T> getCheckControllerFieldHandler(DefaultControllerJsonResultObj<T> result) {
 		return CheckControllerFieldHandler.build(result);
-	}
-	
-	protected boolean noSelect(String selectValue) {
-		if (StringUtils.isBlank(selectValue) || Constants.HTML_SELECT_NO_SELECT_ID.equals(selectValue)) {
-			return true;
-		}
-		return false;
-	}
-	
-	protected Map<String, String> getPleaseSelectMap(boolean pleaseSelect) {
-		Map<String, String> dataMap = new LinkedHashMap<String, String>();
-		if (pleaseSelect) {
-			dataMap.put(Constants.HTML_SELECT_NO_SELECT_ID, Constants.HTML_SELECT_NO_SELECT_NAME);
-		}
-		return dataMap;
 	}
 	
 	protected List<String> transformAppendKeyStringToList(String appendOid) {

@@ -21,10 +21,9 @@
  */
 package org.qifu.core.model;
 
-import java.util.LinkedHashMap;
 import java.util.Map;
 
-import org.qifu.base.Constants;
+import org.qifu.base.model.PleaseSelect;
 
 public class UploadTypes {
 	public static final String IS_IMAGE = "image"; // 圖片
@@ -35,10 +34,7 @@ public class UploadTypes {
 	public static final String TYPES[] = new String[]{ IS_IMAGE, IS_TEMP, IS_COMMON, /*IS_KPI_DOCUMENT, IS_PDCA_DOCUMENT*/ };
 	
 	public static Map<String, String> getDataMap(boolean pleaseSelect) {
-		Map<String, String> dataMap = new LinkedHashMap<String, String>();
-		if (pleaseSelect) {
-			dataMap.put(Constants.HTML_SELECT_NO_SELECT_ID, Constants.HTML_SELECT_NO_SELECT_NAME);
-		}
+		Map<String, String> dataMap = PleaseSelect.pageSelectMap(pleaseSelect);
 		dataMap.put(IS_TEMP, IS_TEMP);
 		dataMap.put(IS_IMAGE, IS_IMAGE);
 		dataMap.put(IS_COMMON, IS_COMMON);

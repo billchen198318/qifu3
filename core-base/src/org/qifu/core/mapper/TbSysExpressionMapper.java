@@ -21,9 +21,29 @@
  */
 package org.qifu.core.mapper;
 
+import java.util.List;
+import java.util.Map;
+
 import org.qifu.base.mapper.IBaseMapper;
 import org.qifu.core.entity.TbSysExpression;
 
 public interface TbSysExpressionMapper extends IBaseMapper<TbSysExpression, String> {
+	
+	/**
+	 * no CONTENT field for query , because sometime no need use this field, maybe field byte is big
+	 * 
+	 * @param paramMap
+	 * @return
+	 * @throws Exception
+	 */
+	public List<TbSysExpression> selectListByParamsSimple(Map<String, Object> paramMap) throws Exception;
+	
+	/**
+	 * no CONTENT field for query , because sometime no need use this field, maybe field byte is big
+	 * 
+	 * @param paramMap
+	 * @return
+	 */
+	public List<TbSysExpression> findPageSimple(Map<String, Object> paramMap);	
 	
 }

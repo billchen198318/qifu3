@@ -33,6 +33,7 @@ import org.qifu.base.exception.ControllerException;
 import org.qifu.base.exception.ServiceException;
 import org.qifu.base.model.DefaultControllerJsonResultObj;
 import org.qifu.base.model.DefaultResult;
+import org.qifu.base.model.PleaseSelect;
 import org.qifu.core.entity.TbSys;
 import org.qifu.core.entity.TbSysProg;
 import org.qifu.core.model.MenuItemType;
@@ -65,7 +66,7 @@ public class CommonController extends BaseControllerSupport {
 	public @ResponseBody DefaultControllerJsonResultObj<Map<String, String>> doQueryProgramFolder(HttpServletRequest request, @RequestParam(name="oid") String oid) {
 		DefaultControllerJsonResultObj<Map<String, String>> result = this.getDefaultJsonResult("CORE_PROGCOMM0001Q");
 		if (!this.isAuthorizeAndLoginFromControllerJsonResult(result)) {
-			result.setValue( this.getPleaseSelectMap(true) );
+			result.setValue( PleaseSelect.pageSelectMap(true) );
 			return result;
 		}		
 		try {
@@ -84,13 +85,13 @@ public class CommonController extends BaseControllerSupport {
 	public @ResponseBody DefaultControllerJsonResultObj<Map<String, String>> doQueryProgramList(HttpServletRequest request, @RequestParam(name="oid") String oid) {
 		DefaultControllerJsonResultObj<Map<String, String>> result = this.getDefaultJsonResult("CORE_PROGCOMM0002Q");
 		if (!this.isAuthorizeAndLoginFromControllerJsonResult(result)) {
-			result.setValue( this.getPleaseSelectMap(true) );
+			result.setValue( PleaseSelect.pageSelectMap(true) );
 			return result;
 		}		
 		try {
 			TbSys sys = this.findSys(oid);
 			List<TbSysProg> menuProgList = this.sysProgService.findForInTheFolderMenuItems(sys.getSysId(), null, null);
-			Map<String, String> dataMap = this.getPleaseSelectMap(true);
+			Map<String, String> dataMap = PleaseSelect.pageSelectMap(true);
 			for (int i=0; menuProgList!=null && i<menuProgList.size(); i++) {
 				TbSysProg sysProg = menuProgList.get(i);
 				dataMap.put(sysProg.getOid(), StringEscapeUtils.escapeHtml4(sysProg.getName()));

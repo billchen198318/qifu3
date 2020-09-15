@@ -61,6 +61,13 @@ public class PleaseSelect {
 		return false;
 	}
 	
+	public static boolean noSelect(String value) {
+		if (StringUtils.isBlank(value) || Constants.HTML_SELECT_NO_SELECT_ID.equals(value)) {
+			return true;
+		}
+		return false;
+	}	
+	
 	@SuppressWarnings("unchecked")
 	public static Map<String, Object> loadDatas() {
 		Map<String, Object> datas = null;
@@ -79,6 +86,14 @@ public class PleaseSelect {
 	public static String getLabel(String localeLang) {
 		String label = (String) _pleaseSelectMap.get(localeLang);
 		return (StringUtils.isBlank(label)) ? Constants.HTML_SELECT_NO_SELECT_NAME : label;
+	}
+	
+	public static Map<String, String> pageSelectMap(boolean pleaseSelect) {
+		Map<String, String> dataMap = new LinkedHashMap<String, String>();
+		if (pleaseSelect) {
+			dataMap.put(Constants.HTML_SELECT_NO_SELECT_ID, Constants.HTML_SELECT_NO_SELECT_NAME);
+		}
+		return dataMap;
 	}
 	
 }

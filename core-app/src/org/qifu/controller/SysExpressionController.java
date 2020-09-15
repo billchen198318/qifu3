@@ -33,6 +33,7 @@ import org.qifu.base.exception.ServiceException;
 import org.qifu.base.model.DefaultControllerJsonResultObj;
 import org.qifu.base.model.DefaultResult;
 import org.qifu.base.model.PageOf;
+import org.qifu.base.model.PleaseSelect;
 import org.qifu.base.model.QueryControllerJsonResultObj;
 import org.qifu.base.model.QueryResult;
 import org.qifu.base.model.ScriptTypeCode;
@@ -97,6 +98,8 @@ public class SysExpressionController extends BaseControllerSupport implements IP
 		}
 		try {
 			QueryResult< List<TbSysExpression> > queryResult = this.sysExpressionService.findPage(
+					"count",
+					"findPageSimple",
 					this.queryParameter(searchValue).fullEquals("exprId").fullLink("name").selectOption("type").value(), 
 					pageOf.orderBy("EXPR_ID").sortTypeAsc());
 			this.setQueryGridJsonResult(result, queryResult, pageOf);
@@ -147,7 +150,7 @@ public class SysExpressionController extends BaseControllerSupport implements IP
 		this.getCheckControllerFieldHandler(result)
 		.testField("exprId", sysExpression, "@org.apache.commons.lang3.StringUtils@isBlank( exprId )", "Id is required!")
 		.testField("exprId", sysExpression, "!@org.qifu.util.SimpleUtils@checkBeTrueOf_azAZ09( exprId.replaceAll(\"-\", \"\").replaceAll(\"_\", \"\") )", "Id only normal character!")
-		.testField("exprId", this.noSelect(sysExpression.getExprId()), "Please change Id value!") // Id 不能使用 all
+		.testField("exprId", PleaseSelect.noSelect(sysExpression.getExprId()), "Please change Id value!") // Id 不能使用 all
 		.testField("name", sysExpression, "@org.apache.commons.lang3.StringUtils@isBlank( name )", "Name is required!")
 		.testField("type", ( !ScriptTypeCode.isTypeCode(sysExpression.getType()) ), "Please select type!")
 		.testField("content", sysExpression, "@org.apache.commons.lang3.StringUtils@isBlank( content )", "Expression content is required!")

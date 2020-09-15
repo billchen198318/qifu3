@@ -30,6 +30,7 @@ import org.qifu.base.exception.ServiceException;
 import org.qifu.base.mapper.IBaseMapper;
 import org.qifu.base.message.BaseSystemMessage;
 import org.qifu.base.model.DefaultResult;
+import org.qifu.base.model.PleaseSelect;
 import org.qifu.base.model.SortType;
 import org.qifu.base.service.BaseService;
 import org.qifu.core.entity.TbSysProg;
@@ -59,7 +60,7 @@ public class SysProgServiceImpl extends BaseService<TbSysProg, String> implement
 		if (StringUtils.isBlank(progSystem)) {
 			throw new ServiceException(BaseSystemMessage.parameterBlank());
 		}
-		Map<String, String> dataMap = super.providedSelectZeroDataMap(pleaseSelect);
+		Map<String, String> dataMap = PleaseSelect.pageSelectMap(pleaseSelect);
 		Map<String, Object> params = new HashMap<String, Object>();
 		params.put("progSystem", progSystem);
 		params.put("itemType", itemType);

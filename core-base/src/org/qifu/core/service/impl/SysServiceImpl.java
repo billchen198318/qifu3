@@ -27,6 +27,7 @@ import java.util.Map;
 import org.qifu.base.exception.ServiceException;
 import org.qifu.base.mapper.IBaseMapper;
 import org.qifu.base.model.DefaultResult;
+import org.qifu.base.model.PleaseSelect;
 import org.qifu.base.service.BaseService;
 import org.qifu.core.entity.TbSys;
 import org.qifu.core.mapper.TbSysMapper;
@@ -52,7 +53,7 @@ public class SysServiceImpl extends BaseService<TbSys, String> implements ISysSe
 
 	@Override
 	public Map<String, String> findSysMap(boolean pleaseSelect) throws ServiceException, Exception {
-		Map<String, String> sysMap = super.providedSelectZeroDataMap(pleaseSelect);
+		Map<String, String> sysMap = PleaseSelect.pageSelectMap(pleaseSelect);
 		DefaultResult<List<TbSys>> searchResult = this.selectList();
 		if (searchResult.getValue()==null || searchResult.getValue().size()<1) {
 			return sysMap;

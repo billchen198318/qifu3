@@ -35,6 +35,7 @@ import org.qifu.base.exception.ServiceException;
 import org.qifu.base.model.DefaultControllerJsonResultObj;
 import org.qifu.base.model.DefaultResult;
 import org.qifu.base.model.PageOf;
+import org.qifu.base.model.PleaseSelect;
 import org.qifu.base.model.QueryControllerJsonResultObj;
 import org.qifu.base.model.QueryResult;
 import org.qifu.base.model.SearchValue;
@@ -69,7 +70,7 @@ public class RolePermissionController extends BaseControllerSupport implements I
 	}
 
 	private void init(String type, HttpServletRequest request, ModelMap mm) throws AuthorityException, ControllerException, ServiceException, Exception {
-		Map<String, String> permTypeMap = this.getPleaseSelectMap(true);
+		Map<String, String> permTypeMap = PleaseSelect.pageSelectMap(true);
 		permTypeMap.put("CONTROLLER", "Controller");
 		permTypeMap.put("COMPOMENT", "Compoment/Service");
 		mm.put("permTypeMap", permTypeMap);
@@ -128,7 +129,7 @@ public class RolePermissionController extends BaseControllerSupport implements I
 	private void checkFields(DefaultControllerJsonResultObj<TbRolePermission> result, TbRolePermission rolePermission) throws ControllerException, Exception {
 		this.getCheckControllerFieldHandler(result)
 		.testField("permission", rolePermission, "@org.apache.commons.lang3.StringUtils@isBlank(permission)", "Permission is blank!")
-		.testField("permissionType", ( this.noSelect(rolePermission.getPermType()) ), "Please select type!") 
+		.testField("permissionType", ( PleaseSelect.noSelect(rolePermission.getPermType()) ), "Please select type!") 
 		.throwMessage();		
 	}
 	

@@ -34,6 +34,7 @@ import org.qifu.base.exception.ServiceException;
 import org.qifu.base.model.DefaultControllerJsonResultObj;
 import org.qifu.base.model.DefaultResult;
 import org.qifu.base.model.PageOf;
+import org.qifu.base.model.PleaseSelect;
 import org.qifu.base.model.QueryControllerJsonResultObj;
 import org.qifu.base.model.QueryResult;
 import org.qifu.base.model.SearchValue;
@@ -97,7 +98,7 @@ public class RoleController extends BaseControllerSupport implements IPageNamesp
 		this.getCheckControllerFieldHandler(result)
 		.testField("role", role, "@org.apache.commons.lang3.StringUtils@isBlank(role)", "Role is blank!")
 		.testField("role", ( !SimpleUtils.checkBeTrueOf_azAZ09(super.defaultString(role.getRole()).replaceAll("-", "").replaceAll("_", "")) ), "Role only normal character!")
-		.testField("role", ( this.noSelect(role.getRole()) ), "Please change Role value!") // Role 不能用  "all" 這個下拉值
+		.testField("role", ( PleaseSelect.noSelect(role.getRole()) ), "Please change Role value!") // Role 不能用  "all" 這個下拉值
 		.throwMessage();
 	}
 	

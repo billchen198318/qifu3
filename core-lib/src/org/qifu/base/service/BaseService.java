@@ -24,7 +24,6 @@ package org.qifu.base.service;
 import java.io.IOException;
 import java.util.Date;
 import java.util.HashMap;
-import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -436,21 +435,6 @@ public abstract class BaseService<T extends java.io.Serializable, K extends java
 		pageOf.setCountSize(String.valueOf(countSize));
 		//pageOf.toCalculateSize(); // 2019-09-10
 		pageOf.toCalculateSize((int)startRow); // 2019-09-10
-	}
-	
-	protected Map<String, String> providedSelectZeroDataMap(boolean pleaseSelectItem) {
-		Map<String, String> dataMap = new LinkedHashMap<String, String>();
-		if (pleaseSelectItem) {
-			dataMap.put(Constants.HTML_SELECT_NO_SELECT_ID, Constants.HTML_SELECT_NO_SELECT_NAME);
-		}
-		return dataMap;
-	}
-	
-	protected boolean isNoSelectId(String value) {
-		if (StringUtils.isBlank(value) || Constants.HTML_SELECT_NO_SELECT_ID.equals(value)) {
-			return true;
-		}
-		return false;
 	}
 	
 }

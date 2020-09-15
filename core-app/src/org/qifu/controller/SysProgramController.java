@@ -35,6 +35,7 @@ import org.qifu.base.exception.ServiceException;
 import org.qifu.base.model.DefaultControllerJsonResultObj;
 import org.qifu.base.model.DefaultResult;
 import org.qifu.base.model.PageOf;
+import org.qifu.base.model.PleaseSelect;
 import org.qifu.base.model.QueryControllerJsonResultObj;
 import org.qifu.base.model.QueryResult;
 import org.qifu.base.model.SearchValue;
@@ -182,14 +183,14 @@ public class SysProgramController extends BaseControllerSupport implements IPage
 	
 	private void checkFields(DefaultControllerJsonResultObj<TbSysProg> result, TbSysProg sysProg, String sysOid, String iconOid, String w, String h) throws ControllerException, Exception {
 		this.getCheckControllerFieldHandler(result)
-		.testField("progSystemOid", ( this.noSelect(sysOid) ), "Please select system!")
+		.testField("progSystemOid", ( PleaseSelect.noSelect(sysOid) ), "Please select system!")
 		.testField("progId", sysProg, "@org.apache.commons.lang3.StringUtils@isBlank(progId)", "Id is blank!")
-		.testField("progId", ( this.noSelect(sysProg.getProgId()) ), "Please change Id value!") // PROG-ID 不能用  "all" 這個下拉值
+		.testField("progId", ( PleaseSelect.noSelect(sysProg.getProgId()) ), "Please change Id value!") // PROG-ID 不能用  "all" 這個下拉值
 		.testField("progId", ( !SimpleUtils.checkBeTrueOf_azAZ09(super.defaultString(sysProg.getProgId()).replaceAll("-", "").replaceAll("_", "")) ), "Id only normal character!")
 		.testField("name", sysProg, "@org.apache.commons.lang3.StringUtils@isBlank(name)", "Name is blank!")
 		.testField("url", ( (MenuItemType.ITEM.equals(sysProg.getItemType()) && StringUtils.isBlank(sysProg.getUrl())) ), "URL is blank!")
-		.testField("itemType", ( this.noSelect(sysProg.getItemType()) ), "Please select item-type!")
-		.testField("iconOid", ( this.noSelect(iconOid) ), "Please select icon!")
+		.testField("itemType", ( PleaseSelect.noSelect(sysProg.getItemType()) ), "Please select item-type!")
+		.testField("iconOid", ( PleaseSelect.noSelect(iconOid) ), "Please select icon!")
 		.testField("dialogWidth", ( (YES.equals(sysProg.getIsDialog()) && !NumberUtils.isCreatable(w)) ), "Please input dialog width!")
 		.testField("dialogHeight", ( (YES.equals(sysProg.getIsDialog()) && !NumberUtils.isCreatable(h)) ), "Please input dialog height!")
 		.throwMessage();		

@@ -33,6 +33,7 @@ import org.qifu.base.exception.ServiceException;
 import org.qifu.base.model.DefaultControllerJsonResultObj;
 import org.qifu.base.model.DefaultResult;
 import org.qifu.base.model.PageOf;
+import org.qifu.base.model.PleaseSelect;
 import org.qifu.base.model.QueryControllerJsonResultObj;
 import org.qifu.base.model.QueryResult;
 import org.qifu.base.model.SearchValue;
@@ -189,7 +190,7 @@ public class SysTemplateController extends BaseControllerSupport implements IPag
 		this.getCheckControllerFieldHandler(result)
 		.testField("templateId", template, "@org.apache.commons.lang3.StringUtils@isBlank(templateId)", "Id is blank!")
 		.testField("templateId", ( !SimpleUtils.checkBeTrueOf_azAZ09(super.defaultString(template.getTemplateId()).replaceAll("-", "").replaceAll("_", "")) ), "Id only normal character!")
-		.testField("templateId", ( this.noSelect(template.getTemplateId()) ), "Please change Id value!") // Role 不能用  "all" 這個下拉值
+		.testField("templateId", ( PleaseSelect.noSelect(template.getTemplateId()) ), "Please change Id value!") // Role 不能用  "all" 這個下拉值
 		.testField("title", template, "@org.apache.commons.lang3.StringUtils@isBlank(title)", "Title is blank!")
 		.testField("message", template, "@org.apache.commons.lang3.StringUtils@isBlank(message)", "Message is blank!")
 		.throwMessage();		

@@ -33,6 +33,7 @@ import org.qifu.base.exception.ControllerException;
 import org.qifu.base.exception.ServiceException;
 import org.qifu.base.model.DefaultControllerJsonResultObj;
 import org.qifu.base.model.DefaultResult;
+import org.qifu.base.model.PleaseSelect;
 import org.qifu.core.entity.TbRole;
 import org.qifu.core.entity.TbSys;
 import org.qifu.core.entity.TbSysProg;
@@ -66,7 +67,7 @@ public class MenuRoleController extends BaseControllerSupport implements IPageNa
 
 	private void init(String type, ModelMap mm) throws AuthorityException, ControllerException, ServiceException, Exception {
 		mm.put("sysMap", this.sysService.findSysMap(true));
-		mm.put("progMap", this.getPleaseSelectMap(true));
+		mm.put("progMap", PleaseSelect.pageSelectMap(true));
 	}
 	
 	//CORE_PROG002D0003Q

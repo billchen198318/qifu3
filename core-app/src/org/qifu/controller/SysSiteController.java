@@ -34,6 +34,7 @@ import org.qifu.base.exception.ServiceException;
 import org.qifu.base.model.DefaultControllerJsonResultObj;
 import org.qifu.base.model.DefaultResult;
 import org.qifu.base.model.PageOf;
+import org.qifu.base.model.PleaseSelect;
 import org.qifu.base.model.QueryControllerJsonResultObj;
 import org.qifu.base.model.QueryResult;
 import org.qifu.base.model.SearchValue;
@@ -202,7 +203,7 @@ public class SysSiteController extends BaseControllerSupport implements IPageNam
 		this.getCheckControllerFieldHandler(result)
 		.testField("systemId", sys, "@org.apache.commons.lang3.StringUtils@isBlank(sysId)", "Id is blank!")
 		.testField("systemId", sys, "!@org.qifu.util.SimpleUtils@checkBeTrueOf_azAZ09(sysId)", "Id only normal character!")
-		.testField("systemId", ( this.noSelect(sys.getSysId()) ), "Please change Id value!") // Id 不能用  "all" 這個下拉值
+		.testField("systemId", ( PleaseSelect.noSelect(sys.getSysId()) ), "Please change Id value!") // Id 不能用  "all" 這個下拉值
 		.testField("systemName", sys, "@org.apache.commons.lang3.StringUtils@isBlank(name)", "Name is blank!")
 		.testField("systemHost", sys, "@org.apache.commons.lang3.StringUtils@isBlank(host)", "Host is blank!")
 		.testField("systemContextPath", sys, "@org.apache.commons.lang3.StringUtils@isBlank(contextPath)", "Context path is blank!")

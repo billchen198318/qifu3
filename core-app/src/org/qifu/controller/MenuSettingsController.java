@@ -33,6 +33,7 @@ import org.qifu.base.exception.ControllerException;
 import org.qifu.base.exception.ServiceException;
 import org.qifu.base.model.DefaultControllerJsonResultObj;
 import org.qifu.base.model.DefaultResult;
+import org.qifu.base.model.PleaseSelect;
 import org.qifu.core.entity.TbSys;
 import org.qifu.core.entity.TbSysProg;
 import org.qifu.core.logic.ISystemMenuLogicService;
@@ -61,7 +62,7 @@ public class MenuSettingsController extends BaseControllerSupport implements IPa
 	
 	private void init(String type, ModelMap mm) throws AuthorityException, ControllerException, ServiceException, Exception {
 		mm.put( "sysMap", this.sysService.findSysMap(true) );
-		mm.put("folderProgMap", this.getPleaseSelectMap(true));
+		mm.put("folderProgMap", PleaseSelect.pageSelectMap(true));
 	}	
 	
 	@RequestMapping(value = "/menuSettingsPage")	
