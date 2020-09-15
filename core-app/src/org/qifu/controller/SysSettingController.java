@@ -39,7 +39,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 @Controller
-public class SystemSettingController extends BaseControllerSupport implements IPageNamespaceProvide {
+public class SysSettingController extends BaseControllerSupport implements IPageNamespaceProvide {
 	
 	@Override
 	public String viewPageNamespace() {

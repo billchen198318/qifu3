@@ -63,6 +63,17 @@ public class QueryParamBuilder {
 		return val;
 	}
 	
+	public QueryParamBuilder selectOption(String paramName) {
+		if (null == this.searchBody || null == this.searchBody.getField()) {
+			return this;
+		}		
+		String value = this.searchBody.getField().get(paramName);		
+		if (!StringUtils.isBlank(value) && !PleaseSelect.isAllOption(value)) {
+			this.paramMap.put(paramName, value);
+		}
+		return this;
+	}	
+	
 	public QueryParamBuilder fullEquals(String paramName, String value) {
 		if (!StringUtils.isBlank(value)) {
 			this.paramMap.put(paramName, value);

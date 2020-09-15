@@ -21,6 +21,11 @@
  */
 package org.qifu.base.model;
 
+import java.util.List;
+import java.util.Map;
+
+import org.qifu.base.exception.ServiceException;
+
 public class DefaultResult<T> implements java.io.Serializable {
 	private static final long serialVersionUID = 738672416927503320L;
 	
@@ -62,6 +67,23 @@ public class DefaultResult<T> implements java.io.Serializable {
 
 	public void setValue(T value) {
 		this.value = value;
+	}
+	
+	public T getValueEmptyThrowMessage() throws ServiceException {
+		if (null == this.value) {
+			throw new ServiceException(this.message);
+		}
+		if (this.value instanceof List) {
+			if ( ((List<?>)this.value).size() < 1 ) {
+				throw new ServiceException(this.message);
+			}
+		}
+		if (this.value instanceof Map) {
+			if ( ((Map<?,?>)this.value).size() < 1 ) {
+				throw new ServiceException(this.message);
+			}
+		}
+		return this.value;
 	}
 	
 }
