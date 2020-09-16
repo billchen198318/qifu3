@@ -30,6 +30,7 @@ import org.qifu.base.exception.AuthorityException;
 import org.qifu.base.exception.ControllerException;
 import org.qifu.base.exception.ServiceException;
 import org.qifu.base.message.BaseSystemMessage;
+import org.qifu.base.model.ControllerMethodAuthority;
 import org.qifu.base.model.DefaultControllerJsonResultObj;
 import org.qifu.core.util.SystemSettingConfigureUtils;
 import org.springframework.http.MediaType;
@@ -51,7 +52,7 @@ public class SysSettingController extends BaseControllerSupport implements IPage
 		mm.put("mailEnable", SystemSettingConfigureUtils.getMailEnableValue().trim());
 	}
 	
-	//@ControllerMethodAuthority(check = true, programId = "CORE_PROG001D0007Q")
+	@ControllerMethodAuthority(check = true, programId = "CORE_PROG001D0007Q")
 	@RequestMapping(value = "/sysSettingPage")	
 	public String mainPage(ModelMap mm, HttpServletRequest request) {
 		String viewName = this.viewMainPage();
@@ -81,10 +82,10 @@ public class SysSettingController extends BaseControllerSupport implements IPage
 		result.setMessage( BaseSystemMessage.updateSuccess() );				
 	}
 	
-	//@ControllerMethodAuthority(check = true, programId = "CORE_PROG001D0007E")
+	@ControllerMethodAuthority(check = true, programId = "CORE_PROG001D0007Q")
 	@RequestMapping(value = "/sysSettingUpdateJson", produces = MediaType.APPLICATION_JSON_VALUE)		
 	public @ResponseBody DefaultControllerJsonResultObj<Boolean> doUpdate(HttpServletRequest request) {
-		DefaultControllerJsonResultObj<Boolean> result = this.getDefaultJsonResult("CORE_PROG001D0007E");
+		DefaultControllerJsonResultObj<Boolean> result = this.getDefaultJsonResult("CORE_PROG001D0007Q");
 		if (!this.isAuthorizeAndLoginFromControllerJsonResult(result)) {
 			return result;
 		}

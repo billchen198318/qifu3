@@ -30,6 +30,7 @@ import org.qifu.base.controller.IPageNamespaceProvide;
 import org.qifu.base.exception.AuthorityException;
 import org.qifu.base.exception.ControllerException;
 import org.qifu.base.exception.ServiceException;
+import org.qifu.base.model.ControllerMethodAuthority;
 import org.qifu.base.model.DefaultControllerJsonResultObj;
 import org.qifu.base.model.DefaultResult;
 import org.qifu.base.model.PageOf;
@@ -81,6 +82,7 @@ public class SysTemplateController extends BaseControllerSupport implements IPag
 		mm.put("template", template);
 	}
 	
+	@ControllerMethodAuthority(check = true, programId = "CORE_PROG001D0004Q")
 	@RequestMapping(value = "/sysTemplatePage")	
 	public String mainPage(ModelMap mm, HttpServletRequest request) {
 		String viewName = this.viewMainPage();
@@ -97,6 +99,7 @@ public class SysTemplateController extends BaseControllerSupport implements IPag
 		return viewName;
 	}	
 	
+	@ControllerMethodAuthority(check = true, programId = "CORE_PROG001D0004A")
 	@RequestMapping(value = "/sysTemplateCreatePage")
 	public String createPage(ModelMap mm, HttpServletRequest request) {
 		String viewName = this.viewCreatePage();
@@ -113,6 +116,7 @@ public class SysTemplateController extends BaseControllerSupport implements IPag
 		return viewName;
 	}		
 	
+	@ControllerMethodAuthority(check = true, programId = "CORE_PROG001D0004E")
 	@RequestMapping("/sysTemplateEditPage")
 	public String editPage(ModelMap mm, HttpServletRequest request, @RequestParam(name="oid") String oid) {
 		String viewName = this.viewEditPage();
@@ -130,6 +134,7 @@ public class SysTemplateController extends BaseControllerSupport implements IPag
 		return viewName;
 	}		
 	
+	@ControllerMethodAuthority(check = true, programId = "CORE_PROG001D0004S01Q")
 	@RequestMapping(value = "/sysTemplateParam")
 	public String paramPage(ModelMap mm, HttpServletRequest request, @RequestParam(name="oid") String oid) {
 		String viewName = this.viewPageWithNamespace("param-page");
@@ -147,6 +152,7 @@ public class SysTemplateController extends BaseControllerSupport implements IPag
 		return viewName;
 	}		
 	
+	@ControllerMethodAuthority(check = true, programId = "CORE_PROG001D0004Q")
 	@RequestMapping(value = "/sysTemplateQueryGridJson", produces = MediaType.APPLICATION_JSON_VALUE)	
 	public @ResponseBody QueryControllerJsonResultObj< List<TbSysTemplate> >  queryGrid(SearchValue searchValue, PageOf pageOf) {
 		QueryControllerJsonResultObj< List<TbSysTemplate> > result = this.getQueryJsonResult("CORE_PROG001D0004Q");
@@ -166,7 +172,7 @@ public class SysTemplateController extends BaseControllerSupport implements IPag
 		return result;
 	}	
 		
-	
+	@ControllerMethodAuthority(check = true, programId = "CORE_PROG001D0004S01Q")
 	@RequestMapping(value = "/sysTemplateParamQueryGridJson", produces = MediaType.APPLICATION_JSON_VALUE)	
 	public @ResponseBody QueryControllerJsonResultObj< List<TbSysTemplateParam> >  paramQueryGrid(SearchValue searchValue, PageOf pageOf) {
 		QueryControllerJsonResultObj< List<TbSysTemplateParam> > result = this.getQueryJsonResult("CORE_PROG001D0004S01Q");
@@ -253,6 +259,7 @@ public class SysTemplateController extends BaseControllerSupport implements IPag
 		result.setMessage( tResult.getMessage() );
 	}		
 	
+	@ControllerMethodAuthority(check = true, programId = "CORE_PROG001D0004A")
 	@RequestMapping(value = "/sysTemplateSaveJson", produces = MediaType.APPLICATION_JSON_VALUE)		
 	public @ResponseBody DefaultControllerJsonResultObj<TbSysTemplate> doSave(TbSysTemplate template) {
 		DefaultControllerJsonResultObj<TbSysTemplate> result = this.getDefaultJsonResult("CORE_PROG001D0004A");
@@ -269,6 +276,7 @@ public class SysTemplateController extends BaseControllerSupport implements IPag
 		return result;
 	}	
 	
+	@ControllerMethodAuthority(check = true, programId = "CORE_PROG001D0004E")
 	@RequestMapping(value = "/sysTemplateUpdateJson", produces = MediaType.APPLICATION_JSON_VALUE)		
 	public @ResponseBody DefaultControllerJsonResultObj<TbSysTemplate> doUpdate(TbSysTemplate template) {
 		DefaultControllerJsonResultObj<TbSysTemplate> result = this.getDefaultJsonResult("CORE_PROG001D0004E");
@@ -285,6 +293,7 @@ public class SysTemplateController extends BaseControllerSupport implements IPag
 		return result;
 	}	
 	
+	@ControllerMethodAuthority(check = true, programId = "CORE_PROG001D0004D")
 	@RequestMapping(value = "/sysTemplateDeleteJson", produces = MediaType.APPLICATION_JSON_VALUE)		
 	public @ResponseBody DefaultControllerJsonResultObj<Boolean> doDelete(TbSysTemplate template) {
 		DefaultControllerJsonResultObj<Boolean> result = this.getDefaultJsonResult("CORE_PROG001D0004D");
@@ -301,6 +310,7 @@ public class SysTemplateController extends BaseControllerSupport implements IPag
 		return result;
 	}
 	
+	@ControllerMethodAuthority(check = true, programId = "CORE_PROG001D0004S01A")
 	@RequestMapping(value = "/sysTemplateParamSaveJson", produces = MediaType.APPLICATION_JSON_VALUE)		
 	public @ResponseBody DefaultControllerJsonResultObj<TbSysTemplateParam> doParamSave(@RequestParam("templateOid") String templateOid, TbSysTemplateParam templateParam) {
 		DefaultControllerJsonResultObj<TbSysTemplateParam> result = this.getDefaultJsonResult("CORE_PROG001D0004S01A");
@@ -317,6 +327,7 @@ public class SysTemplateController extends BaseControllerSupport implements IPag
 		return result;
 	}	
 	
+	@ControllerMethodAuthority(check = true, programId = "CORE_PROG001D0004S01D")
 	@RequestMapping(value = "/sysTemplateParamDeleteJson", produces = MediaType.APPLICATION_JSON_VALUE)		
 	public @ResponseBody DefaultControllerJsonResultObj<Boolean> doDeleteParam(TbSysTemplateParam templateParam) {
 		DefaultControllerJsonResultObj<Boolean> result = this.getDefaultJsonResult("CORE_PROG001D0004S01D");

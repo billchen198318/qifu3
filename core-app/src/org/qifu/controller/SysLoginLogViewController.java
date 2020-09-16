@@ -31,6 +31,7 @@ import org.qifu.base.exception.AuthorityException;
 import org.qifu.base.exception.ControllerException;
 import org.qifu.base.exception.ServiceException;
 import org.qifu.base.message.BaseSystemMessage;
+import org.qifu.base.model.ControllerMethodAuthority;
 import org.qifu.base.model.DefaultControllerJsonResultObj;
 import org.qifu.base.model.DefaultResult;
 import org.qifu.base.model.PageOf;
@@ -61,7 +62,7 @@ public class SysLoginLogViewController extends BaseControllerSupport implements 
 		
 	}
 	
-	//CORE_PROG004D0002Q
+	@ControllerMethodAuthority(check = true, programId = "CORE_PROG004D0002Q")
 	@RequestMapping(value = "/sysLoginLogPage")	
 	public String mainPage(ModelMap mm, HttpServletRequest request) {
 		String viewName = this.viewPageWithNamespace("login-log-page");
@@ -78,7 +79,7 @@ public class SysLoginLogViewController extends BaseControllerSupport implements 
 		return viewName;
 	}	
 	
-	//CORE_PROG004D0002Q
+	@ControllerMethodAuthority(check = true, programId = "CORE_PROG004D0002Q")
 	@RequestMapping(value = "/sysLoginLogQueryGridJson", produces = MediaType.APPLICATION_JSON_VALUE)	
 	public @ResponseBody QueryControllerJsonResultObj< List<TbSysLoginLog> > queryGrid(SearchValue searchValue, PageOf pageOf) {
 		QueryControllerJsonResultObj< List<TbSysLoginLog> > result = this.getQueryJsonResult("CORE_PROG004D0002Q");
@@ -114,7 +115,7 @@ public class SysLoginLogViewController extends BaseControllerSupport implements 
 		result.setMessage( BaseSystemMessage.deleteSuccess() );
 	}	
 	
-	//CORE_PROG004D0002D
+	@ControllerMethodAuthority(check = true, programId = "CORE_PROG004D0002D")
 	@RequestMapping(value = "/sysLoginLogDeleteJson", produces = MediaType.APPLICATION_JSON_VALUE)		
 	public @ResponseBody DefaultControllerJsonResultObj<Boolean> doDelete(TbSysLoginLog sysLoginLog) {
 		DefaultControllerJsonResultObj<Boolean> result = this.getDefaultJsonResult("CORE_PROG004D0002D");
@@ -131,7 +132,7 @@ public class SysLoginLogViewController extends BaseControllerSupport implements 
 		return result;
 	}	
 	
-	//CORE_PROG004D0002D
+	@ControllerMethodAuthority(check = true, programId = "CORE_PROG004D0002D")
 	@RequestMapping(value = "/sysLoginLogDeleteAllJson", produces = MediaType.APPLICATION_JSON_VALUE)		
 	public @ResponseBody DefaultControllerJsonResultObj<Boolean> doDeleteAll() {
 		DefaultControllerJsonResultObj<Boolean> result = this.getDefaultJsonResult("CORE_PROG004D0002D");

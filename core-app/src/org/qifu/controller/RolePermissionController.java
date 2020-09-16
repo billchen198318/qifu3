@@ -32,6 +32,7 @@ import org.qifu.base.controller.IPageNamespaceProvide;
 import org.qifu.base.exception.AuthorityException;
 import org.qifu.base.exception.ControllerException;
 import org.qifu.base.exception.ServiceException;
+import org.qifu.base.model.ControllerMethodAuthority;
 import org.qifu.base.model.DefaultControllerJsonResultObj;
 import org.qifu.base.model.DefaultResult;
 import org.qifu.base.model.PageOf;
@@ -85,7 +86,7 @@ public class RolePermissionController extends BaseControllerSupport implements I
 		mm.put("role", role);
 	}
 	
-	//CORE_PROG002D0001S01Q
+	@ControllerMethodAuthority(check = true, programId = "CORE_PROG002D0001S01Q")
 	@RequestMapping(value = "/rolePermissionPage")	
 	public String mainPage(ModelMap mm, HttpServletRequest request) {
 		String viewName = this.viewPageWithNamespace("permission");
@@ -106,7 +107,7 @@ public class RolePermissionController extends BaseControllerSupport implements I
 		return viewName;		
 	}
 	
-	//CORE_PROG002D0001S01Q
+	@ControllerMethodAuthority(check = true, programId = "CORE_PROG002D0001S01Q")
 	@RequestMapping(value = "/rolePermissionQueryGridJson", produces = MediaType.APPLICATION_JSON_VALUE)	
 	public @ResponseBody QueryControllerJsonResultObj<List<TbRolePermission>> queryGrid(SearchValue searchValue, PageOf pageOf) {
 		QueryControllerJsonResultObj<List<TbRolePermission>> result = this.getQueryJsonResult("CORE_PROG002D0001S01Q");
@@ -152,7 +153,7 @@ public class RolePermissionController extends BaseControllerSupport implements I
 		result.setMessage( permResult.getMessage() );
 	}
 	
-	//CORE_PROG002D0001S01A
+	@ControllerMethodAuthority(check = true, programId = "CORE_PROG002D0001S01A")
 	@RequestMapping(value = "/rolePermissionSaveJson", produces = MediaType.APPLICATION_JSON_VALUE)		
 	public @ResponseBody DefaultControllerJsonResultObj<TbRolePermission> doSave(TbRolePermission rolePermission, @RequestParam(name="roleOid") String roleOid) {
 		DefaultControllerJsonResultObj<TbRolePermission> result = this.getDefaultJsonResult("CORE_PROG002D0001S01A");
@@ -169,7 +170,7 @@ public class RolePermissionController extends BaseControllerSupport implements I
 		return result;
 	}
 	
-	//CORE_PROG002D0001S01D
+	@ControllerMethodAuthority(check = true, programId = "CORE_PROG002D0001S01D")
 	@RequestMapping(value = "/rolePermissionDeleteJson", produces = MediaType.APPLICATION_JSON_VALUE)		
 	public @ResponseBody DefaultControllerJsonResultObj<Boolean> doDelete(TbRolePermission rolePermission) {
 		DefaultControllerJsonResultObj<Boolean> result = this.getDefaultJsonResult("CORE_PROG002D0001S01D");

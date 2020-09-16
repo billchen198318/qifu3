@@ -35,6 +35,7 @@ import org.qifu.base.exception.AuthorityException;
 import org.qifu.base.exception.ControllerException;
 import org.qifu.base.exception.ServiceException;
 import org.qifu.base.message.BaseSystemMessage;
+import org.qifu.base.model.ControllerMethodAuthority;
 import org.qifu.base.model.DefaultControllerJsonResultObj;
 import org.qifu.base.model.DefaultResult;
 import org.qifu.base.model.PageOf;
@@ -94,6 +95,7 @@ public class SysReportController extends BaseControllerSupport implements IPageN
 		mm.put("sysJreport", sysJreport);		
 	}
 	
+	@ControllerMethodAuthority(check = true, programId = "CORE_PROG001D0005Q")
 	@RequestMapping(value = "/sysReportPage")	
 	public String mainPage(ModelMap mm, HttpServletRequest request) {
 		String viewName = this.viewMainPage();
@@ -110,6 +112,7 @@ public class SysReportController extends BaseControllerSupport implements IPageN
 		return viewName;
 	}
 	
+	@ControllerMethodAuthority(check = true, programId = "CORE_PROG001D0005Q")
 	@RequestMapping(value = "/sysReportQueryGridJson", produces = MediaType.APPLICATION_JSON_VALUE)	
 	public @ResponseBody QueryControllerJsonResultObj<List<TbSysJreport>>  queryGrid(SearchValue searchValue, PageOf pageOf) {
 		QueryControllerJsonResultObj< List<TbSysJreport> > result = this.getQueryJsonResult("CORE_PROG001D0005Q");
@@ -131,6 +134,7 @@ public class SysReportController extends BaseControllerSupport implements IPageN
 		return result;
 	}	
 	
+	@ControllerMethodAuthority(check = true, programId = "CORE_PROG001D0005A")
 	@RequestMapping(value = "/sysReportCreatePage")
 	public String createPage(ModelMap mm, HttpServletRequest request) {
 		String viewName = this.viewCreatePage();
@@ -147,6 +151,7 @@ public class SysReportController extends BaseControllerSupport implements IPageN
 		return viewName;
 	}	
 	
+	@ControllerMethodAuthority(check = true, programId = "CORE_PROG001D0005E")
 	@RequestMapping(value = "/sysReportEditPage")
 	public String editPage(ModelMap mm, HttpServletRequest request, @RequestParam(name="oid") String oid) {
 		String viewName = this.viewEditPage();
@@ -164,6 +169,7 @@ public class SysReportController extends BaseControllerSupport implements IPageN
 		return viewName;
 	}	
 	
+	@ControllerMethodAuthority(check = true, programId = "CORE_PROG001D0005S01Q")
 	@RequestMapping(value = "/sysReportParamPage")
 	public String paramPage(ModelMap mm, HttpServletRequest request, @RequestParam(name="oid") String oid) {
 		String viewName = this.viewPageWithNamespace("param-page");
@@ -181,6 +187,7 @@ public class SysReportController extends BaseControllerSupport implements IPageN
 		return viewName;
 	}		
 	
+	@ControllerMethodAuthority(check = true, programId = "CORE_PROG001D0005S01Q")
 	@RequestMapping(value = "/sysJreportParamQueryGridJson", produces = MediaType.APPLICATION_JSON_VALUE)	
 	public @ResponseBody QueryControllerJsonResultObj< List<TbSysJreportParam>>  paramQueryGrid(SearchValue searchValue, PageOf pageOf) {
 		QueryControllerJsonResultObj< List<TbSysJreportParam> > result = this.getQueryJsonResult("CORE_PROG001D0005S01Q");
@@ -200,6 +207,7 @@ public class SysReportController extends BaseControllerSupport implements IPageN
 		return result;
 	}
 	
+	@ControllerMethodAuthority(check = true, programId = "CORE_PROG001D0005S01Q")
 	@RequestMapping(value = "/sysReportPreviewPage")
 	public String previewPage(ModelMap mm, HttpServletRequest request, @RequestParam(name="oid") String oid) {	
 		String viewName = this.viewPageWithNamespace("preview-page");
@@ -312,6 +320,7 @@ public class SysReportController extends BaseControllerSupport implements IPageN
 		result.setMessage( pResult.getMessage() );
 	}
 	
+	@ControllerMethodAuthority(check = true, programId = "CORE_PROG001D0005A")
 	@RequestMapping(value = "/sysReportSaveJson", produces = MediaType.APPLICATION_JSON_VALUE)		
 	public @ResponseBody DefaultControllerJsonResultObj<TbSysJreport> doSave(TbSysJreport sysJreport, @RequestParam("uploadOid") String uploadOid) {
 		DefaultControllerJsonResultObj<TbSysJreport> result = this.getDefaultJsonResult("CORE_PROG001D0005A");
@@ -328,6 +337,7 @@ public class SysReportController extends BaseControllerSupport implements IPageN
 		return result;
 	}
 	
+	@ControllerMethodAuthority(check = true, programId = "CORE_PROG001D0005E")
 	@RequestMapping(value = "/sysReportUpdateJson", produces = MediaType.APPLICATION_JSON_VALUE)
 	public @ResponseBody DefaultControllerJsonResultObj<TbSysJreport> doUpdate(TbSysJreport sysJreport, @RequestParam("uploadOid") String uploadOid) {
 		DefaultControllerJsonResultObj<TbSysJreport> result = this.getDefaultJsonResult("CORE_PROG001D0005E");
@@ -344,6 +354,7 @@ public class SysReportController extends BaseControllerSupport implements IPageN
 		return result;
 	}	
 	
+	@ControllerMethodAuthority(check = true, programId = "CORE_PROG001D0005D")
 	@RequestMapping(value = "/sysReportDeleteJson", produces = MediaType.APPLICATION_JSON_VALUE)		
 	public @ResponseBody DefaultControllerJsonResultObj<Boolean> doDelete(TbSysJreport sysJreport) {
 		DefaultControllerJsonResultObj<Boolean> result = this.getDefaultJsonResult("CORE_PROG001D0005D");
@@ -360,6 +371,7 @@ public class SysReportController extends BaseControllerSupport implements IPageN
 		return result;
 	}	
 	
+	@ControllerMethodAuthority(check = true, programId = "CORE_PROG001D0005Q")
 	@RequestMapping(value = "/sysReportDownloadContentJson", produces = MediaType.APPLICATION_JSON_VALUE)		
 	public @ResponseBody DefaultControllerJsonResultObj<String> doDownloadContent(TbSysJreport sysJreport) {
 		DefaultControllerJsonResultObj<String> result = this.getDefaultJsonResult("CORE_PROG001D0005Q");
@@ -383,6 +395,7 @@ public class SysReportController extends BaseControllerSupport implements IPageN
 		return result;
 	}	
 	
+	@ControllerMethodAuthority(check = true, programId = "CORE_PROG001D0005S01A")
 	@RequestMapping(value = "/sysJreportParamSaveJson", produces = MediaType.APPLICATION_JSON_VALUE)		
 	public @ResponseBody DefaultControllerJsonResultObj<TbSysJreportParam> doParamSave(TbSysJreportParam sysJreportParam, @RequestParam("reportOid") String reportOid) {
 		DefaultControllerJsonResultObj<TbSysJreportParam> result = this.getDefaultJsonResult("CORE_PROG001D0005S01A");
@@ -399,6 +412,7 @@ public class SysReportController extends BaseControllerSupport implements IPageN
 		return result;
 	}	
 	
+	@ControllerMethodAuthority(check = true, programId = "CORE_PROG001D0005S01D")
 	@RequestMapping(value = "/sysJreportParamDeleteJson", produces = MediaType.APPLICATION_JSON_VALUE)		
 	public @ResponseBody DefaultControllerJsonResultObj<Boolean> doParamDelete(TbSysJreportParam sysJreportParam) {
 		DefaultControllerJsonResultObj<Boolean> result = this.getDefaultJsonResult("CORE_PROG001D0005S01D");

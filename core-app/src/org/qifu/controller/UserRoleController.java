@@ -31,6 +31,7 @@ import org.qifu.base.controller.IPageNamespaceProvide;
 import org.qifu.base.exception.AuthorityException;
 import org.qifu.base.exception.ControllerException;
 import org.qifu.base.exception.ServiceException;
+import org.qifu.base.model.ControllerMethodAuthority;
 import org.qifu.base.model.DefaultControllerJsonResultObj;
 import org.qifu.base.model.DefaultResult;
 import org.qifu.core.entity.TbAccount;
@@ -63,7 +64,7 @@ public class UserRoleController extends BaseControllerSupport implements IPageNa
 		mm.put("accountMap", this.accountService.findForAllMap(true));
 	}
 	
-	//CORE_PROG002D0002Q
+	@ControllerMethodAuthority(check = true, programId = "CORE_PROG002D0002Q")
 	@RequestMapping(value = "/userRolePage")	
 	public String mainPage(ModelMap mm, HttpServletRequest request) {
 		String viewName = this.viewPageWithNamespace("user-role-page");
@@ -80,7 +81,7 @@ public class UserRoleController extends BaseControllerSupport implements IPageNa
 		return viewName;	
 	}	
 	
-	//CORE_PROG002D0002Q
+	@ControllerMethodAuthority(check = true, programId = "CORE_PROG002D0002Q")
 	@RequestMapping(value = "/userRoleListByAccountOidJson", produces = MediaType.APPLICATION_JSON_VALUE)		
 	public @ResponseBody DefaultControllerJsonResultObj< Map<String, List<TbRole>> > queryRoleListByAccountOid(HttpServletRequest request, @RequestParam(name="accountOid") String accountOid) {
 		DefaultControllerJsonResultObj< Map<String, List<TbRole>> > result = this.getDefaultJsonResult("CORE_PROG002D0002Q");
@@ -99,7 +100,7 @@ public class UserRoleController extends BaseControllerSupport implements IPageNa
 		return result;
 	}	
 	
-	//CORE_PROG002D0002Q
+	@ControllerMethodAuthority(check = true, programId = "CORE_PROG002D0002Q")
 	@RequestMapping(value = "/userRoleUpdateJson", produces = MediaType.APPLICATION_JSON_VALUE)		
 	public @ResponseBody DefaultControllerJsonResultObj<Boolean> updateMenu(HttpServletRequest request, @RequestParam(name="accountOid") String accountOid, @RequestParam(name="appendOid") String appendOid) {
 		DefaultControllerJsonResultObj<Boolean> result = this.getDefaultJsonResult("CORE_PROG002D0002Q");

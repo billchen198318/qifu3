@@ -31,6 +31,7 @@ import org.qifu.base.exception.AuthorityException;
 import org.qifu.base.exception.ControllerException;
 import org.qifu.base.exception.ServiceException;
 import org.qifu.base.model.CheckControllerFieldHandler;
+import org.qifu.base.model.ControllerMethodAuthority;
 import org.qifu.base.model.DefaultControllerJsonResultObj;
 import org.qifu.base.model.DefaultResult;
 import org.qifu.base.model.PageOf;
@@ -108,7 +109,7 @@ public class SysBeanSupportController extends BaseControllerSupport implements I
 		mm.put("sysBeanHelpExpr", sysBeanHelpExpr);
 	}
 	
-	//CORE_PROG003D0003Q
+	@ControllerMethodAuthority(check = true, programId = "CORE_PROG003D0003Q")
 	@RequestMapping(value = "/sysBeanSupportPage")	
 	public String mainPage(ModelMap mm, HttpServletRequest request) {
 		String viewName = this.viewMainPage();
@@ -125,7 +126,7 @@ public class SysBeanSupportController extends BaseControllerSupport implements I
 		return viewName;
 	}	
 	
-	//CORE_PROG003D0003Q
+	@ControllerMethodAuthority(check = true, programId = "CORE_PROG003D0003Q")
 	@RequestMapping(value = "/sysBeanSupportQueryGridJson", produces = MediaType.APPLICATION_JSON_VALUE)	
 	public @ResponseBody QueryControllerJsonResultObj< List<TbSysBeanHelp> > queryGrid(SearchValue searchValue, PageOf pageOf) {
 		QueryControllerJsonResultObj< List<TbSysBeanHelp> > result = this.getQueryJsonResult("CORE_PROG003D0003Q");
@@ -145,7 +146,7 @@ public class SysBeanSupportController extends BaseControllerSupport implements I
 		return result;
 	}
 	
-	//CORE_PROG003D0003A
+	@ControllerMethodAuthority(check = true, programId = "CORE_PROG003D0003A")
 	@RequestMapping(value = "/sysBeanSupportCreatePage")
 	public String createPage(ModelMap mm, HttpServletRequest request) {
 		String viewName = this.viewCreatePage();
@@ -162,7 +163,7 @@ public class SysBeanSupportController extends BaseControllerSupport implements I
 		return viewName;
 	}	
 	
-	//CORE_PROG003D0003E
+	@ControllerMethodAuthority(check = true, programId = "CORE_PROG003D0003E")
 	@RequestMapping(value = "/sysBeanSupportEditPage")
 	public String editPage(ModelMap mm, HttpServletRequest request, @RequestParam(name="oid") String oid) {
 		String viewName = this.viewEditPage();
@@ -180,7 +181,7 @@ public class SysBeanSupportController extends BaseControllerSupport implements I
 		return viewName;
 	}
 	
-	//CORE_PROG003D0003S01Q
+	@ControllerMethodAuthority(check = true, programId = "CORE_PROG003D0003S01Q")
 	@RequestMapping(value = "/sysBeanSupportExpressionPage")
 	public String editExpressionPage(ModelMap mm, HttpServletRequest request, @RequestParam(name="oid") String oid) {
 		String viewName = this.viewPageWithNamespace("expr");
@@ -198,7 +199,7 @@ public class SysBeanSupportController extends BaseControllerSupport implements I
 		return viewName;
 	}	
 	
-	//CORE_PROG003D0003S01Q
+	@ControllerMethodAuthority(check = true, programId = "CORE_PROG003D0003S01Q")
 	@RequestMapping(value = "/sysBeanSupportExpressionQueryGridJson", produces = MediaType.APPLICATION_JSON_VALUE)	
 	public @ResponseBody QueryControllerJsonResultObj< List<TbSysBeanHelpExpr> > queryExpressionGrid(SearchValue searchValue, PageOf pageOf) {
 		QueryControllerJsonResultObj< List<TbSysBeanHelpExpr> > result = this.getQueryJsonResult("CORE_PROG003D0003S01Q");
@@ -218,7 +219,7 @@ public class SysBeanSupportController extends BaseControllerSupport implements I
 		return result;
 	}	
 	
-	//CORE_PROG003D0003S02Q
+	@ControllerMethodAuthority(check = true, programId = "CORE_PROG003D0003S02Q")
 	@RequestMapping(value = "/sysBeanSupportExpressionParamPage")
 	public String editExpressionParamPage(ModelMap mm, HttpServletRequest request, @RequestParam(name="oid") String oid) {
 		String viewName = this.viewPageWithNamespace("expr-map");
@@ -236,7 +237,7 @@ public class SysBeanSupportController extends BaseControllerSupport implements I
 		return viewName;
 	}	
 	
-	//CORE_PROG003D0003S02Q
+	@ControllerMethodAuthority(check = true, programId = "CORE_PROG003D0003S02Q")
 	@RequestMapping(value = "/sysBeanSupportExpressionParamQueryGridJson", produces = MediaType.APPLICATION_JSON_VALUE)	
 	public @ResponseBody QueryControllerJsonResultObj< List<TbSysBeanHelpExprMap> > queryExpressionParamGrid(SearchValue searchValue, PageOf pageOf) {
 		QueryControllerJsonResultObj< List<TbSysBeanHelpExprMap> > result = this.getQueryJsonResult("CORE_PROG003D0003S02Q");
@@ -355,7 +356,7 @@ public class SysBeanSupportController extends BaseControllerSupport implements I
 		result.setMessage( dResult.getMessage() );			
 	}	
 	
-	//CORE_PROG003D0003A
+	@ControllerMethodAuthority(check = true, programId = "CORE_PROG003D0003A")
 	@RequestMapping(value = "/sysBeanSupportSaveJson", produces = MediaType.APPLICATION_JSON_VALUE)		
 	public @ResponseBody DefaultControllerJsonResultObj<TbSysBeanHelp> doSave(TbSysBeanHelp sysBeanHelp, @RequestParam("systemOid") String systemOid) {
 		DefaultControllerJsonResultObj<TbSysBeanHelp> result = this.getDefaultJsonResult("CORE_PROG003D0003A");
@@ -372,7 +373,7 @@ public class SysBeanSupportController extends BaseControllerSupport implements I
 		return result;
 	}	
 	
-	//CORE_PROG003D0003E
+	@ControllerMethodAuthority(check = true, programId = "CORE_PROG003D0003E")
 	@RequestMapping(value = "/sysBeanSupportUpdateJson", produces = MediaType.APPLICATION_JSON_VALUE)		
 	public @ResponseBody DefaultControllerJsonResultObj<TbSysBeanHelp> doUpdate(TbSysBeanHelp sysBeanHelp, @RequestParam("systemOid") String systemOid) {
 		DefaultControllerJsonResultObj<TbSysBeanHelp> result = this.getDefaultJsonResult("CORE_PROG003D0003E");
@@ -389,7 +390,7 @@ public class SysBeanSupportController extends BaseControllerSupport implements I
 		return result;
 	}
 	
-	//CORE_PROG003D0003D
+	@ControllerMethodAuthority(check = true, programId = "CORE_PROG003D0003D")
 	@RequestMapping(value = "/sysBeanSupportDeleteJson", produces = MediaType.APPLICATION_JSON_VALUE)		
 	public @ResponseBody DefaultControllerJsonResultObj<Boolean> doDelete(TbSysBeanHelp sysBeanHelp) {
 		DefaultControllerJsonResultObj<Boolean> result = this.getDefaultJsonResult("CORE_PROG003D0003D");
@@ -406,7 +407,7 @@ public class SysBeanSupportController extends BaseControllerSupport implements I
 		return result;
 	}	
 	
-	//CORE_PROG003D0003S01A
+	@ControllerMethodAuthority(check = true, programId = "CORE_PROG003D0003S01A")
 	@RequestMapping(value = "/sysBeanSupportExpressionSaveJson", produces = MediaType.APPLICATION_JSON_VALUE)		
 	public @ResponseBody DefaultControllerJsonResultObj<TbSysBeanHelpExpr> doSaveExpression(TbSysBeanHelpExpr sysBeanHelpExpr, @RequestParam("sysBeanHelpOid") String sysBeanHelpOid, @RequestParam("expressionOid") String expressionOid) {
 		DefaultControllerJsonResultObj<TbSysBeanHelpExpr> result = this.getDefaultJsonResult("CORE_PROG003D0003S01A");
@@ -423,7 +424,7 @@ public class SysBeanSupportController extends BaseControllerSupport implements I
 		return result;
 	}
 	
-	//CORE_PROG003D0003S01D
+	@ControllerMethodAuthority(check = true, programId = "CORE_PROG003D0003S01D")
 	@RequestMapping(value = "/sysBeanSupportExpressionDeleteJson", produces = MediaType.APPLICATION_JSON_VALUE)		
 	public @ResponseBody DefaultControllerJsonResultObj<Boolean> doDeleteExpression(TbSysBeanHelpExpr sysBeanHelpExpr) {
 		DefaultControllerJsonResultObj<Boolean> result = this.getDefaultJsonResult("CORE_PROG003D0003S01D");
@@ -440,7 +441,7 @@ public class SysBeanSupportController extends BaseControllerSupport implements I
 		return result;
 	}		
 	
-	//CORE_PROG003D0003S02A
+	@ControllerMethodAuthority(check = true, programId = "CORE_PROG003D0003S02A")
 	@RequestMapping(value = "/sysBeanSupportExpressionParamSaveJson", produces = MediaType.APPLICATION_JSON_VALUE)		
 	public @ResponseBody DefaultControllerJsonResultObj<TbSysBeanHelpExprMap> doSaveExpressionMap(TbSysBeanHelpExprMap sysBeanHelpExprMap, @RequestParam("sysBeanHelpExprOid") String sysBeanHelpExprOid) {
 		DefaultControllerJsonResultObj<TbSysBeanHelpExprMap> result = this.getDefaultJsonResult("CORE_PROG003D0003S02A");
@@ -457,7 +458,7 @@ public class SysBeanSupportController extends BaseControllerSupport implements I
 		return result;
 	}
 	
-	//CORE_PROG003D0003S02D
+	@ControllerMethodAuthority(check = true, programId = "CORE_PROG003D0003S02D")
 	@RequestMapping(value = "/sysBeanSupportExpressionParamDeleteJson", produces = MediaType.APPLICATION_JSON_VALUE)		
 	public @ResponseBody DefaultControllerJsonResultObj<Boolean> doDeleteExpressionMap(TbSysBeanHelpExprMap sysBeanHelpExprMap) {
 		DefaultControllerJsonResultObj<Boolean> result = this.getDefaultJsonResult("CORE_PROG003D0003S02D");

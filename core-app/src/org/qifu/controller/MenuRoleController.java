@@ -31,6 +31,7 @@ import org.qifu.base.controller.IPageNamespaceProvide;
 import org.qifu.base.exception.AuthorityException;
 import org.qifu.base.exception.ControllerException;
 import org.qifu.base.exception.ServiceException;
+import org.qifu.base.model.ControllerMethodAuthority;
 import org.qifu.base.model.DefaultControllerJsonResultObj;
 import org.qifu.base.model.DefaultResult;
 import org.qifu.base.model.PleaseSelect;
@@ -70,7 +71,7 @@ public class MenuRoleController extends BaseControllerSupport implements IPageNa
 		mm.put("progMap", PleaseSelect.pageSelectMap(true));
 	}
 	
-	//CORE_PROG002D0003Q
+	@ControllerMethodAuthority(check = true, programId = "CORE_PROG002D0003Q")
 	@RequestMapping(value = "/menuRolePage")	
 	public String mainPage(ModelMap mm, HttpServletRequest request) {
 		String viewName = this.viewPageWithNamespace("menu-role-page");
@@ -87,7 +88,7 @@ public class MenuRoleController extends BaseControllerSupport implements IPageNa
 		return viewName;	
 	}	
 	
-	//CORE_PROG002D0003Q
+	@ControllerMethodAuthority(check = true, programId = "CORE_PROG002D0003Q")
 	@RequestMapping(value = "/queryMenuProgramRoleListByOidJson", produces = MediaType.APPLICATION_JSON_VALUE)		
 	public @ResponseBody DefaultControllerJsonResultObj< Map<String, List<TbRole>> > queryMenuProgramRoleListByOid(HttpServletRequest request, @RequestParam(name="oid") String oid) {
 		DefaultControllerJsonResultObj< Map<String, List<TbRole>> > result = this.getDefaultJsonResult("CORE_PROG002D0003Q");
@@ -106,7 +107,7 @@ public class MenuRoleController extends BaseControllerSupport implements IPageNa
 		return result;
 	}	
 	
-	//CORE_PROG002D0003Q
+	@ControllerMethodAuthority(check = true, programId = "CORE_PROG002D0003Q")
 	@RequestMapping(value = "/menuRoleUpdateJson", produces = MediaType.APPLICATION_JSON_VALUE)		
 	public @ResponseBody DefaultControllerJsonResultObj<Boolean> updateMenu(HttpServletRequest request, @RequestParam(name="progOid") String progOid, @RequestParam(name="appendOid") String appendOid) {
 		DefaultControllerJsonResultObj<Boolean> result = this.getDefaultJsonResult("CORE_PROG002D0003Q");

@@ -31,6 +31,7 @@ import org.qifu.base.exception.AuthorityException;
 import org.qifu.base.exception.ControllerException;
 import org.qifu.base.exception.ServiceException;
 import org.qifu.base.message.BaseSystemMessage;
+import org.qifu.base.model.ControllerMethodAuthority;
 import org.qifu.base.model.DefaultControllerJsonResultObj;
 import org.qifu.base.model.DefaultResult;
 import org.qifu.base.model.PageOf;
@@ -61,7 +62,7 @@ public class SysEventLogViewAction extends BaseControllerSupport implements IPag
 		
 	}
 	
-	//CORE_PROG004D0001Q
+	@ControllerMethodAuthority(check = true, programId = "CORE_PROG004D0001Q")
 	@RequestMapping(value = "/sysEventLogPage")	
 	public String mainPage(ModelMap mm, HttpServletRequest request) {
 		String viewName = this.viewPageWithNamespace("event-log-page");
@@ -78,7 +79,7 @@ public class SysEventLogViewAction extends BaseControllerSupport implements IPag
 		return viewName;
 	}	
 	
-	//CORE_PROG004D0001Q
+	@ControllerMethodAuthority(check = true, programId = "CORE_PROG004D0001Q")
 	@RequestMapping(value = "/sysEventLogQueryGridJson", produces = MediaType.APPLICATION_JSON_VALUE)	
 	public @ResponseBody QueryControllerJsonResultObj< List<TbSysEventLog> > queryGrid(SearchValue searchValue, PageOf pageOf) {
 		QueryControllerJsonResultObj< List<TbSysEventLog> > result = this.getQueryJsonResult("CORE_PROG004D0001Q");
@@ -114,7 +115,7 @@ public class SysEventLogViewAction extends BaseControllerSupport implements IPag
 		result.setMessage( BaseSystemMessage.deleteSuccess() );
 	}
 	
-	//CORE_PROG004D0001D
+	@ControllerMethodAuthority(check = true, programId = "CORE_PROG004D0001D")
 	@RequestMapping(value = "/sysEventLogDeleteJson", produces = MediaType.APPLICATION_JSON_VALUE)		
 	public @ResponseBody DefaultControllerJsonResultObj<Boolean> doDelete(TbSysEventLog sysEventLog) {
 		DefaultControllerJsonResultObj<Boolean> result = this.getDefaultJsonResult("CORE_PROG004D0001D");
@@ -131,7 +132,7 @@ public class SysEventLogViewAction extends BaseControllerSupport implements IPag
 		return result;
 	}	
 	
-	//CORE_PROG004D0001D
+	@ControllerMethodAuthority(check = true, programId = "CORE_PROG004D0001D")
 	@RequestMapping(value = "/sysEventLogDeleteAllJson", produces = MediaType.APPLICATION_JSON_VALUE)		
 	public @ResponseBody DefaultControllerJsonResultObj<Boolean> doDeleteAll() {
 		DefaultControllerJsonResultObj<Boolean> result = this.getDefaultJsonResult("CORE_PROG004D0001D");

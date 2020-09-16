@@ -35,6 +35,7 @@ import org.qifu.base.exception.ControllerException;
 import org.qifu.base.exception.ServiceException;
 import org.qifu.base.message.BaseSystemMessage;
 import org.qifu.base.model.CheckControllerFieldHandler;
+import org.qifu.base.model.ControllerMethodAuthority;
 import org.qifu.base.model.DefaultControllerJsonResultObj;
 import org.qifu.base.model.DefaultResult;
 import org.qifu.base.model.PageOf;
@@ -122,11 +123,11 @@ public class SysExpressionJobController extends BaseControllerSupport implements
 		mm.put("expressionOid", expression.getOid());
 	}
 	
-	//CORE_PROG003D0006Q
+	@ControllerMethodAuthority(check = true, programId = "CORE_PROG003D0006Q")
 	@RequestMapping(value = "/sysExpressionJobPage")	
 	public String mainPage(ModelMap mm, HttpServletRequest request) {
 		String viewName = this.viewMainPage();
-		this.getDefaultModelMap(mm, "CORE_PROG003D0002Q");
+		this.getDefaultModelMap(mm, "CORE_PROG003D0006Q");
 		try {
 			this.init("mainPage", mm);
 		} catch (AuthorityException e) {
@@ -139,7 +140,7 @@ public class SysExpressionJobController extends BaseControllerSupport implements
 		return viewName;
 	}	
 	
-	//CORE_PROG003D0006Q
+	@ControllerMethodAuthority(check = true, programId = "CORE_PROG003D0006Q")
 	@RequestMapping(value = "/sysExpressionJobQueryGridJson", produces = MediaType.APPLICATION_JSON_VALUE)	
 	public @ResponseBody QueryControllerJsonResultObj< List<TbSysExprJob> > queryGrid(SearchValue searchValue, PageOf pageOf) {
 		QueryControllerJsonResultObj< List<TbSysExprJob> > result = this.getQueryJsonResult("CORE_PROG003D0006Q");
@@ -159,7 +160,7 @@ public class SysExpressionJobController extends BaseControllerSupport implements
 		return result;
 	}	
 	
-	//CORE_PROG003D0006A
+	@ControllerMethodAuthority(check = true, programId = "CORE_PROG003D0006A")
 	@RequestMapping(value = "/sysExpressionJobCreatePage")
 	public String createPage(ModelMap mm, HttpServletRequest request) {
 		String viewName = this.viewCreatePage();
@@ -176,7 +177,7 @@ public class SysExpressionJobController extends BaseControllerSupport implements
 		return viewName;
 	}
 	
-	//CORE_PROG003D0006E
+	@ControllerMethodAuthority(check = true, programId = "CORE_PROG003D0006E")
 	@RequestMapping(value = "/sysExpressionJobEditPage")
 	public String editPage(ModelMap mm, HttpServletRequest request, @RequestParam(name="oid") String oid) {
 		String viewName = this.viewEditPage();
@@ -258,7 +259,7 @@ public class SysExpressionJobController extends BaseControllerSupport implements
 		result.setMessage( BaseSystemMessage.updateSuccess() );
 	}
 	
-	//CORE_PROG003D0006A
+	@ControllerMethodAuthority(check = true, programId = "CORE_PROG003D0006A")
 	@RequestMapping(value = "/sysExpressionJobSaveJson", produces = MediaType.APPLICATION_JSON_VALUE)		
 	public @ResponseBody DefaultControllerJsonResultObj<TbSysExprJob> doSave(TbSysExprJob sysExprJob, @RequestParam("systemOid") String systemOid, @RequestParam("expressionOid") String expressionOid) {
 		DefaultControllerJsonResultObj<TbSysExprJob> result = this.getDefaultJsonResult("CORE_PROG003D0006A");
@@ -275,7 +276,7 @@ public class SysExpressionJobController extends BaseControllerSupport implements
 		return result;
 	}	
 	
-	//CORE_PROG003D0006E
+	@ControllerMethodAuthority(check = true, programId = "CORE_PROG003D0006E")
 	@RequestMapping(value = "/sysExpressionJobUpdateJson", produces = MediaType.APPLICATION_JSON_VALUE)		
 	public @ResponseBody DefaultControllerJsonResultObj<TbSysExprJob> doUpdate(TbSysExprJob sysExprJob, @RequestParam("systemOid") String systemOid, @RequestParam("expressionOid") String expressionOid) {
 		DefaultControllerJsonResultObj<TbSysExprJob> result = this.getDefaultJsonResult("CORE_PROG003D0006E");
@@ -292,7 +293,7 @@ public class SysExpressionJobController extends BaseControllerSupport implements
 		return result;
 	}	
 	
-	//CORE_PROG003D0006D
+	@ControllerMethodAuthority(check = true, programId = "CORE_PROG003D0006D")
 	@RequestMapping(value = "/sysExpressionJobDeleteJson", produces = MediaType.APPLICATION_JSON_VALUE)		
 	public @ResponseBody DefaultControllerJsonResultObj<Boolean> doDelete(TbSysExprJob sysExprJob) {
 		DefaultControllerJsonResultObj<Boolean> result = this.getDefaultJsonResult("CORE_PROG003D0006D");
@@ -309,7 +310,7 @@ public class SysExpressionJobController extends BaseControllerSupport implements
 		return result;
 	}	
 	
-	//CORE_PROG003D0006D
+	@ControllerMethodAuthority(check = true, programId = "CORE_PROG003D0006D")
 	@RequestMapping(value = "/sysExpressionJobManualExecuteJson", produces = MediaType.APPLICATION_JSON_VALUE)		
 	public @ResponseBody DefaultControllerJsonResultObj<TbSysExprJob> doManualExecute(HttpServletRequest request, TbSysExprJob sysExprJob) {
 		DefaultControllerJsonResultObj<TbSysExprJob> result = this.getDefaultJsonResult("CORE_PROG003D0006D");

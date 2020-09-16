@@ -30,6 +30,7 @@ import org.qifu.base.controller.IPageNamespaceProvide;
 import org.qifu.base.exception.AuthorityException;
 import org.qifu.base.exception.ControllerException;
 import org.qifu.base.exception.ServiceException;
+import org.qifu.base.model.ControllerMethodAuthority;
 import org.qifu.base.model.DefaultControllerJsonResultObj;
 import org.qifu.base.model.DefaultResult;
 import org.qifu.base.model.PageOf;
@@ -72,7 +73,7 @@ public class SysExpressionController extends BaseControllerSupport implements IP
 		mm.put("sysExpression", sysExpression);
 	}
 	
-	//CORE_PROG003D0002Q
+	@ControllerMethodAuthority(check = true, programId = "CORE_PROG003D0002Q")
 	@RequestMapping(value = "/sysExpressionPage")	
 	public String mainPage(ModelMap mm, HttpServletRequest request) {
 		String viewName = this.viewMainPage();
@@ -89,7 +90,7 @@ public class SysExpressionController extends BaseControllerSupport implements IP
 		return viewName;
 	}		
 	
-	//CORE_PROG003D0002Q
+	@ControllerMethodAuthority(check = true, programId = "CORE_PROG003D0002Q")
 	@RequestMapping(value = "/sysExpressionQueryGridJson", produces = MediaType.APPLICATION_JSON_VALUE)	
 	public @ResponseBody QueryControllerJsonResultObj< List<TbSysExpression> > queryGrid(SearchValue searchValue, PageOf pageOf) {
 		QueryControllerJsonResultObj< List<TbSysExpression> > result = this.getQueryJsonResult("CORE_PROG003D0002Q");
@@ -111,7 +112,7 @@ public class SysExpressionController extends BaseControllerSupport implements IP
 		return result;
 	}
 	
-	//CORE_PROG003D0002A
+	@ControllerMethodAuthority(check = true, programId = "CORE_PROG003D0002A")
 	@RequestMapping(value = "/sysExpressionCreatePage")
 	public String createPage(ModelMap mm, HttpServletRequest request) {
 		String viewName = this.viewCreatePage();
@@ -128,7 +129,7 @@ public class SysExpressionController extends BaseControllerSupport implements IP
 		return viewName;
 	}
 	
-	//CORE_PROG003D0002E
+	@ControllerMethodAuthority(check = true, programId = "CORE_PROG003D0002E")
 	@RequestMapping(value = "/sysExpressionEditPage")
 	public String editPage(ModelMap mm, HttpServletRequest request, @RequestParam(name="oid") String oid) {
 		String viewName = this.viewEditPage();
@@ -188,7 +189,7 @@ public class SysExpressionController extends BaseControllerSupport implements IP
 		result.setMessage( dResult.getMessage() );
 	}	
 	
-	//CORE_PROG003D0002A
+	@ControllerMethodAuthority(check = true, programId = "CORE_PROG003D0002A")
 	@RequestMapping(value = "/sysExpressionSaveJson", produces = MediaType.APPLICATION_JSON_VALUE)		
 	public @ResponseBody DefaultControllerJsonResultObj<TbSysExpression> doSave(TbSysExpression sysExpression) {
 		DefaultControllerJsonResultObj<TbSysExpression> result = this.getDefaultJsonResult("CORE_PROG003D0002A");
@@ -205,7 +206,7 @@ public class SysExpressionController extends BaseControllerSupport implements IP
 		return result;
 	}	
 	
-	//CORE_PROG003D0002E
+	@ControllerMethodAuthority(check = true, programId = "CORE_PROG003D0002E")
 	@RequestMapping(value = "/sysExpressionUpdateJson", produces = MediaType.APPLICATION_JSON_VALUE)		
 	public @ResponseBody DefaultControllerJsonResultObj<TbSysExpression> doUpdate(TbSysExpression sysExpression) {
 		DefaultControllerJsonResultObj<TbSysExpression> result = this.getDefaultJsonResult("CORE_PROG003D0002E");
@@ -222,7 +223,7 @@ public class SysExpressionController extends BaseControllerSupport implements IP
 		return result;
 	}	
 	
-	//CORE_PROG003D0002D
+	@ControllerMethodAuthority(check = true, programId = "CORE_PROG003D0002D")
 	@RequestMapping(value = "/sysExpressionDeleteJson", produces = MediaType.APPLICATION_JSON_VALUE)		
 	public @ResponseBody DefaultControllerJsonResultObj<Boolean> doDelete(TbSysExpression sysExpression) {
 		DefaultControllerJsonResultObj<Boolean> result = this.getDefaultJsonResult("CORE_PROG003D0002D");

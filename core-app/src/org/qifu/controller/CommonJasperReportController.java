@@ -32,6 +32,7 @@ import org.qifu.base.controller.BaseControllerSupport;
 import org.qifu.base.exception.AuthorityException;
 import org.qifu.base.exception.ControllerException;
 import org.qifu.base.exception.ServiceException;
+import org.qifu.base.model.ControllerMethodAuthority;
 import org.qifu.core.util.JReportUtils;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
@@ -41,7 +42,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 @Controller
 public class CommonJasperReportController extends BaseControllerSupport {
 	
-	//CORE_PROGCOMM0004Q
+	@ControllerMethodAuthority(check = true, programId = "CORE_PROGCOMM0004Q")
 	@RequestMapping(value = "/commonOpenJasperReport")
 	public String processReport(ModelMap mm, HttpServletRequest request, HttpServletResponse response, 
 			@RequestParam("jreportId") String jreportId) throws UnsupportedEncodingException, IOException {

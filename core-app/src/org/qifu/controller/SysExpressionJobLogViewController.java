@@ -31,6 +31,7 @@ import org.qifu.base.exception.AuthorityException;
 import org.qifu.base.exception.ControllerException;
 import org.qifu.base.exception.ServiceException;
 import org.qifu.base.message.BaseSystemMessage;
+import org.qifu.base.model.ControllerMethodAuthority;
 import org.qifu.base.model.DefaultControllerJsonResultObj;
 import org.qifu.base.model.DefaultResult;
 import org.qifu.base.model.PageOf;
@@ -61,7 +62,7 @@ public class SysExpressionJobLogViewController extends BaseControllerSupport imp
 		
 	}
 	
-	//CORE_PROG004D0003Q
+	@ControllerMethodAuthority(check = true, programId = "CORE_PROG004D0003Q")
 	@RequestMapping(value = "/sysExpressionJobLogPage")	
 	public String mainPage(ModelMap mm, HttpServletRequest request) {
 		String viewName = this.viewPageWithNamespace("exprjob-log-page");
@@ -78,7 +79,7 @@ public class SysExpressionJobLogViewController extends BaseControllerSupport imp
 		return viewName;
 	}	
 	
-	//CORE_PROG004D0003Q
+	@ControllerMethodAuthority(check = true, programId = "CORE_PROG004D0003Q")
 	@RequestMapping(value = "/sysExpressionJobLogQueryGridJson", produces = MediaType.APPLICATION_JSON_VALUE)	
 	public @ResponseBody QueryControllerJsonResultObj< List<TbSysExprJobLog> > queryGrid(SearchValue searchValue, PageOf pageOf) {
 		QueryControllerJsonResultObj< List<TbSysExprJobLog> > result = this.getQueryJsonResult("CORE_PROG004D0003Q");
@@ -114,7 +115,7 @@ public class SysExpressionJobLogViewController extends BaseControllerSupport imp
 		result.setMessage( BaseSystemMessage.deleteSuccess() );
 	}	
 	
-	//CORE_PROG004D0003D
+	@ControllerMethodAuthority(check = true, programId = "CORE_PROG004D0003D")
 	@RequestMapping(value = "/sysExpressionJobLogDeleteJson", produces = MediaType.APPLICATION_JSON_VALUE)		
 	public @ResponseBody DefaultControllerJsonResultObj<Boolean> doDelete(TbSysExprJobLog sysExprJobLog) {
 		DefaultControllerJsonResultObj<Boolean> result = this.getDefaultJsonResult("CORE_PROG004D0003D");
@@ -131,7 +132,7 @@ public class SysExpressionJobLogViewController extends BaseControllerSupport imp
 		return result;
 	}	
 	
-	//CORE_PROG004D0003D
+	@ControllerMethodAuthority(check = true, programId = "CORE_PROG004D0003D")
 	@RequestMapping(value = "/sysExpressionJobLogDeleteAllJson", produces = MediaType.APPLICATION_JSON_VALUE)		
 	public @ResponseBody DefaultControllerJsonResultObj<Boolean> doDeleteAll() {
 		DefaultControllerJsonResultObj<Boolean> result = this.getDefaultJsonResult("CORE_PROG004D0003D");

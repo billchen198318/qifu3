@@ -36,6 +36,7 @@ import org.qifu.base.exception.AuthorityException;
 import org.qifu.base.exception.ControllerException;
 import org.qifu.base.exception.ServiceException;
 import org.qifu.base.message.BaseSystemMessage;
+import org.qifu.base.model.ControllerMethodAuthority;
 import org.qifu.base.model.DefaultControllerJsonResultObj;
 import org.qifu.base.model.DefaultResult;
 import org.qifu.core.entity.TbSysUpload;
@@ -61,7 +62,7 @@ public class CommonUploadDownloadController extends BaseControllerSupport {
 	@Autowired
 	ISysUploadService<TbSysUpload, String> sysUploadService;
 	
-	//CORE_PROGCOMM0003Q
+	@ControllerMethodAuthority(check = true, programId = "CORE_PROGCOMM0003Q")
 	@RequestMapping(value = "/commonCheckUploadFileJson")		
 	public @ResponseBody DefaultControllerJsonResultObj<String> checkUpload(HttpServletResponse response, @RequestParam("oid") String oid) {
 		DefaultControllerJsonResultObj<String> result = this.getDefaultJsonResult("CORE_PROGCOMM0003Q");
@@ -89,8 +90,8 @@ public class CommonUploadDownloadController extends BaseControllerSupport {
 		}
 		return result;
 	}
-
-	//CORE_PROGCOMM0003Q
+	
+	@ControllerMethodAuthority(check = true, programId = "CORE_PROGCOMM0003Q")
 	@RequestMapping(value = "/commonDownloadFile")
 	public void downloadFile(HttpServletResponse response, @RequestParam("oid") String oid) throws UnsupportedEncodingException, IOException {
 		TbSysUpload uploadData = null;
@@ -123,7 +124,7 @@ public class CommonUploadDownloadController extends BaseControllerSupport {
 		FileCopyUtils.copy(content, response.getOutputStream());
 	}
 	
-	//CORE_PROGCOMM0003Q
+	@ControllerMethodAuthority(check = true, programId = "CORE_PROGCOMM0003Q")
 	@RequestMapping(value = "/commonViewFile")
 	public void viewFile(HttpServletResponse response, @RequestParam("oid") String oid) throws UnsupportedEncodingException, IOException {
 		TbSysUpload uploadData = null;
@@ -162,7 +163,7 @@ public class CommonUploadDownloadController extends BaseControllerSupport {
 		FileCopyUtils.copy(content, response.getOutputStream());
 	}	
 	
-	// CORE_PROGCOMM0003Q
+	@ControllerMethodAuthority(check = true, programId = "CORE_PROGCOMM0003Q")
 	@RequestMapping(value = "/commonUploadFileJson", method = { RequestMethod.POST }, headers = "content-type=multipart/*" )		
 	public @ResponseBody DefaultControllerJsonResultObj<String> uploadFile(
 			@RequestParam("commonUploadFile") MultipartFile file, 

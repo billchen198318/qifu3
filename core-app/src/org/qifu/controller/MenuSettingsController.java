@@ -31,6 +31,7 @@ import org.qifu.base.controller.IPageNamespaceProvide;
 import org.qifu.base.exception.AuthorityException;
 import org.qifu.base.exception.ControllerException;
 import org.qifu.base.exception.ServiceException;
+import org.qifu.base.model.ControllerMethodAuthority;
 import org.qifu.base.model.DefaultControllerJsonResultObj;
 import org.qifu.base.model.DefaultResult;
 import org.qifu.base.model.PleaseSelect;
@@ -65,6 +66,7 @@ public class MenuSettingsController extends BaseControllerSupport implements IPa
 		mm.put("folderProgMap", PleaseSelect.pageSelectMap(true));
 	}	
 	
+	@ControllerMethodAuthority(check = true, programId = "CORE_PROG001D0003Q")
 	@RequestMapping(value = "/menuSettingsPage")	
 	public String mainPage(ModelMap mm, HttpServletRequest request) {
 		String viewName = this.viewMainPage();
@@ -81,6 +83,7 @@ public class MenuSettingsController extends BaseControllerSupport implements IPa
 		return viewName;
 	}
 	
+	@ControllerMethodAuthority(check = true, programId = "CORE_PROG001D0003Q")
 	@RequestMapping(value = "/menuSettingsQueryProgramListByFolderOidJson", produces = MediaType.APPLICATION_JSON_VALUE)		
 	public @ResponseBody DefaultControllerJsonResultObj< Map<String, List<TbSysProg>> > queryProgramListByFolderOid(HttpServletRequest request, @RequestParam(name="oid") String oid) {
 		DefaultControllerJsonResultObj< Map<String, List<TbSysProg>> > result = this.getDefaultJsonResult("CORE_PROG001D0003Q");
@@ -99,6 +102,7 @@ public class MenuSettingsController extends BaseControllerSupport implements IPa
 		return result;
 	}
 	
+	@ControllerMethodAuthority(check = true, programId = "CORE_PROG001D0003Q")
 	@RequestMapping(value = "/menuSettingsUpdateJson", produces = MediaType.APPLICATION_JSON_VALUE)		
 	public @ResponseBody DefaultControllerJsonResultObj<Boolean> updateMenu(HttpServletRequest request, @RequestParam(name="folderProgramOid") String folderProgramOid, @RequestParam(name="appendOid") String appendOid) {
 		DefaultControllerJsonResultObj<Boolean> result = this.getDefaultJsonResult("CORE_PROG001D0003Q");
