@@ -35,6 +35,14 @@ import org.springframework.web.bind.annotation.RequestMapping;
 @Controller
 public class IndexController extends BaseControllerSupport {
 	
+	// for session timeout sendRedirect url
+	@RequestMapping({"/loginAgainPage"})
+	public String loginAgain(ModelMap mm, HttpServletRequest request) {
+		String viewName = this.viewPage( "login_again" );
+		this.getDefaultModelMap(mm);
+		return viewName;
+	}
+	
 	@RequestMapping({"/", "/index"})
 	public String index(ModelMap mm, HttpServletRequest request) {
 		String viewName = this.viewPage( "index" );

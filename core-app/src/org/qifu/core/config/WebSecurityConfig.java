@@ -23,6 +23,7 @@ package org.qifu.core.config;
 
 import org.qifu.base.CoreAppConstants;
 import org.qifu.core.service.impl.BaseUserDetailsService;
+import org.qifu.core.support.BaseLoginUrlAuthenticationEntryPoint;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -53,7 +54,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     	http.cors().and().csrf().disable()
                 .formLogin()
                 .loginPage("/loginPage")
-                .loginProcessingUrl("/login")
+                .loginProcessingUrl("/login")             
                 .permitAll()
                 .defaultSuccessUrl("/index", true)
                 .and()
@@ -62,6 +63,8 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .permitAll()
                 .anyRequest()
                 .authenticated();
+    	http.exceptionHandling().authenticationEntryPoint(new BaseLoginUrlAuthenticationEntryPoint("/loginPage"));
+    	http.sessionManagement().invalidSessionUrl("/loginAgainPage");
     }
     
     /*

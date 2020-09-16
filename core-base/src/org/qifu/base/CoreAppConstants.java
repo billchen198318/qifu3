@@ -113,7 +113,8 @@ public class CoreAppConstants {
 			"/springfox.js/**",
 			"/csrf",
 			"/csrf/**",
-			"/configJs.js"
+			"/configJs.js",
+			"/loginAgainPage"
 	};	
 	
 	public static String[] getWebConfiginterceptorExcludePathPatterns() {
