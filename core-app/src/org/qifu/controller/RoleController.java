@@ -82,7 +82,7 @@ public class RoleController extends BaseControllerSupport implements IPageNamesp
 	@RequestMapping(value = "/rolePage")	
 	public String mainPage(ModelMap mm, HttpServletRequest request) {
 		String viewName = this.viewMainPage();
-		this.getDefaultModelMap(mm, "CORE_PROG002D0001Q");
+		this.getDefaultModelMap(mm, this.currentMethodAuthority());
 		try {
 			this.init("mainPage", mm);
 		} catch (AuthorityException e) {
@@ -145,7 +145,7 @@ public class RoleController extends BaseControllerSupport implements IPageNamesp
 	@ControllerMethodAuthority(check = true, programId = "CORE_PROG002D0001Q")
 	@RequestMapping(value = "/roleQueryGridJson", produces = MediaType.APPLICATION_JSON_VALUE)	
 	public @ResponseBody QueryControllerJsonResultObj<List<TbRole>> queryGrid(SearchValue searchValue, PageOf pageOf) {
-		QueryControllerJsonResultObj<List<TbRole>> result = this.getQueryJsonResult("CORE_PROG002D0001Q");
+		QueryControllerJsonResultObj<List<TbRole>> result = this.getQueryJsonResult(this.currentMethodAuthority());
 		if (!this.isAuthorizeAndLoginFromControllerJsonResult(result)) {
 			return result;
 		}
@@ -166,7 +166,7 @@ public class RoleController extends BaseControllerSupport implements IPageNamesp
 	@RequestMapping(value = "/roleCreatePage")
 	public String createPage(ModelMap mm, HttpServletRequest request) {
 		String viewName = this.viewCreatePage();
-		this.getDefaultModelMap(mm, "CORE_PROG002D0001A");
+		this.getDefaultModelMap(mm, this.currentMethodAuthority());
 		try {
 			this.init("createPage", mm);
 		} catch (AuthorityException e) {
@@ -183,7 +183,7 @@ public class RoleController extends BaseControllerSupport implements IPageNamesp
 	@RequestMapping(value = "/roleEditPage")
 	public String editPage(ModelMap mm, HttpServletRequest request, @RequestParam(name="oid") String oid) {
 		String viewName = this.viewEditPage();
-		this.getDefaultModelMap(mm, "CORE_PROG002D0001E");
+		this.getDefaultModelMap(mm, this.currentMethodAuthority());
 		try {
 			this.init("editPage", mm);
 			this.fetch(mm, oid);
@@ -201,7 +201,7 @@ public class RoleController extends BaseControllerSupport implements IPageNamesp
 	@RequestMapping(value = "/roleCopyPage")
 	public String copyPage(ModelMap mm, HttpServletRequest request, @RequestParam(name="oid") String oid) {
 		String viewName = this.viewPageWithNamespace("copy");
-		this.getDefaultModelMap(mm, "CORE_PROG002D0001S02Q");
+		this.getDefaultModelMap(mm, this.currentMethodAuthority());
 		try {
 			this.init("copyPage", mm);
 			this.fetch(mm, oid);
@@ -222,7 +222,7 @@ public class RoleController extends BaseControllerSupport implements IPageNamesp
 	@ControllerMethodAuthority(check = true, programId = "CORE_PROG002D0001A")
 	@RequestMapping(value = "/roleSaveJson", produces = MediaType.APPLICATION_JSON_VALUE)		
 	public @ResponseBody DefaultControllerJsonResultObj<TbRole> doSave(TbRole role) {
-		DefaultControllerJsonResultObj<TbRole> result = this.getDefaultJsonResult("CORE_PROG002D0001A");
+		DefaultControllerJsonResultObj<TbRole> result = this.getDefaultJsonResult(this.currentMethodAuthority());
 		if (!this.isAuthorizeAndLoginFromControllerJsonResult(result)) {
 			return result;
 		}
@@ -239,7 +239,7 @@ public class RoleController extends BaseControllerSupport implements IPageNamesp
 	@ControllerMethodAuthority(check = true, programId = "CORE_PROG002D0001E")
 	@RequestMapping(value = "/roleUpdateJson", produces = MediaType.APPLICATION_JSON_VALUE)		
 	public @ResponseBody DefaultControllerJsonResultObj<TbRole> doUpdate(TbRole role) {
-		DefaultControllerJsonResultObj<TbRole> result = this.getDefaultJsonResult("CORE_PROG002D0001E");
+		DefaultControllerJsonResultObj<TbRole> result = this.getDefaultJsonResult(this.currentMethodAuthority());
 		if (!this.isAuthorizeAndLoginFromControllerJsonResult(result)) {
 			return result;
 		}
@@ -256,7 +256,7 @@ public class RoleController extends BaseControllerSupport implements IPageNamesp
 	@ControllerMethodAuthority(check = true, programId = "CORE_PROG002D0001D")
 	@RequestMapping(value = "/roleDeleteJson", produces = MediaType.APPLICATION_JSON_VALUE)		
 	public @ResponseBody DefaultControllerJsonResultObj<Boolean> doDelete(TbRole role) {
-		DefaultControllerJsonResultObj<Boolean> result = this.getDefaultJsonResult("CORE_PROG002D0001D");
+		DefaultControllerJsonResultObj<Boolean> result = this.getDefaultJsonResult(this.currentMethodAuthority());
 		if (!this.isAuthorizeAndLoginFromControllerJsonResult(result)) {
 			return result;
 		}
@@ -273,7 +273,7 @@ public class RoleController extends BaseControllerSupport implements IPageNamesp
 	@ControllerMethodAuthority(check = true, programId = "CORE_PROG002D0001S02A")
 	@RequestMapping(value = "/roleCopySaveJson", produces = MediaType.APPLICATION_JSON_VALUE)		
 	public @ResponseBody DefaultControllerJsonResultObj<TbRole> doSaveCopyAsNew(@RequestParam(name="fromRoleOid") String fromRoleOid, TbRole role) {
-		DefaultControllerJsonResultObj<TbRole> result = this.getDefaultJsonResult("CORE_PROG002D0001S02A");
+		DefaultControllerJsonResultObj<TbRole> result = this.getDefaultJsonResult(this.currentMethodAuthority());
 		if (!this.isAuthorizeAndLoginFromControllerJsonResult(result)) {
 			return result;
 		}

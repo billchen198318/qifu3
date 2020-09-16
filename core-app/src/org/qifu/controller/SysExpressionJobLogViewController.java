@@ -66,7 +66,7 @@ public class SysExpressionJobLogViewController extends BaseControllerSupport imp
 	@RequestMapping(value = "/sysExpressionJobLogPage")	
 	public String mainPage(ModelMap mm, HttpServletRequest request) {
 		String viewName = this.viewPageWithNamespace("exprjob-log-page");
-		this.getDefaultModelMap(mm, "CORE_PROG004D0003Q");
+		this.getDefaultModelMap(mm, this.currentMethodAuthority());
 		try {
 			this.init("mainPage", mm);
 		} catch (AuthorityException e) {
@@ -82,7 +82,7 @@ public class SysExpressionJobLogViewController extends BaseControllerSupport imp
 	@ControllerMethodAuthority(check = true, programId = "CORE_PROG004D0003Q")
 	@RequestMapping(value = "/sysExpressionJobLogQueryGridJson", produces = MediaType.APPLICATION_JSON_VALUE)	
 	public @ResponseBody QueryControllerJsonResultObj< List<TbSysExprJobLog> > queryGrid(SearchValue searchValue, PageOf pageOf) {
-		QueryControllerJsonResultObj< List<TbSysExprJobLog> > result = this.getQueryJsonResult("CORE_PROG004D0003Q");
+		QueryControllerJsonResultObj< List<TbSysExprJobLog> > result = this.getQueryJsonResult(this.currentMethodAuthority());
 		if (!this.isAuthorizeAndLoginFromControllerJsonResult(result)) {
 			return result;
 		}
@@ -118,7 +118,7 @@ public class SysExpressionJobLogViewController extends BaseControllerSupport imp
 	@ControllerMethodAuthority(check = true, programId = "CORE_PROG004D0003D")
 	@RequestMapping(value = "/sysExpressionJobLogDeleteJson", produces = MediaType.APPLICATION_JSON_VALUE)		
 	public @ResponseBody DefaultControllerJsonResultObj<Boolean> doDelete(TbSysExprJobLog sysExprJobLog) {
-		DefaultControllerJsonResultObj<Boolean> result = this.getDefaultJsonResult("CORE_PROG004D0003D");
+		DefaultControllerJsonResultObj<Boolean> result = this.getDefaultJsonResult(this.currentMethodAuthority());
 		if (!this.isAuthorizeAndLoginFromControllerJsonResult(result)) {
 			return result;
 		}
@@ -135,7 +135,7 @@ public class SysExpressionJobLogViewController extends BaseControllerSupport imp
 	@ControllerMethodAuthority(check = true, programId = "CORE_PROG004D0003D")
 	@RequestMapping(value = "/sysExpressionJobLogDeleteAllJson", produces = MediaType.APPLICATION_JSON_VALUE)		
 	public @ResponseBody DefaultControllerJsonResultObj<Boolean> doDeleteAll() {
-		DefaultControllerJsonResultObj<Boolean> result = this.getDefaultJsonResult("CORE_PROG004D0003D");
+		DefaultControllerJsonResultObj<Boolean> result = this.getDefaultJsonResult(this.currentMethodAuthority());
 		if (!this.isAuthorizeAndLoginFromControllerJsonResult(result)) {
 			return result;
 		}

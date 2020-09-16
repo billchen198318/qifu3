@@ -68,7 +68,7 @@ public class UserRoleController extends BaseControllerSupport implements IPageNa
 	@RequestMapping(value = "/userRolePage")	
 	public String mainPage(ModelMap mm, HttpServletRequest request) {
 		String viewName = this.viewPageWithNamespace("user-role-page");
-		this.getDefaultModelMap(mm, "CORE_PROG002D0002Q");
+		this.getDefaultModelMap(mm, this.currentMethodAuthority());
 		try {
 			this.init("mainPage", mm);
 		} catch (AuthorityException e) {
@@ -84,7 +84,7 @@ public class UserRoleController extends BaseControllerSupport implements IPageNa
 	@ControllerMethodAuthority(check = true, programId = "CORE_PROG002D0002Q")
 	@RequestMapping(value = "/userRoleListByAccountOidJson", produces = MediaType.APPLICATION_JSON_VALUE)		
 	public @ResponseBody DefaultControllerJsonResultObj< Map<String, List<TbRole>> > queryRoleListByAccountOid(HttpServletRequest request, @RequestParam(name="accountOid") String accountOid) {
-		DefaultControllerJsonResultObj< Map<String, List<TbRole>> > result = this.getDefaultJsonResult("CORE_PROG002D0002Q");
+		DefaultControllerJsonResultObj< Map<String, List<TbRole>> > result = this.getDefaultJsonResult(this.currentMethodAuthority());
 		if (!this.isAuthorizeAndLoginFromControllerJsonResult(result)) {
 			return result;
 		}		
@@ -103,7 +103,7 @@ public class UserRoleController extends BaseControllerSupport implements IPageNa
 	@ControllerMethodAuthority(check = true, programId = "CORE_PROG002D0002Q")
 	@RequestMapping(value = "/userRoleUpdateJson", produces = MediaType.APPLICATION_JSON_VALUE)		
 	public @ResponseBody DefaultControllerJsonResultObj<Boolean> updateMenu(HttpServletRequest request, @RequestParam(name="accountOid") String accountOid, @RequestParam(name="appendOid") String appendOid) {
-		DefaultControllerJsonResultObj<Boolean> result = this.getDefaultJsonResult("CORE_PROG002D0002Q");
+		DefaultControllerJsonResultObj<Boolean> result = this.getDefaultJsonResult(this.currentMethodAuthority());
 		if (!this.isAuthorizeAndLoginFromControllerJsonResult(result)) {
 			return result;
 		}

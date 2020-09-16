@@ -86,7 +86,7 @@ public class SysTemplateController extends BaseControllerSupport implements IPag
 	@RequestMapping(value = "/sysTemplatePage")	
 	public String mainPage(ModelMap mm, HttpServletRequest request) {
 		String viewName = this.viewMainPage();
-		this.getDefaultModelMap(mm, "CORE_PROG001D0004Q");
+		this.getDefaultModelMap(mm, this.currentMethodAuthority());
 		try {
 			this.init("mainPage", mm);
 		} catch (AuthorityException e) {
@@ -103,7 +103,7 @@ public class SysTemplateController extends BaseControllerSupport implements IPag
 	@RequestMapping(value = "/sysTemplateCreatePage")
 	public String createPage(ModelMap mm, HttpServletRequest request) {
 		String viewName = this.viewCreatePage();
-		this.getDefaultModelMap(mm, "CORE_PROG001D0004A");
+		this.getDefaultModelMap(mm, this.currentMethodAuthority());
 		try {
 			this.init("createPage", mm);
 		} catch (AuthorityException e) {
@@ -120,7 +120,7 @@ public class SysTemplateController extends BaseControllerSupport implements IPag
 	@RequestMapping("/sysTemplateEditPage")
 	public String editPage(ModelMap mm, HttpServletRequest request, @RequestParam(name="oid") String oid) {
 		String viewName = this.viewEditPage();
-		this.getDefaultModelMap(mm, "CORE_PROG001D0004E");
+		this.getDefaultModelMap(mm, this.currentMethodAuthority());
 		try {
 			this.init("editPage", mm);
 			this.fetch(oid, mm);
@@ -138,7 +138,7 @@ public class SysTemplateController extends BaseControllerSupport implements IPag
 	@RequestMapping(value = "/sysTemplateParam")
 	public String paramPage(ModelMap mm, HttpServletRequest request, @RequestParam(name="oid") String oid) {
 		String viewName = this.viewPageWithNamespace("param-page");
-		this.getDefaultModelMap(mm, "CORE_PROG001D0004S01Q");
+		this.getDefaultModelMap(mm, this.currentMethodAuthority());
 		try {
 			this.init("editParamPage", mm);
 			this.fetch(oid, mm);
@@ -155,7 +155,7 @@ public class SysTemplateController extends BaseControllerSupport implements IPag
 	@ControllerMethodAuthority(check = true, programId = "CORE_PROG001D0004Q")
 	@RequestMapping(value = "/sysTemplateQueryGridJson", produces = MediaType.APPLICATION_JSON_VALUE)	
 	public @ResponseBody QueryControllerJsonResultObj< List<TbSysTemplate> >  queryGrid(SearchValue searchValue, PageOf pageOf) {
-		QueryControllerJsonResultObj< List<TbSysTemplate> > result = this.getQueryJsonResult("CORE_PROG001D0004Q");
+		QueryControllerJsonResultObj< List<TbSysTemplate> > result = this.getQueryJsonResult(this.currentMethodAuthority());
 		if (!this.isAuthorizeAndLoginFromControllerJsonResult(result)) {
 			return result;
 		}
@@ -175,7 +175,7 @@ public class SysTemplateController extends BaseControllerSupport implements IPag
 	@ControllerMethodAuthority(check = true, programId = "CORE_PROG001D0004S01Q")
 	@RequestMapping(value = "/sysTemplateParamQueryGridJson", produces = MediaType.APPLICATION_JSON_VALUE)	
 	public @ResponseBody QueryControllerJsonResultObj< List<TbSysTemplateParam> >  paramQueryGrid(SearchValue searchValue, PageOf pageOf) {
-		QueryControllerJsonResultObj< List<TbSysTemplateParam> > result = this.getQueryJsonResult("CORE_PROG001D0004S01Q");
+		QueryControllerJsonResultObj< List<TbSysTemplateParam> > result = this.getQueryJsonResult(this.currentMethodAuthority());
 		if (!this.isAuthorizeAndLoginFromControllerJsonResult(result)) {
 			return result;
 		}
@@ -262,7 +262,7 @@ public class SysTemplateController extends BaseControllerSupport implements IPag
 	@ControllerMethodAuthority(check = true, programId = "CORE_PROG001D0004A")
 	@RequestMapping(value = "/sysTemplateSaveJson", produces = MediaType.APPLICATION_JSON_VALUE)		
 	public @ResponseBody DefaultControllerJsonResultObj<TbSysTemplate> doSave(TbSysTemplate template) {
-		DefaultControllerJsonResultObj<TbSysTemplate> result = this.getDefaultJsonResult("CORE_PROG001D0004A");
+		DefaultControllerJsonResultObj<TbSysTemplate> result = this.getDefaultJsonResult(this.currentMethodAuthority());
 		if (!this.isAuthorizeAndLoginFromControllerJsonResult(result)) {
 			return result;
 		}
@@ -279,7 +279,7 @@ public class SysTemplateController extends BaseControllerSupport implements IPag
 	@ControllerMethodAuthority(check = true, programId = "CORE_PROG001D0004E")
 	@RequestMapping(value = "/sysTemplateUpdateJson", produces = MediaType.APPLICATION_JSON_VALUE)		
 	public @ResponseBody DefaultControllerJsonResultObj<TbSysTemplate> doUpdate(TbSysTemplate template) {
-		DefaultControllerJsonResultObj<TbSysTemplate> result = this.getDefaultJsonResult("CORE_PROG001D0004E");
+		DefaultControllerJsonResultObj<TbSysTemplate> result = this.getDefaultJsonResult(this.currentMethodAuthority());
 		if (!this.isAuthorizeAndLoginFromControllerJsonResult(result)) {
 			return result;
 		}
@@ -296,7 +296,7 @@ public class SysTemplateController extends BaseControllerSupport implements IPag
 	@ControllerMethodAuthority(check = true, programId = "CORE_PROG001D0004D")
 	@RequestMapping(value = "/sysTemplateDeleteJson", produces = MediaType.APPLICATION_JSON_VALUE)		
 	public @ResponseBody DefaultControllerJsonResultObj<Boolean> doDelete(TbSysTemplate template) {
-		DefaultControllerJsonResultObj<Boolean> result = this.getDefaultJsonResult("CORE_PROG001D0004D");
+		DefaultControllerJsonResultObj<Boolean> result = this.getDefaultJsonResult(this.currentMethodAuthority());
 		if (!this.isAuthorizeAndLoginFromControllerJsonResult(result)) {
 			return result;
 		}
@@ -313,7 +313,7 @@ public class SysTemplateController extends BaseControllerSupport implements IPag
 	@ControllerMethodAuthority(check = true, programId = "CORE_PROG001D0004S01A")
 	@RequestMapping(value = "/sysTemplateParamSaveJson", produces = MediaType.APPLICATION_JSON_VALUE)		
 	public @ResponseBody DefaultControllerJsonResultObj<TbSysTemplateParam> doParamSave(@RequestParam("templateOid") String templateOid, TbSysTemplateParam templateParam) {
-		DefaultControllerJsonResultObj<TbSysTemplateParam> result = this.getDefaultJsonResult("CORE_PROG001D0004S01A");
+		DefaultControllerJsonResultObj<TbSysTemplateParam> result = this.getDefaultJsonResult(this.currentMethodAuthority());
 		if (!this.isAuthorizeAndLoginFromControllerJsonResult(result)) {
 			return result;
 		}
@@ -330,7 +330,7 @@ public class SysTemplateController extends BaseControllerSupport implements IPag
 	@ControllerMethodAuthority(check = true, programId = "CORE_PROG001D0004S01D")
 	@RequestMapping(value = "/sysTemplateParamDeleteJson", produces = MediaType.APPLICATION_JSON_VALUE)		
 	public @ResponseBody DefaultControllerJsonResultObj<Boolean> doDeleteParam(TbSysTemplateParam templateParam) {
-		DefaultControllerJsonResultObj<Boolean> result = this.getDefaultJsonResult("CORE_PROG001D0004S01D");
+		DefaultControllerJsonResultObj<Boolean> result = this.getDefaultJsonResult(this.currentMethodAuthority());
 		if (!this.isAuthorizeAndLoginFromControllerJsonResult(result)) {
 			return result;
 		}

@@ -112,7 +112,7 @@ public class SysSiteController extends BaseControllerSupport implements IPageNam
 	@RequestMapping("/sysSitePage")
 	public String mainPage(ModelMap mm, HttpServletRequest request) {
 		String viewName = this.viewMainPage();
-		this.getDefaultModelMap(mm, "CORE_PROG001D0001Q");
+		this.getDefaultModelMap(mm, this.currentMethodAuthority());
 		try {
 			this.init("mainPage", mm);
 		} catch (AuthorityException e) {
@@ -129,7 +129,7 @@ public class SysSiteController extends BaseControllerSupport implements IPageNam
 	@RequestMapping("/sysSiteCreatePage")
 	public String createPage(ModelMap mm, HttpServletRequest request) {
 		String viewName = this.viewCreatePage();
-		this.getDefaultModelMap(mm, "CORE_PROG001D0001A");
+		this.getDefaultModelMap(mm, this.currentMethodAuthority());
 		try {
 			this.init("createPage", mm);
 		} catch (AuthorityException e) {
@@ -146,7 +146,7 @@ public class SysSiteController extends BaseControllerSupport implements IPageNam
 	@RequestMapping("/sysSiteEditPage")
 	public String editPage(ModelMap mm, HttpServletRequest request, @RequestParam(name="oid") String oid) {
 		String viewName = this.viewEditPage();
-		this.getDefaultModelMap(mm, "CORE_PROG001D0001E");
+		this.getDefaultModelMap(mm, this.currentMethodAuthority());
 		try {
 			this.init("editPage", mm);
 			this.fetch(mm, oid);
@@ -163,7 +163,7 @@ public class SysSiteController extends BaseControllerSupport implements IPageNam
 	@ControllerMethodAuthority(check = true, programId = "CORE_PROG001D0001Q")
 	@RequestMapping(value = "/sysSiteQueryGridJson", produces = MediaType.APPLICATION_JSON_VALUE)	
 	public @ResponseBody QueryControllerJsonResultObj<List<TbSys>> queryGrid(SearchValue searchValue, PageOf pageOf) {
-		QueryControllerJsonResultObj<List<TbSys>> result = this.getQueryJsonResult("CORE_PROG001D0001Q");
+		QueryControllerJsonResultObj<List<TbSys>> result = this.getQueryJsonResult(this.currentMethodAuthority());
 		if (!this.isAuthorizeAndLoginFromControllerJsonResult(result)) {
 			return result;
 		}
@@ -191,7 +191,7 @@ public class SysSiteController extends BaseControllerSupport implements IPageNam
 	@ControllerMethodAuthority(check = true, programId = "CORE_PROG001D0001D")
 	@RequestMapping(value = "/sysSiteDeleteJson", produces = MediaType.APPLICATION_JSON_VALUE)			
 	public @ResponseBody DefaultControllerJsonResultObj<Boolean> doDelete(TbSys sys) {
-		DefaultControllerJsonResultObj<Boolean> result = this.getDefaultJsonResult("CORE_PROG001D0001D");
+		DefaultControllerJsonResultObj<Boolean> result = this.getDefaultJsonResult(this.currentMethodAuthority());
 		if (!this.isAuthorizeAndLoginFromControllerJsonResult(result)) {
 			return result;
 		}
@@ -229,7 +229,7 @@ public class SysSiteController extends BaseControllerSupport implements IPageNam
 	@ControllerMethodAuthority(check = true, programId = "CORE_PROG001D0001A")
 	@RequestMapping(value = "/sysSiteSaveJson", produces = MediaType.APPLICATION_JSON_VALUE)		
 	public @ResponseBody DefaultControllerJsonResultObj<TbSys> doSave(TbSys sys) {
-		DefaultControllerJsonResultObj<TbSys> result = this.getDefaultJsonResult("CORE_PROG001D0001A");
+		DefaultControllerJsonResultObj<TbSys> result = this.getDefaultJsonResult(this.currentMethodAuthority());
 		if (!this.isAuthorizeAndLoginFromControllerJsonResult(result)) {
 			return result;
 		}
@@ -256,7 +256,7 @@ public class SysSiteController extends BaseControllerSupport implements IPageNam
 	@ControllerMethodAuthority(check = true, programId = "CORE_PROG001D0001E")
 	@RequestMapping(value = "/sysSiteUpdateJson", produces = MediaType.APPLICATION_JSON_VALUE)		
 	public @ResponseBody DefaultControllerJsonResultObj<TbSys> doUpdate(TbSys sys) {
-		DefaultControllerJsonResultObj<TbSys> result = this.getDefaultJsonResult("CORE_PROG001D0001E");
+		DefaultControllerJsonResultObj<TbSys> result = this.getDefaultJsonResult(this.currentMethodAuthority());
 		if (!this.isAuthorizeAndLoginFromControllerJsonResult(result)) {
 			return result;
 		}

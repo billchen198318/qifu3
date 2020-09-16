@@ -70,7 +70,7 @@ public class MenuSettingsController extends BaseControllerSupport implements IPa
 	@RequestMapping(value = "/menuSettingsPage")	
 	public String mainPage(ModelMap mm, HttpServletRequest request) {
 		String viewName = this.viewMainPage();
-		this.getDefaultModelMap(mm, "CORE_PROG001D0003Q");
+		this.getDefaultModelMap(mm, this.currentMethodAuthority());
 		try {
 			this.init("mainPage", mm);
 		} catch (AuthorityException e) {
@@ -86,7 +86,7 @@ public class MenuSettingsController extends BaseControllerSupport implements IPa
 	@ControllerMethodAuthority(check = true, programId = "CORE_PROG001D0003Q")
 	@RequestMapping(value = "/menuSettingsQueryProgramListByFolderOidJson", produces = MediaType.APPLICATION_JSON_VALUE)		
 	public @ResponseBody DefaultControllerJsonResultObj< Map<String, List<TbSysProg>> > queryProgramListByFolderOid(HttpServletRequest request, @RequestParam(name="oid") String oid) {
-		DefaultControllerJsonResultObj< Map<String, List<TbSysProg>> > result = this.getDefaultJsonResult("CORE_PROG001D0003Q");
+		DefaultControllerJsonResultObj< Map<String, List<TbSysProg>> > result = this.getDefaultJsonResult(this.currentMethodAuthority());
 		if (!this.isAuthorizeAndLoginFromControllerJsonResult(result)) {
 			return result;
 		}		
@@ -105,7 +105,7 @@ public class MenuSettingsController extends BaseControllerSupport implements IPa
 	@ControllerMethodAuthority(check = true, programId = "CORE_PROG001D0003Q")
 	@RequestMapping(value = "/menuSettingsUpdateJson", produces = MediaType.APPLICATION_JSON_VALUE)		
 	public @ResponseBody DefaultControllerJsonResultObj<Boolean> updateMenu(HttpServletRequest request, @RequestParam(name="folderProgramOid") String folderProgramOid, @RequestParam(name="appendOid") String appendOid) {
-		DefaultControllerJsonResultObj<Boolean> result = this.getDefaultJsonResult("CORE_PROG001D0003Q");
+		DefaultControllerJsonResultObj<Boolean> result = this.getDefaultJsonResult(this.currentMethodAuthority());
 		if (!this.isAuthorizeAndLoginFromControllerJsonResult(result)) {
 			return result;
 		}

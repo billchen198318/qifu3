@@ -118,7 +118,7 @@ public class SysProgramController extends BaseControllerSupport implements IPage
 	@RequestMapping("/sysProgramPage")
 	public String mainPage(ModelMap mm, HttpServletRequest request) {
 		String viewName = this.viewMainPage();
-		this.getDefaultModelMap(mm, "CORE_PROG001D0002Q");
+		this.getDefaultModelMap(mm, this.currentMethodAuthority());
 		try {
 			this.init("mainPage", mm);
 		} catch (AuthorityException e) {
@@ -135,7 +135,7 @@ public class SysProgramController extends BaseControllerSupport implements IPage
 	@RequestMapping("/sysProgramCreatePage")
 	public String createPage(ModelMap mm, HttpServletRequest request) {
 		String viewName = this.viewCreatePage();
-		this.getDefaultModelMap(mm, "CORE_PROG001D0002A");
+		this.getDefaultModelMap(mm, this.currentMethodAuthority());
 		try {
 			this.init("createPage", mm);
 		} catch (AuthorityException e) {
@@ -152,7 +152,7 @@ public class SysProgramController extends BaseControllerSupport implements IPage
 	@RequestMapping("/sysProgramEditPage")
 	public String editPage(ModelMap mm, HttpServletRequest request, @RequestParam(name="oid") String oid) {
 		String viewName = this.viewEditPage();
-		this.getDefaultModelMap(mm, "CORE_PROG001D0002E");
+		this.getDefaultModelMap(mm, this.currentMethodAuthority());
 		try {
 			this.init("editPage", mm);
 			this.fetch(mm, oid);
@@ -169,7 +169,7 @@ public class SysProgramController extends BaseControllerSupport implements IPage
 	@ControllerMethodAuthority(check = true, programId = "CORE_PROG001D0002Q")
 	@RequestMapping(value = "/sysProgramQueryGridJson", produces = MediaType.APPLICATION_JSON_VALUE)	
 	public @ResponseBody QueryControllerJsonResultObj<List<TbSysProg>> queryGrid(SearchValue searchValue, PageOf pageOf) {
-		QueryControllerJsonResultObj<List<TbSysProg>> result = this.getQueryJsonResult("CORE_PROG001D0002Q");
+		QueryControllerJsonResultObj<List<TbSysProg>> result = this.getQueryJsonResult(this.currentMethodAuthority());
 		if (!this.isAuthorizeAndLoginFromControllerJsonResult(result)) {
 			return result;
 		}
@@ -237,7 +237,7 @@ public class SysProgramController extends BaseControllerSupport implements IPage
 	@ControllerMethodAuthority(check = true, programId = "CORE_PROG001D0002A")
 	@RequestMapping(value = "/sysProgramSaveJson", produces = MediaType.APPLICATION_JSON_VALUE)		
 	public @ResponseBody DefaultControllerJsonResultObj<TbSysProg> doSave(HttpServletRequest request, TbSysProg sysProg) {
-		DefaultControllerJsonResultObj<TbSysProg> result = this.getDefaultJsonResult("CORE_PROG001D0002A");
+		DefaultControllerJsonResultObj<TbSysProg> result = this.getDefaultJsonResult(this.currentMethodAuthority());
 		if (!this.isAuthorizeAndLoginFromControllerJsonResult(result)) {
 			return result;
 		}
@@ -260,7 +260,7 @@ public class SysProgramController extends BaseControllerSupport implements IPage
 	@ControllerMethodAuthority(check = true, programId = "CORE_PROG001D0002E")
 	@RequestMapping(value = "/sysProgramUpdateJson", produces = MediaType.APPLICATION_JSON_VALUE)		
 	public @ResponseBody DefaultControllerJsonResultObj<TbSysProg> doUpdate(HttpServletRequest request, TbSysProg sysProg) {
-		DefaultControllerJsonResultObj<TbSysProg> result = this.getDefaultJsonResult("CORE_PROG001D0002E");
+		DefaultControllerJsonResultObj<TbSysProg> result = this.getDefaultJsonResult(this.currentMethodAuthority());
 		if (!this.isAuthorizeAndLoginFromControllerJsonResult(result)) {
 			return result;
 		}
@@ -283,7 +283,7 @@ public class SysProgramController extends BaseControllerSupport implements IPage
 	@ControllerMethodAuthority(check = true, programId = "CORE_PROG001D0002D")
 	@RequestMapping(value = "/sysProgramDeleteJson", produces = MediaType.APPLICATION_JSON_VALUE)		
 	public @ResponseBody DefaultControllerJsonResultObj<Boolean> doDelete(TbSysProg sysProg) {
-		DefaultControllerJsonResultObj<Boolean> result = this.getDefaultJsonResult("CORE_PROG001D0002D");
+		DefaultControllerJsonResultObj<Boolean> result = this.getDefaultJsonResult(this.currentMethodAuthority());
 		if (!this.isAuthorizeAndLoginFromControllerJsonResult(result)) {
 			return result;
 		}

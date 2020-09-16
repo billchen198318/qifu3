@@ -66,7 +66,7 @@ public class SysLoginLogViewController extends BaseControllerSupport implements 
 	@RequestMapping(value = "/sysLoginLogPage")	
 	public String mainPage(ModelMap mm, HttpServletRequest request) {
 		String viewName = this.viewPageWithNamespace("login-log-page");
-		this.getDefaultModelMap(mm, "CORE_PROG004D0002Q");
+		this.getDefaultModelMap(mm, this.currentMethodAuthority());
 		try {
 			this.init("mainPage", mm);
 		} catch (AuthorityException e) {
@@ -82,7 +82,7 @@ public class SysLoginLogViewController extends BaseControllerSupport implements 
 	@ControllerMethodAuthority(check = true, programId = "CORE_PROG004D0002Q")
 	@RequestMapping(value = "/sysLoginLogQueryGridJson", produces = MediaType.APPLICATION_JSON_VALUE)	
 	public @ResponseBody QueryControllerJsonResultObj< List<TbSysLoginLog> > queryGrid(SearchValue searchValue, PageOf pageOf) {
-		QueryControllerJsonResultObj< List<TbSysLoginLog> > result = this.getQueryJsonResult("CORE_PROG004D0002Q");
+		QueryControllerJsonResultObj< List<TbSysLoginLog> > result = this.getQueryJsonResult(this.currentMethodAuthority());
 		if (!this.isAuthorizeAndLoginFromControllerJsonResult(result)) {
 			return result;
 		}
@@ -118,7 +118,7 @@ public class SysLoginLogViewController extends BaseControllerSupport implements 
 	@ControllerMethodAuthority(check = true, programId = "CORE_PROG004D0002D")
 	@RequestMapping(value = "/sysLoginLogDeleteJson", produces = MediaType.APPLICATION_JSON_VALUE)		
 	public @ResponseBody DefaultControllerJsonResultObj<Boolean> doDelete(TbSysLoginLog sysLoginLog) {
-		DefaultControllerJsonResultObj<Boolean> result = this.getDefaultJsonResult("CORE_PROG004D0002D");
+		DefaultControllerJsonResultObj<Boolean> result = this.getDefaultJsonResult(this.currentMethodAuthority());
 		if (!this.isAuthorizeAndLoginFromControllerJsonResult(result)) {
 			return result;
 		}
@@ -135,7 +135,7 @@ public class SysLoginLogViewController extends BaseControllerSupport implements 
 	@ControllerMethodAuthority(check = true, programId = "CORE_PROG004D0002D")
 	@RequestMapping(value = "/sysLoginLogDeleteAllJson", produces = MediaType.APPLICATION_JSON_VALUE)		
 	public @ResponseBody DefaultControllerJsonResultObj<Boolean> doDeleteAll() {
-		DefaultControllerJsonResultObj<Boolean> result = this.getDefaultJsonResult("CORE_PROG004D0002D");
+		DefaultControllerJsonResultObj<Boolean> result = this.getDefaultJsonResult(this.currentMethodAuthority());
 		if (!this.isAuthorizeAndLoginFromControllerJsonResult(result)) {
 			return result;
 		}

@@ -90,7 +90,7 @@ public class RolePermissionController extends BaseControllerSupport implements I
 	@RequestMapping(value = "/rolePermissionPage")	
 	public String mainPage(ModelMap mm, HttpServletRequest request) {
 		String viewName = this.viewPageWithNamespace("permission");
-		this.getDefaultModelMap(mm, "CORE_PROG002D0001S01Q");
+		this.getDefaultModelMap(mm, this.currentMethodAuthority());
 		try {
 			this.init("mainPage", request, mm);
 			TbRole role = (TbRole) mm.get("role");
@@ -110,7 +110,7 @@ public class RolePermissionController extends BaseControllerSupport implements I
 	@ControllerMethodAuthority(check = true, programId = "CORE_PROG002D0001S01Q")
 	@RequestMapping(value = "/rolePermissionQueryGridJson", produces = MediaType.APPLICATION_JSON_VALUE)	
 	public @ResponseBody QueryControllerJsonResultObj<List<TbRolePermission>> queryGrid(SearchValue searchValue, PageOf pageOf) {
-		QueryControllerJsonResultObj<List<TbRolePermission>> result = this.getQueryJsonResult("CORE_PROG002D0001S01Q");
+		QueryControllerJsonResultObj<List<TbRolePermission>> result = this.getQueryJsonResult(this.currentMethodAuthority());
 		if (!this.isAuthorizeAndLoginFromControllerJsonResult(result)) {
 			return result;
 		}
@@ -156,7 +156,7 @@ public class RolePermissionController extends BaseControllerSupport implements I
 	@ControllerMethodAuthority(check = true, programId = "CORE_PROG002D0001S01A")
 	@RequestMapping(value = "/rolePermissionSaveJson", produces = MediaType.APPLICATION_JSON_VALUE)		
 	public @ResponseBody DefaultControllerJsonResultObj<TbRolePermission> doSave(TbRolePermission rolePermission, @RequestParam(name="roleOid") String roleOid) {
-		DefaultControllerJsonResultObj<TbRolePermission> result = this.getDefaultJsonResult("CORE_PROG002D0001S01A");
+		DefaultControllerJsonResultObj<TbRolePermission> result = this.getDefaultJsonResult(this.currentMethodAuthority());
 		if (!this.isAuthorizeAndLoginFromControllerJsonResult(result)) {
 			return result;
 		}
@@ -173,7 +173,7 @@ public class RolePermissionController extends BaseControllerSupport implements I
 	@ControllerMethodAuthority(check = true, programId = "CORE_PROG002D0001S01D")
 	@RequestMapping(value = "/rolePermissionDeleteJson", produces = MediaType.APPLICATION_JSON_VALUE)		
 	public @ResponseBody DefaultControllerJsonResultObj<Boolean> doDelete(TbRolePermission rolePermission) {
-		DefaultControllerJsonResultObj<Boolean> result = this.getDefaultJsonResult("CORE_PROG002D0001S01D");
+		DefaultControllerJsonResultObj<Boolean> result = this.getDefaultJsonResult(this.currentMethodAuthority());
 		if (!this.isAuthorizeAndLoginFromControllerJsonResult(result)) {
 			return result;
 		}

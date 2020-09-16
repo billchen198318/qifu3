@@ -77,7 +77,7 @@ public class SysExpressionController extends BaseControllerSupport implements IP
 	@RequestMapping(value = "/sysExpressionPage")	
 	public String mainPage(ModelMap mm, HttpServletRequest request) {
 		String viewName = this.viewMainPage();
-		this.getDefaultModelMap(mm, "CORE_PROG003D0002Q");
+		this.getDefaultModelMap(mm, this.currentMethodAuthority());
 		try {
 			this.init("mainPage", mm);
 		} catch (AuthorityException e) {
@@ -93,7 +93,7 @@ public class SysExpressionController extends BaseControllerSupport implements IP
 	@ControllerMethodAuthority(check = true, programId = "CORE_PROG003D0002Q")
 	@RequestMapping(value = "/sysExpressionQueryGridJson", produces = MediaType.APPLICATION_JSON_VALUE)	
 	public @ResponseBody QueryControllerJsonResultObj< List<TbSysExpression> > queryGrid(SearchValue searchValue, PageOf pageOf) {
-		QueryControllerJsonResultObj< List<TbSysExpression> > result = this.getQueryJsonResult("CORE_PROG003D0002Q");
+		QueryControllerJsonResultObj< List<TbSysExpression> > result = this.getQueryJsonResult(this.currentMethodAuthority());
 		if (!this.isAuthorizeAndLoginFromControllerJsonResult(result)) {
 			return result;
 		}
@@ -116,7 +116,7 @@ public class SysExpressionController extends BaseControllerSupport implements IP
 	@RequestMapping(value = "/sysExpressionCreatePage")
 	public String createPage(ModelMap mm, HttpServletRequest request) {
 		String viewName = this.viewCreatePage();
-		this.getDefaultModelMap(mm, "CORE_PROG003D0002A");
+		this.getDefaultModelMap(mm, this.currentMethodAuthority());
 		try {
 			this.init("createPage", mm);
 		} catch (AuthorityException e) {
@@ -133,7 +133,7 @@ public class SysExpressionController extends BaseControllerSupport implements IP
 	@RequestMapping(value = "/sysExpressionEditPage")
 	public String editPage(ModelMap mm, HttpServletRequest request, @RequestParam(name="oid") String oid) {
 		String viewName = this.viewEditPage();
-		this.getDefaultModelMap(mm, "CORE_PROG003D0002E");
+		this.getDefaultModelMap(mm, this.currentMethodAuthority());
 		try {
 			this.init("editPage", mm);
 			this.fetch(oid, mm);
@@ -192,7 +192,7 @@ public class SysExpressionController extends BaseControllerSupport implements IP
 	@ControllerMethodAuthority(check = true, programId = "CORE_PROG003D0002A")
 	@RequestMapping(value = "/sysExpressionSaveJson", produces = MediaType.APPLICATION_JSON_VALUE)		
 	public @ResponseBody DefaultControllerJsonResultObj<TbSysExpression> doSave(TbSysExpression sysExpression) {
-		DefaultControllerJsonResultObj<TbSysExpression> result = this.getDefaultJsonResult("CORE_PROG003D0002A");
+		DefaultControllerJsonResultObj<TbSysExpression> result = this.getDefaultJsonResult(this.currentMethodAuthority());
 		if (!this.isAuthorizeAndLoginFromControllerJsonResult(result)) {
 			return result;
 		}
@@ -209,7 +209,7 @@ public class SysExpressionController extends BaseControllerSupport implements IP
 	@ControllerMethodAuthority(check = true, programId = "CORE_PROG003D0002E")
 	@RequestMapping(value = "/sysExpressionUpdateJson", produces = MediaType.APPLICATION_JSON_VALUE)		
 	public @ResponseBody DefaultControllerJsonResultObj<TbSysExpression> doUpdate(TbSysExpression sysExpression) {
-		DefaultControllerJsonResultObj<TbSysExpression> result = this.getDefaultJsonResult("CORE_PROG003D0002E");
+		DefaultControllerJsonResultObj<TbSysExpression> result = this.getDefaultJsonResult(this.currentMethodAuthority());
 		if (!this.isAuthorizeAndLoginFromControllerJsonResult(result)) {
 			return result;
 		}
@@ -226,7 +226,7 @@ public class SysExpressionController extends BaseControllerSupport implements IP
 	@ControllerMethodAuthority(check = true, programId = "CORE_PROG003D0002D")
 	@RequestMapping(value = "/sysExpressionDeleteJson", produces = MediaType.APPLICATION_JSON_VALUE)		
 	public @ResponseBody DefaultControllerJsonResultObj<Boolean> doDelete(TbSysExpression sysExpression) {
-		DefaultControllerJsonResultObj<Boolean> result = this.getDefaultJsonResult("CORE_PROG003D0002D");
+		DefaultControllerJsonResultObj<Boolean> result = this.getDefaultJsonResult(this.currentMethodAuthority());
 		if (!this.isAuthorizeAndLoginFromControllerJsonResult(result)) {
 			return result;
 		}

@@ -21,6 +21,8 @@
  */
 package org.qifu.base.controller;
 
+import java.lang.annotation.Annotation;
+import java.lang.reflect.Method;
 import java.util.Enumeration;
 import java.util.LinkedList;
 import java.util.List;
@@ -34,6 +36,7 @@ import org.qifu.base.exception.BaseSysException;
 import org.qifu.base.exception.ControllerException;
 import org.qifu.base.message.BaseSystemMessage;
 import org.qifu.base.model.CheckControllerFieldHandler;
+import org.qifu.base.model.ControllerMethodAuthority;
 import org.qifu.base.model.DefaultControllerJsonResultObj;
 import org.qifu.base.model.PageOf;
 import org.qifu.base.model.QueryControllerJsonResultObj;
@@ -182,6 +185,13 @@ public abstract class BaseControllerSupport {
 		return mm;
 	}	
 	
+	public ModelMap getDefaultModelMap(ModelMap mm, ControllerMethodAuthority currentAnno) {
+		if (null == currentAnno) {
+			return this.getDefaultModelMap(mm, "");
+		}
+		return this.getDefaultModelMap(mm, currentAnno.programId());
+	}
+	
 	public String getErrorContact() {
 		return String.valueOf( baseInfoConfigProperties.getErrorContact() );
 	}
@@ -263,19 +273,59 @@ public abstract class BaseControllerSupport {
 		return SimpleUtils.getStrYMD("-");
 	}		
 	
-	protected <T> DefaultControllerJsonResultObj<T> getDefaultJsonResult(String progId) {
+	protected ControllerMethodAuthority currentMethodAuthority() {
+		ControllerMethodAuthority currAnnotation = null;
+		String currThreadMethodName = Thread.currentThread().getStackTrace()[2].getMethodName();
+		Method method = null;
+		for(Method m : this.getClass().getMethods()) {
+			if(m.getName().equals(currThreadMethodName)) {
+                method = m;
+            }
+        }
+		if (method != null) {
+			Annotation actionMethodAnnotations[] = method.getAnnotations();
+			for (int i = 0; actionMethodAnnotations != null && null == currAnnotation && i < actionMethodAnnotations.length; i++) {
+				if (actionMethodAnnotations[i] instanceof ControllerMethodAuthority) {
+					currAnnotation = (ControllerMethodAuthority)actionMethodAnnotations[i];
+				}
+			}
+		}
+		return currAnnotation;
+	}
+	
+	protected <T> DefaultControllerJsonResultObj<T> getDefaultJsonResult(String progId, boolean checkPermitted) {
 		DefaultControllerJsonResultObj<T> result = DefaultControllerJsonResultObj.build();
-		this.setResultDefaultValue(result, progId);
+		this.setResultDefaultValue(result, progId, checkPermitted);
 		return result;
 	}
 	
-	protected <T> QueryControllerJsonResultObj<T> getQueryJsonResult(String progId) {
+	protected <T> QueryControllerJsonResultObj<T> getQueryJsonResult(String progId, boolean checkPermitted) {
 		QueryControllerJsonResultObj<T> result = QueryControllerJsonResultObj.build();
-		this.setResultDefaultValue(result, progId);
+		this.setResultDefaultValue(result, progId, checkPermitted);
+		return result;
+	}		
+	
+	protected <T> DefaultControllerJsonResultObj<T> getDefaultJsonResult(ControllerMethodAuthority currentAnno) {
+		DefaultControllerJsonResultObj<T> result = DefaultControllerJsonResultObj.build();
+		if (null != currentAnno) {
+			this.setResultDefaultValue(result, currentAnno.programId(), currentAnno.check());
+		} else {
+			this.setResultDefaultValue(result, "", false);
+		}
+		return result;
+	}
+	
+	protected <T> QueryControllerJsonResultObj<T> getQueryJsonResult(ControllerMethodAuthority currentAnno) {
+		QueryControllerJsonResultObj<T> result = QueryControllerJsonResultObj.build();
+		if (null != currentAnno) {
+			this.setResultDefaultValue(result, currentAnno.programId(), currentAnno.check());
+		} else {
+			this.setResultDefaultValue(result, "", false);
+		}
 		return result;
 	}	
 	
-	private void setResultDefaultValue(DefaultControllerJsonResultObj<?> result, String progId) {
+	private void setResultDefaultValue(DefaultControllerJsonResultObj<?> result, String progId, boolean checkPermitted) {
 		User user = UserUtils.getCurrentUser();
 		if (user == null) {
 			result.setMessage( BaseSystemMessage.noLoginAccessDenied() );
@@ -285,8 +335,12 @@ public abstract class BaseControllerSupport {
 		if (UserUtils.isAdmin()) {
 			result.setIsAuthorize( YES );
 		}
-		if (UserUtils.isPermitted(progId)) {
+		if (!checkPermitted) {
 			result.setIsAuthorize( YES );
+		} else {
+			if (UserUtils.isPermitted(progId)) {
+				result.setIsAuthorize( YES );
+			}
 		}
 		if (!YES.equals(result.getIsAuthorize())) {
 			result.setMessage( BaseSystemMessage.noPermission() );

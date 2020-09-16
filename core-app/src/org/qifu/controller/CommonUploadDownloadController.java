@@ -65,7 +65,7 @@ public class CommonUploadDownloadController extends BaseControllerSupport {
 	@ControllerMethodAuthority(check = true, programId = "CORE_PROGCOMM0003Q")
 	@RequestMapping(value = "/commonCheckUploadFileJson")		
 	public @ResponseBody DefaultControllerJsonResultObj<String> checkUpload(HttpServletResponse response, @RequestParam("oid") String oid) {
-		DefaultControllerJsonResultObj<String> result = this.getDefaultJsonResult("CORE_PROGCOMM0003Q");
+		DefaultControllerJsonResultObj<String> result = this.getDefaultJsonResult(this.currentMethodAuthority());
 		if (!this.isAuthorizeAndLoginFromControllerJsonResult(result)) {
 			return result;
 		}
@@ -171,7 +171,7 @@ public class CommonUploadDownloadController extends BaseControllerSupport {
 			@RequestParam("commonUploadFileIsFileMode") String isFile,
 			@RequestParam("commonUploadFileSystem") String system) {
 		
-		DefaultControllerJsonResultObj<String> result = this.getDefaultJsonResult("CORE_PROGCOMM0003Q");
+		DefaultControllerJsonResultObj<String> result = this.getDefaultJsonResult(this.currentMethodAuthority());
 		if (!this.isAuthorizeAndLoginFromControllerJsonResult(result)) {
 			return result;
 		}	

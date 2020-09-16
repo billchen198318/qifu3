@@ -75,7 +75,7 @@ public class MenuRoleController extends BaseControllerSupport implements IPageNa
 	@RequestMapping(value = "/menuRolePage")	
 	public String mainPage(ModelMap mm, HttpServletRequest request) {
 		String viewName = this.viewPageWithNamespace("menu-role-page");
-		this.getDefaultModelMap(mm, "CORE_PROG002D0003Q");
+		this.getDefaultModelMap(mm, this.currentMethodAuthority());
 		try {
 			this.init("mainPage", mm);
 		} catch (AuthorityException e) {
@@ -91,7 +91,7 @@ public class MenuRoleController extends BaseControllerSupport implements IPageNa
 	@ControllerMethodAuthority(check = true, programId = "CORE_PROG002D0003Q")
 	@RequestMapping(value = "/queryMenuProgramRoleListByOidJson", produces = MediaType.APPLICATION_JSON_VALUE)		
 	public @ResponseBody DefaultControllerJsonResultObj< Map<String, List<TbRole>> > queryMenuProgramRoleListByOid(HttpServletRequest request, @RequestParam(name="oid") String oid) {
-		DefaultControllerJsonResultObj< Map<String, List<TbRole>> > result = this.getDefaultJsonResult("CORE_PROG002D0003Q");
+		DefaultControllerJsonResultObj< Map<String, List<TbRole>> > result = this.getDefaultJsonResult(this.currentMethodAuthority());
 		if (!this.isAuthorizeAndLoginFromControllerJsonResult(result)) {
 			return result;
 		}		
@@ -110,7 +110,7 @@ public class MenuRoleController extends BaseControllerSupport implements IPageNa
 	@ControllerMethodAuthority(check = true, programId = "CORE_PROG002D0003Q")
 	@RequestMapping(value = "/menuRoleUpdateJson", produces = MediaType.APPLICATION_JSON_VALUE)		
 	public @ResponseBody DefaultControllerJsonResultObj<Boolean> updateMenu(HttpServletRequest request, @RequestParam(name="progOid") String progOid, @RequestParam(name="appendOid") String appendOid) {
-		DefaultControllerJsonResultObj<Boolean> result = this.getDefaultJsonResult("CORE_PROG002D0003Q");
+		DefaultControllerJsonResultObj<Boolean> result = this.getDefaultJsonResult(this.currentMethodAuthority());
 		if (!this.isAuthorizeAndLoginFromControllerJsonResult(result)) {
 			return result;
 		}

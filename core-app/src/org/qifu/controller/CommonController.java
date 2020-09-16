@@ -31,6 +31,7 @@ import org.qifu.base.controller.BaseControllerSupport;
 import org.qifu.base.exception.AuthorityException;
 import org.qifu.base.exception.ControllerException;
 import org.qifu.base.exception.ServiceException;
+import org.qifu.base.model.ControllerMethodAuthority;
 import org.qifu.base.model.DefaultControllerJsonResultObj;
 import org.qifu.base.model.DefaultResult;
 import org.qifu.base.model.PleaseSelect;
@@ -62,9 +63,10 @@ public class CommonController extends BaseControllerSupport {
 		return sysResult.getValue();
 	}	
 	
+	@ControllerMethodAuthority(check = true, programId = "CORE_PROGCOMM0001Q")
 	@RequestMapping(value = "/getCommonProgramFolderJson")	
 	public @ResponseBody DefaultControllerJsonResultObj<Map<String, String>> doQueryProgramFolder(HttpServletRequest request, @RequestParam(name="oid") String oid) {
-		DefaultControllerJsonResultObj<Map<String, String>> result = this.getDefaultJsonResult("CORE_PROGCOMM0001Q");
+		DefaultControllerJsonResultObj<Map<String, String>> result = this.getDefaultJsonResult(this.currentMethodAuthority());
 		if (!this.isAuthorizeAndLoginFromControllerJsonResult(result)) {
 			result.setValue( PleaseSelect.pageSelectMap(true) );
 			return result;
@@ -81,9 +83,10 @@ public class CommonController extends BaseControllerSupport {
 		return result;
 	}	
 	
+	@ControllerMethodAuthority(check = true, programId = "CORE_PROGCOMM0002Q")
 	@RequestMapping(value = "/getCommonProgramFolderMenuItemJson")	
 	public @ResponseBody DefaultControllerJsonResultObj<Map<String, String>> doQueryProgramList(HttpServletRequest request, @RequestParam(name="oid") String oid) {
-		DefaultControllerJsonResultObj<Map<String, String>> result = this.getDefaultJsonResult("CORE_PROGCOMM0002Q");
+		DefaultControllerJsonResultObj<Map<String, String>> result = this.getDefaultJsonResult(this.currentMethodAuthority());
 		if (!this.isAuthorizeAndLoginFromControllerJsonResult(result)) {
 			result.setValue( PleaseSelect.pageSelectMap(true) );
 			return result;

@@ -66,7 +66,7 @@ public class SysEventLogViewAction extends BaseControllerSupport implements IPag
 	@RequestMapping(value = "/sysEventLogPage")	
 	public String mainPage(ModelMap mm, HttpServletRequest request) {
 		String viewName = this.viewPageWithNamespace("event-log-page");
-		this.getDefaultModelMap(mm, "CORE_PROG004D0001Q");
+		this.getDefaultModelMap(mm, this.currentMethodAuthority());
 		try {
 			this.init("mainPage", mm);
 		} catch (AuthorityException e) {
@@ -82,7 +82,7 @@ public class SysEventLogViewAction extends BaseControllerSupport implements IPag
 	@ControllerMethodAuthority(check = true, programId = "CORE_PROG004D0001Q")
 	@RequestMapping(value = "/sysEventLogQueryGridJson", produces = MediaType.APPLICATION_JSON_VALUE)	
 	public @ResponseBody QueryControllerJsonResultObj< List<TbSysEventLog> > queryGrid(SearchValue searchValue, PageOf pageOf) {
-		QueryControllerJsonResultObj< List<TbSysEventLog> > result = this.getQueryJsonResult("CORE_PROG004D0001Q");
+		QueryControllerJsonResultObj< List<TbSysEventLog> > result = this.getQueryJsonResult(this.currentMethodAuthority());
 		if (!this.isAuthorizeAndLoginFromControllerJsonResult(result)) {
 			return result;
 		}
@@ -118,7 +118,7 @@ public class SysEventLogViewAction extends BaseControllerSupport implements IPag
 	@ControllerMethodAuthority(check = true, programId = "CORE_PROG004D0001D")
 	@RequestMapping(value = "/sysEventLogDeleteJson", produces = MediaType.APPLICATION_JSON_VALUE)		
 	public @ResponseBody DefaultControllerJsonResultObj<Boolean> doDelete(TbSysEventLog sysEventLog) {
-		DefaultControllerJsonResultObj<Boolean> result = this.getDefaultJsonResult("CORE_PROG004D0001D");
+		DefaultControllerJsonResultObj<Boolean> result = this.getDefaultJsonResult(this.currentMethodAuthority());
 		if (!this.isAuthorizeAndLoginFromControllerJsonResult(result)) {
 			return result;
 		}
@@ -135,7 +135,7 @@ public class SysEventLogViewAction extends BaseControllerSupport implements IPag
 	@ControllerMethodAuthority(check = true, programId = "CORE_PROG004D0001D")
 	@RequestMapping(value = "/sysEventLogDeleteAllJson", produces = MediaType.APPLICATION_JSON_VALUE)		
 	public @ResponseBody DefaultControllerJsonResultObj<Boolean> doDeleteAll() {
-		DefaultControllerJsonResultObj<Boolean> result = this.getDefaultJsonResult("CORE_PROG004D0001D");
+		DefaultControllerJsonResultObj<Boolean> result = this.getDefaultJsonResult(this.currentMethodAuthority());
 		if (!this.isAuthorizeAndLoginFromControllerJsonResult(result)) {
 			return result;
 		}

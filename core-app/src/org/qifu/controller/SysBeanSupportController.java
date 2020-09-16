@@ -113,7 +113,7 @@ public class SysBeanSupportController extends BaseControllerSupport implements I
 	@RequestMapping(value = "/sysBeanSupportPage")	
 	public String mainPage(ModelMap mm, HttpServletRequest request) {
 		String viewName = this.viewMainPage();
-		this.getDefaultModelMap(mm, "CORE_PROG003D0003Q");
+		this.getDefaultModelMap(mm, this.currentMethodAuthority());
 		try {
 			this.init("mainPage", mm);
 		} catch (AuthorityException e) {
@@ -129,7 +129,7 @@ public class SysBeanSupportController extends BaseControllerSupport implements I
 	@ControllerMethodAuthority(check = true, programId = "CORE_PROG003D0003Q")
 	@RequestMapping(value = "/sysBeanSupportQueryGridJson", produces = MediaType.APPLICATION_JSON_VALUE)	
 	public @ResponseBody QueryControllerJsonResultObj< List<TbSysBeanHelp> > queryGrid(SearchValue searchValue, PageOf pageOf) {
-		QueryControllerJsonResultObj< List<TbSysBeanHelp> > result = this.getQueryJsonResult("CORE_PROG003D0003Q");
+		QueryControllerJsonResultObj< List<TbSysBeanHelp> > result = this.getQueryJsonResult(this.currentMethodAuthority());
 		if (!this.isAuthorizeAndLoginFromControllerJsonResult(result)) {
 			return result;
 		}
@@ -150,7 +150,7 @@ public class SysBeanSupportController extends BaseControllerSupport implements I
 	@RequestMapping(value = "/sysBeanSupportCreatePage")
 	public String createPage(ModelMap mm, HttpServletRequest request) {
 		String viewName = this.viewCreatePage();
-		this.getDefaultModelMap(mm, "CORE_PROG003D0003A");
+		this.getDefaultModelMap(mm, this.currentMethodAuthority());
 		try {
 			this.init("createPage", mm);
 		} catch (AuthorityException e) {
@@ -167,7 +167,7 @@ public class SysBeanSupportController extends BaseControllerSupport implements I
 	@RequestMapping(value = "/sysBeanSupportEditPage")
 	public String editPage(ModelMap mm, HttpServletRequest request, @RequestParam(name="oid") String oid) {
 		String viewName = this.viewEditPage();
-		this.getDefaultModelMap(mm, "CORE_PROG003D0003E");
+		this.getDefaultModelMap(mm, this.currentMethodAuthority());
 		try {
 			this.init("editPage", mm);
 			this.fetch(oid, mm);
@@ -185,7 +185,7 @@ public class SysBeanSupportController extends BaseControllerSupport implements I
 	@RequestMapping(value = "/sysBeanSupportExpressionPage")
 	public String editExpressionPage(ModelMap mm, HttpServletRequest request, @RequestParam(name="oid") String oid) {
 		String viewName = this.viewPageWithNamespace("expr");
-		this.getDefaultModelMap(mm, "CORE_PROG003D0003S01Q");
+		this.getDefaultModelMap(mm, this.currentMethodAuthority());
 		try {
 			this.init("editExpressionPage", mm);
 			this.fetch(oid, mm);
@@ -202,7 +202,7 @@ public class SysBeanSupportController extends BaseControllerSupport implements I
 	@ControllerMethodAuthority(check = true, programId = "CORE_PROG003D0003S01Q")
 	@RequestMapping(value = "/sysBeanSupportExpressionQueryGridJson", produces = MediaType.APPLICATION_JSON_VALUE)	
 	public @ResponseBody QueryControllerJsonResultObj< List<TbSysBeanHelpExpr> > queryExpressionGrid(SearchValue searchValue, PageOf pageOf) {
-		QueryControllerJsonResultObj< List<TbSysBeanHelpExpr> > result = this.getQueryJsonResult("CORE_PROG003D0003S01Q");
+		QueryControllerJsonResultObj< List<TbSysBeanHelpExpr> > result = this.getQueryJsonResult(this.currentMethodAuthority());
 		if (!this.isAuthorizeAndLoginFromControllerJsonResult(result)) {
 			return result;
 		}
@@ -223,7 +223,7 @@ public class SysBeanSupportController extends BaseControllerSupport implements I
 	@RequestMapping(value = "/sysBeanSupportExpressionParamPage")
 	public String editExpressionParamPage(ModelMap mm, HttpServletRequest request, @RequestParam(name="oid") String oid) {
 		String viewName = this.viewPageWithNamespace("expr-map");
-		this.getDefaultModelMap(mm, "CORE_PROG003D0003S02Q");
+		this.getDefaultModelMap(mm, this.currentMethodAuthority());
 		try {
 			this.init("editExpressionParamPage", mm);
 			this.fetchExpr(oid, mm);
@@ -240,7 +240,7 @@ public class SysBeanSupportController extends BaseControllerSupport implements I
 	@ControllerMethodAuthority(check = true, programId = "CORE_PROG003D0003S02Q")
 	@RequestMapping(value = "/sysBeanSupportExpressionParamQueryGridJson", produces = MediaType.APPLICATION_JSON_VALUE)	
 	public @ResponseBody QueryControllerJsonResultObj< List<TbSysBeanHelpExprMap> > queryExpressionParamGrid(SearchValue searchValue, PageOf pageOf) {
-		QueryControllerJsonResultObj< List<TbSysBeanHelpExprMap> > result = this.getQueryJsonResult("CORE_PROG003D0003S02Q");
+		QueryControllerJsonResultObj< List<TbSysBeanHelpExprMap> > result = this.getQueryJsonResult(this.currentMethodAuthority());
 		if (!this.isAuthorizeAndLoginFromControllerJsonResult(result)) {
 			return result;
 		}
@@ -359,7 +359,7 @@ public class SysBeanSupportController extends BaseControllerSupport implements I
 	@ControllerMethodAuthority(check = true, programId = "CORE_PROG003D0003A")
 	@RequestMapping(value = "/sysBeanSupportSaveJson", produces = MediaType.APPLICATION_JSON_VALUE)		
 	public @ResponseBody DefaultControllerJsonResultObj<TbSysBeanHelp> doSave(TbSysBeanHelp sysBeanHelp, @RequestParam("systemOid") String systemOid) {
-		DefaultControllerJsonResultObj<TbSysBeanHelp> result = this.getDefaultJsonResult("CORE_PROG003D0003A");
+		DefaultControllerJsonResultObj<TbSysBeanHelp> result = this.getDefaultJsonResult(this.currentMethodAuthority());
 		if (!this.isAuthorizeAndLoginFromControllerJsonResult(result)) {
 			return result;
 		}
@@ -376,7 +376,7 @@ public class SysBeanSupportController extends BaseControllerSupport implements I
 	@ControllerMethodAuthority(check = true, programId = "CORE_PROG003D0003E")
 	@RequestMapping(value = "/sysBeanSupportUpdateJson", produces = MediaType.APPLICATION_JSON_VALUE)		
 	public @ResponseBody DefaultControllerJsonResultObj<TbSysBeanHelp> doUpdate(TbSysBeanHelp sysBeanHelp, @RequestParam("systemOid") String systemOid) {
-		DefaultControllerJsonResultObj<TbSysBeanHelp> result = this.getDefaultJsonResult("CORE_PROG003D0003E");
+		DefaultControllerJsonResultObj<TbSysBeanHelp> result = this.getDefaultJsonResult(this.currentMethodAuthority());
 		if (!this.isAuthorizeAndLoginFromControllerJsonResult(result)) {
 			return result;
 		}
@@ -393,7 +393,7 @@ public class SysBeanSupportController extends BaseControllerSupport implements I
 	@ControllerMethodAuthority(check = true, programId = "CORE_PROG003D0003D")
 	@RequestMapping(value = "/sysBeanSupportDeleteJson", produces = MediaType.APPLICATION_JSON_VALUE)		
 	public @ResponseBody DefaultControllerJsonResultObj<Boolean> doDelete(TbSysBeanHelp sysBeanHelp) {
-		DefaultControllerJsonResultObj<Boolean> result = this.getDefaultJsonResult("CORE_PROG003D0003D");
+		DefaultControllerJsonResultObj<Boolean> result = this.getDefaultJsonResult(this.currentMethodAuthority());
 		if (!this.isAuthorizeAndLoginFromControllerJsonResult(result)) {
 			return result;
 		}
@@ -410,7 +410,7 @@ public class SysBeanSupportController extends BaseControllerSupport implements I
 	@ControllerMethodAuthority(check = true, programId = "CORE_PROG003D0003S01A")
 	@RequestMapping(value = "/sysBeanSupportExpressionSaveJson", produces = MediaType.APPLICATION_JSON_VALUE)		
 	public @ResponseBody DefaultControllerJsonResultObj<TbSysBeanHelpExpr> doSaveExpression(TbSysBeanHelpExpr sysBeanHelpExpr, @RequestParam("sysBeanHelpOid") String sysBeanHelpOid, @RequestParam("expressionOid") String expressionOid) {
-		DefaultControllerJsonResultObj<TbSysBeanHelpExpr> result = this.getDefaultJsonResult("CORE_PROG003D0003S01A");
+		DefaultControllerJsonResultObj<TbSysBeanHelpExpr> result = this.getDefaultJsonResult(this.currentMethodAuthority());
 		if (!this.isAuthorizeAndLoginFromControllerJsonResult(result)) {
 			return result;
 		}
@@ -427,7 +427,7 @@ public class SysBeanSupportController extends BaseControllerSupport implements I
 	@ControllerMethodAuthority(check = true, programId = "CORE_PROG003D0003S01D")
 	@RequestMapping(value = "/sysBeanSupportExpressionDeleteJson", produces = MediaType.APPLICATION_JSON_VALUE)		
 	public @ResponseBody DefaultControllerJsonResultObj<Boolean> doDeleteExpression(TbSysBeanHelpExpr sysBeanHelpExpr) {
-		DefaultControllerJsonResultObj<Boolean> result = this.getDefaultJsonResult("CORE_PROG003D0003S01D");
+		DefaultControllerJsonResultObj<Boolean> result = this.getDefaultJsonResult(this.currentMethodAuthority());
 		if (!this.isAuthorizeAndLoginFromControllerJsonResult(result)) {
 			return result;
 		}
@@ -444,7 +444,7 @@ public class SysBeanSupportController extends BaseControllerSupport implements I
 	@ControllerMethodAuthority(check = true, programId = "CORE_PROG003D0003S02A")
 	@RequestMapping(value = "/sysBeanSupportExpressionParamSaveJson", produces = MediaType.APPLICATION_JSON_VALUE)		
 	public @ResponseBody DefaultControllerJsonResultObj<TbSysBeanHelpExprMap> doSaveExpressionMap(TbSysBeanHelpExprMap sysBeanHelpExprMap, @RequestParam("sysBeanHelpExprOid") String sysBeanHelpExprOid) {
-		DefaultControllerJsonResultObj<TbSysBeanHelpExprMap> result = this.getDefaultJsonResult("CORE_PROG003D0003S02A");
+		DefaultControllerJsonResultObj<TbSysBeanHelpExprMap> result = this.getDefaultJsonResult(this.currentMethodAuthority());
 		if (!this.isAuthorizeAndLoginFromControllerJsonResult(result)) {
 			return result;
 		}
@@ -461,7 +461,7 @@ public class SysBeanSupportController extends BaseControllerSupport implements I
 	@ControllerMethodAuthority(check = true, programId = "CORE_PROG003D0003S02D")
 	@RequestMapping(value = "/sysBeanSupportExpressionParamDeleteJson", produces = MediaType.APPLICATION_JSON_VALUE)		
 	public @ResponseBody DefaultControllerJsonResultObj<Boolean> doDeleteExpressionMap(TbSysBeanHelpExprMap sysBeanHelpExprMap) {
-		DefaultControllerJsonResultObj<Boolean> result = this.getDefaultJsonResult("CORE_PROG003D0003S02D");
+		DefaultControllerJsonResultObj<Boolean> result = this.getDefaultJsonResult(this.currentMethodAuthority());
 		if (!this.isAuthorizeAndLoginFromControllerJsonResult(result)) {
 			return result;
 		}
