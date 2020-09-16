@@ -42,10 +42,10 @@ public class BaseLoginUrlAuthenticationEntryPoint extends LoginUrlAuthentication
     public void commence(HttpServletRequest request, HttpServletResponse response, AuthenticationException authException) throws IOException, ServletException {
         String xhrHeader = ((HttpServletRequest) request).getHeader("X-Requested-With");
         if ("XMLHttpRequest".equals(xhrHeader)) {
-    		response.setCharacterEncoding( Constants.BASE_ENCODING );
-    		response.setContentType("application/json");
-    		response.getWriter().write(Constants.NO_AUTHZ_JSON_DATA);
-            return;
+        	response.setCharacterEncoding( Constants.BASE_ENCODING );
+        	response.setContentType("application/json");
+        	response.getWriter().write(Constants.NO_AUTHZ_JSON_DATA);
+        	return;
         }
         if (YesNo.YES.equals(request.getParameter(Constants.QIFU_PAGE_IN_TAB_IFRAME))) {
         	response.sendRedirect("/loginAgainPage");
