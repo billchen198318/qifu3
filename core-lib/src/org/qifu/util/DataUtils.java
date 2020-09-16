@@ -35,7 +35,6 @@ import javax.sql.DataSource;
 import org.hibernate.Session;
 import org.hibernate.metadata.ClassMetadata;
 import org.qifu.base.AppContext;
-import org.qifu.base.Constants;
 import org.springframework.jdbc.CannotGetJdbcConnectionException;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 import org.springframework.jdbc.datasource.DataSourceUtils;
@@ -53,7 +52,7 @@ public class DataUtils {
 	
 	public static Connection getConnection(String dataSourceId) {
 		Connection conn = null;
-		DataSource dataSource = (DataSource)Constants.context.getBean(dataSourceId);
+		DataSource dataSource = (DataSource)AppContext.context.getBean(dataSourceId);
 		try {
 			conn = getConnection(dataSource);
 		} catch (CannotGetJdbcConnectionException e) {
@@ -68,7 +67,7 @@ public class DataUtils {
 		if (null == connection) {
 			return;
 		}
-		DataSource dataSource = (DataSource)Constants.context.getBean(dataSourceId);
+		DataSource dataSource = (DataSource)AppContext.context.getBean(dataSourceId);
 		try {
 			DataSourceUtils.doReleaseConnection(connection, dataSource);
 		} catch (SQLException e) {

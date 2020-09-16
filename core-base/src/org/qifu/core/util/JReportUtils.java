@@ -42,8 +42,8 @@ import org.apache.commons.io.IOUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+import org.qifu.base.AppContext;
 import org.qifu.base.Constants;
-import org.qifu.base.CoreAppConstants;
 import org.qifu.base.exception.ServiceException;
 import org.qifu.base.model.DefaultResult;
 import org.qifu.base.model.YesNo;
@@ -85,11 +85,11 @@ public class JReportUtils {
 	
 	
 	static {
-		jasperreportConfigProperties = (JasperreportConfigProperties) CoreAppConstants.context.getBean(JasperreportConfigProperties.class);
+		jasperreportConfigProperties = (JasperreportConfigProperties) AppContext.context.getBean(JasperreportConfigProperties.class);
 		
-		sysJreportService = (ISysJreportService<TbSysJreport, String>) CoreAppConstants.context.getBean(ISysJreportService.class);
+		sysJreportService = (ISysJreportService<TbSysJreport, String>) AppContext.context.getBean(ISysJreportService.class);
 		
-		sysJreportParamService = (ISysJreportParamService<TbSysJreportParam, String>) CoreAppConstants.context.getBean(ISysJreportParamService.class);
+		sysJreportParamService = (ISysJreportParamService<TbSysJreportParam, String>) AppContext.context.getBean(ISysJreportParamService.class);
 	}
 	
 	private static String getDataSourceIdByReportId(String reportId) throws Exception {

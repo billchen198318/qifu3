@@ -33,7 +33,7 @@ import org.apache.commons.lang3.StringUtils;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.joda.time.LocalDateTime;
-import org.qifu.base.CoreAppConstants;
+import org.qifu.base.AppContext;
 import org.qifu.base.exception.ServiceException;
 import org.qifu.base.model.DefaultResult;
 import org.qifu.base.model.YesNo;
@@ -56,9 +56,9 @@ public class SystemExpressionJobUtils {
 	private static BaseInfoConfigProperties baseInfoConfigProperties;
 	
 	static {
-		sysExprJobService = CoreAppConstants.context.getBean(ISysExprJobService.class);
-		sysExpressionService = CoreAppConstants.context.getBean(ISysExpressionService.class);
-		baseInfoConfigProperties = CoreAppConstants.context.getBean(BaseInfoConfigProperties.class);
+		sysExprJobService = AppContext.context.getBean(ISysExprJobService.class);
+		sysExpressionService = AppContext.context.getBean(ISysExpressionService.class);
+		baseInfoConfigProperties = AppContext.context.getBean(BaseInfoConfigProperties.class);
 	}
 	
 	private static boolean isRunTime(TbSysExprJob exprJob, String dayOfWeek, String hour, String minute) {

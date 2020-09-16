@@ -22,7 +22,7 @@
 package org.qifu.core.util;
 
 import org.apache.commons.lang3.StringUtils;
-import org.qifu.base.CoreAppConstants;
+import org.qifu.base.AppContext;
 import org.qifu.base.exception.ServiceException;
 import org.qifu.base.model.DefaultResult;
 import org.qifu.core.entity.TbSysCode;
@@ -38,7 +38,7 @@ public class SystemSettingConfigureUtils {
 	private static ISysCodeService<TbSysCode, String> sysCodeService;
 	
 	static {
-		sysCodeService = (ISysCodeService<TbSysCode, String>) CoreAppConstants.context.getBean(ISysCodeService.class);
+		sysCodeService = (ISysCodeService<TbSysCode, String>) AppContext.context.getBean(ISysCodeService.class);
 	}
 	
 	public static TbSysCode getCode(String code) {

@@ -26,8 +26,8 @@ import java.io.File;
 import javax.mail.internet.MimeMessage;
 
 import org.apache.commons.lang3.StringUtils;
+import org.qifu.base.AppContext;
 import org.qifu.base.Constants;
-import org.qifu.base.CoreAppConstants;
 import org.qifu.base.properties.SpringMailSessionConfigProperties;
 import org.springframework.mail.MailException;
 import org.springframework.mail.javamail.JavaMailSender;
@@ -40,8 +40,8 @@ public class MailClientUtils {
 	private static SpringMailSessionConfigProperties springMailSessionConfigProperties;
 	
 	static {
-		mailSender = CoreAppConstants.context.getBean(JavaMailSender.class);
-		springMailSessionConfigProperties = CoreAppConstants.context.getBean(SpringMailSessionConfigProperties.class);
+		mailSender = AppContext.context.getBean(JavaMailSender.class);
+		springMailSessionConfigProperties = AppContext.context.getBean(SpringMailSessionConfigProperties.class);
 	}
 	
 	public static void send(

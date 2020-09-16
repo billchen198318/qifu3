@@ -32,8 +32,8 @@ import java.util.Map;
 
 import org.apache.commons.io.IOUtils;
 import org.apache.commons.lang3.StringUtils;
+import org.qifu.base.AppContext;
 import org.qifu.base.Constants;
-import org.qifu.base.CoreAppConstants;
 import org.qifu.base.exception.ServiceException;
 import org.qifu.base.message.BaseSystemMessage;
 import org.qifu.base.model.DefaultResult;
@@ -71,9 +71,9 @@ public class MenuSupportUtils {
 	
 	static {
 		
-		sysService = (ISysService<TbSys, String>) CoreAppConstants.context.getBean(ISysService.class);
-		sysMenuService = (ISysMenuService<TbSysMenu, String>) CoreAppConstants.context.getBean(ISysMenuService.class);
-		sysProgService = (ISysProgService<TbSysProg, String>) CoreAppConstants.context.getBean(ISysProgService.class);
+		sysService = (ISysService<TbSys, String>) AppContext.context.getBean(ISysService.class);
+		sysMenuService = (ISysMenuService<TbSysMenu, String>) AppContext.context.getBean(ISysMenuService.class);
+		sysProgService = (ISysProgService<TbSysProg, String>) AppContext.context.getBean(ISysProgService.class);
 		
 		InputStream is = null;
 		try {

@@ -29,8 +29,8 @@ import java.util.concurrent.Callable;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+import org.qifu.base.AppContext;
 import org.qifu.base.Constants;
-import org.qifu.base.CoreAppConstants;
 import org.qifu.base.exception.ServiceException;
 import org.qifu.base.model.DefaultResult;
 import org.qifu.base.model.YesNo;
@@ -70,9 +70,9 @@ public class ExpressionJobExecuteCallable implements Callable<ExpressionJobObj> 
 		String runStatus = "";
 		String logStatus = "";
 		
-		ISysExprJobService<TbSysExprJob, String> sysExprJobService = CoreAppConstants.context.getBean(ISysExprJobService.class);
+		ISysExprJobService<TbSysExprJob, String> sysExprJobService = AppContext.context.getBean(ISysExprJobService.class);
 		
-		ISysExprJobLogService<TbSysExprJobLog, String> sysExprJobLogService = CoreAppConstants.context.getBean(ISysExprJobLogService.class);
+		ISysExprJobLogService<TbSysExprJobLog, String> sysExprJobLogService = AppContext.context.getBean(ISysExprJobLogService.class);
 		
 		try {
 			logger.info("[Expression-Job] (Start) ID: " + this.jobObj.getSysExprJob().getId() + " , NAME: " + this.jobObj.getSysExprJob().getName());
@@ -174,7 +174,7 @@ public class ExpressionJobExecuteCallable implements Callable<ExpressionJobObj> 
 				content += this.jobObj.getSysExprJobLog().getFaultMsg();
 			}
 			
-			ISysMailHelperService<TbSysMailHelper, String> sysMailHelperService = CoreAppConstants.context.getBean(ISysMailHelperService.class);
+			ISysMailHelperService<TbSysMailHelper, String> sysMailHelperService = AppContext.context.getBean(ISysMailHelperService.class);
 			
 			String mailId = SimpleUtils.getStrYMD("");
 			TbSysMailHelper mailHelper = new TbSysMailHelper();

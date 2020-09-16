@@ -40,8 +40,8 @@ import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.lang3.math.NumberUtils;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+import org.qifu.base.AppContext;
 import org.qifu.base.Constants;
-import org.qifu.base.CoreAppConstants;
 import org.qifu.base.exception.ServiceException;
 import org.qifu.base.message.BaseSystemMessage;
 import org.qifu.base.model.DefaultResult;
@@ -65,8 +65,8 @@ public class UploadSupportUtils {
 	private static ISysUploadService<TbSysUpload, String> sysUploadService;
 	
 	static {
-		baseInfoConfigProperties = CoreAppConstants.context.getBean( BaseInfoConfigProperties.class );
-		sysUploadService = (ISysUploadService<TbSysUpload, String>) CoreAppConstants.context.getBean( ISysUploadService.class );
+		baseInfoConfigProperties = AppContext.context.getBean( BaseInfoConfigProperties.class );
+		sysUploadService = (ISysUploadService<TbSysUpload, String>) AppContext.context.getBean( ISysUploadService.class );
 		try {
 			props.load(UploadSupportUtils.class.getClassLoader().getResource("META-INF/upload-support-utils.properties").openStream());
 			VIEW_MODE_FILE_EXTENSION = SimpleUtils.getStr(props.getProperty("FILE_EXTENSION")).trim().split(",");

@@ -29,8 +29,6 @@ import javax.annotation.Resource;
 import javax.sql.DataSource;
 
 import org.qifu.base.AppContext;
-import org.qifu.base.Constants;
-import org.qifu.base.CoreAppConstants;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
@@ -66,8 +64,6 @@ public class Application {
 		ConfigurableApplicationContext context = SpringApplication.run(Application.class, args);
 		AppContext.init(context);
 		Application.context = context;
-		CoreAppConstants.context = context;
-		Constants.context = context;
 	}
 	
     @Bean

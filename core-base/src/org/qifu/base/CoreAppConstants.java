@@ -33,16 +33,10 @@ import java.util.stream.Stream;
 
 import org.apache.commons.io.IOUtils;
 import org.qifu.base.message.BaseSystemMessage;
-import org.springframework.context.ApplicationContext;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 public class CoreAppConstants {
-	
-	/**
-	 * Spring ApplicationContext
-	 */
-	public static ApplicationContext context;	
 	
 	// ======================================================================================
 	
@@ -104,6 +98,7 @@ public class CoreAppConstants {
 			"/images/**",
 			"/jquery/**", 
 			"/js/**", 
+			"/codemirror/**",
 			"/popper-js/**", 
 			"/tether/**", 
 			"/toastr/**",

@@ -26,7 +26,7 @@ import java.util.List;
 import java.util.Map;
 
 import org.apache.commons.lang3.StringUtils;
-import org.qifu.base.CoreAppConstants;
+import org.qifu.base.AppContext;
 import org.qifu.base.exception.ServiceException;
 import org.qifu.base.model.DefaultResult;
 import org.qifu.core.entity.TbSysIcon;
@@ -38,7 +38,7 @@ public class IconUtils {
 	private static ISysIconService<TbSysIcon, String> sysIconService;
 	
 	static {
-		sysIconService = (ISysIconService<TbSysIcon, String>) CoreAppConstants.context.getBean(ISysIconService.class);
+		sysIconService = (ISysIconService<TbSysIcon, String>) AppContext.context.getBean(ISysIconService.class);
 	}
 
 	public static String getUrl(String basePath, String iconId) throws ServiceException, Exception {

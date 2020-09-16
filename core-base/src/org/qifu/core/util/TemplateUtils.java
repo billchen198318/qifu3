@@ -32,8 +32,8 @@ import java.util.Map;
 import org.apache.commons.io.IOUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.text.StringEscapeUtils;
+import org.qifu.base.AppContext;
 import org.qifu.base.Constants;
-import org.qifu.base.CoreAppConstants;
 import org.qifu.base.exception.ServiceException;
 import org.qifu.base.message.BaseSystemMessage;
 import org.qifu.base.model.YesNo;
@@ -56,8 +56,8 @@ public class TemplateUtils {
 	private static ISysTemplateParamService<TbSysTemplateParam, String> sysTemplateParamService;
 	
 	static {
-		sysTemplateService = CoreAppConstants.context.getBean(ISysTemplateService.class);
-		sysTemplateParamService = CoreAppConstants.context.getBean(ISysTemplateParamService.class);
+		sysTemplateService = AppContext.context.getBean(ISysTemplateService.class);
+		sysTemplateParamService = AppContext.context.getBean(ISysTemplateParamService.class);
 	}
 	
 	private static TbSysTemplate loadSysTemplate(String templateId) throws ServiceException, Exception {

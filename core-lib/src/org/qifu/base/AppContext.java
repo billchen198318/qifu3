@@ -26,7 +26,7 @@ import org.springframework.context.ApplicationContext;
 
 public class AppContext {
 	
-	private static ApplicationContext context = null;
+	public static ApplicationContext context = null;
 	
 	public static void init(ApplicationContext applicationContext) {
 		context = applicationContext;
