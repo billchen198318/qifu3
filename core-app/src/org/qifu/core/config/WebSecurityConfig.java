@@ -23,6 +23,7 @@ package org.qifu.core.config;
 
 import org.qifu.base.CoreAppConstants;
 import org.qifu.core.service.impl.BaseUserDetailsService;
+import org.qifu.core.support.BaseAuthenticationSuccessHandler;
 import org.qifu.core.support.BaseLoginUrlAuthenticationEntryPoint;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
@@ -41,6 +42,9 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Autowired
     BaseUserDetailsService baseUserDetailsService;
+    
+    @Autowired
+    BaseAuthenticationSuccessHandler baseAuthenticationSuccessHandler;
 
     @Bean
     PasswordEncoder passwordEncoder(){
@@ -56,7 +60,8 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .loginPage( CoreAppConstants.SYS_PAGE_LOGIN )
                 .loginProcessingUrl("/login")             
                 .permitAll()
-                .defaultSuccessUrl("/index", true)
+                //.defaultSuccessUrl("/index", true)
+                .successHandler(baseAuthenticationSuccessHandler)
                 .and()
                 .authorizeRequests()
                 .antMatchers( CoreAppConstants.getWebConfiginterceptorExcludePathPatterns() )
