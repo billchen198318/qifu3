@@ -7,6 +7,7 @@ import org.qifu.base.model.CreateUserField;
 import org.qifu.base.model.EntityPK;
 import org.qifu.base.model.UpdateDateField;
 import org.qifu.base.model.UpdateUserField;
+import org.qifu.util.SimpleUtils;
 
 public class TbSysExprJobLog implements java.io.Serializable {
 	private static final long serialVersionUID = -8972374676604198929L;
@@ -21,6 +22,16 @@ public class TbSysExprJobLog implements java.io.Serializable {
 	private Date cdate;
 	private String uuserid;
 	private Date udate;
+	
+	/* for query Grid show */
+	public String getBeginDatetimeString() {
+		return SimpleUtils.getDateFormat_yyyyMMddHHmmss(this.beginDatetime);
+	}	
+	
+	/* for query Grid show */
+	public String getEndDatetimeString() {
+		return SimpleUtils.getDateFormat_yyyyMMddHHmmss(this.endDatetime);
+	}	
 	
 	@EntityPK(name = "oid", autoUUID = true)
 	public String getOid() {
