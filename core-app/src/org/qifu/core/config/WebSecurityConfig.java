@@ -53,7 +53,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     	http.headers().frameOptions().sameOrigin();
     	http.cors().and().csrf().disable()
                 .formLogin()
-                .loginPage("/loginPage")
+                .loginPage( CoreAppConstants.SYS_PAGE_LOGIN )
                 .loginProcessingUrl("/login")             
                 .permitAll()
                 .defaultSuccessUrl("/index", true)
@@ -63,8 +63,8 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .permitAll()
                 .anyRequest()
                 .authenticated();
-    	http.exceptionHandling().authenticationEntryPoint(new BaseLoginUrlAuthenticationEntryPoint("/loginPage"));
-    	http.sessionManagement().invalidSessionUrl("/loginAgainPage");
+    	http.exceptionHandling().authenticationEntryPoint(new BaseLoginUrlAuthenticationEntryPoint( CoreAppConstants.SYS_PAGE_LOGIN ));
+    	//http.sessionManagement().invalidSessionUrl( CoreAppConstants.SYS_PAGE_TAB_LOGIN_AGAIN );
     }
     
     /*

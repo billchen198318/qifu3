@@ -43,6 +43,8 @@ public class BaseInfoConfigProperties {
 	private String system;
 	
 	private String uploadDir;
+	
+	private String enableControllerAuthCheckLog; // 是否開啟 ControllerAuthorityCheckInterceptor 的 log 至 TB_SYS_EVENT_LOG
 
 	public String getErrorContact() {
 		return errorContact;
@@ -98,6 +100,14 @@ public class BaseInfoConfigProperties {
 
 	public void setUploadDir(String uploadDir) {
 		this.uploadDir = uploadDir;
+	}
+
+	public String getEnableControllerAuthCheckLog() {
+		return enableControllerAuthCheckLog;
+	}
+
+	public void setEnableControllerAuthCheckLog(String enableControllerAuthCheckLog) {
+		this.enableControllerAuthCheckLog = enableControllerAuthCheckLog;
 	}
 	
 }

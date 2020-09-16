@@ -7,6 +7,7 @@ import org.qifu.base.model.CreateUserField;
 import org.qifu.base.model.EntityPK;
 import org.qifu.base.model.UpdateDateField;
 import org.qifu.base.model.UpdateUserField;
+import org.qifu.util.SimpleUtils;
 
 public class TbSysEventLog implements java.io.Serializable {
 	private static final long serialVersionUID = 3155402228651343287L;
@@ -20,6 +21,11 @@ public class TbSysEventLog implements java.io.Serializable {
 	private Date cdate;
 	private String uuserid;
 	private Date udate;
+	
+	/* for query grid show */
+	public String getCdateString() {
+		return SimpleUtils.getDateFormat_yyyyMMddHHmmss(this.cdate);
+	}	
 	
 	@EntityPK(name = "oid", autoUUID = true)
 	public String getOid() {

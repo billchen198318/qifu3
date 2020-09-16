@@ -38,6 +38,9 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 
 public class CoreAppConstants {
 	
+	public static final String SYS_PAGE_LOGIN = "/loginPage";
+	public static final String SYS_PAGE_TAB_LOGIN_AGAIN = "/loginAgainPage";
+	
 	// ======================================================================================
 	
 	private static final String _CONFIG_ExcludePathPatterns = "excludePathPatterns.json";
@@ -114,7 +117,14 @@ public class CoreAppConstants {
 			"/csrf",
 			"/csrf/**",
 			"/configJs.js",
-			"/loginAgainPage"
+			
+			/* for ControllerAuthorityCheckInterceptor no to check */
+			SYS_PAGE_TAB_LOGIN_AGAIN,
+			"/login",
+			SYS_PAGE_LOGIN,
+			"/logout",
+			"/error"
+			
 	};	
 	
 	public static String[] getWebConfiginterceptorExcludePathPatterns() {

@@ -28,6 +28,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import org.qifu.base.Constants;
+import org.qifu.base.CoreAppConstants;
 import org.qifu.base.model.YesNo;
 import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.web.authentication.LoginUrlAuthenticationEntryPoint;
@@ -48,7 +49,7 @@ public class BaseLoginUrlAuthenticationEntryPoint extends LoginUrlAuthentication
         	return;
         }
         if (YesNo.YES.equals(request.getParameter(Constants.QIFU_PAGE_IN_TAB_IFRAME))) {
-        	response.sendRedirect("/loginAgainPage");
+        	response.sendRedirect(CoreAppConstants.SYS_PAGE_TAB_LOGIN_AGAIN);
         	return;
         }
         super.commence(request, response, authException);
