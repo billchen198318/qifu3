@@ -32,7 +32,6 @@ import java.util.Map;
 import java.util.stream.Stream;
 
 import org.apache.commons.io.IOUtils;
-import org.qifu.base.message.BaseSystemMessage;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 
@@ -143,6 +142,7 @@ public class CoreAppConstants {
 	
 	// ======================================================================================
 	
+	/*
 	private static final String _CONFIG_ContentCachingRequestWrapperFilter = "org/qifu/core/filter/ContentCachingRequestWrapperFilter.json";
 	
 	private static Map<String, Object> contentCachingRequestWrapperFilter_excludePathPatternsMap = null;
@@ -180,6 +180,7 @@ public class CoreAppConstants {
 	public static List<String> getContentCachingRequestWrapperFilterExcludePathPatterns() {
 		return (List<String>) contentCachingRequestWrapperFilter_excludePathPatternsMap.get("excludePathPatterns");
 	}
+	*/
 	
 	// ======================================================================================
 	
