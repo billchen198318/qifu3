@@ -31,6 +31,7 @@ import org.qifu.base.controller.IPageNamespaceProvide;
 import org.qifu.base.exception.AuthorityException;
 import org.qifu.base.exception.ControllerException;
 import org.qifu.base.exception.ServiceException;
+import org.qifu.base.model.ControllerMethodAuthority;
 import org.qifu.base.model.DefaultControllerJsonResultObj;
 import org.qifu.base.model.DefaultResult;
 import org.qifu.base.model.PageOf;
@@ -107,6 +108,7 @@ public class SysSiteController extends BaseControllerSupport implements IPageNam
 		mm.put("firstIconKey", sysIcon.getOid());
 	}
 	
+	@ControllerMethodAuthority(check = true, programId = "CORE_PROG001D0001Q")
 	@RequestMapping("/sysSitePage")
 	public String mainPage(ModelMap mm, HttpServletRequest request) {
 		String viewName = this.viewMainPage();
@@ -123,6 +125,7 @@ public class SysSiteController extends BaseControllerSupport implements IPageNam
 		return viewName;
 	}
 	
+	@ControllerMethodAuthority(check = true, programId = "CORE_PROG001D0001A")
 	@RequestMapping("/sysSiteCreatePage")
 	public String createPage(ModelMap mm, HttpServletRequest request) {
 		String viewName = this.viewCreatePage();
@@ -139,6 +142,7 @@ public class SysSiteController extends BaseControllerSupport implements IPageNam
 		return viewName;
 	}	
 	
+	@ControllerMethodAuthority(check = true, programId = "CORE_PROG001D0001E")
 	@RequestMapping("/sysSiteEditPage")
 	public String editPage(ModelMap mm, HttpServletRequest request, @RequestParam(name="oid") String oid) {
 		String viewName = this.viewEditPage();
@@ -156,6 +160,7 @@ public class SysSiteController extends BaseControllerSupport implements IPageNam
 		return viewName;
 	}	
 	
+	@ControllerMethodAuthority(check = true, programId = "CORE_PROG001D0001Q")
 	@RequestMapping(value = "/sysSiteQueryGridJson", produces = MediaType.APPLICATION_JSON_VALUE)	
 	public @ResponseBody QueryControllerJsonResultObj<List<TbSys>> queryGrid(SearchValue searchValue, PageOf pageOf) {
 		QueryControllerJsonResultObj<List<TbSys>> result = this.getQueryJsonResult("CORE_PROG001D0001Q");
@@ -183,6 +188,7 @@ public class SysSiteController extends BaseControllerSupport implements IPageNam
 		result.setMessage( sysResult.getMessage() );		
 	}	
 	
+	@ControllerMethodAuthority(check = true, programId = "CORE_PROG001D0001D")
 	@RequestMapping(value = "/sysSiteDeleteJson", produces = MediaType.APPLICATION_JSON_VALUE)			
 	public @ResponseBody DefaultControllerJsonResultObj<Boolean> doDelete(TbSys sys) {
 		DefaultControllerJsonResultObj<Boolean> result = this.getDefaultJsonResult("CORE_PROG001D0001D");
@@ -220,6 +226,7 @@ public class SysSiteController extends BaseControllerSupport implements IPageNam
 		result.setMessage( sysResult.getMessage() );		
 	}
 	
+	@ControllerMethodAuthority(check = true, programId = "CORE_PROG001D0001A")
 	@RequestMapping(value = "/sysSiteSaveJson", produces = MediaType.APPLICATION_JSON_VALUE)		
 	public @ResponseBody DefaultControllerJsonResultObj<TbSys> doSave(TbSys sys) {
 		DefaultControllerJsonResultObj<TbSys> result = this.getDefaultJsonResult("CORE_PROG001D0001A");
@@ -246,6 +253,7 @@ public class SysSiteController extends BaseControllerSupport implements IPageNam
 		result.setMessage( sysResult.getMessage() );
 	}	
 	
+	@ControllerMethodAuthority(check = true, programId = "CORE_PROG001D0001E")
 	@RequestMapping(value = "/sysSiteUpdateJson", produces = MediaType.APPLICATION_JSON_VALUE)		
 	public @ResponseBody DefaultControllerJsonResultObj<TbSys> doUpdate(TbSys sys) {
 		DefaultControllerJsonResultObj<TbSys> result = this.getDefaultJsonResult("CORE_PROG001D0001E");

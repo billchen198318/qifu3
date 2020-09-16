@@ -39,6 +39,7 @@ public class CoreAppConstants {
 	
 	public static final String SYS_PAGE_LOGIN = "/loginPage";
 	public static final String SYS_PAGE_TAB_LOGIN_AGAIN = "/loginAgainPage";
+	public static final String SYS_PAGE_NO_AUTH = "/noAuthPage";
 	
 	// ======================================================================================
 	
@@ -122,7 +123,8 @@ public class CoreAppConstants {
 			"/login",
 			SYS_PAGE_LOGIN,
 			"/logout",
-			"/error"
+			"/error",
+			SYS_PAGE_NO_AUTH
 			
 	};	
 	

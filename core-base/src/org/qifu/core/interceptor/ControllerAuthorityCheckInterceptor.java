@@ -94,7 +94,9 @@ public class ControllerAuthorityCheckInterceptor implements HandlerInterceptor {
 			this.log( user.getUsername(), baseInfoConfigProperties.getSystem(), url, true );
 			return true;
 		}
-		
+		if (!(handler instanceof HandlerMethod)) { // 非 HandlerMethod 不檢查
+			return true;
+		}
 		Method method = ((HandlerMethod) handler).getMethod();
 		Annotation[] actionMethodAnnotations = method.getAnnotations();
 		if (this.isControllerAuthority(actionMethodAnnotations)) {
@@ -108,7 +110,7 @@ public class ControllerAuthorityCheckInterceptor implements HandlerInterceptor {
 		logger.warn("[decline] user=" + user.getUsername() + " url=" + url);
 		if (YesNo.YES.equals(qifuPageTab)) {
 			this.log( user.getUsername(), baseInfoConfigProperties.getSystem(), url, false );
-			response.sendRedirect( CoreAppConstants.SYS_PAGE_TAB_LOGIN_AGAIN );
+			response.sendRedirect( CoreAppConstants.SYS_PAGE_NO_AUTH );
 			return false;
 		}		
 		String header = request.getHeader("X-Requested-With");
@@ -120,7 +122,7 @@ public class ControllerAuthorityCheckInterceptor implements HandlerInterceptor {
 			return false;
 		}
 		this.log( user.getUsername(), baseInfoConfigProperties.getSystem(), url, false );
-		response.sendRedirect( CoreAppConstants.SYS_PAGE_LOGIN );
+		response.sendRedirect( CoreAppConstants.SYS_PAGE_NO_AUTH );
 		return false;
 	}
 	

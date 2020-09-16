@@ -43,6 +43,15 @@ public class IndexController extends BaseControllerSupport {
 		return viewName;
 	}
 	
+	// for ControllerAuthorityCheckInterceptor sendRedirect url
+	@RequestMapping({"/noAuthPage"})
+	public String noAuth(ModelMap mm, HttpServletRequest request) {
+		String viewName = this.viewPage( "auth1" );
+		this.getDefaultModelMap(mm);
+		this.setPageMessage(mm, "no permission!");
+		return viewName;
+	}	
+	
 	@RequestMapping({"/", "/index"})
 	public String index(ModelMap mm, HttpServletRequest request) {
 		String viewName = this.viewPage( "index" );
