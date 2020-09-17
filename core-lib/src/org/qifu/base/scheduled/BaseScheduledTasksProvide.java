@@ -25,7 +25,9 @@ import org.qifu.base.Constants;
 import org.qifu.base.model.BaseUserInfo;
 import org.qifu.base.util.UserLocalUtils;
 
-public class BaseScheduledTasksProvide {	
+public abstract class BaseScheduledTasksProvide {	
+	
+	public abstract void execute();
 	
 	private BaseUserInfo buildUser() {
 		BaseUserInfo userInfo = new BaseUserInfo();

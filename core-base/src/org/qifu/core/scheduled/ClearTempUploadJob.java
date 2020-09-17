@@ -34,7 +34,7 @@ public class ClearTempUploadJob extends BaseScheduledTasksProvide {
 	protected Logger logger = LogManager.getLogger(SystemJreportLogicServiceImpl.class);
 	
 	@Scheduled(cron = "1 0 1 * * *")
-	public void deleteTempUpload() {
+	public void execute() {
 		logger.warn("Clear upload type is TMP data.");
 		this.login();
 		try {

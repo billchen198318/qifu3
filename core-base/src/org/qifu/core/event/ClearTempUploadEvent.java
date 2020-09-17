@@ -26,15 +26,15 @@ import java.util.TimerTask;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
-import org.qifu.base.scheduled.BaseScheduledTasksProvide;
 import org.qifu.core.logic.impl.SystemJreportLogicServiceImpl;
 import org.qifu.core.util.UploadSupportUtils;
+import org.qifu.core.util.UserUtils;
 import org.springframework.boot.context.event.ApplicationStartedEvent;
 import org.springframework.context.event.EventListener;
 import org.springframework.stereotype.Component;
 
 @Component
-public class ClearTempUploadEvent extends BaseScheduledTasksProvide {
+public class ClearTempUploadEvent {
 	protected Logger logger = LogManager.getLogger(SystemJreportLogicServiceImpl.class);
 	
 	@EventListener(ApplicationStartedEvent.class)
@@ -44,13 +44,13 @@ public class ClearTempUploadEvent extends BaseScheduledTasksProvide {
 					@Override
 					public void run() {
 						logger.warn("Clear upload type is TMP data.");
-						ClearTempUploadEvent.this.login();
+						UserUtils.setUserInfoForUserLocalUtilsBackgroundMode();
 						try {
 							UploadSupportUtils.cleanTempUpload();
 						} catch (Exception e) {
 							e.printStackTrace();
 						}
-						ClearTempUploadEvent.this.logout();
+						UserUtils.removeForUserLocalUtils();
 						logger.info("fine.");
 			        }
 				}, 30000
