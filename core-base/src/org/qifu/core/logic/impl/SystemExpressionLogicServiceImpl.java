@@ -31,6 +31,9 @@ import org.apache.logging.log4j.Logger;
 import org.qifu.base.exception.ServiceException;
 import org.qifu.base.message.BaseSystemMessage;
 import org.qifu.base.model.DefaultResult;
+import org.qifu.base.model.ServiceAuthority;
+import org.qifu.base.model.ServiceMethodAuthority;
+import org.qifu.base.model.ServiceMethodType;
 import org.qifu.base.service.BaseLogicService;
 import org.qifu.core.entity.TbSys;
 import org.qifu.core.entity.TbSysBeanHelpExpr;
@@ -48,6 +51,7 @@ import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
 @Service
+@ServiceAuthority(check = true)
 @Transactional(propagation=Propagation.REQUIRED, readOnly=true)
 public class SystemExpressionLogicServiceImpl extends BaseLogicService implements ISystemExpressionLogicService {
 	protected Logger logger=LogManager.getLogger(SystemExpressionLogicServiceImpl.class);
@@ -71,6 +75,7 @@ public class SystemExpressionLogicServiceImpl extends BaseLogicService implement
 		super();
 	}
 	
+	@ServiceMethodAuthority(type = ServiceMethodType.INSERT)
 	@Transactional(
 			propagation=Propagation.REQUIRED, 
 			readOnly=false,
@@ -87,6 +92,7 @@ public class SystemExpressionLogicServiceImpl extends BaseLogicService implement
 		return this.sysExpressionService.insert(expression);
 	}
 	
+	@ServiceMethodAuthority(type = ServiceMethodType.UPDATE)
 	@Transactional(
 			propagation=Propagation.REQUIRED, 
 			readOnly=false,
@@ -105,6 +111,7 @@ public class SystemExpressionLogicServiceImpl extends BaseLogicService implement
 		return this.sysExpressionService.update(expression);
 	}
 	
+	@ServiceMethodAuthority(type = ServiceMethodType.DELETE)
 	@Transactional(
 			propagation=Propagation.REQUIRED, 
 			readOnly=false,
@@ -126,6 +133,7 @@ public class SystemExpressionLogicServiceImpl extends BaseLogicService implement
 		return this.sysExpressionService.delete(expression);
 	}
 	
+	@ServiceMethodAuthority(type = ServiceMethodType.INSERT)
 	@Transactional(
 			propagation=Propagation.REQUIRED, 
 			readOnly=false,
@@ -144,6 +152,7 @@ public class SystemExpressionLogicServiceImpl extends BaseLogicService implement
 		return this.sysExprJobService.insert(exprJob);
 	}
 	
+	@ServiceMethodAuthority(type = ServiceMethodType.UPDATE)
 	@Transactional(
 			propagation=Propagation.REQUIRED, 
 			readOnly=false,
@@ -168,6 +177,7 @@ public class SystemExpressionLogicServiceImpl extends BaseLogicService implement
 		return this.sysExprJobService.update(exprJob);
 	}
 	
+	@ServiceMethodAuthority(type = ServiceMethodType.DELETE)
 	@Transactional(
 			propagation=Propagation.REQUIRED, 
 			readOnly=false,

@@ -31,6 +31,9 @@ import org.apache.logging.log4j.Logger;
 import org.qifu.base.exception.ServiceException;
 import org.qifu.base.message.BaseSystemMessage;
 import org.qifu.base.model.DefaultResult;
+import org.qifu.base.model.ServiceAuthority;
+import org.qifu.base.model.ServiceMethodAuthority;
+import org.qifu.base.model.ServiceMethodType;
 import org.qifu.base.model.YesNo;
 import org.qifu.base.service.BaseLogicService;
 import org.qifu.core.entity.TbSysJreport;
@@ -44,6 +47,7 @@ import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
 @Service
+@ServiceAuthority(check = true)
 @Transactional(propagation=Propagation.REQUIRED, readOnly=true)
 public class SystemJreportLogicServiceImpl extends BaseLogicService implements ISystemJreportLogicService {
 	protected Logger logger=LogManager.getLogger(SystemJreportLogicServiceImpl.class);
@@ -61,6 +65,7 @@ public class SystemJreportLogicServiceImpl extends BaseLogicService implements I
 		super();
 	}
 	
+	@ServiceMethodAuthority(type = ServiceMethodType.INSERT)
 	@Transactional(
 			propagation=Propagation.REQUIRED, 
 			readOnly=false,
@@ -79,6 +84,7 @@ public class SystemJreportLogicServiceImpl extends BaseLogicService implements I
 		return this.sysJreportService.insert(report);
 	}
 	
+	@ServiceMethodAuthority(type = ServiceMethodType.UPDATE)
 	@Transactional(
 			propagation=Propagation.REQUIRED, 
 			readOnly=false,
@@ -106,6 +112,7 @@ public class SystemJreportLogicServiceImpl extends BaseLogicService implements I
 		return this.sysJreportService.update(report);
 	}
 	
+	@ServiceMethodAuthority(type = ServiceMethodType.DELETE)
 	@Transactional(
 			propagation=Propagation.REQUIRED, 
 			readOnly=false,
@@ -129,6 +136,7 @@ public class SystemJreportLogicServiceImpl extends BaseLogicService implements I
 		return sysJreportService.delete(report);
 	}
 	
+	@ServiceMethodAuthority(type = ServiceMethodType.INSERT)
 	@Transactional(
 			propagation=Propagation.REQUIRED, 
 			readOnly=false,
@@ -148,6 +156,7 @@ public class SystemJreportLogicServiceImpl extends BaseLogicService implements I
 		return this.sysJreportParamService.insert(reportParam);
 	}
 	
+	@ServiceMethodAuthority(type = ServiceMethodType.DELETE)
 	@Transactional(
 			propagation=Propagation.REQUIRED, 
 			readOnly=false,

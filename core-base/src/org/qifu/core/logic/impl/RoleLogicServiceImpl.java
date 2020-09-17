@@ -33,6 +33,9 @@ import org.qifu.base.Constants;
 import org.qifu.base.exception.ServiceException;
 import org.qifu.base.message.BaseSystemMessage;
 import org.qifu.base.model.DefaultResult;
+import org.qifu.base.model.ServiceAuthority;
+import org.qifu.base.model.ServiceMethodAuthority;
+import org.qifu.base.model.ServiceMethodType;
 import org.qifu.base.service.BaseLogicService;
 import org.qifu.core.entity.TbAccount;
 import org.qifu.core.entity.TbRole;
@@ -55,6 +58,7 @@ import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
 @Service
+@ServiceAuthority(check = true)
 @Transactional(propagation=Propagation.REQUIRED, readOnly=true)
 public class RoleLogicServiceImpl extends BaseLogicService implements IRoleLogicService {
 	protected Logger logger=LogManager.getLogger(RoleLogicServiceImpl.class);
@@ -96,6 +100,7 @@ public class RoleLogicServiceImpl extends BaseLogicService implements IRoleLogic
 	 * @throws ServiceException
 	 * @throws Exception
 	 */	
+	@ServiceMethodAuthority(type = ServiceMethodType.INSERT)
 	@Transactional(
 			propagation=Propagation.REQUIRED, 
 			readOnly=false,
@@ -118,6 +123,7 @@ public class RoleLogicServiceImpl extends BaseLogicService implements IRoleLogic
 	 * @throws ServiceException
 	 * @throws Exception
 	 */	
+	@ServiceMethodAuthority(type = ServiceMethodType.UPDATE)
 	@Transactional(
 			propagation=Propagation.REQUIRED, 
 			readOnly=false,
@@ -141,6 +147,7 @@ public class RoleLogicServiceImpl extends BaseLogicService implements IRoleLogic
 	 * @throws ServiceException
 	 * @throws Exception
 	 */	
+	@ServiceMethodAuthority(type = ServiceMethodType.DELETE)
 	@Transactional(
 			propagation=Propagation.REQUIRED, 
 			readOnly=false,
@@ -209,6 +216,7 @@ public class RoleLogicServiceImpl extends BaseLogicService implements IRoleLogic
 	 * @throws ServiceException
 	 * @throws Exception
 	 */	
+	@ServiceMethodAuthority(type = ServiceMethodType.INSERT)
 	@Transactional(
 			propagation=Propagation.REQUIRED, 
 			readOnly=false,
@@ -241,6 +249,7 @@ public class RoleLogicServiceImpl extends BaseLogicService implements IRoleLogic
 	 * @throws ServiceException
 	 * @throws Exception
 	 */	
+	@ServiceMethodAuthority(type = ServiceMethodType.DELETE)
 	@Transactional(
 			propagation=Propagation.REQUIRED, 
 			readOnly=false,
@@ -265,6 +274,7 @@ public class RoleLogicServiceImpl extends BaseLogicService implements IRoleLogic
 	 * @throws ServiceException
 	 * @throws Exception
 	 */	
+	@ServiceMethodAuthority(type = ServiceMethodType.SELECT)
 	@Override
 	public Map<String, List<TbRole>> findForAccountRoleEnableAndAll(String accountOid) throws ServiceException, Exception {
 		if (super.isBlank(accountOid)) {
@@ -292,6 +302,7 @@ public class RoleLogicServiceImpl extends BaseLogicService implements IRoleLogic
 	 * @throws ServiceException
 	 * @throws Exception
 	 */	
+	@ServiceMethodAuthority(type = ServiceMethodType.UPDATE)
 	@Transactional(
 			propagation=Propagation.REQUIRED, 
 			readOnly=false,
@@ -358,6 +369,7 @@ public class RoleLogicServiceImpl extends BaseLogicService implements IRoleLogic
 	 * @throws ServiceException
 	 * @throws Exception
 	 */	
+	@ServiceMethodAuthority(type = ServiceMethodType.SELECT)
 	@Override
 	public Map<String, List<TbRole>> findForProgramRoleEnableAndAll(String programOid) throws ServiceException, Exception {
 		if (StringUtils.isBlank(programOid)) {
@@ -385,6 +397,7 @@ public class RoleLogicServiceImpl extends BaseLogicService implements IRoleLogic
 	 * @throws ServiceException
 	 * @throws Exception
 	 */	
+	@ServiceMethodAuthority(type = ServiceMethodType.UPDATE)
 	@Transactional(
 			propagation=Propagation.REQUIRED, 
 			readOnly=false,
@@ -441,6 +454,7 @@ public class RoleLogicServiceImpl extends BaseLogicService implements IRoleLogic
 	 * @throws ServiceException
 	 * @throws Exception
 	 */	
+	@ServiceMethodAuthority(type = ServiceMethodType.INSERT)
 	@Transactional(
 			propagation=Propagation.REQUIRED, 
 			readOnly=false,

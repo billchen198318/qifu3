@@ -31,6 +31,9 @@ import org.apache.logging.log4j.Logger;
 import org.qifu.base.exception.ServiceException;
 import org.qifu.base.message.BaseSystemMessage;
 import org.qifu.base.model.DefaultResult;
+import org.qifu.base.model.ServiceAuthority;
+import org.qifu.base.model.ServiceMethodAuthority;
+import org.qifu.base.model.ServiceMethodType;
 import org.qifu.base.service.BaseLogicService;
 import org.qifu.core.entity.TbSys;
 import org.qifu.core.entity.TbSysIcon;
@@ -45,6 +48,7 @@ import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
 @Service
+@ServiceAuthority(check = true)
 @Transactional(propagation=Propagation.REQUIRED, readOnly=true)
 public class ApplicationSystemLogicServiceImpl extends BaseLogicService implements IApplicationSystemLogicService {
 	protected Logger logger=LogManager.getLogger(ApplicationSystemLogicServiceImpl.class);
@@ -71,6 +75,7 @@ public class ApplicationSystemLogicServiceImpl extends BaseLogicService implemen
 	 * @throws ServiceException
 	 * @throws Exception
 	 */
+	@ServiceMethodAuthority(type = ServiceMethodType.INSERT)
 	@Transactional(
 			propagation=Propagation.REQUIRED, 
 			readOnly=false,
@@ -95,6 +100,7 @@ public class ApplicationSystemLogicServiceImpl extends BaseLogicService implemen
 	 * @throws ServiceException
 	 * @throws Exception
 	 */	
+	@ServiceMethodAuthority(type = ServiceMethodType.DELETE)
 	@Transactional(
 			propagation=Propagation.REQUIRED, 
 			readOnly=false,
@@ -126,6 +132,7 @@ public class ApplicationSystemLogicServiceImpl extends BaseLogicService implemen
 	 * @throws ServiceException
 	 * @throws Exception
 	 */	
+	@ServiceMethodAuthority(type = ServiceMethodType.UPDATE)
 	@Transactional(
 			propagation=Propagation.REQUIRED, 
 			readOnly=false,

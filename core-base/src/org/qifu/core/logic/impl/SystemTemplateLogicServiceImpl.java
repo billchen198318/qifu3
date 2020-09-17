@@ -31,6 +31,9 @@ import org.apache.logging.log4j.Logger;
 import org.qifu.base.exception.ServiceException;
 import org.qifu.base.message.BaseSystemMessage;
 import org.qifu.base.model.DefaultResult;
+import org.qifu.base.model.ServiceAuthority;
+import org.qifu.base.model.ServiceMethodAuthority;
+import org.qifu.base.model.ServiceMethodType;
 import org.qifu.base.service.BaseLogicService;
 import org.qifu.core.entity.TbSysTemplate;
 import org.qifu.core.entity.TbSysTemplateParam;
@@ -44,6 +47,7 @@ import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
 @Service
+@ServiceAuthority(check = true)
 @Transactional(propagation=Propagation.REQUIRED, readOnly=true)
 public class SystemTemplateLogicServiceImpl extends BaseLogicService implements ISystemTemplateLogicService {
 	protected Logger logger=LogManager.getLogger(SystemTemplateLogicServiceImpl.class);
@@ -59,6 +63,7 @@ public class SystemTemplateLogicServiceImpl extends BaseLogicService implements 
 		super();
 	}
 	
+	@ServiceMethodAuthority(type = ServiceMethodType.INSERT)
 	@Transactional(
 			propagation=Propagation.REQUIRED, 
 			readOnly=false,
@@ -74,6 +79,7 @@ public class SystemTemplateLogicServiceImpl extends BaseLogicService implements 
 		return sysTemplateService.insert(sysTemplate);
 	}
 	
+	@ServiceMethodAuthority(type = ServiceMethodType.UPDATE)
 	@Transactional(
 			propagation=Propagation.REQUIRED, 
 			readOnly=false,
@@ -94,6 +100,7 @@ public class SystemTemplateLogicServiceImpl extends BaseLogicService implements 
 		return sysTemplateService.update(sysTemplate);
 	}	
 	
+	@ServiceMethodAuthority(type = ServiceMethodType.DELETE)
 	@Transactional(
 			propagation=Propagation.REQUIRED, 
 			readOnly=false,
@@ -120,6 +127,7 @@ public class SystemTemplateLogicServiceImpl extends BaseLogicService implements 
 		return this.sysTemplateService.delete(sysTemplate);
 	}
 	
+	@ServiceMethodAuthority(type = ServiceMethodType.INSERT)
 	@Transactional(
 			propagation=Propagation.REQUIRED, 
 			readOnly=false,
@@ -138,6 +146,7 @@ public class SystemTemplateLogicServiceImpl extends BaseLogicService implements 
 		return this.sysTemplateParamService.insert(sysTemplateParam);
 	}
 	
+	@ServiceMethodAuthority(type = ServiceMethodType.DELETE)
 	@Transactional(
 			propagation=Propagation.REQUIRED, 
 			readOnly=false,

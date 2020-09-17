@@ -21,9 +21,14 @@
  */
 package org.qifu.core.util;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import org.apache.commons.lang3.StringUtils;
 import org.qifu.base.Constants;
 import org.qifu.base.model.BaseUserInfo;
+import org.qifu.base.model.YesNo;
+import org.qifu.base.model.ZeroKeyProvide;
 import org.qifu.base.util.UserLocalUtils;
 import org.qifu.core.entity.TbRolePermission;
 import org.qifu.core.entity.TbUserRole;
@@ -32,6 +37,18 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 
 public class UserUtils {
+	
+	private static TbUserRole backgroundUserRole;
+	private static List<TbUserRole> backgroundRoleList = new ArrayList<TbUserRole>(); 
+	
+	static {
+		backgroundUserRole = new TbUserRole();
+		backgroundUserRole.setOid(ZeroKeyProvide.OID_KEY);
+		backgroundUserRole.setAccount(Constants.SYSTEM_BACKGROUND_USER);
+		backgroundUserRole.setRole(Constants.SUPER_ROLE_ADMIN);
+		backgroundUserRole.setDescription("");
+		backgroundRoleList.add(backgroundUserRole);		
+	}
 	
 	public static BaseUserInfo setUserInfoForUserLocalUtils() {
 		User user = getCurrentUser();
@@ -58,18 +75,13 @@ public class UserUtils {
 	
 	public static User getCurrentUser() {
 		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
-		if (auth == null) {
-			return null;
+		if (auth != null && auth.getPrincipal() != null && (auth.getPrincipal() instanceof User)) {
+			return (User) auth.getPrincipal();
 		}
-		if (!(auth.getPrincipal() instanceof User)) {
-			return null;
+		if ( UserLocalUtils.getUserInfo() != null && Constants.SYSTEM_BACKGROUND_USER.equals(UserLocalUtils.getUserInfo().getUserId()) ) {
+			return new User(ZeroKeyProvide.OID_KEY, Constants.SYSTEM_BACKGROUND_USER, "", YesNo.YES, backgroundRoleList);
 		}
-		/*
-		for (GrantedAuthority ga : auth.getAuthorities()) {
-			System.out.println(">>> GrantedAuthority:" + ga.getAuthority());
-		}
-		*/
-		return (User) auth.getPrincipal();
+		return null;
 	}
 	
 	public static boolean isAdmin() {

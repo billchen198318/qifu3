@@ -45,7 +45,9 @@ public class BaseInfoConfigProperties {
 	private String uploadDir;
 	
 	private String enableControllerAuthCheckLog; // 是否開啟 ControllerAuthorityCheckInterceptor 的 log 至 TB_SYS_EVENT_LOG
-
+	
+	private String enableServiceAuthChecLog; // 是否開啟 ServiceAuthorityCheckAspect 的 log 至 TB_SYS_EVENT_LOG
+	
 	public String getErrorContact() {
 		return errorContact;
 	}
@@ -108,6 +110,14 @@ public class BaseInfoConfigProperties {
 
 	public void setEnableControllerAuthCheckLog(String enableControllerAuthCheckLog) {
 		this.enableControllerAuthCheckLog = enableControllerAuthCheckLog;
+	}
+
+	public String getEnableServiceAuthChecLog() {
+		return enableServiceAuthChecLog;
+	}
+
+	public void setEnableServiceAuthChecLog(String enableServiceAuthChecLog) {
+		this.enableServiceAuthChecLog = enableServiceAuthChecLog;
 	}
 	
 }

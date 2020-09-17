@@ -31,6 +31,9 @@ import org.apache.logging.log4j.Logger;
 import org.qifu.base.exception.ServiceException;
 import org.qifu.base.message.BaseSystemMessage;
 import org.qifu.base.model.DefaultResult;
+import org.qifu.base.model.ServiceAuthority;
+import org.qifu.base.model.ServiceMethodAuthority;
+import org.qifu.base.model.ServiceMethodType;
 import org.qifu.base.service.BaseLogicService;
 import org.qifu.core.entity.TbSys;
 import org.qifu.core.entity.TbSysBeanHelp;
@@ -49,6 +52,7 @@ import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
 @Service
+@ServiceAuthority(check = true)
 @Transactional(propagation=Propagation.REQUIRED, readOnly=true)
 public class SystemBeanHelpLogicServiceImpl extends BaseLogicService implements ISystemBeanHelpLogicService {
 	protected Logger logger=LogManager.getLogger(SystemBeanHelpLogicServiceImpl.class);
@@ -72,6 +76,7 @@ public class SystemBeanHelpLogicServiceImpl extends BaseLogicService implements 
 		super();
 	}
 	
+	@ServiceMethodAuthority(type = ServiceMethodType.INSERT)
 	@Transactional(
 			propagation=Propagation.REQUIRED, 
 			readOnly=false,
@@ -86,6 +91,7 @@ public class SystemBeanHelpLogicServiceImpl extends BaseLogicService implements 
 		return sysBeanHelpService.insert(beanHelp);
 	}
 	
+	@ServiceMethodAuthority(type = ServiceMethodType.UPDATE)
 	@Transactional(
 			propagation=Propagation.REQUIRED, 
 			readOnly=false,
@@ -100,6 +106,7 @@ public class SystemBeanHelpLogicServiceImpl extends BaseLogicService implements 
 		return sysBeanHelpService.update(beanHelp);
 	}
 	
+	@ServiceMethodAuthority(type = ServiceMethodType.DELETE)
 	@Transactional(
 			propagation=Propagation.REQUIRED, 
 			readOnly=false,
@@ -128,6 +135,7 @@ public class SystemBeanHelpLogicServiceImpl extends BaseLogicService implements 
 		return sysBeanHelpService.delete(beanHelp);
 	}
 	
+	@ServiceMethodAuthority(type = ServiceMethodType.INSERT)
 	@Transactional(
 			propagation=Propagation.REQUIRED, 
 			readOnly=false,
@@ -144,6 +152,7 @@ public class SystemBeanHelpLogicServiceImpl extends BaseLogicService implements 
 		return this.sysBeanHelpExprService.insert(beanHelpExpr);
 	}
 	
+	@ServiceMethodAuthority(type = ServiceMethodType.DELETE)
 	@Transactional(
 			propagation=Propagation.REQUIRED, 
 			readOnly=false,
@@ -163,6 +172,7 @@ public class SystemBeanHelpLogicServiceImpl extends BaseLogicService implements 
 		return this.sysBeanHelpExprService.delete(beanHelpExpr);
 	}
 	
+	@ServiceMethodAuthority(type = ServiceMethodType.INSERT)
 	@Transactional(
 			propagation=Propagation.REQUIRED, 
 			readOnly=false,
@@ -177,6 +187,7 @@ public class SystemBeanHelpLogicServiceImpl extends BaseLogicService implements 
 		return this.sysBeanHelpExprMapService.insert(beanHelpExprMap);
 	}
 	
+	@ServiceMethodAuthority(type = ServiceMethodType.DELETE)
 	@Transactional(
 			propagation=Propagation.REQUIRED, 
 			readOnly=false,
