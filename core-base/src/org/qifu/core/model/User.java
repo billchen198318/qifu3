@@ -21,6 +21,7 @@
  */
 package org.qifu.core.model;
 
+import org.qifu.base.CoreAppConstants;
 import org.qifu.base.model.BaseUserInfo;
 import org.qifu.base.model.YesNo;
 import org.qifu.core.entity.TbUserRole;
@@ -48,10 +49,22 @@ public class User extends BaseUserInfo implements UserDetails {
         this.roles = roles;
         this.setUserId( this.username );
     }
-
+    
+    public User(String oid, String username, String password, String onJob) {
+    	this.oid = oid;
+        this.username = username;
+        this.password = password;
+        this.onJob = onJob;
+        this.setUserId( this.username );    	
+    }
+    
     @Override
     public List<GrantedAuthority> getAuthorities() {
         List<GrantedAuthority> auths = new ArrayList<GrantedAuthority>();
+        if (this.roles == null || this.roles.size() < 1) {
+        	auths.add( new SimpleGrantedAuthority("ROLE_" + CoreAppConstants.SYS_BLANK_ROLE) );
+        	return auths;
+        }
         for (TbUserRole userRole : this.roles) {
             auths.add( new SimpleGrantedAuthority("ROLE_" + userRole.getRole()) );
             for (int p = 0; userRole.getRolePermission() != null && p < userRole.getRolePermission().size(); p++) {
@@ -98,7 +111,11 @@ public class User extends BaseUserInfo implements UserDetails {
 	public List<TbUserRole> getRoles() {
 		return roles;
 	}
-
+	
+	public void setRoles(List<TbUserRole> roles) {
+		this.roles = roles;
+	}	
+	
 	public String getOnJob() {
 		return onJob;
 	}

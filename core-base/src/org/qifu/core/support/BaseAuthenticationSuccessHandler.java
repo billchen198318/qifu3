@@ -22,13 +22,23 @@
 package org.qifu.core.support;
 
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.qifu.base.model.DefaultResult;
+import org.qifu.core.entity.TbRolePermission;
 import org.qifu.core.entity.TbSysLoginLog;
+import org.qifu.core.entity.TbUserRole;
+import org.qifu.core.model.User;
+import org.qifu.core.service.IRolePermissionService;
 import org.qifu.core.service.ISysLoginLogService;
+import org.qifu.core.service.IUserRoleService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -41,10 +51,23 @@ public class BaseAuthenticationSuccessHandler implements AuthenticationSuccessHa
 	@Autowired
 	ISysLoginLogService<TbSysLoginLog, String> sysLoginLogService;
 	
+    @Autowired
+    IUserRoleService<TbUserRole, String> userRoleService;
+    
+    @Autowired
+    IRolePermissionService<TbRolePermission, String> rolePermissionService;	
+	
 	@Override
 	public void onAuthenticationSuccess(HttpServletRequest request, HttpServletResponse response, Authentication authentication) throws IOException, ServletException {
 		UserDetails user = (UserDetails) authentication.getPrincipal();
 		try {
+			if (user instanceof User) {
+				User u = (User) user;
+				List<TbUserRole> userRoleList = this.findUserRoleList(user.getUsername());
+				if (userRoleList != null && userRoleList.size() > 0) {
+					u.setRoles(userRoleList);
+				}
+			}
 			TbSysLoginLog loginLog = new TbSysLoginLog();
 			loginLog.setUser(user.getUsername());
 			this.sysLoginLogService.insert(loginLog);
@@ -54,4 +77,33 @@ public class BaseAuthenticationSuccessHandler implements AuthenticationSuccessHa
 		response.sendRedirect("/index");
 	}
 	
+    private List<TbUserRole> findUserRoleList(String username) {
+        Map<String, Object> paramMap = new HashMap<String, Object>();
+        paramMap.put("account", username);
+        DefaultResult<List<TbUserRole>> result = null;
+        try {
+            result = userRoleService.selectListByParams(paramMap);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        List<TbUserRole> roleList = result.getValue();
+        for (int i = 0; roleList != null && i < roleList.size(); i++) {
+        	TbUserRole userRole = roleList.get(i);
+        	paramMap.clear();
+        	paramMap.put("role", userRole.getRole());
+        	try {
+				DefaultResult<List<TbRolePermission>> permResult = rolePermissionService.selectListByParams(paramMap);
+				userRole.setRolePermission( permResult.getValue() );
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+        	if (userRole.getRolePermission() == null) {
+        		userRole.setRolePermission( new ArrayList<TbRolePermission>() );
+        	}
+        }
+        paramMap.clear();
+        paramMap = null;
+        return roleList;
+    }
+    
 }

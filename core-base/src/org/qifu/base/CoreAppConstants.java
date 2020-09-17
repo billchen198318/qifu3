@@ -40,6 +40,7 @@ public class CoreAppConstants {
 	public static final String SYS_PAGE_LOGIN = "/loginPage";
 	public static final String SYS_PAGE_TAB_LOGIN_AGAIN = "/loginAgainPage";
 	public static final String SYS_PAGE_NO_AUTH = "/noAuthPage";
+	public static final String SYS_BLANK_ROLE = "QIFU_BLANK_USERROLE";
 	
 	// ======================================================================================
 	
