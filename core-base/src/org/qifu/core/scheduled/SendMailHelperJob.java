@@ -67,11 +67,7 @@ public class SendMailHelperJob extends BaseScheduledTasksProvide {
 		} catch (Exception e) {
 			e.printStackTrace();
 		} finally {
-			try {
-				this.logout();
-			} catch (Exception e) {
-				e.printStackTrace();
-			}
+			this.logout();
 		}
 		//log.info("end...");
 	}
