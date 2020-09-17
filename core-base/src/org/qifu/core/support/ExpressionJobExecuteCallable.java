@@ -69,16 +69,21 @@ public class ExpressionJobExecuteCallable implements Callable<ExpressionJobObj> 
 		String faultMsg = "";
 		String runStatus = "";
 		String logStatus = "";
+		boolean setUserInfoBackgroundMode = false;
 		
 		ISysExprJobService<TbSysExprJob, String> sysExprJobService = AppContext.context.getBean(ISysExprJobService.class);
 		
 		ISysExprJobLogService<TbSysExprJobLog, String> sysExprJobLogService = AppContext.context.getBean(ISysExprJobLogService.class);
 		
 		try {
-			logger.info("[Expression-Job] (Start) ID: " + this.jobObj.getSysExprJob().getId() + " , NAME: " + this.jobObj.getSysExprJob().getName());
+			
 			if (UserUtils.getCurrentUser() == null) {
 				UserUtils.setUserInfoForUserLocalUtilsBackgroundMode();
-			}			
+				setUserInfoBackgroundMode = true;
+			}
+			
+			logger.info("[Expression-Job] (Start) ID: " + this.jobObj.getSysExprJob().getId() + " , NAME: " + this.jobObj.getSysExprJob().getName());
+			
 			if (StringUtils.isBlank(jobObj.getSysExpression().getContent())) {
 				faultMsg = "No expression content!";
 				runStatus = ExpressionJobConstants.RUNSTATUS_FAULT;
@@ -139,9 +144,12 @@ public class ExpressionJobExecuteCallable implements Callable<ExpressionJobObj> 
 			
 			this.sendMail();
 			
-			UserUtils.removeForUserLocalUtils();
-			
 			logger.info("[Expression-Job] (End) ID: " + this.jobObj.getSysExprJob().getId() + " , NAME: " + this.jobObj.getSysExprJob().getName());
+			
+			if (setUserInfoBackgroundMode) {
+				UserUtils.removeForUserLocalUtils();
+			}
+			
 		}
 		return this.jobObj;
 	}	
