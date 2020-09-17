@@ -19,7 +19,7 @@
  * contact: chen.xin.nien@gmail.com
  *
  */
-package org.qifu.core.service.impl;
+package org.qifu.base.service.impl;
 
 import org.apache.commons.lang3.StringUtils;
 import org.qifu.base.message.BaseSystemMessage;

@@ -22,7 +22,7 @@
 package org.qifu.core.config;
 
 import org.qifu.base.CoreAppConstants;
-import org.qifu.core.service.impl.BaseUserDetailsService;
+import org.qifu.base.service.impl.BaseUserDetailsService;
 import org.qifu.core.support.BaseAuthenticationSuccessHandler;
 import org.qifu.core.support.BaseLoginUrlAuthenticationEntryPoint;
 import org.springframework.beans.factory.annotation.Autowired;
