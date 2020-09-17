@@ -43,7 +43,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
-@Service
+@Service("systemJreportLogicServiceImpl")
 @Transactional(propagation=Propagation.REQUIRED, readOnly=true)
 public class SystemJreportLogicServiceImpl extends BaseLogicService implements ISystemJreportLogicService {
 	protected Logger logger=LogManager.getLogger(SystemJreportLogicServiceImpl.class);
