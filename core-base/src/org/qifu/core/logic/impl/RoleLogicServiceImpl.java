@@ -54,7 +54,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
-@Service("roleLogicServiceImpl")
+@Service
 @Transactional(propagation=Propagation.REQUIRED, readOnly=true)
 public class RoleLogicServiceImpl extends BaseLogicService implements IRoleLogicService {
 	protected Logger logger=LogManager.getLogger(RoleLogicServiceImpl.class);

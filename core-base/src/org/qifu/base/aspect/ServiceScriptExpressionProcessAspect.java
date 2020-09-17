@@ -25,6 +25,7 @@ import java.lang.annotation.Annotation;
 import java.lang.reflect.Method;
 
 import org.apache.commons.lang3.StringUtils;
+import org.apache.commons.text.WordUtils;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.aspectj.lang.ProceedingJoinPoint;
@@ -68,6 +69,9 @@ public class ServiceScriptExpressionProcessAspect implements IBaseAspectService 
 			return pjp.proceed();
 		}		
 		String beanId = AspectConstants.getServiceId(annotations);	
+		if (StringUtils.isBlank(beanId)) {
+			beanId = WordUtils.uncapitalize(pjp.getTarget().getClass().getSimpleName());
+		}
 		if (StringUtils.isBlank(beanId)) {
 			return pjp.proceed();
 		}

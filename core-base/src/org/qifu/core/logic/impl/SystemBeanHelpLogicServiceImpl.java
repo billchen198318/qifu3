@@ -48,7 +48,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
-@Service("systemBeanHelpLogicServiceImpl")
+@Service
 @Transactional(propagation=Propagation.REQUIRED, readOnly=true)
 public class SystemBeanHelpLogicServiceImpl extends BaseLogicService implements ISystemBeanHelpLogicService {
 	protected Logger logger=LogManager.getLogger(SystemBeanHelpLogicServiceImpl.class);

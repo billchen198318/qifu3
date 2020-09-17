@@ -47,7 +47,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
-@Service("systemMenuLogicServiceImpl")
+@Service
 @Transactional(propagation=Propagation.REQUIRED, readOnly=true)
 public class SystemMenuLogicServiceImpl extends BaseLogicService implements ISystemMenuLogicService {
 	protected Logger logger=LogManager.getLogger(SystemMenuLogicServiceImpl.class);
