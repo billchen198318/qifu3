@@ -38,16 +38,24 @@ import org.springframework.security.core.context.SecurityContextHolder;
 
 public class UserUtils {
 	
-	private static TbUserRole backgroundUserRole;
 	private static List<TbUserRole> backgroundRoleList = new ArrayList<TbUserRole>(); 
 	
+	private static User backgroundUser = null;
+	
 	static {
-		backgroundUserRole = new TbUserRole();
-		backgroundUserRole.setOid(ZeroKeyProvide.OID_KEY);
-		backgroundUserRole.setAccount(Constants.SYSTEM_BACKGROUND_USER);
-		backgroundUserRole.setRole(Constants.SUPER_ROLE_ADMIN);
-		backgroundUserRole.setDescription("");
-		backgroundRoleList.add(backgroundUserRole);		
+		TbUserRole backgroundUserRole1 = new TbUserRole();
+		backgroundUserRole1.setOid(ZeroKeyProvide.OID_KEY);
+		backgroundUserRole1.setAccount(Constants.SYSTEM_BACKGROUND_USER);
+		backgroundUserRole1.setRole(Constants.SUPER_ROLE_ADMIN);
+		backgroundUserRole1.setDescription("");
+		TbUserRole backgroundUserRole2 = new TbUserRole();
+		backgroundUserRole2.setOid("1");
+		backgroundUserRole2.setAccount(Constants.SYSTEM_BACKGROUND_USER);
+		backgroundUserRole2.setRole(Constants.SUPER_ROLE_ALL);
+		backgroundUserRole2.setDescription("");		
+		backgroundRoleList.add(backgroundUserRole1);
+		backgroundRoleList.add(backgroundUserRole2);
+		backgroundUser = new User(ZeroKeyProvide.OID_KEY, Constants.SYSTEM_BACKGROUND_USER, "", YesNo.YES, backgroundRoleList);
 	}
 	
 	public static BaseUserInfo setUserInfoForUserLocalUtils() {
@@ -79,6 +87,9 @@ public class UserUtils {
 			return (User) auth.getPrincipal();
 		}
 		if ( UserLocalUtils.getUserInfo() != null && Constants.SYSTEM_BACKGROUND_USER.equals(UserLocalUtils.getUserInfo().getUserId()) ) {
+			if (backgroundUser != null) {
+				return backgroundUser;
+			}
 			return new User(ZeroKeyProvide.OID_KEY, Constants.SYSTEM_BACKGROUND_USER, "", YesNo.YES, backgroundRoleList);
 		}
 		return null;
@@ -98,6 +109,9 @@ public class UserUtils {
 	}
 	
 	public static boolean hasRole(String roleId) {
+		if (isAdmin()) {
+			return true;
+		}
 		if (StringUtils.isBlank(roleId)) {
 			return false;
 		}
@@ -114,6 +128,9 @@ public class UserUtils {
 	}
 	
 	public static boolean isPermitted(String perm) {
+		if (isAdmin()) {
+			return true;
+		}
 		if (StringUtils.isBlank(perm)) {
 			return false;
 		}

@@ -77,11 +77,33 @@ public class UIComponentValueUtils {
 	}
 	
 	public static boolean getHasRoleResult(ServletRequestAttributes servletRequestAttributes) {
-		if ( servletRequestAttributes.getAttribute( UIComponent.HasRoleResultVariableName , RequestAttributes.SCOPE_REQUEST ) != null ) {
-			return (Boolean) servletRequestAttributes.getAttribute( UIComponent.HasRoleResultVariableName , RequestAttributes.SCOPE_REQUEST );
+		if ( servletRequestAttributes.getAttribute( UIComponent.HasRoleResultVariableName, RequestAttributes.SCOPE_REQUEST ) != null ) {
+			return (Boolean) servletRequestAttributes.getAttribute( UIComponent.HasRoleResultVariableName, RequestAttributes.SCOPE_REQUEST );
 		}
 		return false;
 	}		
+	
+	public static boolean foundHasPermissionResult(ServletRequestAttributes servletRequestAttributes) {
+		if ( servletRequestAttributes.getAttribute( UIComponent.HasPermissionResultVariableName, RequestAttributes.SCOPE_REQUEST) != null ) {
+			return true;
+		}
+		return false;
+	}	
+	
+	public static void removeHasPermissionResult(ServletRequestAttributes servletRequestAttributes) {
+		servletRequestAttributes.removeAttribute(UIComponent.HasPermissionResultVariableName, RequestAttributes.SCOPE_REQUEST);
+	}
+	
+	public static void putHasPermissionResult(ServletRequestAttributes servletRequestAttributes, boolean result) {
+		servletRequestAttributes.setAttribute(UIComponent.HasPermissionResultVariableName, result, RequestAttributes.SCOPE_REQUEST);
+	}
+	
+	public static boolean getHasPermissionResult(ServletRequestAttributes servletRequestAttributes) {
+		if ( servletRequestAttributes.getAttribute( UIComponent.HasPermissionResultVariableName, RequestAttributes.SCOPE_REQUEST ) != null ) {
+			return (Boolean) servletRequestAttributes.getAttribute( UIComponent.HasPermissionResultVariableName, RequestAttributes.SCOPE_REQUEST );
+		}
+		return false;
+	}			
 	
 	public static Object getObjectFromPageContextOrRequest(ServletRequestAttributes servletRequestAttributes, String paramName) {
 		HttpServletRequest request = servletRequestAttributes.getRequest();

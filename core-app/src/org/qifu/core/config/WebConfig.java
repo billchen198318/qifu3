@@ -25,8 +25,8 @@ import javax.annotation.PostConstruct;
 
 import org.qifu.base.CoreAppConstants;
 import org.qifu.base.interceptor.MDCInterceptor;
+import org.qifu.core.directive.CoreUiDirectiveSimpleHash;
 import org.qifu.core.interceptor.ControllerAuthorityCheckInterceptor;
-import org.qifu.directive.BaseUiDirectiveSimpleHash;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -46,7 +46,7 @@ public class WebConfig implements WebMvcConfigurer {
 	
 	@PostConstruct
 	public void freeMarkerConfigurer() {
-        freeMarkerConfigurer.getConfiguration().setSharedVariable("qifu", new BaseUiDirectiveSimpleHash(freeMarkerConfigurer.getConfiguration().getObjectWrapper()));
+        freeMarkerConfigurer.getConfiguration().setSharedVariable("qifu", new CoreUiDirectiveSimpleHash(freeMarkerConfigurer.getConfiguration().getObjectWrapper()));
     }
 	
     @Override
