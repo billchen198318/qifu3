@@ -170,7 +170,7 @@ public class ControllerAuthorityCheckInterceptor implements HandlerInterceptor {
 	 * Event log 查詢的頁面
 	 */
 	private boolean isEventLogPage(String url) {
-		if ("/sysEventLogQueryGridJson".indexOf(url) > -1 || "/sysEventLogPage".indexOf(url) > -1) {
+		if (StringUtils.defaultString(url).startsWith("/sysEventLog")) {
 			return true;
 		}
 		return false;

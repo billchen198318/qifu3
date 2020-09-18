@@ -1,5 +1,4 @@
-<!DOCTYPE html>
-<html lang="en">
+<html>
   <head>
     <meta name="description" content="QiFu 3 is an JAVA base backend WEB system.">
     <title>QiFu-3</title>

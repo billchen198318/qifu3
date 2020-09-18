@@ -24,6 +24,7 @@ package org.qifu.ui.impl;
 import java.util.HashMap;
 import java.util.Map;
 
+import org.apache.commons.lang3.StringUtils;
 import org.qifu.ui.ComponentResourceUtils;
 import org.qifu.ui.UIComponent;
 import org.springframework.web.context.request.ServletRequestAttributes;
@@ -46,6 +47,10 @@ public class Grid implements UIComponent {
 		Map<String, Object> paramMap = new HashMap<String, Object>();
 		paramMap.put("id", this.id);
 		if (IS_SCRIPT.equals(type)) {
+			
+			this.queryFunction = StringUtils.defaultString(this.queryFunction).replaceAll("[(]", "").replaceAll("[)]", "").replaceAll(";", "");
+			this.clearFunction = StringUtils.defaultString(this.clearFunction).replaceAll("[(]", "").replaceAll("[)]", "").replaceAll(";", "");
+			
 			paramMap.put("xhrUrl", this.xhrUrl);
 			paramMap.put("xhrParameter", this.xhrParameter);
 			paramMap.put("gridFieldStructure", this.gridFieldStructure);

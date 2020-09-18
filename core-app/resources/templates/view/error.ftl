@@ -1,6 +1,3 @@
-<#assign sec=JspTaglibs["http://www.springframework.org/security/tags"] />
-<#assign qifu=JspTaglibs["http://www.qifu.org/controller/tag"] />
-
 <html>
   <head>
 	<title>qifu3</title>

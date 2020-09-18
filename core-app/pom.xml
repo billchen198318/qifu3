@@ -57,13 +57,6 @@
 	        <groupId>org.springframework.boot</groupId>
 	        <artifactId>spring-boot-starter-log4j2</artifactId>
 	    </dependency>			
-	    
-	    <!--  
-		<dependency> 
-		    <groupId>org.springframework.boot</groupId> 
-		    <artifactId>spring-boot-starter-thymeleaf</artifactId> 
-		</dependency>        
-		-->
 		
 		<dependency>
     		<groupId>org.springframework.boot</groupId>
@@ -186,12 +179,6 @@
 		    <version>3.8.2</version>
 		</dependency>
 		
-<!-- 		<dependency> -->
-<!-- 		    <groupId>org.freemarker</groupId> -->
-<!-- 		    <artifactId>freemarker</artifactId> -->
-<!-- 		    <version>2.3.29</version> -->
-<!-- 		</dependency>				 -->
-		
         <dependency>
             <groupId>org.ehcache</groupId>
             <artifactId>ehcache</artifactId>
@@ -250,7 +237,13 @@
 		    <groupId>com.jcraft</groupId>
 		    <artifactId>jsch</artifactId>
 		    <version>0.1.55</version>
-		</dependency>		        
+		</dependency>		
+		
+		<dependency>
+		    <groupId>net.lingala.zip4j</groupId>
+		    <artifactId>zip4j</artifactId>
+		    <version>2.6.2</version>
+		</dependency>			        
 		
 <!-- 		<dependency> -->
 <!-- 		    <groupId>com.oracle</groupId> -->
@@ -260,15 +253,13 @@
 <!-- 		    <systemPath>${workspaceDir}/thirdpartylib/ojdbc7.jar</systemPath> -->
 <!-- 		</dependency>		 -->
 		
-		<!--  
-		<dependency>
-		    <groupId>org.orchis</groupId>
-		    <artifactId>font</artifactId>
-		    <scope>system</scope>
-		    <version>0.0.1</version>
-		    <systemPath>${workspaceDir}/thirdpartylib/DFKai-SB.jar</systemPath>
-		</dependency>					
-        -->
+<!-- 		<dependency> -->
+<!-- 		    <groupId>org.orchis</groupId> -->
+<!-- 		    <artifactId>font</artifactId> -->
+<!-- 		    <scope>system</scope> -->
+<!-- 		    <version>0.0.1</version> -->
+<!-- 		    <systemPath>${workspaceDir}/thirdpartylib/DFKai-SB.jar</systemPath> -->
+<!-- 		</dependency>					 -->
         
         <!-- Maybe can change to mariadb and mariadb-JDBC-driver is good for than MySQL. -->
 		<dependency>
@@ -283,26 +274,7 @@
 		    <artifactId>mariadb-java-client</artifactId>
 		    <version>2.4.3</version>
 		</dependency>
-		-->
-		
-		<!-- JSP-API for tag -->
-		<dependency>
-   			<groupId>javax.servlet.jsp</groupId>
-   			<artifactId>jsp-api</artifactId>
-   			<version>2.1.1</version>
-		</dependency>			
-		
-		<!-- Spring security tag -->
-		<dependency>
-		    <groupId>org.springframework.security</groupId>
-		    <artifactId>spring-security-taglibs</artifactId>
-		</dependency>		
-		
-		<dependency>
-		    <groupId>net.lingala.zip4j</groupId>
-		    <artifactId>zip4j</artifactId>
-		    <version>2.6.2</version>
-		</dependency>		
+		-->	
 		
 		<dependency>
 		    <groupId>org.qifu</groupId>
