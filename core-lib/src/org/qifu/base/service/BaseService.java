@@ -413,6 +413,8 @@ public abstract class BaseService<T extends java.io.Serializable, K extends java
 	private void fillPageOfAndfindPageParam(Map<String, Object> paramMap, PageOf pageOf, Long countSize) {
 		long startRow = (pageOf.getIntegerValue( pageOf.getSelect() )-1) * pageOf.getIntegerValue( pageOf.getShowRow() );
 		long endRow = pageOf.getIntegerValue( pageOf.getSelect() ) * pageOf.getIntegerValue( pageOf.getShowRow() );
+		long offset = startRow;
+		long showRow = pageOf.getIntegerValue( pageOf.getShowRow() );
 		if (startRow < 0) {
 			startRow = 0;
 		}
@@ -425,12 +427,16 @@ public abstract class BaseService<T extends java.io.Serializable, K extends java
 		if (startRow > countSize) {
 			startRow = 0;
 			endRow = 1 * pageOf.getIntegerValue( pageOf.getShowRow() );
+			offset = 0;
+			showRow = 1 * pageOf.getIntegerValue( pageOf.getShowRow() );;
 		}			
 		if (endRow > countSize) {
 			endRow = countSize;
 		}
-		paramMap.put("startRow", startRow); // 資料庫要放 Long
-		paramMap.put("endRow", endRow); // 資料庫要放 Long
+		paramMap.put("startRow", startRow); // 資料庫要放 Long (以前qifu2用的) Oracle
+		paramMap.put("endRow", endRow); // 資料庫要放 Long (以前qifu2用的) Oracle
+		paramMap.put("offsetRow", offset); // for MySQL or MariaDB
+		paramMap.put("showRow", showRow); // for MySQL or MariaDB
 		
 		pageOf.setCountSize(String.valueOf(countSize));
 		//pageOf.toCalculateSize(); // 2019-09-10
