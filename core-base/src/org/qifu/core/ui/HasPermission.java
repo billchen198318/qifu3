@@ -72,7 +72,7 @@ public class HasPermission implements UIComponent {
 	}
 
 	public Boolean getTestResult() {
-		String permIdArr[] = StringUtils.defaultString( this.check ).split(",|" + Constants.ID_DELIMITER);
+		String permIdArr[] = StringUtils.defaultString( this.check ).split(Constants.DEFAULT_SPLIT_DELIMITER);
 		boolean flag = false;
 		for (int i = 0; permIdArr != null && i < permIdArr.length && !flag; i++) {
 			flag = UserUtils.isPermitted( permIdArr[i].replaceAll(" ", "") );

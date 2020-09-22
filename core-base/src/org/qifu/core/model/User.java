@@ -40,6 +40,7 @@ public class User extends BaseUserInfo implements UserDetails {
     private String password;
     private List<TbUserRole> roles;
     private String onJob;
+    private String byLdap = YesNo.NO;
 
     public User(String oid, String username, String password, String onJob, List<TbUserRole> roles) {
     	this.oid = oid;
@@ -118,6 +119,14 @@ public class User extends BaseUserInfo implements UserDetails {
 	
 	public String getOnJob() {
 		return onJob;
+	}
+
+	public String getByLdap() {
+		return byLdap;
+	}
+
+	public void setByLdap(String byLdap) {
+		this.byLdap = byLdap;
 	}
     
 }

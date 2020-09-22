@@ -23,11 +23,11 @@
           <h3 class="login-head"><i class="fa fa-lg fa-fw fa-user"></i>SIGN IN</h3>
           <div class="form-group">
             <label class="control-label">USERNAME</label>
-            <input class="form-control" type="text" name="username" id="username" placeholder="Account" autofocus>
+            <input class="form-control" type="text" name="username" id="username" placeholder="Account" maxlength="24" autofocus>
           </div>
           <div class="form-group">
             <label class="control-label">PASSWORD</label>
-            <input class="form-control" type="password" name="password" id="password" placeholder="Password">
+            <input class="form-control" type="password" name="password" id="password" placeholder="Password" maxlength="16">
           </div>
           <!--  
           <div class="form-group">

@@ -72,7 +72,7 @@ public class HasRole implements UIComponent {
 	}
 
 	public Boolean getTestResult() {
-		String roleIdArr[] = StringUtils.defaultString( this.check ).split(",|" + Constants.ID_DELIMITER);
+		String roleIdArr[] = StringUtils.defaultString( this.check ).split(Constants.DEFAULT_SPLIT_DELIMITER);
 		boolean flag = false;
 		for (int i = 0; roleIdArr != null && i < roleIdArr.length && !flag; i++) {
 			flag = UserUtils.hasRole( roleIdArr[i].replaceAll(" ", "") );

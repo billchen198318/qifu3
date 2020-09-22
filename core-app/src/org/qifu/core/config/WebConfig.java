@@ -30,6 +30,7 @@ import org.qifu.core.interceptor.ControllerAuthorityCheckInterceptor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.web.context.request.RequestContextListener;
 import org.springframework.web.servlet.config.annotation.CorsRegistry;
 import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
@@ -55,6 +56,11 @@ public class WebConfig implements WebMvcConfigurer {
         .addResourceHandler( CoreAppConstants.WebConfig_resource )
         .addResourceLocations( CoreAppConstants.WebConfig_resourceLocations );
     }
+    
+    @Bean 
+    public RequestContextListener requestContextListener(){
+        return new RequestContextListener();
+    }     
     
     @Bean
     MDCInterceptor MDCInterceptor() {

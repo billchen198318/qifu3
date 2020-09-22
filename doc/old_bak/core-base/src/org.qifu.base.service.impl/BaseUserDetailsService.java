@@ -21,32 +21,31 @@
  */
 package org.qifu.base.service.impl;
 
-import javax.servlet.http.HttpServletRequest;
-
 import org.apache.commons.lang3.StringUtils;
-import org.qifu.base.Constants;
 import org.qifu.base.message.BaseSystemMessage;
 import org.qifu.base.model.DefaultResult;
-import org.qifu.base.model.YesNo;
-import org.qifu.base.model.ZeroKeyProvide;
-import org.qifu.base.properties.LdapLoginConfigProperties;
 import org.qifu.core.entity.TbAccount;
+//import org.qifu.core.entity.TbRolePermission;
+//import org.qifu.core.entity.TbUserRole;
 import org.qifu.core.model.User;
 import org.qifu.core.service.IAccountService;
+//import org.qifu.core.service.IRolePermissionService;
+//import org.qifu.core.service.IUserRoleService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.ldap.core.LdapTemplate;
-import org.springframework.ldap.filter.AndFilter;
-import org.springframework.ldap.filter.EqualsFilter;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
-import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
+
+//import java.util.ArrayList;
+//import java.util.HashMap;
+//import java.util.List;
+//import java.util.Map;
 
 @Component
 @Service
@@ -58,17 +57,13 @@ public class BaseUserDetailsService implements UserDetailsService {
     @Autowired
     IAccountService<TbAccount, String> accountService;
     
+    /*
     @Autowired
-    LdapLoginConfigProperties ldapLoginConfigProperties;
+    IUserRoleService<TbUserRole, String> userRoleService;
     
     @Autowired
-    LdapTemplate ldapTemplate;
-    
-    @Autowired
-    PasswordEncoder passwordEncoder;
-    
-    @Autowired
-    HttpServletRequest request;
+    IRolePermissionService<TbRolePermission, String> rolePermissionService;
+    */
     
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
@@ -77,36 +72,6 @@ public class BaseUserDetailsService implements UserDetailsService {
         	logger.warn("account value blank.");
         	throw new UsernameNotFoundException( BaseSystemMessage.parameterBlank() );
         }
-        if (!YesNo.YES.equals(ldapLoginConfigProperties.getLoginEnable())) {
-        	return this.loadFromDB(username);
-        }
-        return this.loadFromLDAP(username);
-    }
-    
-    private UserDetails loadFromLDAP(String username) throws UsernameNotFoundException {
-    	String password = request.getParameter("password");
-    	if (StringUtils.isBlank(password)) {
-    		throw new UsernameNotFoundException( "password " + BaseSystemMessage.parameterBlank() );
-    	}
-    	Boolean auth = false;
-		AndFilter filter = new AndFilter();
-		filter.and(new EqualsFilter(ldapLoginConfigProperties.getSearchFilter(), username));
-		String ouArr[] = StringUtils.defaultString(ldapLoginConfigProperties.getAuthSearchBase()).split(Constants.DEFAULT_SPLIT_DELIMITER);
-		if (null == ouArr || ouArr.length < 1) {
-			auth = ldapTemplate.authenticate("", filter.encode(), password);
-		}
-		for (int i = 0; !auth && ouArr != null && i < ouArr.length; i++) {
-			auth = ldapTemplate.authenticate(StringUtils.deleteWhitespace(ouArr[i]), filter.encode(), password);
-		}
-		if (!auth) {
-			throw new UsernameNotFoundException("LDAP auth fail!");
-		}
-		User user = new User(ZeroKeyProvide.OID_KEY, username, passwordEncoder.encode(password), YesNo.YES);
-		user.setByLdap(YesNo.YES);
-    	return user;
-    }
-    
-    private UserDetails loadFromDB(String username) throws UsernameNotFoundException {
         TbAccount accObj = new TbAccount();
         accObj.setAccount(username);
         DefaultResult<TbAccount> result = null;
@@ -119,10 +84,43 @@ public class BaseUserDetailsService implements UserDetailsService {
             throw new UsernameNotFoundException( result.getMessage() );
         }
         accObj = result.getValue();
-        if (!YesNo.YES.equals(accObj.getOnJob())) {
-        	throw new UsernameNotFoundException("auth fail!");
-        }
-        return new User(accObj.getOid(), accObj.getAccount(), accObj.getPassword(), accObj.getOnJob());    	
+        //String encodePwd = new BCryptPasswordEncoder().encode(accObj.getPassword());
+        
+        // move do findUserRoleList to BaseAuthenticationSuccessHandler
+        //return new User(accObj.getOid(), accObj.getAccount(), accObj.getPassword(), accObj.getOnJob(), this.findUserRoleList(username));
+        return new User(accObj.getOid(), accObj.getAccount(), accObj.getPassword(), accObj.getOnJob());
     }
+    
+    // move findUserRoleList to BaseAuthenticationSuccessHandler
+    /*
+    private List<TbUserRole> findUserRoleList(String username) {
+        Map<String, Object> paramMap = new HashMap<String, Object>();
+        paramMap.put("account", username);
+        DefaultResult<List<TbUserRole>> result = null;
+        try {
+            result = userRoleService.selectListByParams(paramMap);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        List<TbUserRole> roleList = result.getValue();
+        for (int i = 0; roleList != null && i < roleList.size(); i++) {
+        	TbUserRole userRole = roleList.get(i);
+        	paramMap.clear();
+        	paramMap.put("role", userRole.getRole());
+        	try {
+				DefaultResult<List<TbRolePermission>> permResult = rolePermissionService.selectListByParams(paramMap);
+				userRole.setRolePermission( permResult.getValue() );
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+        	if (userRole.getRolePermission() == null) {
+        		userRole.setRolePermission( new ArrayList<TbRolePermission>() );
+        	}
+        }
+        paramMap.clear();
+        paramMap = null;
+        return roleList;
+    }
+    */
     
 }
