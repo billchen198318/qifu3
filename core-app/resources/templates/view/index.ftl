@@ -133,7 +133,7 @@ function getIconUrlFromId(id) {
 </script>    
     
     <!-- Essential javascripts for application to work-->
-    <script src="${qifu_basePath}js/jquery-3.3.1.min.js"></script>
+    <script src="${qifu_basePath}js/jquery-3.5.1.js"></script>
     <script src="${qifu_basePath}js/popper.min.js"></script>
     <script src="${qifu_basePath}js/bootstrap.js"></script>
     <script src="${qifu_basePath}js/main.js"></script>
