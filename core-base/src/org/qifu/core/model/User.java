@@ -108,7 +108,11 @@ public class User extends BaseUserInfo implements UserDetails {
 	public String getOid() {
 		return oid;
 	}
-
+	
+	public void setOid(String oid) {
+		this.oid = oid;
+	}	
+	
 	public List<TbUserRole> getRoles() {
 		return roles;
 	}

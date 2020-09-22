@@ -46,6 +46,8 @@ try {
 	userRoleObj.setCdate(new Date());
 	userRoleMapper.insert(userRoleObj);
 	
+	user.setOid(accObj.getOid());
+	
 	System.out.println("create account data by LDAP login : " + accObj.getAccount());
 	
 } catch (Exception e) {
