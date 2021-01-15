@@ -57,7 +57,7 @@ ${menuResult.modalHtmlData}
   
   
     <!-- Navbar-->
-    <header class="app-header"><a class="app-header__logo" href="${qifu_basePath}index">QiFu</a>
+    <header class="app-header"><a class="app-header__logo" href="${qifu_basePath}index">QíFú</a>
       <!-- Sidebar toggle button--><a class="app-sidebar__toggle" href="#" data-toggle="sidebar" aria-label="Hide Sidebar"></a>
       <!-- Navbar Right Menu-->
       <ul class="app-nav">
