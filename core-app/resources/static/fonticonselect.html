@@ -10,7 +10,7 @@
 
 <style>
 body {
-  width: 100%;
+  width: 95%;
   margin:0 auto;
   background: white;
 }
@@ -483,7 +483,6 @@ function getFontIcon(fontClass) {
 </script>
 
 <section id="web-application">
-  <h2 class="page-header">Web Application Icons</h2>
 
   <div class="row" id="fontIconContent">
   </div>
@@ -493,7 +492,7 @@ function getFontIcon(fontClass) {
 <script>
 var str = ``;
 for (var n in fa_font_icon) {
-  str += `<div class="fa-hover col-md-3 col-sm-4"><a href="#" onclick="getFontIcon('fa-${fa_font_icon[n]}')"><i class="fa fa-${fa_font_icon[n]}" aria-hidden="true"></i> <span class="sr-only">Example of </span>${fa_font_icon[n]}</a></div>`;
+  str += `<div class="fa-hover col-md-4 col-sm-4"><a href="#" onclick="getFontIcon('fa-${fa_font_icon[n]}')"><i class="fa fa-${fa_font_icon[n]}" aria-hidden="true"></i> <span class="sr-only">Example of </span>${fa_font_icon[n]}</a></div>`;
 }
 document.getElementById('fontIconContent').insertAdjacentHTML('afterbegin', str);
 </script>

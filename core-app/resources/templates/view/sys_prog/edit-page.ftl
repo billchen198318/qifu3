@@ -18,6 +18,9 @@
 $( document ).ready(function() {
 	
 	$("#icon").trigger("change");
+	$("#menuFontIcon").on("click", function(){
+		parent.showModal( 'CORE_PROG999D9998Q', parent.getProgUrl('CORE_PROG999D9998Q') );
+	});	
 	
 });
 
@@ -133,6 +136,14 @@ function clearUpdate() {
 			</script>				
 		</div>
 	</div>	
+	
+	<br/>
+	<div class="row">
+		<div class="col-xs-6 col-md-6 col-lg-6">
+			<@qifu.textbox name="menuFontIcon" value="" id="menuFontIcon" label="Menu Font Icon" requiredFlag="Y" readonly="Y" maxlength="100" placeholder="on click select font icon." />
+		</div>
+	</div>	
+	
 	<div class="row">
 		<div class="col-xs-6 col-md-6 col-lg-6">
 			<@qifu.checkbox name="editMode" id="editMode" label="Edit mode" checkedTest=" \"Y\" == sysProg.editMode " />		
