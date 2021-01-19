@@ -485,7 +485,7 @@ function showCommonFontIconSelectModal() {
 	var str = '';
 	for (var n in fa_font_icon${programId}) {
 		var fontId = fa_font_icon${programId}[n];
-		str += '<div class="fa-hover col-md-4 col-sm-4"><a href="#" onclick="${setFontIconFunctionMethodName}(\'' + fontId + '\')"><i class="fa fa-' + fontId + '" aria-hidden="true"></i> <span class="sr-only">Example of </span>' + fontId + '</a></div>';
+		str += '<div class="fa-hover col-md-4 col-sm-4"><a href="###" style="color:#2F2F2F" onclick="${setFontIconFunctionMethodName}(\'' + fontId + '\')"><i class="fa fa-' + fontId + '" aria-hidden="true"></i> <span class="sr-only">Example of </span>' + fontId + '</a></div>';
 	}
 	document.getElementById('fontIconContent-${programId}').insertAdjacentHTML('afterbegin', str);	
 }

@@ -65,7 +65,7 @@ function clearUpdate() {
 }
 
 function setSelectFontIcon(fontClass) {
-	alert('test-fontClass=' + fontClass);
+	$("#menuFontIcon").val(fontClass);
 	hiddenCommonFontIconSelectModal();
 }
 
