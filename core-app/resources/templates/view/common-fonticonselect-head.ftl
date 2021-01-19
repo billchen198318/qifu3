@@ -2,7 +2,7 @@
 <!-- FONT icon select modal -->
 <div class="modal fade" role="dialog" aria-labelledby="modalLabel-fonticonselect-${programId}" aria-hidden="true" id="modal-fonticonselect-${programId}">
   <div class="modal-dialog modal-lg" >
-    <div class="modal-content" style="width:800px; height:600px;" >
+    <div class="modal-content" style="width:75vw; height:90vh;" >
     
       <div class="modal-header">     
         	<h4 class="modal-title" id="modalLabel-fonticonselect-${programId}">Font icon select</h4>
