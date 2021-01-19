@@ -1,30 +1,32 @@
-<html>
-<head>
-<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<title>qifu</title>
+<#macro commonFontIconSelectHeadContent setFontIconFunctionMethodName>
+<!-- FONT icon select modal -->
+<div class="modal fade" role="dialog" aria-labelledby="modalLabel-fonticonselect-${programId}" aria-hidden="true" id="modal-fonticonselect-${programId}">
+  <div class="modal-dialog modal-lg" >
+    <div class="modal-content" style="width:800px; height:600px;" >
+    
+      <div class="modal-header">     
+        	<h4 class="modal-title" id="modalLabel-fonticonselect-${programId}">Font icon select</h4>
+			<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+				<span aria-hidden="true">&times;</span>
+			</button>		
+      </div>
+      
+      <div class="modal-body" style="overflow-y: scroll; ">
 
-<link rel="stylesheet" href="/css/main.css" crossorigin="anonymous" type="text/css" />
-<link rel="stylesheet" href="/font-awesome/css/font-awesome.min.css" crossorigin="anonymous" type="text/css" />
+  <div class="row" id="fontIconContent-${programId}">
+  </div>
+        
+      </div>
 
-</head>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+      </div>
 
-<style>
-body {
-  width: 95%;
-  margin:0 auto;
-  background: white;
-}
-a {
-  color: #2E2E2E;
-}
-</style>   
-  
-<body>
-				
-<br/>
-
+    </div>
+  </div>
+</div>
 <script>
-var fa_font_icon = [
+var fa_font_icon${programId} = [
   'address-book',
   'address-book-o',
   'address-card',
@@ -477,25 +479,19 @@ var fa_font_icon = [
   'window-restore',
   'wrench'
 ];
-function getFontIcon(fontClass) {
-	alert('fa ' + fontClass);
+
+function showCommonFontIconSelectModal() {
+	$('#modal-fonticonselect-${programId}').modal('show');
+	var str = '';
+	for (var n in fa_font_icon${programId}) {
+		var fontId = fa_font_icon${programId}[n];
+		str += '<div class="fa-hover col-md-4 col-sm-4"><a href="#" onclick="${setFontIconFunctionMethodName}(\'' + fontId + '\')"><i class="fa fa-' + fontId + '" aria-hidden="true"></i> <span class="sr-only">Example of </span>' + fontId + '</a></div>';
+	}
+	document.getElementById('fontIconContent-${programId}').insertAdjacentHTML('afterbegin', str);	
 }
-</script>
-
-<section id="web-application">
-
-  <div class="row" id="fontIconContent">
-  </div>
-
-</section>			
-
-<script>
-var str = ``;
-for (var n in fa_font_icon) {
-  str += `<div class="fa-hover col-md-4 col-sm-4"><a href="#" onclick="getFontIcon('fa-${fa_font_icon[n]}')"><i class="fa fa-${fa_font_icon[n]}" aria-hidden="true"></i> <span class="sr-only">Example of </span>${fa_font_icon[n]}</a></div>`;
+function hiddenCommonFontIconSelectModal() {
+	$('#modal-fonticonselect-${programId}').modal('hide');
 }
-document.getElementById('fontIconContent').insertAdjacentHTML('afterbegin', str);
-</script>
 
-</body>
-</html>
+</script>
+</#macro>

@@ -19,7 +19,7 @@ $( document ).ready(function() {
 	
 	$("#icon").trigger("change");
 	$("#menuFontIcon").on("click", function(){
-		parent.showModal( 'CORE_PROG999D9998Q', parent.getProgUrl('CORE_PROG999D9998Q') );
+		showCommonFontIconSelectModal();
 	});	
 	
 });
@@ -64,6 +64,11 @@ function clearUpdate() {
 	window.location=parent.getProgUrlForOid('CORE_PROG001D0002E', '${sysProg.oid}');
 }
 
+function setSelectFontIcon(fontClass) {
+	alert('test-fontClass=' + fontClass);
+	hiddenCommonFontIconSelectModal();
+}
+
 </script>
 
 </head>
@@ -85,6 +90,9 @@ function clearUpdate() {
 	description="Modify program item." />		
 <#import "../common-f-head.ftl" as cfh />
 <@cfh.commonFormHeadContent /> 
+
+<#import "../common-fonticonselect-head.ftl" as cficonsel >
+<@cficonsel.commonFontIconSelectHeadContent setFontIconFunctionMethodName="setSelectFontIcon" />
 
 <form action="." name="CORE_PROG001D0002E_form" id="CORE_PROG001D0002E_form">
 <div class="form-group" id="form-group1">
