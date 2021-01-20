@@ -18,7 +18,7 @@
 $( document ).ready(function() {
 	
 	$("#icon").trigger("change");
-	$("#menuFontIcon").on("click", function(){
+	$("#fontIconClassId").on("click", function(){
 		showCommonFontIconSelectModal();
 	});
 	
@@ -66,7 +66,7 @@ function clearSave() {
 }
 
 function setSelectFontIcon(fontClass) {
-	$("#menuFontIcon").val(fontClass);
+	$("#fontIconClassId").val(fontClass);
 	hiddenCommonFontIconSelectModal();
 }
 
@@ -149,7 +149,7 @@ function setSelectFontIcon(fontClass) {
 	<br/>
 	<div class="row">
 		<div class="col-xs-6 col-md-6 col-lg-6">
-			<@qifu.textbox name="menuFontIcon" value="" id="menuFontIcon" label="Menu Font Icon" requiredFlag="Y" readonly="Y" maxlength="100" placeholder="on click select font icon." />
+			<@qifu.textbox name="fontIconClassId" value="" id="fontIconClassId" label="Menu Font Icon" requiredFlag="Y" readonly="Y" maxlength="100" placeholder="click select font icon." />
 		</div>
 	</div>	
 	
