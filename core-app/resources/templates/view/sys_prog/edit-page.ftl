@@ -25,28 +25,30 @@ $( document ).ready(function() {
 });
 
 var msgFields = new Object();
-msgFields['progSystemOid'] 	= 'progSystem';
-msgFields['progId'] 		= 'progId';
-msgFields['name'] 			= 'name';
-msgFields['url']			= 'url';
-msgFields['itemType']		= 'itemType';
-msgFields['iconOid']		= 'icon';
-msgFields['editMode']		= 'editMode';
-msgFields['isDialog']		= 'isDialog';
-msgFields['dialogWidth']	= 'dialogWidth';
-msgFields['dialogHeight']	= 'dialogHeight';
+msgFields['progSystemOid'] 		= 'progSystem';
+msgFields['progId'] 			= 'progId';
+msgFields['name'] 				= 'name';
+msgFields['url']				= 'url';
+msgFields['itemType']			= 'itemType';
+msgFields['iconOid']			= 'icon';
+msgFields['fontIconClassId']	= 'fontIconClassId';
+msgFields['editMode']			= 'editMode';
+msgFields['isDialog']			= 'isDialog';
+msgFields['dialogWidth']		= 'dialogWidth';
+msgFields['dialogHeight']		= 'dialogHeight';
 
 var formGroups = new Object();
-formGroups['progSystem'] 	= 'form-group1';
-formGroups['progId'] 		= 'form-group1';
-formGroups['name'] 			= 'form-group1';
-formGroups['url'] 			= 'form-group2';
-formGroups['itemType'] 		= 'form-group2';
-formGroups['icon'] 			= 'form-group2';
-formGroups['editMode'] 		= 'form-group2';
-formGroups['isDialog'] 		= 'form-group3';
-formGroups['dialogWidth'] 	= 'form-group3';
-formGroups['dialogHeight'] 	= 'form-group3';
+formGroups['progSystem'] 		= 'form-group1';
+formGroups['progId'] 			= 'form-group1';
+formGroups['name'] 				= 'form-group1';
+formGroups['url'] 				= 'form-group2';
+formGroups['itemType'] 			= 'form-group2';
+formGroups['icon'] 				= 'form-group2';
+formGroups['fontIconClassId'] 	= 'form-group2';
+formGroups['editMode'] 			= 'form-group2';
+formGroups['isDialog'] 			= 'form-group3';
+formGroups['dialogWidth'] 		= 'form-group3';
+formGroups['dialogHeight'] 		= 'form-group3';
 
 function updateSuccess(data) {
 	clearWarningMessageField(formGroups, msgFields);
@@ -185,17 +187,18 @@ function setSelectFontIcon(fontClass) {
 			xhrUrl="./sysProgramUpdateJson"
 			xhrParameter="
 			{
-				'oid'			:	'${sysProg.oid}',
-				'progSystemOid'	:	$('#progSystem').val(),
-				'progId'		:	$('#progId').val(),
-				'name'			:	$('#name').val(),
-				'url'			:	$('#url').val(),
-				'itemType'		:	$('#itemType').val(),
-				'iconOid'		:	$('#icon').val(),
-				'editMode'		:	( $('#editMode').is(':checked') ? 'Y' : 'N' ),
-				'isDialog'		:	( $('#isDialog').is(':checked') ? 'Y' : 'N' ),
-				'dialogWidth'	:	$('#dialogWidth').val(),
-				'dialogHeight'	:	$('#dialogHeight').val()
+				'oid'				:	'${sysProg.oid}',
+				'progSystemOid'		:	$('#progSystem').val(),
+				'progId'			:	$('#progId').val(),
+				'name'				:	$('#name').val(),
+				'url'				:	$('#url').val(),
+				'itemType'			:	$('#itemType').val(),
+				'iconOid'			:	$('#icon').val(),
+				'editMode'			:	( $('#editMode').is(':checked') ? 'Y' : 'N' ),
+				'isDialog'			:	( $('#isDialog').is(':checked') ? 'Y' : 'N' ),
+				'dialogWidth'		:	$('#dialogWidth').val(),
+				'dialogHeight'		:	$('#dialogHeight').val(),
+				'fontIconClassId'	:	$('#fontIconClassId').val()
 			}
 			"
 			onclick="btnUpdate();"
