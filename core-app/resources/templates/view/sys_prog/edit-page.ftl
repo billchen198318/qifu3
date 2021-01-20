@@ -22,6 +22,8 @@ $( document ).ready(function() {
 		showCommonFontIconSelectModal();
 	});	
 	
+	$("#fontIconClassIdShow").html( '<i class="icon fa fa-${sysProg.fontIconClassId}"></i>' );
+	
 });
 
 var msgFields = new Object();
@@ -69,6 +71,7 @@ function clearUpdate() {
 function setSelectFontIcon(fontClass) {
 	$("#fontIconClassId").val(fontClass);
 	hiddenCommonFontIconSelectModal();
+	$("#fontIconClassIdShow").html( '<i class="icon fa fa-' + fontClass + '"></i>' );
 }
 
 </script>
@@ -150,7 +153,8 @@ function setSelectFontIcon(fontClass) {
 	<br/>
 	<div class="row">
 		<div class="col-xs-6 col-md-6 col-lg-6">
-			<@qifu.textbox name="fontIconClassId" value="" id="fontIconClassId" label="Menu Font Icon" requiredFlag="Y" readonly="Y" maxlength="100" placeholder="click select font icon." />
+			<@qifu.textbox name="fontIconClassId" value="sysProg.fontIconClassId" id="fontIconClassId" label="Menu Font Icon" requiredFlag="Y" readonly="Y" maxlength="100" placeholder="click select font icon." />
+			<div id="fontIconClassIdShow"></div>
 		</div>
 	</div>	
 	

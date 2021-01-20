@@ -70,6 +70,7 @@ function clearSave() {
 function setSelectFontIcon(fontClass) {
 	$("#fontIconClassId").val(fontClass);
 	hiddenCommonFontIconSelectModal();
+	$("#fontIconClassIdShow").html( '<i class="icon fa fa-' + fontClass + '"></i>' );
 }
 
 </script>
@@ -152,6 +153,7 @@ function setSelectFontIcon(fontClass) {
 	<div class="row">
 		<div class="col-xs-6 col-md-6 col-lg-6">
 			<@qifu.textbox name="fontIconClassId" value="" id="fontIconClassId" label="Menu Font Icon" requiredFlag="Y" readonly="Y" maxlength="100" placeholder="click select font icon." />
+			<div id="fontIconClassIdShow"></div>
 		</div>
 	</div>	
 	
