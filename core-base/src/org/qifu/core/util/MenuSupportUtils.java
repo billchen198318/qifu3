@@ -160,7 +160,7 @@ public class MenuSupportUtils {
 			List<TbSysProg> sysProgList = sysProgListResult.getValue();
 			for (int i=0; sysProgListResult.getValue()!=null && i<sysProgListResult.getValue().size(); i++) {
 				TbSysProg sysProg = sysProgListResult.getValue().get(i);
-				jsSb.append("_prog.push({\"id\" : \"" + sysProg.getProgId() + "\", \"itemType\" : \"" + sysProg.getItemType() + "\", \"name\" : \"" + sysProg.getName() + "\", \"icon\" : \"" + IconUtils.getUrl(basePath, sysProg.getIcon()) + "\", \"url\" : \"" + getUrl(basePath, sys, sysProg) + "\"});").append("\n");
+				jsSb.append("_prog.push({\"id\" : \"" + sysProg.getProgId() + "\", \"itemType\" : \"" + sysProg.getItemType() + "\", \"name\" : \"" + sysProg.getName() + "\", \"icon\" : \"" + IconUtils.getUrl(basePath, sysProg.getIcon()) + "\", \"url\" : \"" + getUrl(basePath, sys, sysProg) + "\", \"font_icon_class_id\" : \"" + sysProg.getFontIconClassId() + "\"});").append("\n");
 				
 				if (YesNo.YES.equals(sysProg.getIsDialog())) {
 					modalHtmlSb.append( getModalHtml(sysProg) );
