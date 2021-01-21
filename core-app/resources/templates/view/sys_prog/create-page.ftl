@@ -104,15 +104,16 @@ function setSelectFontIcon(fontClass) {
 		<div class="col-xs-6 col-md-6 col-lg-6">
 			<@qifu.select dataSource="sysMap" name="progSystem" id="progSystem" value="" label="System" requiredFlag="Y" />
 		</div>
-	</div>
-	<div class="row">
 		<div class="col-xs-6 col-md-6 col-lg-6">
 			<@qifu.textbox name="progId" value="" id="progId" label="Id" requiredFlag="Y" maxlength="50" placeholder="Enter Program Id" />
-		</div>
+		</div>		
 	</div>
 	<div class="row">
 		<div class="col-xs-6 col-md-6 col-lg-6">
 			<@qifu.textbox name="name" value="" id="name" label="Name" requiredFlag="Y" maxlength="100" placeholder="Enter Program Name" />
+		</div>
+		<div class="col-xs-6 col-md-6 col-lg-6">
+			&nbsp;
 		</div>
 	</div>
 </div>
@@ -121,12 +122,11 @@ function setSelectFontIcon(fontClass) {
 		<div class="col-xs-6 col-md-6 col-lg-6">
 			<@qifu.textbox name="url" value="" id="url" label="Url" maxlength="255" placeholder="Enter Program URL" />
 		</div>
-	</div>
-	<div class="row">
 		<div class="col-xs-6 col-md-6 col-lg-6">
 			<@qifu.select dataSource="{ \"FOLDER\":\"FOLDER\", \"ITEM\":\"ITEM\" }" name="itemType" id="itemType" value="" label="Type" requiredFlag="Y" />
-		</div>
+		</div>		
 	</div>
+	<br/>
 	<div class="row">
 		<div class="col-xs-6 col-md-6 col-lg-6">
 			<@qifu.select dataSource="iconMap" name="icon" id="icon" value="" label="Icon" requiredFlag="Y" onchange="showIcon();" />
@@ -147,21 +147,19 @@ function setSelectFontIcon(fontClass) {
 			}
 			</script>			
 		</div>
-	</div>	
-	
-	<br/>
-	<div class="row">
 		<div class="col-xs-6 col-md-6 col-lg-6">
 			<@qifu.textbox name="fontIconClassId" value="" id="fontIconClassId" label="Menu Font Icon" requiredFlag="Y" readonly="Y" maxlength="100" placeholder="click select font icon." />
 			<div id="fontIconClassIdShow"></div>
-		</div>
-	</div>	
-	
+		</div>		
+	</div>
 	<div class="row">
 		<div class="col-xs-6 col-md-6 col-lg-6">
 			<@qifu.checkbox name="editMode" id="editMode" label="Edit mode" />
 		</div>
-	</div>
+		<div class="col-xs-6 col-md-6 col-lg-6">
+			&nbsp;
+		</div>
+	</div>	
 </div>	
 <div class="form-group" id="form-group3">
 	<div class="row">
