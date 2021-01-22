@@ -91,7 +91,8 @@ function progFolderChange() {
 					}
 					str += '<tr>';
 					str += '<td><div class="form-check"><input type="checkbox" class="form-check-input" id="prog' + progAll[p].oid + '" name="prog' + progAll[p].oid + '" onclick="updateMenu();" ' + chkStr + ' value="' + progAll[p].oid + '" ></div></td>';
-					str += '<td><img src="' + parent.getIconUrlFromId(progAll[p].icon) + '" border="0">&nbsp;' + progAll[p].name + '</td>';
+					//str += '<td><img src="' + parent.getIconUrlFromId(progAll[p].icon) + '" border="0">&nbsp;' + progAll[p].name + '</td>';
+					str += '<td><i class="icon fa fa-' + progAll[p].fontIconClassId + '">&nbsp;' + progAll[p].name + '</td>';
 					str += '</tr>';
 				}
 				str += '</tbody>';
