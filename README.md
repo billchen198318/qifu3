@@ -1,5 +1,7 @@
+[![Build Status](https://travis-ci.org/billchen198318/qifu3.svg?branch=master)](https://travis-ci.org/billchen198318/qifu3)
+
 # qifu3
-Backend Admin WEB base on JAVA &amp; Spring / Spring-boot &amp; MyBatis &amp; Bootstrap
+Backend Admin WEB base on JAVA &amp; Spring / SpringBoot &amp; MyBatis &amp; Bootstrap
 
 Database table doc:
 https://github.com/billchen198318/qifu3/blob/master/doc/qifu3-table-doc.odt
