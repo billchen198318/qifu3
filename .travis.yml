@@ -1,0 +1,4 @@
+language: java
+install: cd core-lib && mvn install -DskipTests=true -Dmaven.javadoc.skip=true && cd ../core-base && mvn install -DskipTests=true -Dmaven.javadoc.skip=true && cd ../core-standard && mvn install -DskipTests=true -Dmaven.javadoc.skip=true && cd ../core-app && mvn install -DskipTests=true -Dmaven.javadoc.skip=true
+jdk:
+ - openjdk11
