@@ -40,6 +40,8 @@ import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.lang3.math.NumberUtils;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+import org.joda.time.DateTime;
+import org.joda.time.Duration;
 import org.qifu.base.AppContext;
 import org.qifu.base.Constants;
 import org.qifu.base.exception.ServiceException;
@@ -125,14 +127,34 @@ public class UploadSupportUtils {
 		Map<String, Object> paramMap = new HashMap<String, Object>();
 		paramMap.put("system", system);
 		paramMap.put("type", UploadTypes.IS_TEMP);
-		paramMap.put("isFile", YesNo.YES);		
-		DefaultResult<List<TbSysUpload>> searchListResult = sysUploadService.selectListByParams(paramMap);		
+		//paramMap.put("isFile", YesNo.YES); // 2021-05-20 rem
+		DefaultResult<List<TbSysUpload>> searchListResult = sysUploadService.selectListByParams(paramMap);	
+		DateTime currentDateTime = new DateTime();
 		for (int i=0; searchListResult.getValue() != null && i < searchListResult.getValue().size(); i++) {
 			TbSysUpload entity = searchListResult.getValue().get(i);
+			// --------------------------------------------------------------------
+			// 2021-05-20 add
+			if (entity.getCdate() == null) {
+				logger.warn("upload temp file null create date time, cannot remove, upload oid: " + entity.getOid());
+				continue;
+			}
+			DateTime createDateTime = new DateTime(entity.getCdate());
+			Duration duration = new Duration(createDateTime, currentDateTime);
+			if (duration.getStandardHours() < 4) {
+				logger.warn("upload temp file no over remove check time(hour-" + duration.getStandardHours() + ", min-" + duration.getStandardMinutes() + "), cannot remove, upload oid: " + entity.getOid());
+				continue;
+			}
+			if (!YesNo.YES.equals(entity.getIsFile())) {
+				logger.warn("delete upload not real file type, upload oid : " + entity.getOid() + " , show-name: " + entity.getShowName());
+				sysUploadService.delete(entity);
+				continue;
+			}
+			// --------------------------------------------------------------------
 			String dir = getUploadFileDir(entity.getSystem(), entity.getSubDir(), entity.getType());
 			String fileFullPath = dir + "/" + entity.getFileName();
 			File file = new File(fileFullPath);
 			if (!file.exists()) {
+				logger.warn("upload temp file no exists, upload oid: " + entity.getOid());
 				file = null;
 				continue;
 			}
