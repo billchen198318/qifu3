@@ -24,7 +24,7 @@ package org.qifu.ui.impl;
 import java.util.HashMap;
 import java.util.Map;
 
-import org.apache.commons.lang.StringUtils;
+import org.apache.commons.lang3.StringUtils;
 import org.qifu.base.model.YesNo;
 import org.qifu.ui.UIComponent;
 import org.qifu.ui.UIComponentValueUtils;
