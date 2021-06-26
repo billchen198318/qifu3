@@ -123,7 +123,7 @@ public class UploadSupportUtils {
 	
 	public static void cleanTempUpload(String system) throws ServiceException, Exception {
 		logger.info("clean upload(" + system + ") temp begin...");
-		sysUploadService.deleteTmpContentBySystem(system);
+		//sysUploadService.deleteTmpContentBySystem(system); // 2020-06-27 rem
 		Map<String, Object> paramMap = new HashMap<String, Object>();
 		paramMap.put("system", system);
 		paramMap.put("type", UploadTypes.IS_TEMP);
