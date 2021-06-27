@@ -127,4 +127,9 @@
   	delete from <include refid="org.qifu.core.mapper.DB1Config.schema"/>tb_sys_login_log
   </delete>    
   
+  <delete id="deleteByDate" parameterType="java.util.HashMap">
+  	delete from <include refid="org.qifu.core.mapper.DB1Config.schema"/>tb_sys_login_log
+  	where CDATE <![CDATA[ <= ]]> #{cdate,jdbcType=TIMESTAMP}
+  </delete>    
+    
 </mapper>

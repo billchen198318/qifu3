@@ -22,7 +22,10 @@
 package org.qifu.core.service.impl;
 
 import java.io.IOException;
+import java.util.HashMap;
+import java.util.Map;
 
+import org.joda.time.DateTime;
 import org.qifu.base.exception.ServiceException;
 import org.qifu.base.mapper.IBaseMapper;
 import org.qifu.base.service.BaseService;
@@ -55,6 +58,18 @@ public class SysEventLogServiceImpl extends BaseService<TbSysEventLog, String> i
 	@Override
 	public Boolean deleteAll() throws ServiceException, Exception {
 		return this.tbSysEventLogMapper.deleteAll(null);
+	}
+
+	@Transactional(
+			propagation=Propagation.REQUIRED, 
+			readOnly=false,
+			rollbackFor={RuntimeException.class, IOException.class, Exception.class} )		
+	@Override
+	public Boolean deleteByDate() throws ServiceException, Exception {
+		DateTime dt = new DateTime();
+		Map<String, Object> paramMap = new HashMap<String, Object>();
+		paramMap.put("cdate", dt.plusDays(-14).toDate());
+		return this.tbSysEventLogMapper.deleteByDate(paramMap);
 	}
 	
 }

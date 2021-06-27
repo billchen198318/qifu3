@@ -29,4 +29,6 @@ public interface ISysEventLogService<T, E> extends IBaseService<TbSysEventLog, S
 	
 	public Boolean deleteAll() throws ServiceException, Exception;
 	
+	public Boolean deleteByDate() throws ServiceException, Exception;
+	
 }

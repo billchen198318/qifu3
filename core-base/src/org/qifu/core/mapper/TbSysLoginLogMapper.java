@@ -32,4 +32,6 @@ public interface TbSysLoginLogMapper extends IBaseMapper<TbSysLoginLog, String> 
 	
 	public Boolean deleteAll(Map<String, Object> paramMap);
 	
+	public Boolean deleteByDate(Map<String, Object> paramMap);
+	
 }

@@ -32,4 +32,6 @@ public interface TbSysEventLogMapper extends IBaseMapper<TbSysEventLog, String> 
 	
 	public Boolean deleteAll(Map<String, Object> paramMap);
 	
+	public Boolean deleteByDate(Map<String, Object> paramMap);
+	
 }

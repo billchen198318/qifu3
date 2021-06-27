@@ -23,21 +23,29 @@ package org.qifu.core.scheduled;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+import org.qifu.base.AppContext;
 import org.qifu.base.scheduled.BaseScheduledTasksProvide;
-import org.qifu.core.util.UploadSupportUtils;
+import org.qifu.core.entity.TbSysEventLog;
+import org.qifu.core.entity.TbSysLoginLog;
+import org.qifu.core.service.ISysEventLogService;
+import org.qifu.core.service.ISysLoginLogService;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;
 
 @Component
-public class ClearTempUploadJob extends BaseScheduledTasksProvide {
-	protected Logger logger = LogManager.getLogger(ClearTempUploadJob.class);
+public class ClearSystemLogJob extends BaseScheduledTasksProvide {
+	protected Logger logger = LogManager.getLogger(ClearSystemLogJob.class);
 	
-	@Scheduled(cron = "1 0 1 * * *")
+	@Scheduled(cron = "1 0 4 * * *")
+	@Override
 	public void execute() {
-		logger.warn("Clear upload type is TMP data.");
+		logger.warn("Clear old log.");
 		this.login();
 		try {
-			UploadSupportUtils.cleanTempUpload();
+			ISysEventLogService<TbSysEventLog, String> sysEventLogService = (ISysEventLogService<TbSysEventLog, String>) AppContext.getBean(ISysEventLogService.class);
+			ISysLoginLogService<TbSysLoginLog, String> sysLoginLogService = (ISysLoginLogService<TbSysLoginLog, String>) AppContext.getBean(ISysLoginLogService.class);
+			sysEventLogService.deleteByDate();
+			sysLoginLogService.deleteByDate();
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
