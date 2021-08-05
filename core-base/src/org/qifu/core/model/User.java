@@ -21,7 +21,7 @@
  */
 package org.qifu.core.model;
 
-import org.apache.commons.collections4.CollectionUtils;
+import org.apache.commons.collections.CollectionUtils;
 import org.qifu.base.CoreAppConstants;
 import org.qifu.base.model.BaseUserInfo;
 import org.qifu.base.model.YesNo;
