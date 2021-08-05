@@ -27,6 +27,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import org.apache.commons.collections4.MapUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.qifu.base.Constants;
 import org.qifu.base.exception.ServiceException;
@@ -176,7 +177,7 @@ public abstract class BaseService<T extends java.io.Serializable, K extends java
 	
 	public DefaultResult<T> selectByEntityPrimaryKey(T mapperObj) throws ServiceException, Exception {
 		Map<String, Object> paramMap = EntityParameterGenerateUtil.getPKParameter(mapperObj);
-		if (null == paramMap || paramMap.size() < 1) {
+		if (MapUtils.isEmpty(paramMap)) {
 			throw new ServiceException(BaseSystemMessage.parameterBlank());
 		}
 		return this.selectByPrimaryKey( (K) paramMap.get( paramMap.keySet().stream().findFirst().get() ) );
@@ -196,7 +197,7 @@ public abstract class BaseService<T extends java.io.Serializable, K extends java
 	
 	@Transactional(propagation=Propagation.REQUIRED, timeout=300, readOnly=true)
 	public DefaultResult<List<T>> selectListByParams(Map<String, Object> paramMap) throws ServiceException, Exception {
-		if (null == paramMap || paramMap.size() < 1) {
+		if (MapUtils.isEmpty(paramMap)) {
 			throw new ServiceException(BaseSystemMessage.parameterIncorrect());
 		}
 		DefaultResult<List<T>> result = new DefaultResult<List<T>>();
@@ -234,7 +235,7 @@ public abstract class BaseService<T extends java.io.Serializable, K extends java
 	
 	@Transactional(propagation=Propagation.REQUIRED, timeout=300, readOnly=true)
 	public DefaultResult<List<T>> selectListByParams(Map<String, Object> paramMap, String orderBy, String sortType) throws ServiceException, Exception {
-		if (null == paramMap || paramMap.size() < 1) {
+		if (MapUtils.isEmpty(paramMap)) {
 			throw new ServiceException(BaseSystemMessage.parameterIncorrect());
 		}
 		this.setReservedParamOrderBy(paramMap, orderBy, sortType);
@@ -247,7 +248,7 @@ public abstract class BaseService<T extends java.io.Serializable, K extends java
 			throw new ServiceException(BaseSystemMessage.objectNull());
 		}
 		Map<String, Object> paramMap = EntityParameterGenerateUtil.getUKParameter(mapperObj);
-		if (null == paramMap || paramMap.size() < 1) {
+		if (MapUtils.isEmpty(paramMap)) {
 			throw new ServiceException(BaseSystemMessage.parameterIncorrect() + " , please set @EntityUK.");
 		}
 		List<T> searchList = (List<T>) this.getBaseMapper().selectListByParams(paramMap);
@@ -357,7 +358,7 @@ public abstract class BaseService<T extends java.io.Serializable, K extends java
 			throw new ServiceException(BaseSystemMessage.objectNull());
 		}
 		Map<String, Object> paramMap = EntityParameterGenerateUtil.getUKParameter(mapperObj);
-		if (null == paramMap || paramMap.size() < 1) {
+		if (MapUtils.isEmpty(paramMap)) {
 			throw new ServiceException(BaseSystemMessage.parameterIncorrect() + " , please set @EntityUK.");
 		}
 		return this.getBaseMapper().count(paramMap);

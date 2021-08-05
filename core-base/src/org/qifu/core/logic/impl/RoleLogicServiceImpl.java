@@ -26,6 +26,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import org.apache.commons.collections4.CollectionUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -179,7 +180,7 @@ public class RoleLogicServiceImpl extends BaseLogicService implements IRoleLogic
 	
 	private void deleteRolePermission(Map<String, Object> params) throws ServiceException, Exception {
 		DefaultResult<List<TbRolePermission>> permListResult = this.rolePermissionService.selectListByParams(params);
-		if (null == permListResult.getValue() || permListResult.getValue().size() < 1) {
+		if (CollectionUtils.isEmpty(permListResult.getValue())) {
 			return;
 		}
 		for (TbRolePermission rolePerm : permListResult.getValue()) {
@@ -189,7 +190,7 @@ public class RoleLogicServiceImpl extends BaseLogicService implements IRoleLogic
 	
 	private void deleteUserRole(Map<String, Object> params) throws ServiceException, Exception {
 		DefaultResult<List<TbUserRole>> userRoleListResult = this.userRoleService.selectListByParams(params);
-		if (null == userRoleListResult.getValue() || userRoleListResult.getValue().size() < 1) {
+		if (CollectionUtils.isEmpty(userRoleListResult.getValue())) {
 			return;
 		}
 		for (TbUserRole userRole : userRoleListResult.getValue()) {
@@ -199,7 +200,7 @@ public class RoleLogicServiceImpl extends BaseLogicService implements IRoleLogic
 	
 	private void deleteSysMenuRole(Map<String, Object> params) throws ServiceException, Exception {
 		DefaultResult<List<TbSysMenuRole>> menuRoleListResult = this.sysMenuRoleService.selectListByParams(params);
-		if (menuRoleListResult.getValue() == null || menuRoleListResult.getValue().size() < 1) {
+		if (CollectionUtils.isEmpty(menuRoleListResult.getValue())) {
 			return;
 		}
 		for (TbSysMenuRole sysMenuRole : menuRoleListResult.getValue()) {
@@ -349,7 +350,7 @@ public class RoleLogicServiceImpl extends BaseLogicService implements IRoleLogic
 		Map<String, Object> paramMap = new HashMap<String, Object>();
 		paramMap.put("account", account.getAccount());
 		DefaultResult<List<TbUserRole>> userRoleListResult = this.userRoleService.selectListByParams(paramMap);
-		if (userRoleListResult.getValue() == null || userRoleListResult.getValue().size() < 1) {
+		if (CollectionUtils.isEmpty(userRoleListResult.getValue())) {
 			return;
 		}
 		for (TbUserRole userRole : userRoleListResult.getValue()) {

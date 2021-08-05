@@ -21,6 +21,7 @@
  */
 package org.qifu.core.model;
 
+import org.apache.commons.collections4.CollectionUtils;
 import org.qifu.base.CoreAppConstants;
 import org.qifu.base.model.BaseUserInfo;
 import org.qifu.base.model.YesNo;
@@ -62,7 +63,7 @@ public class User extends BaseUserInfo implements UserDetails {
     @Override
     public List<GrantedAuthority> getAuthorities() {
         List<GrantedAuthority> auths = new ArrayList<GrantedAuthority>();
-        if (this.roles == null || this.roles.size() < 1) {
+        if (CollectionUtils.isEmpty(this.roles)) {
         	auths.add( new SimpleGrantedAuthority("ROLE_" + CoreAppConstants.SYS_BLANK_ROLE) );
         	return auths;
         }

@@ -29,6 +29,7 @@ import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
 
+import org.apache.commons.collections4.CollectionUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.lang3.math.NumberUtils;
 import org.qifu.base.Constants;
@@ -505,7 +506,7 @@ public abstract class BaseControllerSupport {
 	
 	// hillfog project view page need.
 	protected String pageAutocompleteContent(List<String> strList) {
-		if (null == strList || strList.size() < 1) {
+		if (CollectionUtils.isEmpty(strList)) {
 			return "";
 		}
 		StringBuilder orgListJsStr = new StringBuilder();

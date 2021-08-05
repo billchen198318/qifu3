@@ -29,6 +29,7 @@ import java.util.Map;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
+import org.apache.commons.collections4.CollectionUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -89,7 +90,7 @@ public class SystemExpressionJobUtils {
 		paramMap.put("system", system);
 		paramMap.put("runStatus", ExpressionJobConstants.RUNSTATUS_PROCESS_NOW);
 		List<TbSysExprJob> exprJobList = sysExprJobService.selectListByParams(paramMap).getValue();
-		if (exprJobList == null || exprJobList.size() < 1) {
+		if (CollectionUtils.isEmpty(exprJobList)) {
 			return;
 		}
 		Date udate = new Date();
@@ -209,7 +210,7 @@ public class SystemExpressionJobUtils {
 	
 	public static void executeJobs() throws ServiceException, Exception {
 		List<ExpressionJobObj> jobObjList = getExpressionJobs();
-		if (jobObjList == null || jobObjList.size() < 1) {
+		if (CollectionUtils.isEmpty(jobObjList)) {
 			return;
 		}
 		ExecutorService exprJobPool = Executors.newFixedThreadPool( SimpleUtils.getAvailableProcessors(jobObjList.size()) );
@@ -230,7 +231,7 @@ public class SystemExpressionJobUtils {
 		paramMap.put("system", baseInfoConfigProperties.getSystem());
 		paramMap.put("active", YesNo.YES);
 		List<TbSysExprJob> exprJobList = sysExprJobService.selectListByParams(paramMap).getValue();
-		if (null == exprJobList || exprJobList.size() < 1) {
+		if (CollectionUtils.isEmpty(exprJobList)) {
 			return jobObjList;
 		}
 		for (TbSysExprJob exprJob : exprJobList) {

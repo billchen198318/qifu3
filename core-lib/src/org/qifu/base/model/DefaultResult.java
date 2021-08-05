@@ -24,6 +24,8 @@ package org.qifu.base.model;
 import java.util.List;
 import java.util.Map;
 
+import org.apache.commons.collections4.CollectionUtils;
+import org.apache.commons.collections4.MapUtils;
 import org.qifu.base.exception.ServiceException;
 
 public class DefaultResult<T> implements java.io.Serializable {
@@ -74,12 +76,12 @@ public class DefaultResult<T> implements java.io.Serializable {
 			throw new ServiceException(this.message);
 		}
 		if (this.value instanceof List) {
-			if ( ((List<?>)this.value).size() < 1 ) {
+			if ( CollectionUtils.isEmpty( ((List<?>)this.value) ) ) {
 				throw new ServiceException(this.message);
 			}
 		}
 		if (this.value instanceof Map) {
-			if ( ((Map<?,?>)this.value).size() < 1 ) {
+			if ( MapUtils.isEmpty( ((Map<?,?>)this.value) ) ) {
 				throw new ServiceException(this.message);
 			}
 		}

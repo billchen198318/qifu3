@@ -24,6 +24,8 @@ package org.qifu.core.service.impl;
 import java.util.List;
 import java.util.Map;
 
+import org.apache.commons.collections4.CollectionUtils;
+import org.apache.commons.collections4.MapUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.qifu.base.exception.ServiceException;
 import org.qifu.base.mapper.IBaseMapper;
@@ -75,7 +77,7 @@ public class SysJreportServiceImpl extends BaseService<TbSysJreport, String> imp
 	 */
 	@Override
 	public DefaultResult<List<TbSysJreport>> selectListByParamsSimple(Map<String, Object> paramMap) throws ServiceException, Exception {
-		if (null == paramMap || paramMap.size() < 1) {
+		if (MapUtils.isEmpty(paramMap)) {
 			throw new ServiceException(BaseSystemMessage.parameterIncorrect());
 		}
 		DefaultResult<List<TbSysJreport>> result = new DefaultResult<List<TbSysJreport>>();
