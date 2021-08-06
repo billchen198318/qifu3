@@ -27,6 +27,7 @@ import org.qifu.base.CoreAppConstants;
 import org.qifu.base.interceptor.MDCInterceptor;
 import org.qifu.core.directive.CoreUiDirectiveSimpleHash;
 import org.qifu.core.interceptor.ControllerAuthorityCheckInterceptor;
+import org.qifu.core.model.LocaleMessageTemplateMethodModel;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -48,6 +49,7 @@ public class WebConfig implements WebMvcConfigurer {
 	
 	@PostConstruct
 	public void freeMarkerConfigurer() {
+		freeMarkerConfigurer.getConfiguration().setSharedVariable("getText", new LocaleMessageTemplateMethodModel());
         freeMarkerConfigurer.getConfiguration().setSharedVariable("qifu", new CoreUiDirectiveSimpleHash(freeMarkerConfigurer.getConfiguration().getObjectWrapper()));
     }
 	
