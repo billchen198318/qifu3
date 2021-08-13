@@ -32,6 +32,7 @@ import java.util.Map;
 
 import org.apache.commons.io.IOUtils;
 import org.apache.commons.lang3.StringUtils;
+import org.apache.commons.text.StringEscapeUtils;
 import org.qifu.base.AppContext;
 import org.qifu.base.Constants;
 import org.qifu.base.exception.ServiceException;
@@ -246,7 +247,7 @@ public class MenuSupportUtils {
 			e.printStackTrace();
 		}
 		if (result.getValue() != null) {
-			name = "<i class=\"icon fa fa-" + result.getValue().getFontIconClassId() + "\"></i>&nbsp;" + result.getValue().getName();
+			name = "<i class='icon fa fa-" + result.getValue().getFontIconClassId() + "'></i>&nbsp;" + StringEscapeUtils.escapeHtml4(result.getValue().getName());
 		}
 		return name;
 	}		
