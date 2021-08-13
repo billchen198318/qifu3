@@ -23,26 +23,33 @@ package org.qifu.core.util;
 
 import java.util.Locale;
 
-import org.springframework.beans.factory.annotation.Autowired;
+import org.qifu.base.AppContext;
+import org.springframework.beans.BeansException;
 import org.springframework.context.MessageSource;
 import org.springframework.context.i18n.LocaleContextHolder;
-import org.springframework.stereotype.Component;
 
-@Component
 public class LocaleMessageSourceUtils {
 	
-    @Autowired
-    MessageSource messageSource;
+    private static MessageSource messageSource;
     
-    public String getMessage(String code) {
+    public static String getMessage(String code) {
     	return getMessage(code, null);
     }
     
-    public String getMessage(String code, Object[] args){
+    public static String getMessage(String code, Object[] args){
     	return getMessage(code, args, "");
     }
     
-    public String getMessage(String code, Object[] args, String defaultMessage){
+    public static String getMessage(String code, Object[] args, String defaultMessage){
+    	if (null == messageSource) {
+    		try {
+				messageSource = (MessageSource) AppContext.getBean(MessageSource.class);
+			} catch (BeansException e) {
+				e.printStackTrace();
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+    	}
         Locale locale = LocaleContextHolder.getLocale();
         return messageSource.getMessage(code, args, defaultMessage, locale);
     }

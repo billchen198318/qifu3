@@ -24,32 +24,19 @@ package org.qifu.core.model;
 import java.util.List;
 
 import org.apache.commons.collections.CollectionUtils;
-import org.qifu.base.AppContext;
 import org.qifu.core.util.LocaleMessageSourceUtils;
-import org.springframework.beans.BeansException;
 
 import freemarker.template.TemplateMethodModelEx;
 import freemarker.template.TemplateModelException;
 
 public class LocaleMessageTemplateMethodModel implements TemplateMethodModelEx {
 	
-	private static LocaleMessageSourceUtils localeMessageSourceUtils;
-	
 	@Override
 	public Object exec(List arguments) throws TemplateModelException {
 		if (CollectionUtils.isEmpty(arguments)) {
 			return "";
 		}
-		if (null == localeMessageSourceUtils) {
-			try {
-				localeMessageSourceUtils = (LocaleMessageSourceUtils) AppContext.getBean(LocaleMessageSourceUtils.class);
-			} catch (BeansException e) {
-				e.printStackTrace();
-			} catch (Exception e) {
-				e.printStackTrace();
-			}
-		}
-		return localeMessageSourceUtils.getMessage( String.valueOf(arguments.get(0)) );
+		return LocaleMessageSourceUtils.getMessage( String.valueOf(arguments.get(0)) );
 	}
 	
 }
