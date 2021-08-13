@@ -232,6 +232,25 @@ public class MenuSupportUtils {
 		return name;
 	}	
 	
+	public static String getProgramName4Toolbar(String progId) {
+		String name = "unknown-program";
+		if (StringUtils.isBlank(progId)) {
+			return name;
+		}
+		DefaultResult<TbSysProg> result = null;
+		TbSysProg sysProg = new TbSysProg();
+		sysProg.setProgId(progId);
+		try {
+			result = sysProgService.selectByUniqueKey(sysProg);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		if (result.getValue() != null) {
+			name = "<i class=\"icon fa fa-" + result.getValue().getFontIconClassId() + "\"></i>&nbsp;" + result.getValue().getName();
+		}
+		return name;
+	}		
+	
 	protected static TbSysProg searchProg(SysMenuVO menu, List<TbSysProg> sysProgList) throws Exception {
 		TbSysProg prog = null;
 		for (int i=0; i<sysProgList.size() && prog == null; i++) {

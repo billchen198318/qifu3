@@ -183,7 +183,7 @@ public abstract class BaseControllerSupport {
 			return mm;
 		}
 		mm.addAttribute("programId", progId);
-		mm.addAttribute("programName", MenuSupportUtils.getProgramName(progId));
+		mm.addAttribute("programName", MenuSupportUtils.getProgramName4Toolbar(progId));
 		return mm;
 	}	
 	
