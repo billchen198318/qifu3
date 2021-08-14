@@ -68,10 +68,10 @@ function downloadReportSrc(oid) {
 			{ 'oid' : oid }, 
 			function(data) {
 				if ( _qifu_success_flag != data.success ) {
-					parent.toastrWarning( data.message );
+					parent.notifyWarning( data.message );
 					return;
 				}
-				parent.toastrInfo( data.message );
+				parent.notifyInfo( data.message );
 				commonDownloadFile( data.value );
 			}, 
 			function() {
@@ -93,10 +93,10 @@ function deleteRecord(oid) {
 						{ 'oid' : oid }, 
 						function(data) {
 							if ( _qifu_success_flag != data.success ) {
-								parent.toastrWarning( data.message );
+								parent.notifyWarning( data.message );
 							}
 							if ( _qifu_success_flag == data.success ) {
-								parent.toastrInfo( data.message );
+								parent.notifyInfo( data.message );
 							}
 							queryGrid();
 						}, 

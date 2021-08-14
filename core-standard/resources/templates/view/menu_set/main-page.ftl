@@ -63,7 +63,7 @@ function progFolderChange() {
 			{ 'oid' : folderProgOid }, 
 			function(data) {
 				if ( _qifu_success_flag != data.success ) {
-					parent.toastrWarning( data.message );
+					parent.notifyWarning( data.message );
 					return;
 				}
 				var progAll = data.value.all;
@@ -121,9 +121,9 @@ function updateMenu() {
 			}, 
 			function(data) {
 				if ( _qifu_success_flag == data.success ) {
-					parent.toastrInfo( data.message );
+					parent.notifyInfo( data.message );
 				} else {
-					parent.toastrWarning( data.message );
+					parent.notifyWarning( data.message );
 				}
 				progFolderChange(); // 重取 table 資料
 			}, 

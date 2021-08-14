@@ -30,7 +30,7 @@ function accountChange() {
 			{ 'accountOid' : accountOid }, 
 			function(data) {
 				if ( _qifu_success_flag != data.success ) {
-					parent.toastrWarning( data.message );
+					parent.notifyWarning( data.message );
 					return;
 				}
 				
@@ -88,9 +88,9 @@ function updateRoleEnable() {
 			}, 
 			function(data) {
 				if ( _qifu_success_flag == data.success ) {
-					parent.toastrInfo( data.message );
+					parent.notifyInfo( data.message );
 				} else {
-					parent.toastrWarning( data.message );
+					parent.notifyWarning( data.message );
 				}
 				accountChange(); // 重取 table 資料
 			}, 

@@ -105,7 +105,7 @@ function ${queryFunction}() {
 					
 					${clearFunction}();
 					
-					parent.toastrInfo( data.message ); //parent.toastrWarning( data.message );
+					parent.notifyInfo( data.message ); //parent.notifyWarning( data.message );
 					return;
 				}
 				

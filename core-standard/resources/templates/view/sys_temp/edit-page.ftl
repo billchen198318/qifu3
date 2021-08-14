@@ -41,11 +41,11 @@ formGroups['message'] 	= 'form-group2';
 function updateSuccess(data) {
 	clearWarningMessageField(formGroups, msgFields);
 	if ( _qifu_success_flag != data.success ) {
-		parent.toastrWarning( data.message );
+		parent.notifyWarning( data.message );
 		setWarningMessageField(formGroups, msgFields, data.checkFields);
 		return;
 	}
-	parent.toastrInfo( data.message );
+	parent.notifyInfo( data.message );
 	clearUpdate();
 }
 
