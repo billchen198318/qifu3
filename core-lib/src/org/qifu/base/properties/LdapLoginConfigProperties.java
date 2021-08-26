@@ -43,6 +43,8 @@ public class LdapLoginConfigProperties {
 	private String searchFilter;
 	
 	private String authSearchBase;
+	
+	private String javaNamingReferral;
 
 	public String getLoginEnable() {
 		return loginEnable;
@@ -98,6 +100,14 @@ public class LdapLoginConfigProperties {
 
 	public void setAuthSearchBase(String authSearchBase) {
 		this.authSearchBase = authSearchBase;
+	}
+
+	public String getJavaNamingReferral() {
+		return javaNamingReferral;
+	}
+
+	public void setJavaNamingReferral(String javaNamingReferral) {
+		this.javaNamingReferral = javaNamingReferral;
 	}
 	
 }
