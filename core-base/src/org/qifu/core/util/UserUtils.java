@@ -82,16 +82,24 @@ public class UserUtils {
 	}
 	
 	public static User getCurrentUser() {
+		// 2021-08-26 rem , for META-INF/resource/create-user-data-ldap-mode.groovy and some background job.
+		/*
 		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
 		if (auth != null && auth.getPrincipal() != null && (auth.getPrincipal() instanceof User)) {
 			return (User) auth.getPrincipal();
 		}
+		*/
 		if ( UserLocalUtils.getUserInfo() != null && Constants.SYSTEM_BACKGROUND_USER.equals(UserLocalUtils.getUserInfo().getUserId()) ) {
 			if (backgroundUser != null) {
 				return backgroundUser;
 			}
 			return new User(ZeroKeyProvide.OID_KEY, Constants.SYSTEM_BACKGROUND_USER, "", YesNo.YES, backgroundRoleList);
 		}
+		// 2021-08-26 move , for META-INF/resource/create-user-data-ldap-mode.groovy and some background job.
+		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+		if (auth != null && auth.getPrincipal() != null && (auth.getPrincipal() instanceof User)) {
+			return (User) auth.getPrincipal();
+		}		
 		return null;
 	}
 	
