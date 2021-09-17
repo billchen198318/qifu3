@@ -37,15 +37,11 @@ var msgFields = new Object();
 msgFields['urlParam']	= 'urlParam';
 msgFields['rptParam'] 	= 'rptParam';
 
-var formGroups = new Object();
-formGroups['urlParam']	= 'form-group1';
-formGroups['rptParam']	= 'form-group1';
-
 function saveSuccess(data) {
-	clearWarningMessageField(formGroups, msgFields);
+	clearWarningMessageField(msgFields);
 	if ( _qifu_success_flag != data.success ) {
 		parent.notifyWarning( data.message );
-		setWarningMessageField(formGroups, msgFields, data.checkFields);
+		setWarningMessageField(msgFields, data.checkFields);
 		return;
 	}
 	parent.notifyInfo( data.message );
@@ -54,7 +50,7 @@ function saveSuccess(data) {
 }
 
 function clearSave() {
-	clearWarningMessageField(formGroups, msgFields);
+	clearWarningMessageField(msgFields);
 	$("#urlParam").val( '' );
 	$("#rptParam").val( '' );
 	clearQueryGridTable();

@@ -25,16 +25,11 @@ msgFields['beanId'] 			= 'beanId';
 msgFields['method'] 			= 'method';
 msgFields['enableFlag'] 		= 'enable';
 
-var formGroups = new Object();
-formGroups['systemOid'] 		= 'form-group1';
-formGroups['beanId'] 			= 'form-group1';
-formGroups['method'] 			= 'form-group1';
-
 function saveSuccess(data) {
-	clearWarningMessageField(formGroups, msgFields);
+	clearWarningMessageField(msgFields);
 	if ( _qifu_success_flag != data.success ) {
 		parent.notifyWarning( data.message );
-		setWarningMessageField(formGroups, msgFields, data.checkFields);
+		setWarningMessageField(msgFields, data.checkFields);
 		return;
 	}
 	parent.notifyInfo( data.message );
@@ -42,7 +37,7 @@ function saveSuccess(data) {
 }
 
 function clearSave() {
-	clearWarningMessageField(formGroups, msgFields);
+	clearWarningMessageField(msgFields);
 	$("#systemOid").val( _qifu_please_select_id );
 	$("#beanId").val( '' );
 	$("#method").val( '' );

@@ -37,15 +37,11 @@ var msgFields = new Object();
 msgFields['permission'] 	= 'permission';
 msgFields['permType'] 		= 'permissionType';
 
-var formGroups = new Object();
-formGroups['permission']		= 'form-group1';
-formGroups['permissionType']	= 'form-group1';
-
 function saveSuccess(data) {
-	clearWarningMessageField(formGroups, msgFields);
+	clearWarningMessageField(msgFields);
 	if ( _qifu_success_flag != data.success ) {
 		parent.notifyWarning( data.message );
-		setWarningMessageField(formGroups, msgFields, data.checkFields);
+		setWarningMessageField(msgFields, data.checkFields);
 		return;
 	}
 	parent.notifyInfo( data.message );
@@ -54,7 +50,7 @@ function saveSuccess(data) {
 }
 
 function clearSave() {
-	clearWarningMessageField(formGroups, msgFields);
+	clearWarningMessageField(msgFields);
 	$("#permission").val( '' );
 	$("#permissionType").val( _qifu_please_select_id );
 	$("#description").val( '' );

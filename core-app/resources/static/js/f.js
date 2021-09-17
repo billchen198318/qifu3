@@ -263,7 +263,7 @@ function xhrSendFormNoPleaseWait(xhrUrl, formId, successFn, errorFn) {
 	});
 }
 
-function setWarningMessageField(formGroups, fields, checkFields) {
+function setWarningMessageField(fields, checkFields) {
 	if (null == fields) {
 		return;
 	}
@@ -277,36 +277,21 @@ function setWarningMessageField(formGroups, fields, checkFields) {
 				msgContent = checkFields[d];
 			}
 		}
-		for (var g in formGroups) {
-			if ( fields[k] == g ) {
-				formGroupId = formGroups[g]; 
-			}
-		}
 		if (null == idKey || idKey == '') {
 			continue;
 		}
 		$("#"+idKey+"-feedback").addClass( "invalid-feedback" );
 		$("#"+idKey+"-feedback").html( msgContent );
 		$("#"+idKey).addClass( "is-invalid" );
-		/*
-		if (null != formGroupId && formGroupId != '') {
-			$("#"+formGroupId).addClass( "has-warning" );
-		}
-		*/
 	}
 }
-function clearWarningMessageField(formGroups, fields) {
+function clearWarningMessageField(fields) {
 	for (var k in fields) {
 		var idKey = fields[k];
 		$("#"+idKey+"-feedback").removeClass( "invalid-feedback" );
 		$("#"+idKey+"-feedback").html( "" );
 		$("#"+idKey).removeClass( "is-invalid" );
 	}
-	/*
-	for (var g in formGroups) {
-		$("#"+formGroups[g]).removeClass( "has-warning" );
-	}
-	*/
 }
 
 function commonOpenJasperReport(jreportId, paramData) {

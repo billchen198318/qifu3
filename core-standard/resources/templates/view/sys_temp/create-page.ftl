@@ -33,16 +33,11 @@ msgFields['templateId'] 	= 'id';
 msgFields['title'] 			= 'title';
 msgFields['message'] 		= 'message';
 
-var formGroups = new Object();
-formGroups['id'] 		= 'form-group1';
-formGroups['title'] 	= 'form-group1';
-formGroups['message'] 	= 'form-group2';
-
 function saveSuccess(data) {
-	clearWarningMessageField(formGroups, msgFields);
+	clearWarningMessageField(msgFields);
 	if ( _qifu_success_flag != data.success ) {
 		parent.notifyWarning( data.message );
-		setWarningMessageField(formGroups, msgFields, data.checkFields);
+		setWarningMessageField(msgFields, data.checkFields);
 		return;
 	}
 	parent.notifyInfo( data.message );
@@ -50,7 +45,7 @@ function saveSuccess(data) {
 }
 
 function clearSave() {
-	clearWarningMessageField(formGroups, msgFields);
+	clearWarningMessageField(msgFields);
 	$("#id").val( '' );
 	$("#title").val( '' );
 	messageEditor.html.set('');

@@ -54,17 +54,11 @@ msgFields['name'] 			= 'name';
 msgFields['type'] 			= 'type';
 msgFields['content']		= 'content';
 
-var formGroups = new Object();
-formGroups['exprId'] 		= 'form-group1';
-formGroups['name'] 			= 'form-group1';
-formGroups['type'] 			= 'form-group1';
-formGroups['content']		= 'form-group3';
-
 function updateSuccess(data) {
-	clearWarningMessageField(formGroups, msgFields);
+	clearWarningMessageField(msgFields);
 	if ( _qifu_success_flag != data.success ) {
 		parent.notifyWarning( data.message );
-		setWarningMessageField(formGroups, msgFields, data.checkFields);
+		setWarningMessageField(msgFields, data.checkFields);
 		return;
 	}
 	parent.notifyInfo( data.message );

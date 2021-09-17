@@ -37,24 +37,11 @@ msgFields['isDialog']			= 'isDialog';
 msgFields['dialogWidth']		= 'dialogWidth';
 msgFields['dialogHeight']		= 'dialogHeight';
 
-var formGroups = new Object();
-formGroups['progSystem'] 		= 'form-group1';
-formGroups['progId'] 			= 'form-group1';
-formGroups['name'] 				= 'form-group1';
-formGroups['url'] 				= 'form-group2';
-formGroups['itemType'] 			= 'form-group2';
-formGroups['icon'] 				= 'form-group2';
-formGroups['fontIconClassId'] 	= 'form-group2';
-formGroups['editMode'] 			= 'form-group2';
-formGroups['isDialog'] 			= 'form-group3';
-formGroups['dialogWidth'] 		= 'form-group3';
-formGroups['dialogHeight'] 		= 'form-group3';
-
 function saveSuccess(data) {
-	clearWarningMessageField(formGroups, msgFields);
+	clearWarningMessageField(msgFields);
 	if ( _qifu_success_flag != data.success ) {
 		parent.notifyWarning( data.message );
-		setWarningMessageField(formGroups, msgFields, data.checkFields);
+		setWarningMessageField(msgFields, data.checkFields);
 		return;
 	}
 	parent.notifyInfo( data.message );
@@ -62,7 +49,7 @@ function saveSuccess(data) {
 }
 
 function clearSave() {
-	clearWarningMessageField(formGroups, msgFields);
+	clearWarningMessageField(msgFields);
 	document.getElementById("CORE_PROG001D0002A_form").reset();
 	$("#icon").trigger("change");
 }

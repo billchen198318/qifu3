@@ -32,24 +32,11 @@ msgFields['runMinute']		= 'runMinute';
 msgFields['contactMode']	= 'contactMode';
 msgFields['contact']		= 'contact';
 
-var formGroups = new Object();
-formGroups['systemOid'] 	= 'form-group1';
-formGroups['id'] 			= 'form-group2';
-formGroups['name'] 			= 'form-group2';
-formGroups['expressionOid']	= 'form-group3';
-formGroups['active']		= 'form-group4';
-formGroups['checkFault']	= 'form-group4';
-formGroups['runDayOfWeek']	= 'form-group5';
-formGroups['runHour']		= 'form-group5';
-formGroups['runMinute']		= 'form-group5';
-formGroups['contactMode']	= 'form-group6';
-formGroups['contact']		= 'form-group6';
-
 function updateSuccess(data) {
-	clearWarningMessageField(formGroups, msgFields);
+	clearWarningMessageField(msgFields);
 	if ( _qifu_success_flag != data.success ) {
 		parent.notifyWarning( data.message );
-		setWarningMessageField(formGroups, msgFields, data.checkFields);
+		setWarningMessageField(msgFields, data.checkFields);
 		return;
 	}
 	parent.notifyInfo( data.message );

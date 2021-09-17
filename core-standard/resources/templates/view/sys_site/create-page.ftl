@@ -24,18 +24,11 @@ msgFields['systemName'] 		= 'name';
 msgFields['systemHost'] 		= 'host';
 msgFields['systemContextPath']	= 'contextPath';
 
-//formGroups[ 頁面的欄位id ] = ' 欄位form-group的 id ';
-var formGroups = new Object();
-formGroups['sysId'] 		= 'form-group1';
-formGroups['name'] 			= 'form-group1';
-formGroups['host'] 			= 'form-group2';
-formGroups['contextPath'] 	= 'form-group2';
-
 function saveSuccess(data) {
-	clearWarningMessageField(formGroups, msgFields);
+	clearWarningMessageField(msgFields);
 	if ( _qifu_success_flag != data.success ) {
 		parent.notifyWarning( data.message );
-		setWarningMessageField(formGroups, msgFields, data.checkFields);
+		setWarningMessageField(msgFields, data.checkFields);
 		return;
 	}
 	parent.notifyInfo( data.message );
@@ -43,7 +36,7 @@ function saveSuccess(data) {
 }
 
 function clearSave() {
-	clearWarningMessageField(formGroups, msgFields);
+	clearWarningMessageField(msgFields);
 	$("#sysId").val( '' );
 	$("#name").val( '' );
 	$("#host").val( '' );

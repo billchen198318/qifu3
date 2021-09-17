@@ -23,14 +23,11 @@ $( document ).ready(function() {
 var msgFields = new Object();
 msgFields['role'] 	= 'role';
 
-var formGroups = new Object();
-formGroups['role'] 	= 'form-group1';
-
 function saveSuccess(data) {
-	clearWarningMessageField(formGroups, msgFields);
+	clearWarningMessageField(msgFields);
 	if ( _qifu_success_flag != data.success ) {
 		parent.notifyWarning( data.message );
-		setWarningMessageField(formGroups, msgFields, data.checkFields);
+		setWarningMessageField(msgFields, data.checkFields);
 		return;
 	}
 	parent.notifyInfo( data.message );
@@ -38,7 +35,7 @@ function saveSuccess(data) {
 }
 
 function clearSave() {
-	clearWarningMessageField(formGroups, msgFields);
+	clearWarningMessageField(msgFields);
 	window.location=parent.getProgUrlForOid('CORE_PROG002D0001S02Q', '${role.oid}');
 }
 

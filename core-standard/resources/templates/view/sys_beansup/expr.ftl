@@ -42,16 +42,11 @@ msgFields['expressionOid'] 		= 'expressionOid';
 msgFields['exprSeq'] 			= 'exprSeq';
 msgFields['runType'] 			= 'runType';
 
-var formGroups = new Object();
-formGroups['expressionOid'] 	= 'form-group1';
-formGroups['exprSeq'] 			= 'form-group1';
-formGroups['runType'] 			= 'form-group1';
-
 function saveSuccess(data) {
-	clearWarningMessageField(formGroups, msgFields);
+	clearWarningMessageField(msgFields);
 	if ( _qifu_success_flag != data.success ) {
 		parent.notifyWarning( data.message );
-		setWarningMessageField(formGroups, msgFields, data.checkFields);
+		setWarningMessageField(msgFields, data.checkFields);
 		return;
 	}
 	parent.notifyInfo( data.message );
@@ -60,7 +55,7 @@ function saveSuccess(data) {
 }
 
 function clearSave() {
-	clearWarningMessageField(formGroups, msgFields);
+	clearWarningMessageField(msgFields);
 	$("#expressionOid").val( _qifu_please_select_id );
 	$("#runType").val( _qifu_please_select_id );
 	$("#exprSeq").val('');

@@ -42,16 +42,11 @@ msgFields['varName'] 		= 'varName';
 msgFields['methodParamClass'] 			= 'methodParamClass';
 msgFields['methodParamIndex'] 			= 'methodParamIndex';
 
-var formGroups = new Object();
-formGroups['varName'] 	= 'form-group1';
-formGroups['methodParamClass'] 			= 'form-group2';
-formGroups['methodParamIndex'] 			= 'form-group2';
-
 function saveSuccess(data) {
-	clearWarningMessageField(formGroups, msgFields);
+	clearWarningMessageField(msgFields);
 	if ( _qifu_success_flag != data.success ) {
 		parent.notifyWarning( data.message );
-		setWarningMessageField(formGroups, msgFields, data.checkFields);
+		setWarningMessageField(msgFields, data.checkFields);
 		return;
 	}
 	parent.notifyInfo( data.message );
@@ -60,7 +55,7 @@ function saveSuccess(data) {
 }
 
 function clearSave() {
-	clearWarningMessageField(formGroups, msgFields);
+	clearWarningMessageField(msgFields);
 	$("#varName").val('');
 	$("#methodResultFlag").prop('checked', false);
 	$("#methodParamClass").val('');
