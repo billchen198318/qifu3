@@ -270,7 +270,6 @@ function setWarningMessageField(fields, checkFields) {
 	for (var k in fields) {
 		var idKey = '';
 		var msgContent = '';
-		var formGroupId = '';
 		for (var d in checkFields) {			
 			if ( k == d ) {
 				idKey = fields[k];
