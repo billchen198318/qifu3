@@ -39,6 +39,7 @@ public class RedisConfig extends CachingConfigurerSupport {
 	
 	private final static Logger log= LoggerFactory.getLogger(RedisConfig.class);
 	
+	@Bean
 	public CacheManager cacheManager(RedisConnectionFactory redisConnectionFactory) {
 		 return new RedisCacheManager(
 				 RedisCacheWriter.nonLockingRedisCacheWriter(redisConnectionFactory),
