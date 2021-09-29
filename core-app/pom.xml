@@ -74,6 +74,13 @@
 		    <artifactId>spring-boot-starter-cache</artifactId>
 		</dependency> 		
 		
+		<!-- ########################## redis ########################## -->
+		<dependency>
+		    <groupId>org.springframework.boot</groupId>
+		    <artifactId>spring-boot-starter-data-redis</artifactId>
+		</dependency>		
+		<!-- ########################################################### -->		
+		
 		<dependency>
 		    <groupId>org.springframework.boot</groupId>
 		    <artifactId>spring-boot-starter-mail</artifactId>
@@ -329,7 +336,15 @@
 		    <version>0.0.1-SNAPSHOT</version>
 		    <systemPath>${workspaceDir}/core-standard/target/core-standard-0.0.1-SNAPSHOT.jar</systemPath>
 		</dependency>	
-				        
+		
+		<dependency>
+		    <groupId>org.qifu</groupId>
+		    <artifactId>extends-redis</artifactId>
+		    <scope>system</scope>
+		    <version>0.0.1-SNAPSHOT</version>
+		    <systemPath>${workspaceDir}/extends-redis/target/extends-redis-0.0.1-SNAPSHOT.jar</systemPath>
+		</dependency>	
+						        
   </dependencies>
   
   	<build>

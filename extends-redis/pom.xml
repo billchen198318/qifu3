@@ -3,11 +3,11 @@
   <modelVersion>4.0.0</modelVersion>
   
   <groupId>org.qifu</groupId>
-  <artifactId>core-standard</artifactId>
+  <artifactId>extends-redis</artifactId>
   <version>0.0.1-SNAPSHOT</version>
   <packaging>jar</packaging>
 
-  <name>core-standard</name>
+  <name>extends-redis</name>
   <url>http://maven.apache.org</url>
 
   <properties>
@@ -54,6 +54,13 @@
 		    <groupId>org.springframework.boot</groupId>
 		    <artifactId>spring-boot-starter-cache</artifactId>
 		</dependency>         
+		
+		<!-- ########################## redis ########################## -->
+		<dependency>
+		    <groupId>org.springframework.boot</groupId>
+		    <artifactId>spring-boot-starter-data-redis</artifactId>
+		</dependency>		
+		<!-- ########################################################### -->
 		
 		<dependency>
 		    <groupId>org.springframework.boot</groupId>
@@ -278,14 +285,6 @@
 		    <scope>system</scope>
 		    <version>0.0.1-SNAPSHOT</version>
 		    <systemPath>${workspaceDir}/core-base/target/core-base-0.0.1-SNAPSHOT.jar</systemPath>
-		</dependency>	
-		
-		<dependency>
-		    <groupId>org.qifu</groupId>
-		    <artifactId>extends-redis</artifactId>
-		    <scope>system</scope>
-		    <version>0.0.1-SNAPSHOT</version>
-		    <systemPath>${workspaceDir}/extends-redis/target/extends-redis-0.0.1-SNAPSHOT.jar</systemPath>
 		</dependency>	
 				        
   </dependencies>
