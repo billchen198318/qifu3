@@ -51,6 +51,8 @@ public class RedisConfig extends CachingConfigurerSupport {
     private Map<String, RedisCacheConfiguration> getRedisCacheConfigurationMap() {
         Map<String, RedisCacheConfiguration> redisCacheConfigurationMap = new HashMap<>();
         //可以进行过期时间配置
+        redisCacheConfigurationMap.put("30m", this.getRedisCacheConfigurationWithTtl(60*30));
+        redisCacheConfigurationMap.put("1h", this.getRedisCacheConfigurationWithTtl(60*60));
         redisCacheConfigurationMap.put("24h", this.getRedisCacheConfigurationWithTtl(60*60*24));
         redisCacheConfigurationMap.put("30d", this.getRedisCacheConfigurationWithTtl(60*60*24*30));
         return redisCacheConfigurationMap;
