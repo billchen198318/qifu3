@@ -21,6 +21,9 @@
  */
 package org.qifu.core.api;
 
+import java.util.HashMap;
+import java.util.Map;
+
 import org.apache.commons.lang3.StringUtils;
 import org.qifu.base.model.YesNo;
 import org.qifu.core.util.CoreApiSupport;
@@ -30,6 +33,8 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
+
+import com.fasterxml.jackson.databind.ObjectMapper;
 
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiImplicitParam;
@@ -45,21 +50,6 @@ public class HelloApiController extends CoreApiSupport {
 	
 	@Autowired
 	RedisTemplate<String, String> redisTemplate;
-	
-	class MessageData implements java.io.Serializable {
-		private static final long serialVersionUID = -334170817589326234L;
-		
-		private String str;
-
-		public String getStr() {
-			return str;
-		}
-
-		public void setStr(String str) {
-			this.str = str;
-		}
-		
-	}
 	
 	@ApiOperation(value="測試", notes="測試用的接口")
 	@ApiImplicitParams({
@@ -79,7 +69,11 @@ public class HelloApiController extends CoreApiSupport {
 			if ( StringUtils.defaultString(this.redisTemplate.opsForValue().get(key)).length() > 1000 ) {
 				return this.redisTemplate.opsForValue().get(key);
 			}
-			this.redisTemplate.opsForValue().append(key, StringUtils.defaultString(this.redisTemplate.opsForValue().get(key)) + msg);
+			Map<String, String> dataMap = new HashMap<String, String>();
+			dataMap.put("str", msg);
+			ObjectMapper om = new ObjectMapper();
+			String val = om.writeValueAsString(dataMap);
+			this.redisTemplate.opsForValue().append(key, val);
 			return this.redisTemplate.opsForValue().get(key);
 		} catch (Exception e) {
 			e.printStackTrace();

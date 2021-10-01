@@ -114,8 +114,8 @@ public class RedisConfig extends CachingConfigurerSupport {
     }    
     
     @Bean
-    public RedisTemplate<String, String> redisTemplate(RedisConnectionFactory factory) {
-        RedisTemplate<String, String> redisTemplate = new RedisTemplate<String, String>();
+    public RedisTemplate<String, Object> redisTemplate(RedisConnectionFactory factory) {
+        RedisTemplate<String, Object> redisTemplate = new RedisTemplate<String, Object>();
         redisTemplate.setConnectionFactory(factory);
         RedisSerializer<String> stringSerializer = new StringRedisSerializer();//序列化为String
         //不能反序列化
