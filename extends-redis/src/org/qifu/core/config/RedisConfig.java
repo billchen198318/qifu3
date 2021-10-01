@@ -1,4 +1,9 @@
 // from https://www.jianshu.com/p/fc7fad6f500d
+/**
+ * example:
+ * @Cacheable(value = "24h" ,keyGenerator = "wiselyKeyGenerator")
+ * @CacheEvict(value = "24h",key = "'sjy.notion.notion.app.service.mybatis.impl.UserServiceImpl.getById{'+#entity.id+'}'",beforeInvocation = true)
+ */
 package org.qifu.core.config;
 
 import com.fasterxml.jackson.annotation.JsonAutoDetect;
