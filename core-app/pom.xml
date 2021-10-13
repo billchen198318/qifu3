@@ -118,6 +118,20 @@
 		    <version>2.3.6.RELEASE</version>
 		</dependency>		
 		
+		
+		<!-- ################# Apache CXF ################# -->
+	    <dependency>
+	        <groupId>org.apache.cxf</groupId>
+	        <artifactId>cxf-spring-boot-starter-jaxws</artifactId>
+	        <version>3.4.3</version>
+	    </dependency>	
+		<dependency>
+		    <groupId>org.apache.cxf</groupId>
+		    <artifactId>cxf-rt-features-logging</artifactId>
+		    <version>3.4.3</version>
+		</dependency>
+				
+		
 		<dependency>
 		    <groupId>org.mybatis</groupId>
 		    <artifactId>mybatis-spring</artifactId>
@@ -346,7 +360,15 @@
 		    <version>0.0.1-SNAPSHOT</version>
 		    <systemPath>${workspaceDir}/extends-redis/target/extends-redis-0.0.1-SNAPSHOT.jar</systemPath>
 		</dependency>	
-						        
+
+		<dependency>
+		    <groupId>org.qifu</groupId>
+		    <artifactId>extends-ws</artifactId>
+		    <scope>system</scope>
+		    <version>0.0.1-SNAPSHOT</version>
+		    <systemPath>${workspaceDir}/extends-ws/target/extends-ws-0.0.1-SNAPSHOT.jar</systemPath>
+		</dependency>	
+								        
   </dependencies>
   
   	<build>
