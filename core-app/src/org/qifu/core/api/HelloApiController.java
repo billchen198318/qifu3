@@ -30,6 +30,7 @@ import org.qifu.core.util.CoreApiSupport;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -50,6 +51,23 @@ public class HelloApiController extends CoreApiSupport {
 	
 	@Autowired
 	RedisTemplate<String, String> redisTemplate;
+	
+	@ApiOperation(value="測試del", notes="測試用的接口del")
+	@ApiImplicitParams({
+		@ApiImplicitParam(name = "key", value = "編號", required = true, dataType = "String")
+	})
+	@ResponseBody
+	@DeleteMapping("/delPlay")
+	public String delPlay(String key) {
+		String flag = YesNo.NO;
+		if (StringUtils.isBlank(key)) {
+			return YesNo.NO;
+		}		
+		if (this.redisTemplate.delete(key)) {
+			flag = YesNo.YES;
+		}
+		return flag;
+	}
 	
 	@ApiOperation(value="測試", notes="測試用的接口")
 	@ApiImplicitParams({
