@@ -100,6 +100,12 @@ public class UserUtils {
 		if (auth != null && auth.getPrincipal() != null && (auth.getPrincipal() instanceof User)) {
 			return (User) auth.getPrincipal();
 		}		
+		
+		// 2021-10-30 add , for JWT token USER_ID info
+		if ( UserLocalUtils.getUserInfo() != null ) {
+			return new User(ZeroKeyProvide.OID_KEY, UserLocalUtils.getUserInfo().getUserId(), "", YesNo.YES, backgroundRoleList);
+		}
+		
 		return null;
 	}
 	

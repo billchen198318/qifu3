@@ -39,6 +39,7 @@ import com.auth0.jwt.interfaces.DecodedJWT;
 
 public class TokenBuilderUtils {
 	
+	/*
 	public static void main(String args[]) {
 		String token = "";
 		Map<String, Claim> claims = null;
@@ -46,6 +47,7 @@ public class TokenBuilderUtils {
 		System.out.println( claims = verifyToken(token) );
 		System.out.println( existsInfo(claims) );
 	}
+	*/
 	
 	public static boolean existsInfo(Map<String, Claim> claims) {
 		if (null == claims) {

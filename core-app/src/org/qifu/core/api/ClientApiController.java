@@ -22,11 +22,14 @@
 package org.qifu.core.api;
 
 import org.apache.commons.lang3.StringUtils;
-import org.qifu.base.Constants;
+import org.qifu.base.exception.ServiceException;
 import org.qifu.base.model.QueryResult;
 import org.qifu.base.model.YesNo;
 import org.qifu.base.util.TokenBuilderUtils;
+import org.qifu.core.entity.TbSysCode;
+import org.qifu.core.service.ISysCodeService;
 import org.qifu.core.util.CoreApiSupport;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -44,23 +47,50 @@ public class ClientApiController extends CoreApiSupport {
 	
 	private static final long serialVersionUID = 7605095088499829681L;
 	
+	@Autowired
+	ISysCodeService<TbSysCode, String> sysCodeService;
+	
+	/**
+	 * SELECT * FROM tb_sys_code WHERE CODE = '9TYM7TRuILqFk9XoR0v6Yx672'
+	 * 
+	 * @param programId		PROG001
+	 * @param userId		tester
+	 * @param clientId		9TYM7TRuILqFk9XoR0v6Yx672
+	 * @return
+	 */
 	@ApiOperation(value="Client", notes="Info")
 	@ApiImplicitParams({
+		@ApiImplicitParam(name = "programId", value = "program no/id", required = true, dataType = "String"),
+		@ApiImplicitParam(name = "userId", value = "user no/id", required = true, dataType = "String"),
 		@ApiImplicitParam(name = "clientId", value = "client no/id", required = true, dataType = "String")
 	})
 	@ResponseBody
 	@PostMapping("/client")
-	public QueryResult<String> client(String clientId) {
+	public QueryResult<String> client(String programId, String userId, String clientId) {
 		QueryResult<String> result = this.initResult();
-		if (StringUtils.isBlank(clientId)) {
-			result.setMessage( "No clientId parameter value." );
+		if (StringUtils.isBlank(programId) || StringUtils.isBlank(userId) || StringUtils.isBlank(clientId)) {
+			result.setMessage( "No parameter value." );
 			return result;
 		}
-		// need modify first to check this clientId parameter from you settings config.
-		String token = TokenBuilderUtils.createToken("The Client Id", Constants.SYSTEM_BACKGROUND_USER, YesNo.NO, "ClientId", clientId);
-		if (!StringUtils.isBlank(token)) {
-			result.setSuccess( YesNo.YES );
-			result.setValue(token);
+		TbSysCode sysCode = new TbSysCode();
+		sysCode.setCode(clientId);
+		try {
+			sysCode = sysCodeService.selectByUniqueKey(sysCode).getValueEmptyThrowMessage();
+			String isAdmin = StringUtils.defaultString(sysCode.getParam1()).trim();
+			if (!YesNo.YES.equals(isAdmin) && !YesNo.NO.equals(isAdmin)) {
+				isAdmin = YesNo.NO;
+			}
+			String token = TokenBuilderUtils.createToken(programId, userId, isAdmin, StringUtils.defaultString(sysCode.getName()), clientId);
+			if (!StringUtils.isBlank(token)) {
+				result.setSuccess( YesNo.YES );
+				result.setValue(token);
+			}			
+		} catch (ServiceException se) {
+			result.setMessage( (se != null && se.getMessage() != null) ? se.getMessage() : "null" );
+			se.printStackTrace();
+		} catch (Exception e) {
+			result.setMessage( (e != null && e.getMessage() != null) ? e.getMessage() : "null" );
+			e.printStackTrace();
 		}
 		return result;
 	}

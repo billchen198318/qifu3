@@ -55,7 +55,7 @@ public class UserBuilderInterceptor implements HandlerInterceptor {
 			response.getWriter().close();
 			return false;
 		}
-		Map<String, Claim> claimToken = TokenBuilderUtils.verifyToken(authorization.replaceAll(Constants.TOKEN_PREFIX, "").replaceAll(" ", ""));
+		Map<String, Claim> claimToken = TokenBuilderUtils.verifyToken(authorization.replaceFirst(Constants.TOKEN_PREFIX, "").replaceAll(" ", ""));
 		if (TokenBuilderUtils.existsInfo(claimToken)) {
 			UserUtils.setUserInfoForUserLocalUtils( claimToken.get(Constants.TOKEN_USER_PARAM_NAME).asString() );
 			logger.info("User builder from JWT Authorization header : " + claimToken.get(Constants.TOKEN_USER_PARAM_NAME).asString());
