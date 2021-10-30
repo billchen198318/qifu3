@@ -3,8 +3,8 @@
 		"/favicon.ico",
 		"/services**",
 		"/services/**",		
-		"/helloApi**",
-		"/helloApi/**",
+		"/api**",
+		"/api/**",
 		"/user/gradeList"
 	]
 }

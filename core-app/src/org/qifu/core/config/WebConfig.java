@@ -27,6 +27,7 @@ import org.qifu.base.CoreAppConstants;
 import org.qifu.base.interceptor.MDCInterceptor;
 import org.qifu.core.directive.CoreUiDirectiveSimpleHash;
 import org.qifu.core.interceptor.ControllerAuthorityCheckInterceptor;
+import org.qifu.core.interceptor.UserBuilderInterceptor;
 import org.qifu.core.model.LocaleMessageTemplateMethodModel;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
@@ -80,12 +81,10 @@ public class WebConfig implements WebMvcConfigurer {
     	return new ControllerAuthorityCheckInterceptor();
     }
     
-    /*
     @Bean
     UserBuilderInterceptor UserBuilderInterceptor() {
     	return new UserBuilderInterceptor();
     }
-    */
     
     @Override
     public void addInterceptors(InterceptorRegistry registry) {
@@ -97,12 +96,9 @@ public class WebConfig implements WebMvcConfigurer {
         	.addPathPatterns("/*", "/**")
         	.excludePathPatterns( CoreAppConstants.getWebConfiginterceptorExcludePathPatterns() );
         
-        
-        /*
         registry.addInterceptor(UserBuilderInterceptor())
-        	.addPathPatterns("/*", "/**")
-        	.excludePathPatterns( Constants.getWebConfiginterceptorExcludePathPatterns() );
-        */  
+        	.addPathPatterns("/api/*", "/api/**")
+        	.excludePathPatterns( new String[]{ "/api/client" } );
     }
     
     @Override

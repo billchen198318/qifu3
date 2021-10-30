@@ -23,6 +23,7 @@ package org.qifu.base;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.UUID;
 
 import org.apache.commons.io.FileUtils;
 import org.qifu.base.model.YesNo;
@@ -117,5 +118,16 @@ public class Constants {
 	}
 	
 	public static final int MAX_SYS_DESCRIPTION_LENGTH = 500;
+	
+	// JWT config
+	public static final int TOKEN_EXPIRED_INTERVAL = 30; // 30 minute
+	public static final String TOKEN_IS_ADMIN = "isAdmin";
+	public static final String TOKEN_PROG_ID_NAME = "PROG_ID";
+	public static final String TOKEN_USER_PARAM_NAME = "USER_ID";
+	public static final String TOKEN_ISSUER = "QiFu3Application";
+	public static final String TOKEN_SECRET = "QiFu3@" + UUID.randomUUID().toString();
+	public static final String TOKEN_CHECK_URL_PATH = "/api/";
+	public static final String TOKEN_Authorization = "Authorization";
+	public static final String TOKEN_PREFIX = "Bearer";
 	
 }

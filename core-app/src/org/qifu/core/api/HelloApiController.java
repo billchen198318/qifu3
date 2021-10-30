@@ -41,10 +41,11 @@ import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiImplicitParam;
 import io.swagger.annotations.ApiImplicitParams;
 import io.swagger.annotations.ApiOperation;
+import io.swagger.annotations.Authorization;
 
 @Api
 @Controller
-@RequestMapping(value = "/helloApi")
+@RequestMapping(value = "/api/hello")
 public class HelloApiController extends CoreApiSupport {
 	
 	private static final long serialVersionUID = -2710621780849674671L;
@@ -52,7 +53,7 @@ public class HelloApiController extends CoreApiSupport {
 	@Autowired
 	RedisTemplate<String, String> redisTemplate;
 	
-	@ApiOperation(value="測試del", notes="測試用的接口del")
+	@ApiOperation(value="測試del", notes="測試用的接口del", authorizations={ @Authorization(value="Bearer") })
 	@ApiImplicitParams({
 		@ApiImplicitParam(name = "key", value = "編號", required = true, dataType = "String")
 	})
@@ -69,7 +70,7 @@ public class HelloApiController extends CoreApiSupport {
 		return flag;
 	}
 	
-	@ApiOperation(value="測試", notes="測試用的接口")
+	@ApiOperation(value="測試", notes="測試用的接口", authorizations={ @Authorization(value="Bearer") })
 	@ApiImplicitParams({
 		@ApiImplicitParam(name = "key", value = "編號", required = true, dataType = "String"),
 		@ApiImplicitParam(name = "msg", value = "訊息字串", required = true, dataType = "String")
