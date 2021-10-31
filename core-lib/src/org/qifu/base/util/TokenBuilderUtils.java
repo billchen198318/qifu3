@@ -28,7 +28,6 @@ import java.util.Map;
 
 import org.apache.commons.lang3.StringUtils;
 import org.qifu.base.Constants;
-import org.qifu.base.model.YesNo;
 
 import com.auth0.jwt.JWT;
 import com.auth0.jwt.JWTVerifier;
@@ -72,7 +71,7 @@ public class TokenBuilderUtils {
 		return (jwt != null && jwt.getClaims() != null) ? jwt.getClaims() : null;
 	}	
 	
-	public static String createToken(String programId, String userId, String isAdmin, String subject, String clientId /*, TokenStoreBuilder store*/) {
+	public static String createToken(String programId, String userId, String subject, String clientId /*, TokenStoreBuilder store*/) {
 		Date iatDate = new Date();
 		
 	    // expire time
@@ -96,7 +95,6 @@ public class TokenBuilderUtils {
 	    		.withExpiresAt(expiresDate)
 	    		.withClaim(Constants.TOKEN_PROG_ID_NAME, programId)
 	    		.withClaim(Constants.TOKEN_USER_PARAM_NAME, StringUtils.defaultString(userId))
-	    		.withClaim(Constants.TOKEN_IS_ADMIN, (YesNo.YES.equals(isAdmin) ? YesNo.YES : YesNo.NO))
 	    		.sign(Algorithm.HMAC256(Constants.TOKEN_SECRET));
 	    /*
 	    if (null != store) {

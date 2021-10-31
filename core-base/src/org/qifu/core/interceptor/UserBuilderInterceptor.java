@@ -30,16 +30,24 @@ import org.apache.commons.lang3.StringUtils;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.qifu.base.Constants;
+import org.qifu.base.exception.ServiceException;
 import org.qifu.base.util.TokenBuilderUtils;
+import org.qifu.core.entity.TbSysCode;
+import org.qifu.core.service.ISysCodeService;
 import org.qifu.core.util.UserUtils;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.servlet.HandlerInterceptor;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.auth0.jwt.impl.PublicClaims;
 import com.auth0.jwt.interfaces.Claim;
 
 public class UserBuilderInterceptor implements HandlerInterceptor {
 	
 	protected Logger logger = LogManager.getLogger(UserBuilderInterceptor.class);
+	
+	@Autowired
+	ISysCodeService<TbSysCode, String> sysCodeService;	
 	
 	@Override
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
@@ -57,8 +65,20 @@ public class UserBuilderInterceptor implements HandlerInterceptor {
 		}
 		Map<String, Claim> claimToken = TokenBuilderUtils.verifyToken(authorization.replaceFirst(Constants.TOKEN_PREFIX, "").replaceAll(" ", ""));
 		if (TokenBuilderUtils.existsInfo(claimToken)) {
-			UserUtils.setUserInfoForUserLocalUtils( claimToken.get(Constants.TOKEN_USER_PARAM_NAME).asString() );
-			logger.info("User builder from JWT Authorization header : " + claimToken.get(Constants.TOKEN_USER_PARAM_NAME).asString());
+			String clientId = StringUtils.defaultString( claimToken.get(PublicClaims.AUDIENCE).asString() );
+			String roleIds = "";
+			TbSysCode sysCode = new TbSysCode();
+			sysCode.setCode(clientId);
+			try {
+				sysCode = sysCodeService.selectByUniqueKey(sysCode).getValueEmptyThrowMessage();	
+				roleIds = StringUtils.defaultString( sysCode.getParam1() );
+			} catch (ServiceException se) {
+				se.printStackTrace();
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+			UserUtils.setUserInfoForUserLocalUtils( claimToken.get(Constants.TOKEN_USER_PARAM_NAME).asString(), roleIds );
+			logger.info("User builder from JWT Authorization header : " + claimToken.get(Constants.TOKEN_USER_PARAM_NAME).asString() + " , role: " + roleIds);
 		}
 		if ( UserUtils.getCurrentUser() == null ) {
 			logger.warn(">>> No authorization uri: " + request.getRequestURI() + " , remote-address: " + request.getRemoteAddr() + " , remote-port: " + request.getRemotePort());

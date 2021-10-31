@@ -25,6 +25,7 @@ public class BaseUserInfo implements IUserInfoProvide {
 	private static final long serialVersionUID = -2353426031473585007L;
 	
 	private String userId = "";
+	private String roleIds = ""; // etc: COMMON01,TEST for JWT user role.
 
 	@Override
 	public String getUserId() {
@@ -34,6 +35,14 @@ public class BaseUserInfo implements IUserInfoProvide {
 	@Override
 	public void setUserId(String userId) {
 		this.userId = userId;
+	}
+
+	public String getRoleIds() {
+		return roleIds;
+	}
+
+	public void setRoleIds(String roleIds) {
+		this.roleIds = roleIds;
 	}
 
 }

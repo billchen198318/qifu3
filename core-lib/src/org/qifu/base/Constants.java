@@ -121,7 +121,6 @@ public class Constants {
 	
 	// JWT config
 	public static final int TOKEN_EXPIRED_INTERVAL = 30; // 30 minute
-	public static final String TOKEN_IS_ADMIN = "isAdmin";
 	public static final String TOKEN_PROG_ID_NAME = "PROG_ID";
 	public static final String TOKEN_USER_PARAM_NAME = "USER_ID";
 	public static final String TOKEN_ISSUER = "QiFu3Application";

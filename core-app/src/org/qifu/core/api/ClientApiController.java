@@ -76,11 +76,7 @@ public class ClientApiController extends CoreApiSupport {
 		sysCode.setCode(clientId);
 		try {
 			sysCode = sysCodeService.selectByUniqueKey(sysCode).getValueEmptyThrowMessage();
-			String isAdmin = StringUtils.defaultString(sysCode.getParam1()).trim();
-			if (!YesNo.YES.equals(isAdmin) && !YesNo.NO.equals(isAdmin)) {
-				isAdmin = YesNo.NO;
-			}
-			String token = TokenBuilderUtils.createToken(programId, userId, isAdmin, StringUtils.defaultString(sysCode.getName()), clientId);
+			String token = TokenBuilderUtils.createToken(programId, userId, StringUtils.defaultString(sysCode.getName()), clientId);
 			if (!StringUtils.isBlank(token)) {
 				result.setSuccess( YesNo.YES );
 				result.setValue(token);
