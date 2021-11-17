@@ -30,15 +30,25 @@ public class CxfConfig {
 	@Autowired
 	private ITestService testService;
 	
+	private LoggingInInterceptor loggingInInterceptor;
+	
+	private LoggingOutInterceptor loggingOutInterceptor;
+	
 	@Bean
 	public LoggingInInterceptor loggingInInterceptor() {
-		return new LoggingInInterceptor();
+		if (null == this.loggingInInterceptor) {
+			this.loggingInInterceptor = new LoggingInInterceptor();
+		}
+		return this.loggingInInterceptor;
 	}
 	
 	@Bean
 	public LoggingOutInterceptor loggingOutInterceptor() {
-		return new LoggingOutInterceptor();
-	}	
+		if (null == this.loggingOutInterceptor) {
+			this.loggingOutInterceptor = new LoggingOutInterceptor();
+		}
+		return this.loggingOutInterceptor;
+	}
 	
 	@Bean
 	public Endpoint helloEndpoint() {
