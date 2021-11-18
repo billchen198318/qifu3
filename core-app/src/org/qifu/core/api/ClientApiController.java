@@ -40,7 +40,7 @@ import io.swagger.annotations.ApiImplicitParam;
 import io.swagger.annotations.ApiImplicitParams;
 import io.swagger.annotations.ApiOperation;
 
-@Api
+@Api(tags = {"Get client info."}, description = "For Client get an access token.")
 @Controller
 @RequestMapping(value = "/api")
 public class ClientApiController extends CoreApiSupport {

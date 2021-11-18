@@ -25,8 +25,11 @@ import java.util.HashMap;
 import java.util.Map;
 
 import org.apache.commons.lang3.StringUtils;
+import org.qifu.base.message.BaseSystemMessage;
+import org.qifu.base.model.QueryResult;
 import org.qifu.base.model.YesNo;
 import org.qifu.core.util.CoreApiSupport;
+import org.qifu.core.vo.TestModel;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.stereotype.Controller;
@@ -41,9 +44,10 @@ import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiImplicitParam;
 import io.swagger.annotations.ApiImplicitParams;
 import io.swagger.annotations.ApiOperation;
+import io.swagger.annotations.ApiParam;
 import io.swagger.annotations.Authorization;
 
-@Api
+@Api(tags = {"TEST."}, description = "Test hello world.")
 @Controller
 @RequestMapping(value = "/api/hello")
 public class HelloApiController extends CoreApiSupport {
@@ -71,33 +75,40 @@ public class HelloApiController extends CoreApiSupport {
 	}
 	
 	@ApiOperation(value="測試", notes="測試用的接口", authorizations={ @Authorization(value="Bearer") })
+	/*
 	@ApiImplicitParams({
 		@ApiImplicitParam(name = "key", value = "編號", required = true, dataType = "String"),
 		@ApiImplicitParam(name = "msg", value = "訊息字串", required = true, dataType = "String")
 	})
+	*/
 	@ResponseBody
 	@GetMapping("/play")
-	public String play(String key, String msg) {
-		if (StringUtils.isBlank(key)) {
-			return YesNo.NO;
+	public QueryResult<String> play(@ApiParam TestModel data) {
+		QueryResult<String> result = this.initResult();
+		if (null == data || StringUtils.isBlank(data.getKey())) {
+			this.noSuccessResult(result, BaseSystemMessage.parameterBlank());
+			return result;
 		}
 		try {
-			if (StringUtils.isBlank(msg)) {
-				return this.redisTemplate.opsForValue().get(key);
+			if (StringUtils.isBlank(data.getMsg())) {
+				this.successResult(result, this.redisTemplate.opsForValue().get(data.getKey()));
+				return result;
 			}
-			if ( StringUtils.defaultString(this.redisTemplate.opsForValue().get(key)).length() > 1000 ) {
-				return this.redisTemplate.opsForValue().get(key);
+			if ( StringUtils.defaultString(this.redisTemplate.opsForValue().get(data.getKey())).length() > 1000 ) {
+				this.successResult(result, this.redisTemplate.opsForValue().get(data.getKey()));
+				return result;
 			}
 			Map<String, String> dataMap = new HashMap<String, String>();
-			dataMap.put("str", msg);
+			dataMap.put("str", data.getMsg());
 			ObjectMapper om = new ObjectMapper();
 			String val = om.writeValueAsString(dataMap);
-			this.redisTemplate.opsForValue().append(key, val);
-			return this.redisTemplate.opsForValue().get(key);
+			this.redisTemplate.opsForValue().append(data.getKey(), val);
+			this.successResult(result, val);
 		} catch (Exception e) {
 			e.printStackTrace();
+			this.noSuccessResult(result, e);
 		}
-		return YesNo.NO;
+		return result;
 	}
 	
 }
