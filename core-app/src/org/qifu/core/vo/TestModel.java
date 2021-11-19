@@ -10,10 +10,10 @@ import io.swagger.annotations.ApiModelProperty;
 public class TestModel implements java.io.Serializable {
 	private static final long serialVersionUID = -5289888544046385634L;
 	
-	@ApiModelProperty(name = "編號", required = true)
+	@ApiModelProperty(notes = "編號", required = true)
 	private String key;
 	
-	@ApiModelProperty(name = "訊息資料", required = true)
+	@ApiModelProperty(notes = "訊息資料", required = true)
 	private String msg;
 	
 	public String getKey() {
