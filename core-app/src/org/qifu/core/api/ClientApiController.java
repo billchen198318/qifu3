@@ -60,9 +60,9 @@ public class ClientApiController extends CoreApiSupport {
 	 */
 	@ApiOperation(value="Client", notes="Info")
 	@ApiImplicitParams({
-		@ApiImplicitParam(name = "programId", value = "program no/id", required = true, dataType = "String"),
-		@ApiImplicitParam(name = "userId", value = "user no/id", required = true, dataType = "String"),
-		@ApiImplicitParam(name = "clientId", value = "client no/id", required = true, dataType = "String")
+		@ApiImplicitParam(name = "programId", value = "program no/id", required = true, dataType = "string"),
+		@ApiImplicitParam(name = "userId", value = "user no/id", required = true, dataType = "string"),
+		@ApiImplicitParam(name = "clientId", value = "client no/id", required = true, dataType = "string")
 	})
 	@ResponseBody
 	@PostMapping("/client")

@@ -32,10 +32,12 @@ import org.qifu.core.util.CoreApiSupport;
 import org.qifu.core.vo.TestModel;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.redis.core.RedisTemplate;
+import org.springframework.http.MediaType;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.DeleteMapping;
-import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -75,15 +77,13 @@ public class HelloApiController extends CoreApiSupport {
 	}
 	
 	@ApiOperation(value="測試", notes="測試用的接口", authorizations={ @Authorization(value="Bearer") })
-	/*
 	@ApiImplicitParams({
-		@ApiImplicitParam(name = "key", value = "編號", required = true, dataType = "String"),
-		@ApiImplicitParam(name = "msg", value = "訊息字串", required = true, dataType = "String")
+		@ApiImplicitParam(name = "key", value = "編號", required = true, dataType = "string"),
+		@ApiImplicitParam(name = "msg", value = "訊息字串", required = true, dataType = "string")
 	})
-	*/
 	@ResponseBody
-	@GetMapping("/play")
-	public QueryResult<String> play(@ApiParam TestModel data) {
+	@RequestMapping(value = "/play", produces = {MediaType.APPLICATION_JSON_VALUE}, method = {RequestMethod.POST, RequestMethod.GET})
+	public QueryResult<String> play(@ApiParam @RequestBody TestModel data) {
 		QueryResult<String> result = this.initResult();
 		if (null == data || StringUtils.isBlank(data.getKey())) {
 			this.noSuccessResult(result, BaseSystemMessage.parameterBlank());
