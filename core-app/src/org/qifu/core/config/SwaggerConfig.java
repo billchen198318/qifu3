@@ -64,7 +64,8 @@ public class SwaggerConfig {
     }
     
     private ApiKey apiKey() {
-    	return new ApiKey(Constants.TOKEN_PREFIX, Constants.TOKEN_Authorization, "header");
+    	//return new ApiKey(Constants.TOKEN_PREFIX, Constants.TOKEN_Authorization, "header");
+    	return new ApiKey("Authorization", Constants.TOKEN_Authorization, "header");
     }    
     
     private SecurityContext securityContext() {
@@ -75,7 +76,8 @@ public class SwaggerConfig {
     	AuthorizationScope authorizationScope = new AuthorizationScope("global", "accessEverything");
     	AuthorizationScope[] authorizationScopes = new AuthorizationScope[1];
     	authorizationScopes[0] = authorizationScope;
-    	return Arrays.asList(new SecurityReference("JWT", authorizationScopes));
+    	//return Arrays.asList(new SecurityReference("JWT", authorizationScopes));
+    	return Arrays.asList(new SecurityReference("Authorization", authorizationScopes));
     }
     
     private ApiInfo apiInfo() {
