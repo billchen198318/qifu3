@@ -30,10 +30,10 @@ import org.qifu.core.entity.TbSysCode;
 import org.qifu.core.service.ISysCodeService;
 import org.qifu.core.util.CoreApiSupport;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.RestController;
 
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiImplicitParam;
@@ -41,7 +41,7 @@ import io.swagger.annotations.ApiImplicitParams;
 import io.swagger.annotations.ApiOperation;
 
 @Api(tags = {"Get client info."}, description = "For Client get an access token.")
-@Controller
+@RestController
 @RequestMapping(value = "/api")
 public class ClientApiController extends CoreApiSupport {
 	

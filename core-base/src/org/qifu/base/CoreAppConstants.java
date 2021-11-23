@@ -111,6 +111,10 @@ public class CoreAppConstants {
 			"/swagger-ui.html",
 			"/swagger-ui.html/**",
 			"/swagger**",
+			"/swagger-ui**", // v3 swagger
+			"/swagger-ui/**", // v3 swagger			
+			"/**/v3/api-docs**", // api-docs
+			"/**/v3/api-docs/**", // api-docs 
 			"/v2**", //"/api-docs**",
 			"/v2/**", //"/api-docs/**",
 			"/springfox.js",

@@ -27,32 +27,32 @@ import java.util.List;
 import org.qifu.base.Constants;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 
 import io.swagger.annotations.Api;
 import springfox.documentation.builders.ApiInfoBuilder;
 import springfox.documentation.builders.PathSelectors;
 import springfox.documentation.builders.RequestHandlerSelectors;
+import springfox.documentation.oas.annotations.EnableOpenApi;
 import springfox.documentation.service.ApiInfo;
 import springfox.documentation.service.ApiKey;
 import springfox.documentation.service.AuthorizationScope;
+import springfox.documentation.service.Contact;
 import springfox.documentation.service.SecurityReference;
 import springfox.documentation.spi.DocumentationType;
 import springfox.documentation.spi.service.contexts.SecurityContext;
 import springfox.documentation.spring.web.plugins.Docket;
-import springfox.documentation.swagger2.annotations.EnableSwagger2;
 
 /**
- * http://127.0.0.1:8088/swagger-ui.html
+ * http://127.0.0.1:8088/swagger-ui/
+ * http://127.0.0.1:8088/swagger-ui/index.html
  */
 @Configuration
-@EnableSwagger2
-@EnableWebMvc
+@EnableOpenApi // for swagger3
 public class SwaggerConfig {
 
     @Bean
     public Docket createRestApi() {
-        return new Docket(DocumentationType.SWAGGER_2)
+        return new Docket(DocumentationType.OAS_30)
         		.apiInfo(apiInfo())       		
                 .select()
                 //.apis(RequestHandlerSelectors.basePackage("org.qifu.core.api"))
@@ -83,7 +83,7 @@ public class SwaggerConfig {
                 .title("qifu3")
                 .description("qifu WEB API.")
                 .termsOfServiceUrl("http://api.qifu.org/")
-                //.contact(contact)
+                .contact(new Contact("Bill", "https://github.com/billchen198318/qifu3", "chen.xin.nien@gmail.com"))
                 .version("1.0")
                 .build();
     }

@@ -6,14 +6,14 @@ package org.qifu.core.vo;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 
-@ApiModel(description = "測試模組")
+@ApiModel(value = "TestModel", description = "測試模組")
 public class TestModel implements java.io.Serializable {
 	private static final long serialVersionUID = -5289888544046385634L;
 	
-	@ApiModelProperty(notes = "編號", required = true)
+	@ApiModelProperty(name = "key", value = "編號", required = true, dataType = "string", position = 1)
 	private String key;
 	
-	@ApiModelProperty(notes = "訊息資料", required = true)
+	@ApiModelProperty(name = "msg", value = "訊息資料", required = true, dataType = "string", position = 2)
 	private String msg;
 	
 	public String getKey() {
