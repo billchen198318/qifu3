@@ -22,6 +22,7 @@
 package org.qifu.core.controller;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 
 import org.qifu.base.Constants;
 import org.qifu.base.controller.BaseControllerSupport;
@@ -35,7 +36,9 @@ import org.springframework.web.bind.annotation.ResponseBody;
 public class ConfigJsController extends BaseControllerSupport {
 	
 	@RequestMapping(value = "/configJs.js", method = RequestMethod.GET)
-	public @ResponseBody String execute(HttpServletRequest request) {
+	public @ResponseBody String execute(HttpServletRequest request, HttpServletResponse response) {
+		response.setContentType("application/javascript");
+		response.setCharacterEncoding(Constants.BASE_ENCODING);		
 		StringBuilder sb = new StringBuilder();
 		sb.append("var _qifu_delimiter='").append(Constants.ID_DELIMITER).append("';").append("\n");
 		sb.append("var _qifu_inputNameDelimiter='").append(Constants.INPUT_NAME_DELIMITER).append("';").append("\n");
