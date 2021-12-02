@@ -39,7 +39,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
+//import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -64,7 +64,7 @@ public class HelloApiController extends CoreApiSupport {
 	@ApiImplicitParams({
 		@ApiImplicitParam(name = "key", value = "編號", required = true, dataType = "string")
 	})
-	@ResponseBody
+	//@ResponseBody
 	@DeleteMapping("/delPlay")
 	public String delPlay(String key) {
 		String flag = YesNo.NO;
@@ -78,7 +78,7 @@ public class HelloApiController extends CoreApiSupport {
 	}
 	
 	@ApiOperation(value="測試", notes="測試用的接口", authorizations={ @Authorization(value="Bearer") })
-	@ResponseBody
+	//@ResponseBody
 	@PostMapping(value = "/play", produces = {MediaType.APPLICATION_JSON_VALUE})
 	public QueryResult<String> play(@RequestBody TestModel data) {
 		QueryResult<String> result = this.initResult();
@@ -112,7 +112,7 @@ public class HelloApiController extends CoreApiSupport {
 	@ApiImplicitParams({
 		@ApiImplicitParam(name = "id", value = "編號", required = true, dataType = "string")
 	})
-	@ResponseBody
+	//@ResponseBody
 	@GetMapping(value = "/testPV/{id}")
 	public QueryResult<String> testPV(@PathVariable String id) {
 		QueryResult<String> result = this.initResult();

@@ -32,7 +32,7 @@ import org.qifu.core.util.CoreApiSupport;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
+//import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import io.swagger.annotations.Api;
@@ -64,7 +64,7 @@ public class ClientApiController extends CoreApiSupport {
 		@ApiImplicitParam(name = "userId", value = "user no/id", required = true, dataType = "string"),
 		@ApiImplicitParam(name = "clientId", value = "client no/id", required = true, dataType = "string")
 	})
-	@ResponseBody
+	//@ResponseBody
 	@PostMapping("/client")
 	public QueryResult<String> client(String programId, String userId, String clientId) {
 		QueryResult<String> result = this.initResult();
