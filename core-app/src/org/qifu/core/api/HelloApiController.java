@@ -34,6 +34,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -103,6 +105,20 @@ public class HelloApiController extends CoreApiSupport {
 			e.printStackTrace();
 			this.noSuccessResult(result, e);
 		}
+		return result;
+	}
+	
+	@ApiOperation(value="測試2", notes="測試用的接口2", authorizations={ @Authorization(value="Bearer") })
+	@ApiImplicitParams({
+		@ApiImplicitParam(name = "id", value = "編號", required = true, dataType = "string")
+	})
+	@ResponseBody
+	@GetMapping(value = "/testPV/{id}")
+	public QueryResult<String> testPV(@PathVariable String id) {
+		QueryResult<String> result = this.initResult();
+		result.setValue(id);
+		result.setMessage( "hello." );
+		result.setSuccess( YES );
 		return result;
 	}
 	
