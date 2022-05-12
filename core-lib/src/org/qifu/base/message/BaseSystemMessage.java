@@ -21,18 +21,12 @@
  */
 package org.qifu.base.message;
 
-import java.io.IOException;
-import java.io.InputStream;
 import java.util.HashMap;
-import java.util.LinkedHashMap;
 import java.util.Map;
 
-import org.apache.commons.io.IOUtils;
 import org.apache.commons.lang3.StringUtils;
-import org.qifu.base.Constants;
 import org.qifu.base.SysMsgConstants;
-
-import com.fasterxml.jackson.databind.ObjectMapper;
+import org.qifu.util.LoadResources;
 
 public class BaseSystemMessage implements java.io.Serializable {
 	private static final long serialVersionUID = -4317284943704877962L;
@@ -41,16 +35,10 @@ public class BaseSystemMessage implements java.io.Serializable {
 	
 	private static Map<String, Object> messageMap = null;
 	
-	private static String _messageDatas = " { } ";
-	
 	static {
 		try {
-			InputStream is = BaseSystemMessage.class.getClassLoader().getResource( _CONFIG ).openStream();
-			_messageDatas = IOUtils.toString(is, Constants.BASE_ENCODING);
-			is.close();
-			is = null;
-			messageMap = loadDatas();
-		} catch (IOException e) {
+			messageMap = LoadResources.objectMapperReadValue(_CONFIG, HashMap.class, BaseSystemMessage.class);
+		} catch (Exception e) {
 			e.printStackTrace();
 		} finally {
 			if (null==messageMap) {
@@ -58,17 +46,6 @@ public class BaseSystemMessage implements java.io.Serializable {
 			}
 		}
 	}
-	
-	@SuppressWarnings("unchecked")
-	private static Map<String, Object> loadDatas() {
-		Map<String, Object> datas = null;
-		try {
-			datas = (Map<String, Object>)new ObjectMapper().readValue( _messageDatas, LinkedHashMap.class );
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-		return datas;
-	}	
 	
 	private static String getMessage(String code) {
 		String msg = (String) messageMap.get(code);

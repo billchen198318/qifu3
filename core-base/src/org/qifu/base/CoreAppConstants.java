@@ -43,17 +43,10 @@ public class CoreAppConstants {
 	
 	private static Map<String, Object> excludePathPatternsMap = null;
 	
-	//private static String _excludePathPatternsDatas = " { } ";	
-	
 	private static String excludePathPatternsArray[] = null;
 	
 	static {
 		try {
-//			InputStream is = Constants.class.getClassLoader().getResource( _CONFIG_ExcludePathPatterns ).openStream();
-//			_excludePathPatternsDatas = IOUtils.toString(is, Constants.BASE_ENCODING);
-//			is.close();
-//			is = null;
-//			excludePathPatternsMap = loadDatas();
 			excludePathPatternsMap = LoadResources.objectMapperReadValue(_CONFIG_ExcludePathPatterns, HashMap.class, CoreAppConstants.class);
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -63,17 +56,6 @@ public class CoreAppConstants {
 			}
 		}
 	}
-	
-//	@SuppressWarnings("unchecked")
-//	private static Map<String, Object> loadDatas() {
-//		Map<String, Object> datas = null;
-//		try {
-//			datas = (Map<String, Object>)new ObjectMapper().readValue( _excludePathPatternsDatas, LinkedHashMap.class );
-//		} catch (Exception e) {
-//			e.printStackTrace();
-//		}
-//		return datas;
-//	}	
 	
 	public static final String [] WebConfig_resource = {
 			"/webjars/**",
