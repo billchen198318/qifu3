@@ -21,19 +21,14 @@
  */
 package org.qifu.base;
 
-import java.io.IOException;
-import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
-import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.stream.Stream;
 
-import org.apache.commons.io.IOUtils;
-
-import com.fasterxml.jackson.databind.ObjectMapper;
+import org.qifu.util.LoadResources;
 
 public class CoreAppConstants {
 	
@@ -48,18 +43,19 @@ public class CoreAppConstants {
 	
 	private static Map<String, Object> excludePathPatternsMap = null;
 	
-	private static String _excludePathPatternsDatas = " { } ";	
+	//private static String _excludePathPatternsDatas = " { } ";	
 	
 	private static String excludePathPatternsArray[] = null;
 	
 	static {
 		try {
-			InputStream is = Constants.class.getClassLoader().getResource( _CONFIG_ExcludePathPatterns ).openStream();
-			_excludePathPatternsDatas = IOUtils.toString(is, Constants.BASE_ENCODING);
-			is.close();
-			is = null;
-			excludePathPatternsMap = loadDatas();
-		} catch (IOException e) {
+//			InputStream is = Constants.class.getClassLoader().getResource( _CONFIG_ExcludePathPatterns ).openStream();
+//			_excludePathPatternsDatas = IOUtils.toString(is, Constants.BASE_ENCODING);
+//			is.close();
+//			is = null;
+//			excludePathPatternsMap = loadDatas();
+			excludePathPatternsMap = LoadResources.objectMapperReadValue(_CONFIG_ExcludePathPatterns, HashMap.class, CoreAppConstants.class);
+		} catch (Exception e) {
 			e.printStackTrace();
 		} finally {
 			if (null==excludePathPatternsMap) {
@@ -68,16 +64,16 @@ public class CoreAppConstants {
 		}
 	}
 	
-	@SuppressWarnings("unchecked")
-	private static Map<String, Object> loadDatas() {
-		Map<String, Object> datas = null;
-		try {
-			datas = (Map<String, Object>)new ObjectMapper().readValue( _excludePathPatternsDatas, LinkedHashMap.class );
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-		return datas;
-	}	
+//	@SuppressWarnings("unchecked")
+//	private static Map<String, Object> loadDatas() {
+//		Map<String, Object> datas = null;
+//		try {
+//			datas = (Map<String, Object>)new ObjectMapper().readValue( _excludePathPatternsDatas, LinkedHashMap.class );
+//		} catch (Exception e) {
+//			e.printStackTrace();
+//		}
+//		return datas;
+//	}	
 	
 	public static final String [] WebConfig_resource = {
 			"/webjars/**",
