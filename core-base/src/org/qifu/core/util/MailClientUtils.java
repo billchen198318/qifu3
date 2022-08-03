@@ -101,7 +101,14 @@ public class MailClientUtils {
 		MimeMessageHelper helper = new MimeMessageHelper(message, true, Constants.BASE_ENCODING);
 		message.getSession().setDebug( springMailSessionConfigProperties.enableDebug() );
 		helper.setFrom(from);
-		helper.setTo( to.endsWith(";") ? to.substring(0, to.length()-1) : to );
+		//helper.setTo( to.endsWith(";") ? to.substring(0, to.length()-1) : to );
+		String tos[] = to.split(Constants.DEFAULT_SPLIT_DELIMITER);
+		for (String t : tos) {
+			t = StringUtils.deleteWhitespace(StringUtils.defaultString(t));
+			if (StringUtils.defaultString(t).length() > 0) {
+				helper.addTo(t);
+			}
+		}
 		helper.setSubject(subject);
 		helper.setText(text, true);
 		if (null!=cc && cc.length>0) {
