@@ -21,6 +21,9 @@
  */
 package org.qifu.core.config;
 
+import javax.sql.DataSource;
+
+import org.qifu.base.Constants;
 import org.qifu.base.CoreAppConstants;
 import org.qifu.base.service.impl.BaseUserDetailsService;
 import org.qifu.core.support.BaseAuthenticationSuccessHandler;
@@ -28,11 +31,18 @@ import org.qifu.core.support.BaseLoginUrlAuthenticationEntryPoint;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.authentication.AuthenticationProvider;
+import org.springframework.security.authentication.RememberMeAuthenticationProvider;
+import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.security.web.authentication.rememberme.JdbcTokenRepositoryImpl;
+import org.springframework.security.web.authentication.rememberme.PersistentTokenBasedRememberMeServices;
+import org.springframework.security.web.authentication.rememberme.PersistentTokenRepository;
 import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 
 @Configuration
@@ -45,12 +55,15 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     
     @Autowired
     BaseAuthenticationSuccessHandler baseAuthenticationSuccessHandler;
+    
+    @Autowired
+    DataSource dataSource;
 
     @Bean
     PasswordEncoder passwordEncoder(){
         return new BCryptPasswordEncoder();
     }
-	
+    
     @Override
     protected void configure(HttpSecurity http) throws Exception {
     	//http.cors().configurationSource(request -> new CorsConfiguration().applyPermitDefaultValues());
@@ -62,14 +75,55 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .permitAll()
                 //.defaultSuccessUrl("/index", true)
                 .successHandler(baseAuthenticationSuccessHandler)
+                
+                // ------------------------------------------------------------
+                // for rember-me use , 2023-01-07 add
+                .and() 
+                .rememberMe() 
+                .key("uniqueAndSecret") 
+                .alwaysRemember(true)
+                .tokenRepository(persistentTokenRepository()) 
+                .tokenValiditySeconds( getTokenValiditySeconds() ) 
+                //.rememberMeCookieName( Constants.APP_SITE_CURRENTID_COOKIE_NAME )
+                .userDetailsService(baseUserDetailsService)
+                .authenticationSuccessHandler(baseAuthenticationSuccessHandler)
+                // ------------------------------------------------------------
+                
                 .and()
                 .authorizeRequests()
-                .antMatchers( CoreAppConstants.getWebConfiginterceptorExcludePathPatterns() )
+                .antMatchers( CoreAppConstants.getWebConfiginterceptorExcludePathPatterns() )                
                 .permitAll()
                 .anyRequest()
                 .authenticated();
     	http.exceptionHandling().authenticationEntryPoint(new BaseLoginUrlAuthenticationEntryPoint( CoreAppConstants.SYS_PAGE_LOGIN ));
     	//http.sessionManagement().invalidSessionUrl( CoreAppConstants.SYS_PAGE_TAB_LOGIN_AGAIN );
+    }
+    
+    // for rember-me use , 2023-01-07 add
+    @Bean
+    PersistentTokenBasedRememberMeServices persistentTokenBasedRememberMeServices() {
+        PersistentTokenBasedRememberMeServices p =
+                new PersistentTokenBasedRememberMeServices(
+                        "uniqueAndSecret",
+                        baseUserDetailsService,
+                        persistentTokenRepository()
+                );
+        //p.setCookieName( Constants.APP_SITE_CURRENTID_COOKIE_NAME );
+        p.setTokenValiditySeconds( getTokenValiditySeconds() );
+        return p;
+    }    
+    
+    // for rember-me use , 2023-01-07 add
+    @Bean
+    public PersistentTokenRepository persistentTokenRepository() {
+        JdbcTokenRepositoryImpl persistentTokenRepository = new JdbcTokenRepositoryImpl();
+        persistentTokenRepository.setDataSource(dataSource);
+        return persistentTokenRepository;
+    }    
+    
+    // for rember-me use , 2023-01-07 add
+    private int getTokenValiditySeconds() {
+    	return 86400 * 30;
     }
     
     /*

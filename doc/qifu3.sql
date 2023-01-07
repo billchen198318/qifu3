@@ -863,6 +863,19 @@ LOCK TABLES `tb_user_role` WRITE;
 INSERT INTO `tb_user_role` VALUES ('1c62cf70-ca6b-4243-8aa9-49b555024c45','COMMON01','steven','','admin','2017-05-10 14:19:58',NULL,NULL),('9243c7de-43b1-46ef-ac4b-2620697f319e','admin','admin','Administrator','admin','2014-09-23 00:00:00',NULL,NULL),('bd7bf78c-d84b-4524-8273-273f883d30b5','COMMON01','tester','','admin','2017-05-10 11:01:50',NULL,NULL),('da0c0462-4bf7-417b-99da-fc2e378a5ccc','COMMON01','tiffany','','admin','2017-05-10 11:01:43',NULL,NULL);
 /*!40000 ALTER TABLE `tb_user_role` ENABLE KEYS */;
 UNLOCK TABLES;
+
+
+
+CREATE TABLE `persistent_logins`(
+    `username` char(64) NOT NULL,
+    `series` char(64) NOT NULL,
+    `token` char(64) NOT NULL,
+    `last_used` TIMESTAMP NOT NULL,
+    PRIMARY KEY (`series`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;     
+
+
+
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
 
 /*!40101 SET SQL_MODE=@OLD_SQL_MODE */;
