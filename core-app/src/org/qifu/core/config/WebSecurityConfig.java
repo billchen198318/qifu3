@@ -23,18 +23,15 @@ package org.qifu.core.config;
 
 import javax.sql.DataSource;
 
-import org.qifu.base.Constants;
 import org.qifu.base.CoreAppConstants;
+import org.qifu.base.model.YesNo;
+import org.qifu.base.properties.BaseInfoConfigProperties;
 import org.qifu.base.service.impl.BaseUserDetailsService;
 import org.qifu.core.support.BaseAuthenticationSuccessHandler;
 import org.qifu.core.support.BaseLoginUrlAuthenticationEntryPoint;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.security.authentication.AuthenticationManager;
-import org.springframework.security.authentication.AuthenticationProvider;
-import org.springframework.security.authentication.RememberMeAuthenticationProvider;
-import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
@@ -58,6 +55,9 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     
     @Autowired
     DataSource dataSource;
+    
+    @Autowired
+    BaseInfoConfigProperties baseInfoConfigProperties;
 
     @Bean
     PasswordEncoder passwordEncoder(){
@@ -75,26 +75,28 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .permitAll()
                 //.defaultSuccessUrl("/index", true)
                 .successHandler(baseAuthenticationSuccessHandler)
-                
-                // ------------------------------------------------------------
-                // for rember-me use , 2023-01-07 add
-                .and() 
-                .rememberMe() 
-                .key("uniqueAndSecret") 
-                .alwaysRemember(true)
-                .tokenRepository(persistentTokenRepository()) 
-                .tokenValiditySeconds( getTokenValiditySeconds() ) 
-                //.rememberMeCookieName( Constants.APP_SITE_CURRENTID_COOKIE_NAME )
-                .userDetailsService(baseUserDetailsService)
-                .authenticationSuccessHandler(baseAuthenticationSuccessHandler)
-                // ------------------------------------------------------------
-                
                 .and()
                 .authorizeRequests()
                 .antMatchers( CoreAppConstants.getWebConfiginterceptorExcludePathPatterns() )                
                 .permitAll()
                 .anyRequest()
                 .authenticated();
+    	
+        // ------------------------------------------------------------
+        // for rember-me use , 2023-01-07 add
+        if (YesNo.YES.equals(this.baseInfoConfigProperties.getEnableAlwaysRememberMe())) {
+        	http
+            .rememberMe() 
+            .key(this.getRememberMeKeyName()) 
+            .alwaysRemember(true)
+            .tokenRepository(persistentTokenRepository()) 
+            .tokenValiditySeconds( getTokenValiditySeconds() ) 
+            //.rememberMeCookieName( Constants.APP_SITE_CURRENTID_COOKIE_NAME )
+            .userDetailsService(baseUserDetailsService)
+            .authenticationSuccessHandler(baseAuthenticationSuccessHandler);
+        }
+        // ------------------------------------------------------------
+            	
     	http.exceptionHandling().authenticationEntryPoint(new BaseLoginUrlAuthenticationEntryPoint( CoreAppConstants.SYS_PAGE_LOGIN ));
     	//http.sessionManagement().invalidSessionUrl( CoreAppConstants.SYS_PAGE_TAB_LOGIN_AGAIN );
     }
@@ -104,7 +106,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     PersistentTokenBasedRememberMeServices persistentTokenBasedRememberMeServices() {
         PersistentTokenBasedRememberMeServices p =
                 new PersistentTokenBasedRememberMeServices(
-                        "uniqueAndSecret",
+                        this.getRememberMeKeyName(),
                         baseUserDetailsService,
                         persistentTokenRepository()
                 );
@@ -123,7 +125,11 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     
     // for rember-me use , 2023-01-07 add
     private int getTokenValiditySeconds() {
-    	return 86400 * 30;
+    	return 86400 * 7;
+    }
+    
+    private String getRememberMeKeyName() {
+    	return "uniqueAndSecret";
     }
     
     /*

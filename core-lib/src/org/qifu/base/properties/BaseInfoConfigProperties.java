@@ -48,6 +48,8 @@ public class BaseInfoConfigProperties {
 	
 	private String enableServiceAuthChecLog; // 是否開啟 ServiceAuthorityCheckAspect 的 log 至 TB_SYS_EVENT_LOG
 	
+	private String enableAlwaysRememberMe; // 是否啟用 alwaysRemember
+	
 	public String getErrorContact() {
 		return errorContact;
 	}
@@ -118,6 +120,14 @@ public class BaseInfoConfigProperties {
 
 	public void setEnableServiceAuthChecLog(String enableServiceAuthChecLog) {
 		this.enableServiceAuthChecLog = enableServiceAuthChecLog;
+	}
+
+	public String getEnableAlwaysRememberMe() {
+		return enableAlwaysRememberMe;
+	}
+
+	public void setEnableAlwaysRememberMe(String enableAlwaysRememberMe) {
+		this.enableAlwaysRememberMe = enableAlwaysRememberMe;
 	}
 	
 }
