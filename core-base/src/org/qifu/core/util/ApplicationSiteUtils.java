@@ -26,8 +26,6 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import javax.servlet.http.HttpServletRequest;
-
 //import org.apache.commons.httpclient.HttpClient;
 //import org.apache.commons.httpclient.HttpMethod;
 //import org.apache.commons.httpclient.methods.GetMethod;
@@ -40,6 +38,8 @@ import org.qifu.base.AppContext;
 import org.qifu.base.exception.ServiceException;
 import org.qifu.core.entity.TbSys;
 import org.qifu.core.service.ISysService;
+
+import jakarta.servlet.http.HttpServletRequest;
 
 //import com.fasterxml.jackson.core.JsonParseException;
 //import com.fasterxml.jackson.databind.JsonMappingException;

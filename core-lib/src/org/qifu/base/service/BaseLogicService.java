@@ -27,7 +27,6 @@ import org.apache.commons.lang3.RegExUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.qifu.base.model.PleaseSelect;
 import org.qifu.base.util.UserLocalUtils;
-import org.qifu.util.OgnlContextDefaultMemberAccessBuildUtils;
 import org.qifu.util.SimpleUtils;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -70,7 +69,7 @@ public abstract class BaseLogicService {
 			return obj;
 		}
 		try {
-			Object value = Ognl.getValue(fieldName, OgnlContextDefaultMemberAccessBuildUtils.newOgnlContext(), obj);
+			Object value = Ognl.getValue(fieldName, obj);
 			if ( !(value instanceof String) ) {
 				return obj;
 			}
@@ -78,7 +77,7 @@ public abstract class BaseLogicService {
 				return obj;
 			}
 			value = ((String)value).substring(0, maxLength);
-			Ognl.setValue(fieldName, OgnlContextDefaultMemberAccessBuildUtils.newOgnlContext(), obj, value);
+			Ognl.setValue(fieldName, obj, value);
 		} catch (OgnlException e) {
 			e.printStackTrace();
 		}
@@ -90,7 +89,7 @@ public abstract class BaseLogicService {
 			return obj;
 		}
 		try {
-			Object value = Ognl.getValue(fieldName, OgnlContextDefaultMemberAccessBuildUtils.newOgnlContext(), obj);
+			Object value = Ognl.getValue(fieldName, obj);
 			if ( !(value instanceof String) ) {
 				return obj;
 			}
@@ -98,7 +97,7 @@ public abstract class BaseLogicService {
 				return obj;
 			}
 			value = ((String)value).replaceAll(split, "");
-			Ognl.setValue(fieldName, OgnlContextDefaultMemberAccessBuildUtils.newOgnlContext(), obj, value);
+			Ognl.setValue(fieldName, obj, value);
 		} catch (OgnlException e) {
 			e.printStackTrace();
 		}
@@ -107,13 +106,13 @@ public abstract class BaseLogicService {
 	
 	protected void replaceAll(Object obj, String variableName, String regex, String replacement) {
 		try {
-			Object val = Ognl.getValue(variableName, OgnlContextDefaultMemberAccessBuildUtils.newOgnlContext(), obj);
+			Object val = Ognl.getValue(variableName, obj);
 			if (val == null) {
 				return;
 			}
 			String  str = (String) val;
 			str = RegExUtils.replaceAll(str, regex, replacement);
-			Ognl.setValue(variableName, OgnlContextDefaultMemberAccessBuildUtils.newOgnlContext(), obj, str);
+			Ognl.setValue(variableName, obj, str);
 		} catch (OgnlException e) {
 			e.printStackTrace();
 		} catch (Exception e) {

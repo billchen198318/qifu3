@@ -27,8 +27,6 @@ import java.util.Enumeration;
 import java.util.LinkedList;
 import java.util.List;
 
-import javax.servlet.http.HttpServletRequest;
-
 import org.apache.commons.collections.CollectionUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.lang3.math.NumberUtils;
@@ -53,13 +51,13 @@ import org.qifu.core.model.User;
 import org.qifu.core.util.ApplicationSiteUtils;
 import org.qifu.core.util.MenuSupportUtils;
 import org.qifu.core.util.UserUtils;
-import org.qifu.util.OgnlContextDefaultMemberAccessBuildUtils;
 import org.qifu.util.SimpleUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.context.request.RequestContextHolder;
 import org.springframework.web.context.request.ServletRequestAttributes;
 
+import jakarta.servlet.http.HttpServletRequest;
 import ognl.Ognl;
 import ognl.OgnlException;
 
@@ -416,7 +414,7 @@ public abstract class BaseControllerSupport {
 			String key = pNames.nextElement();
 			Object value = request.getParameter(key);
 			try {
-				Ognl.setValue(key, OgnlContextDefaultMemberAccessBuildUtils.newOgnlContext(), root, value);
+				Ognl.setValue(key, root, value);
 			} catch (OgnlException e) {
 				//e.printStackTrace();
 			}

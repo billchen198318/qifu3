@@ -35,12 +35,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 //import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
-import io.swagger.annotations.Api;
-import io.swagger.annotations.ApiImplicitParam;
-import io.swagger.annotations.ApiImplicitParams;
-import io.swagger.annotations.ApiOperation;
-
-@Api(tags = {"Get client info."}, description = "For Client get an access token.")
 @RestController
 @RequestMapping(value = "/api")
 public class ClientApiController extends CoreApiSupport {
@@ -50,21 +44,6 @@ public class ClientApiController extends CoreApiSupport {
 	@Autowired
 	ISysCodeService<TbSysCode, String> sysCodeService;
 	
-	/**
-	 * SELECT * FROM tb_sys_code WHERE CODE = '9TYM7TRuILqFk9XoR0v6Yx672'
-	 * 
-	 * @param programId		PROG001
-	 * @param userId		tester
-	 * @param clientId		9TYM7TRuILqFk9XoR0v6Yx672
-	 * @return
-	 */
-	@ApiOperation(value="Client", notes="Info")
-	@ApiImplicitParams({
-		@ApiImplicitParam(name = "programId", value = "program no/id", required = true, dataType = "string"),
-		@ApiImplicitParam(name = "userId", value = "user no/id", required = true, dataType = "string"),
-		@ApiImplicitParam(name = "clientId", value = "client no/id", required = true, dataType = "string")
-	})
-	//@ResponseBody
 	@PostMapping("/client")
 	public QueryResult<String> client(String programId, String userId, String clientId) {
 		QueryResult<String> result = this.initResult();

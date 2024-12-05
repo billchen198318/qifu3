@@ -2,14 +2,14 @@
 <!DOCTYPE generatorConfiguration PUBLIC "-//mybatis.org//DTD MyBatis Generator Configuration 1.0//EN" "http://mybatis.org/dtd/mybatis-generator-config_1_0.dtd">
 <generatorConfiguration>
 
-  <classPathEntry location="/mysql-connector-java-8.0.19.jar"/>
+  <classPathEntry location="/mariadb-java-client-3.2.0.jar"/>
 
   <context id="context1" targetRuntime="MyBatis3">
-    <jdbcConnection connectionURL="jdbc:mysql://localhost/qifu3?serverTimezone=UTC" driverClass="com.mysql.cj.jdbc.Driver" userId="root" password="password" />
-    <javaModelGenerator targetPackage="org.qifu.core.entity" targetProject="myBatisGenerator" />
-    <sqlMapGenerator targetPackage="org.qifu.core.mapper" targetProject="myBatisGenerator" />
-    <javaClientGenerator targetPackage="org.qifu.core.mapper" targetProject="myBatisGenerator" type="XMLMAPPER" />
-    <table schema="" tableName="tb_sys_prog">
+    <jdbcConnection connectionURL="jdbc:mariadb://localhost/orrs?useUnicode=true;" driverClass="org.mariadb.jdbc.Driver" userId="root" password="password" />
+    <javaModelGenerator targetPackage=org.orrs.entity" targetProject="myBatisGenerator" />
+    <sqlMapGenerator targetPackage="org.orrs.mapper" targetProject="myBatisGenerator" />
+    <javaClientGenerator targetPackage="org.orrs.mapper" targetProject="myBatisGenerator" type="XMLMAPPER" />
+    <table schema="" tableName="tb_orrs_command">
     </table>
   </context>
   

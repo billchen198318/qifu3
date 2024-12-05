@@ -26,8 +26,6 @@ import java.util.HashMap;
 import java.util.LinkedHashMap;
 import java.util.Map;
 
-import javax.servlet.http.HttpServletRequest;
-
 import org.apache.commons.lang3.StringUtils;
 import org.qifu.ui.ComponentResourceUtils;
 import org.qifu.ui.UIComponent;
@@ -37,6 +35,8 @@ import org.springframework.web.context.request.ServletRequestAttributes;
 import com.fasterxml.jackson.core.JsonParseException;
 import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
+
+import jakarta.servlet.http.HttpServletRequest;
 
 public class Select implements UIComponent {
 	private static final String _HTML_RES = "META-INF/resource/select/ui.select.htm.ftl";

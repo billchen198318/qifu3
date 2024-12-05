@@ -42,7 +42,6 @@ import org.qifu.core.entity.TbSysTemplateParam;
 import org.qifu.core.model.TemplateResultObj;
 import org.qifu.core.service.ISysTemplateParamService;
 import org.qifu.core.service.ISysTemplateService;
-import org.qifu.util.OgnlContextDefaultMemberAccessBuildUtils;
 
 import freemarker.cache.StringTemplateLoader;
 import freemarker.template.Configuration;
@@ -94,11 +93,11 @@ public class TemplateUtils {
 		for (TbSysTemplateParam sysTemplateParam : sysTemplateParamList) {
 			if (IS_TITLE.equals(type) ) {
 				if ( YesNo.YES.equals(sysTemplateParam.getIsTitle()) ) {
-					params.put(sysTemplateParam.getTemplateVar(), Ognl.getValue(sysTemplateParam.getObjectVar(), OgnlContextDefaultMemberAccessBuildUtils.newOgnlContext(), dataObj) );
+					params.put(sysTemplateParam.getTemplateVar(), Ognl.getValue(sysTemplateParam.getObjectVar(), dataObj) );
 				}
 			} else { // message
 				if ( !YesNo.YES.equals(sysTemplateParam.getIsTitle()) ) {
-					params.put(sysTemplateParam.getTemplateVar(), Ognl.getValue(sysTemplateParam.getObjectVar(), OgnlContextDefaultMemberAccessBuildUtils.newOgnlContext(), dataObj) );
+					params.put(sysTemplateParam.getTemplateVar(), Ognl.getValue(sysTemplateParam.getObjectVar(), dataObj) );
 				}				
 			}
 		}

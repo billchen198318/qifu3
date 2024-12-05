@@ -23,9 +23,6 @@ package org.qifu.core.interceptor;
 
 import java.util.Map;
 
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-
 import org.apache.commons.lang3.StringUtils;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -39,8 +36,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.servlet.HandlerInterceptor;
 import org.springframework.web.servlet.ModelAndView;
 
-import com.auth0.jwt.impl.PublicClaims;
 import com.auth0.jwt.interfaces.Claim;
+
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletResponse;
 
 public class UserBuilderInterceptor implements HandlerInterceptor {
 	
@@ -65,7 +64,7 @@ public class UserBuilderInterceptor implements HandlerInterceptor {
 		}
 		Map<String, Claim> claimToken = TokenBuilderUtils.verifyToken(authorization.replaceFirst(Constants.TOKEN_PREFIX, "").replaceAll(" ", ""));
 		if (TokenBuilderUtils.existsInfo(claimToken)) {
-			String clientId = StringUtils.defaultString( claimToken.get(PublicClaims.AUDIENCE).asString() );
+			String clientId = StringUtils.defaultString( claimToken.get("aud").asString() );
 			String roleIds = "";
 			TbSysCode sysCode = new TbSysCode();
 			sysCode.setCode(clientId);

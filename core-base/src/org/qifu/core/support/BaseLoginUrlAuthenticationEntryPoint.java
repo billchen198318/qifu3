@@ -23,15 +23,15 @@ package org.qifu.core.support;
 
 import java.io.IOException;
 
-import javax.servlet.ServletException;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-
 import org.qifu.base.Constants;
 import org.qifu.base.CoreAppConstants;
 import org.qifu.base.model.YesNo;
 import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.web.authentication.LoginUrlAuthenticationEntryPoint;
+
+import jakarta.servlet.ServletException;
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletResponse;
 
 public class BaseLoginUrlAuthenticationEntryPoint extends LoginUrlAuthenticationEntryPoint {
 

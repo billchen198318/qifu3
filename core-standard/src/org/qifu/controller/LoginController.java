@@ -21,12 +21,12 @@
  */
 package org.qifu.controller;
 
-import javax.servlet.http.HttpServletRequest;
-
 import org.qifu.base.controller.BaseControllerSupport;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.RequestMapping;
+
+import jakarta.servlet.http.HttpServletRequest;
 
 @Controller
 public class LoginController extends BaseControllerSupport {

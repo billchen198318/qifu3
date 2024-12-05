@@ -31,7 +31,6 @@ import java.util.Map;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.lang3.math.NumberUtils;
 import org.qifu.base.Constants;
-import org.qifu.util.OgnlContextDefaultMemberAccessBuildUtils;
 
 import ognl.Ognl;
 import ognl.OgnlException;
@@ -56,7 +55,7 @@ public class QueryParamBuilder {
 	private Object doExpression(String expression) {
 		Object val = null;
 		try {
-			val = Ognl.getValue(expression, OgnlContextDefaultMemberAccessBuildUtils.newOgnlContext(), this.searchBody.getField());
+			val = Ognl.getValue(expression, this.searchBody.getField());
 		} catch (OgnlException e) {
 			e.printStackTrace();
 		}

@@ -25,12 +25,12 @@ import java.util.Enumeration;
 import java.util.HashMap;
 import java.util.Map;
 
-import javax.servlet.http.HttpServletRequest;
-
 import org.apache.commons.text.StringEscapeUtils;
-import org.qifu.util.OgnlContextDefaultMemberAccessBuildUtils;
 import org.springframework.web.context.request.RequestAttributes;
 import org.springframework.web.context.request.ServletRequestAttributes;
+
+import jakarta.servlet.http.HttpServletRequest;
+
 import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.lang3.math.NumberUtils;
 
@@ -144,7 +144,7 @@ public class UIComponentValueUtils {
 		}
 		Object val = null;
 		try {
-			val = Ognl.getValue(expression, OgnlContextDefaultMemberAccessBuildUtils.newOgnlContext(), ognlRoot);
+			val = Ognl.getValue(expression, ognlRoot);
 		} catch (OgnlException e) {
 			//e.printStackTrace();
 		}
@@ -167,7 +167,7 @@ public class UIComponentValueUtils {
 		}
 		Object val = null;
 		try {
-			val = Ognl.getValue(expression, OgnlContextDefaultMemberAccessBuildUtils.newOgnlContext(), ognlRoot);
+			val = Ognl.getValue(expression, ognlRoot);
 		} catch (OgnlException e) {
 			//e.printStackTrace();
 		}

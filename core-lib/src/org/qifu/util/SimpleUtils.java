@@ -41,7 +41,6 @@ import java.util.Map;
 import java.util.Random;
 
 import javax.imageio.ImageIO;
-import javax.servlet.http.HttpServletRequest;
 import javax.xml.bind.DatatypeConverter;
 
 import org.apache.commons.codec.DecoderException;
@@ -50,8 +49,7 @@ import org.apache.commons.lang3.StringUtils;
 import org.apache.poi.hssf.usermodel.HSSFWorkbook;
 import org.apache.poi.openxml4j.exceptions.InvalidFormatException;
 import org.apache.poi.openxml4j.opc.OPCPackage;
-import org.apache.poi.poifs.filesystem.DocumentFactoryHelper;
-import org.apache.poi.poifs.filesystem.POIFSFileSystem;
+import org.apache.poi.poifs.filesystem.FileMagic;
 import org.apache.poi.ss.usermodel.Workbook;
 import org.apache.poi.xssf.usermodel.XSSFClientAnchor;
 import org.apache.poi.xssf.usermodel.XSSFDrawing;
@@ -64,6 +62,8 @@ import org.joda.time.Months;
 import org.joda.time.Years;
 
 import com.fasterxml.uuid.Generators;
+
+import jakarta.servlet.http.HttpServletRequest;
 
 public class SimpleUtils {
 	public static final int IS_YEAR=1;
@@ -531,14 +531,14 @@ public class SimpleUtils {
     	if(!inp.markSupported()) {
     		inp = new PushbackInputStream(inp, 8);
     	}
-    	if(POIFSFileSystem.hasPOIFSHeader(inp)) {
+    	if (FileMagic.valueOf(inp) == FileMagic.OLE2) {
     		return new HSSFWorkbook(inp);
     	}
-    	if(DocumentFactoryHelper.hasOOXMLHeader(inp)) {
+    	if (FileMagic.valueOf(inp) == FileMagic.OOXML) {
     		return new XSSFWorkbook(OPCPackage.open(inp));
-        }
+    	}
     	throw new IllegalArgumentException("Your InputStream was neither an OLE2 stream, nor an OOXML stream");
-    }    
+    }   
     
 	public static void setCellPicture(XSSFWorkbook wb, XSSFSheet sh, byte[] iconBytes, int row, int col) throws Exception {
         int myPictureId = wb.addPicture(iconBytes, XSSFWorkbook.PICTURE_TYPE_PNG);

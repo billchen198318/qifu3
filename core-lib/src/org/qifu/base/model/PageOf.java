@@ -27,12 +27,12 @@ import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.lang3.math.NumberUtils;
 import org.qifu.base.Constants;
 
-import io.swagger.annotations.ApiParam;
+import io.swagger.v3.oas.annotations.Parameter;
 
 public class PageOf implements java.io.Serializable {
 	private static final long serialVersionUID = -3060749245195776228L;
 	
-	@ApiParam(hidden = true)
+	@Parameter(hidden = true)
 	public static final int Rows[]={10, 20, 30, 50, 75, 100}; // 要配合 ui.grid.htm.flt
 	
 	private String countSize="0"; // count record 頁面grid資料count的筆數
@@ -129,7 +129,7 @@ public class PageOf implements java.io.Serializable {
 		return org.apache.commons.lang3.math.NumberUtils.toInt(str);
 	}
 	
-	@ApiParam(hidden = true)
+	@Parameter(hidden = true)
 	public void toCalculateSize() {		
 		int _size=1;
 		int _showRow=this.getIntegerValue(this.getShowRow() );
@@ -151,7 +151,7 @@ public class PageOf implements java.io.Serializable {
 	 * 
 	 * @param currentStartRow
 	 */
-	@ApiParam(hidden = true)
+	@Parameter(hidden = true)
 	public void toCalculateSize(int currentStartRow) {
 		int _size=1;
 		int _showRow=this.getIntegerValue(this.getShowRow() );
@@ -215,7 +215,7 @@ public class PageOf implements java.io.Serializable {
 	 * sortType		如 ASC 或 DESC
 	 * @param queryParam
 	 */
-	@ApiParam(hidden = true)
+	@Parameter(hidden = true)
 	public Map<String, Object> setQueryOrderSortParameter(Map<String, Object> queryParam) {
 		if (queryParam == null) {
 			return queryParam;
@@ -233,6 +233,7 @@ public class PageOf implements java.io.Serializable {
 		return queryParam;
 	}
 	
+	@Parameter(hidden = true)
 	public PageOf orderBy(String orderBy) {
 		this.setOrderBy(orderBy);
 		return this;
@@ -243,17 +244,20 @@ public class PageOf implements java.io.Serializable {
 		return this;
 	}
 	
+	@Parameter(hidden = true)
 	public PageOf sortTypeAsc() {
 		this.sortBy( SortType.ASC );
 		return this;
 	}
 	
+	@Parameter(hidden = true)
 	public PageOf sortTypeDesc() {
 		this.sortBy( SortType.DESC );
 		return this;
 	}	
 	
 	// for postgresql, ex: SELECT * FROM "tb_prog" ORDER BY "PROG_ID", "NAME" ASC
+	@Parameter(hidden = true)
 	public PageOf andFieldWrap() {
 		if (StringUtils.isBlank(this.orderBy)) {
 			return this;

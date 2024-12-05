@@ -44,13 +44,6 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 
-import io.swagger.annotations.Api;
-import io.swagger.annotations.ApiImplicitParam;
-import io.swagger.annotations.ApiImplicitParams;
-import io.swagger.annotations.ApiOperation;
-import io.swagger.annotations.Authorization;
-
-@Api(tags = {"TEST."}, description = "Test hello world.")
 @RestController
 @RequestMapping(value = "/api/hello")
 public class HelloApiController extends CoreApiSupport {
@@ -60,11 +53,6 @@ public class HelloApiController extends CoreApiSupport {
 	@Autowired
 	RedisTemplate<String, String> redisTemplate;
 	
-	@ApiOperation(value="測試del", notes="測試用的接口del", authorizations={ @Authorization(value="Bearer") })
-	@ApiImplicitParams({
-		@ApiImplicitParam(name = "key", value = "編號", required = true, dataType = "string")
-	})
-	//@ResponseBody
 	@DeleteMapping("/delPlay")
 	public String delPlay(String key) {
 		String flag = YesNo.NO;
@@ -77,8 +65,6 @@ public class HelloApiController extends CoreApiSupport {
 		return flag;
 	}
 	
-	@ApiOperation(value="測試", notes="測試用的接口", authorizations={ @Authorization(value="Bearer") })
-	//@ResponseBody
 	@PostMapping(value = "/play", produces = {MediaType.APPLICATION_JSON_VALUE})
 	public QueryResult<String> play(@RequestBody TestModel data) {
 		QueryResult<String> result = this.initResult();
@@ -108,11 +94,6 @@ public class HelloApiController extends CoreApiSupport {
 		return result;
 	}
 	
-	@ApiOperation(value="測試2", notes="測試用的接口2", authorizations={ @Authorization(value="Bearer") })
-	@ApiImplicitParams({
-		@ApiImplicitParam(name = "id", value = "編號", required = true, dataType = "string")
-	})
-	//@ResponseBody
 	@GetMapping(value = "/testPV/{id}")
 	public QueryResult<String> testPV(@PathVariable String id) {
 		QueryResult<String> result = this.initResult();

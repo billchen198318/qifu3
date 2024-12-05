@@ -21,8 +21,6 @@
  */
 package org.qifu.core.config;
 
-import javax.annotation.PostConstruct;
-
 import org.qifu.base.CoreAppConstants;
 import org.qifu.base.interceptor.MDCInterceptor;
 import org.qifu.core.directive.CoreUiDirectiveSimpleHash;
@@ -40,6 +38,8 @@ import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry
 import org.springframework.web.servlet.config.annotation.ViewControllerRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 import org.springframework.web.servlet.view.freemarker.FreeMarkerConfigurer;
+
+import jakarta.annotation.PostConstruct;
 
 @Configuration
 @EnableWebMvc

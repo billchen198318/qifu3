@@ -23,8 +23,6 @@ package org.qifu.core.util;
 
 import java.io.File;
 
-import javax.mail.internet.MimeMessage;
-
 import org.apache.commons.lang3.StringUtils;
 import org.qifu.base.AppContext;
 import org.qifu.base.Constants;
@@ -32,6 +30,8 @@ import org.qifu.base.properties.SpringMailSessionConfigProperties;
 import org.springframework.mail.MailException;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.mail.javamail.MimeMessageHelper;
+
+import jakarta.mail.internet.MimeMessage;
 
 public class MailClientUtils {
 	

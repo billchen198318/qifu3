@@ -32,20 +32,27 @@ import org.qifu.core.support.BaseLoginUrlAuthenticationEntryPoint;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.authentication.dao.DaoAuthenticationProvider;
+import org.springframework.security.config.Customizer;
+import org.springframework.security.config.annotation.authentication.configuration.AuthenticationConfiguration;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
-import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
+import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.rememberme.JdbcTokenRepositoryImpl;
 import org.springframework.security.web.authentication.rememberme.PersistentTokenBasedRememberMeServices;
 import org.springframework.security.web.authentication.rememberme.PersistentTokenRepository;
 import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 
+import static org.springframework.security.web.util.matcher.AntPathRequestMatcher.antMatcher;
+
 @Configuration
 @EnableWebMvc
 @EnableWebSecurity
-public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
+public class WebSecurityConfig {
 
     @Autowired
     BaseUserDetailsService baseUserDetailsService;
@@ -59,47 +66,99 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     @Autowired
     BaseInfoConfigProperties baseInfoConfigProperties;
 
-    @Bean
-    PasswordEncoder passwordEncoder(){
-        return new BCryptPasswordEncoder();
-    }
+    @Autowired
+    PasswordEncoder passwordEncoder;
     
-    @Override
-    protected void configure(HttpSecurity http) throws Exception {
-    	//http.cors().configurationSource(request -> new CorsConfiguration().applyPermitDefaultValues());
-    	http.headers().frameOptions().sameOrigin();
-    	http.cors().and().csrf().disable()
-                .formLogin()
-                .loginPage( CoreAppConstants.SYS_PAGE_LOGIN )
-                .loginProcessingUrl("/login")             
-                .permitAll()
-                //.defaultSuccessUrl("/index", true)
-                .successHandler(baseAuthenticationSuccessHandler)
-                .and()
-                .authorizeRequests()
-                .antMatchers( CoreAppConstants.getWebConfiginterceptorExcludePathPatterns() )                
-                .permitAll()
-                .anyRequest()
-                .authenticated();
+    @Bean
+    public AuthenticationManager authenticationManagerBean(AuthenticationConfiguration authenticationConfiguration) throws Exception {
+    	return authenticationConfiguration.getAuthenticationManager();
+    }    
+    
+    @Bean
+    public DaoAuthenticationProvider authenticationProvider() {
+        DaoAuthenticationProvider authProvider = new DaoAuthenticationProvider();
+        
+        authProvider.setUserDetailsService(this.baseUserDetailsService);
+        authProvider.setPasswordEncoder(this.passwordEncoder);
+        
+        return authProvider;
+    }        
+    
+    @Bean
+    protected SecurityFilterChain filterChain(HttpSecurity http) throws Exception {   
+    	http.cors(Customizer.withDefaults()).csrf(csrf -> csrf.disable())
+    		.sessionManagement( sessMgr -> sessMgr.sessionCreationPolicy(SessionCreationPolicy.STATELESS) )
+    		.authorizeHttpRequests(auth -> {
+    			//auth.requestMatchers(antMatcher(CoreAppConstants.SYS_PAGE_LOGIN)).permitAll();
+    			for (String par : CoreAppConstants.getWebConfiginterceptorExcludePathPatterns()) {
+    				auth.requestMatchers(antMatcher(par)).permitAll();
+    			}
+    			auth.anyRequest().authenticated();
+    	}).formLogin((form) -> form
+    			.loginPage(CoreAppConstants.SYS_PAGE_LOGIN)
+    			.loginProcessingUrl("/login")
+    			.successHandler(baseAuthenticationSuccessHandler)  	
+    			.successForwardUrl("/index")
+    			.permitAll()
+    	).logout((logout) -> logout.permitAll());
     	
-        // ------------------------------------------------------------
-        // for rember-me use , 2023-01-07 add
-        if (YesNo.YES.equals(this.baseInfoConfigProperties.getEnableAlwaysRememberMe())) {
-        	http
-            .rememberMe() 
-            .key(this.getRememberMeKeyName()) 
-            .alwaysRemember(true)
-            .tokenRepository(persistentTokenRepository()) 
-            .tokenValiditySeconds( getTokenValiditySeconds() ) 
-            //.rememberMeCookieName( Constants.APP_SITE_CURRENTID_COOKIE_NAME )
-            .userDetailsService(baseUserDetailsService)
-            .authenticationSuccessHandler(baseAuthenticationSuccessHandler);
-        }
-        // ------------------------------------------------------------
-            	
-    	http.exceptionHandling().authenticationEntryPoint(new BaseLoginUrlAuthenticationEntryPoint( CoreAppConstants.SYS_PAGE_LOGIN ));
-    	//http.sessionManagement().invalidSessionUrl( CoreAppConstants.SYS_PAGE_TAB_LOGIN_AGAIN );
-    }
+    	// ------------------------------------------------------------
+    	// for rember-me use , 2023-01-07 add
+    	if (YesNo.YES.equals(this.baseInfoConfigProperties.getEnableAlwaysRememberMe())) {
+    		http
+    			.rememberMe() 
+    			.key(this.getRememberMeKeyName()) 
+    			.alwaysRemember(true)
+    			.tokenRepository(persistentTokenRepository()) 
+    			.tokenValiditySeconds( getTokenValiditySeconds() ) 
+    			//.userDetailsService(baseUserDetailsService)
+    			.authenticationSuccessHandler(baseAuthenticationSuccessHandler);
+    	}
+    	// ------------------------------------------------------------    	
+		/*
+    	http.exceptionHandling(exeConfig -> {
+		    exeConfig.authenticationEntryPoint(new BaseLoginUrlAuthenticationEntryPoint( CoreAppConstants.SYS_PAGE_LOGIN ));
+		});
+		*/
+    	return http.build();
+    }    
+    
+//    @Bean
+//    protected SecurityFilterChain filterChain(HttpSecurity http) throws Exception {  
+//    	//http.cors().configurationSource(request -> new CorsConfiguration().applyPermitDefaultValues());
+//    	http.headers().frameOptions().sameOrigin();
+//    	http.cors().and().csrf().disable()
+//                .formLogin()
+//                .loginPage( CoreAppConstants.SYS_PAGE_LOGIN )
+//                .loginProcessingUrl("/login")             
+//                .permitAll()
+//                //.defaultSuccessUrl("/index", true)
+//                .successHandler(baseAuthenticationSuccessHandler)
+//                .and()
+//                .authorizeRequests()
+//                .antMatchers( CoreAppConstants.getWebConfiginterceptorExcludePathPatterns() )                
+//                .permitAll()
+//                .anyRequest()
+//                .authenticated();
+//    	
+//        // ------------------------------------------------------------
+//        // for rember-me use , 2023-01-07 add
+//        if (YesNo.YES.equals(this.baseInfoConfigProperties.getEnableAlwaysRememberMe())) {
+//        	http
+//            .rememberMe() 
+//            .key(this.getRememberMeKeyName()) 
+//            .alwaysRemember(true)
+//            .tokenRepository(persistentTokenRepository()) 
+//            .tokenValiditySeconds( getTokenValiditySeconds() ) 
+//            //.rememberMeCookieName( Constants.APP_SITE_CURRENTID_COOKIE_NAME )
+//            .userDetailsService(baseUserDetailsService)
+//            .authenticationSuccessHandler(baseAuthenticationSuccessHandler);
+//        }
+//        // ------------------------------------------------------------
+//            	
+//    	http.exceptionHandling().authenticationEntryPoint(new BaseLoginUrlAuthenticationEntryPoint( CoreAppConstants.SYS_PAGE_LOGIN ));
+//    	//http.sessionManagement().invalidSessionUrl( CoreAppConstants.SYS_PAGE_TAB_LOGIN_AGAIN );
+//    }
     
     // for rember-me use , 2023-01-07 add
     @Bean
@@ -131,22 +190,5 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     private String getRememberMeKeyName() {
     	return "uniqueAndSecret";
     }
-    
-    /*
-    @Bean
-    CorsConfigurationSource corsConfigurationSource() {
-        UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
-        CorsConfiguration configuration = new CorsConfiguration();
-        configuration.addAllowedOrigin("*");
-        configuration.addAllowedHeader("*");
-        configuration.addAllowedMethod("*");
-//        configuration.setAllowedOrigins(Arrays.asList("*"));
-//        configuration.setAllowedMethods(Arrays.asList("*"));
-//        configuration.setAllowedHeaders(Arrays.asList("*"));
-        configuration.setAllowCredentials(true);
-        source.registerCorsConfiguration("/**", configuration);
-        return source;
-    }
-    */
     
 }

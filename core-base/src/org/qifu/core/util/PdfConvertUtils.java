@@ -30,6 +30,7 @@ import java.util.List;
 import org.apache.commons.io.FileUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.lang3.math.NumberUtils;
+import org.apache.pdfbox.Loader;
 import org.apache.pdfbox.pdmodel.PDDocument;
 import org.apache.pdfbox.rendering.ImageType;
 import org.apache.pdfbox.rendering.PDFRenderer;
@@ -53,7 +54,7 @@ public class PdfConvertUtils {
 	}
 	
 	public static List<File> toImageFiles(File pdfFile, int resolution) throws Exception {
-		PDDocument document = PDDocument.load(pdfFile);		
+		PDDocument document = Loader.loadPDF(pdfFile);		
 		PDFRenderer pdfRenderer = new PDFRenderer(document);
 		/*
 		List<PDPage> pages = new LinkedList<PDPage>();

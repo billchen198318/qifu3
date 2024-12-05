@@ -1,5 +1,5 @@
 /* 
- * Copyright 2019-2021 qifu of copyright Chen Xin Nien
+ * Copyright 2019-2023 qifu of copyright Chen Xin Nien
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -19,15 +19,19 @@
  * contact: chen.xin.nien@gmail.com
  * 
  */
-package org.qifu.util;
+package org.qifu.core.config;
 
-import ognl.DefaultMemberAccess;
-import ognl.OgnlContext;
+import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Configuration;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.crypto.password.PasswordEncoder;
 
-public class OgnlContextDefaultMemberAccessBuildUtils {
-	
-	public static OgnlContext newOgnlContext() {
-		return new OgnlContext(null,null,new DefaultMemberAccess(true));
-	}
-	
+@Configuration
+public class AdditionConfig {
+    
+	@Bean
+    PasswordEncoder passwordEncoder(){
+        return new BCryptPasswordEncoder();
+    }
+    
 }

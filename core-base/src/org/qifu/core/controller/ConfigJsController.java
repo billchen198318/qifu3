@@ -21,9 +21,6 @@
  */
 package org.qifu.core.controller;
 
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-
 import org.qifu.base.Constants;
 import org.qifu.base.controller.BaseControllerSupport;
 import org.qifu.base.model.PageOf;
@@ -31,6 +28,9 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
+
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletResponse;
 
 @Controller
 public class ConfigJsController extends BaseControllerSupport {

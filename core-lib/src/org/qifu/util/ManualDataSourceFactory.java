@@ -52,7 +52,7 @@ public class ManualDataSourceFactory {
 			throw new Exception("url or user is required!");
 		}
 		DataSource ds = (DataSource)dataSourceClass.newInstance();
-		OgnlContext ognlContext = OgnlContextDefaultMemberAccessBuildUtils.newOgnlContext();
+		OgnlContext ognlContext = Ognl.createDefaultContext(null);
 		Ognl.setValue("url", ognlContext, ds, url);
 		Ognl.setValue("user", ognlContext, ds, user);
 		Ognl.setValue("password", ognlContext, ds, (null==password ? "" : password) );

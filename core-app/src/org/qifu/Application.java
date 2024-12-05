@@ -25,7 +25,6 @@ import java.sql.Connection;
 import java.sql.SQLException;
 import java.util.Arrays;
 
-import javax.annotation.Resource;
 import javax.sql.DataSource;
 
 import org.qifu.base.AppContext;
@@ -44,6 +43,8 @@ import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.ComponentScans;
 import org.springframework.scheduling.annotation.EnableScheduling;
 import org.springframework.web.servlet.config.annotation.EnableWebMvc;
+
+import jakarta.annotation.Resource;
 
 @SpringBootApplication
 @ComponentScans({

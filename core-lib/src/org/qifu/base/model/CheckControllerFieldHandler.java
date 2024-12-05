@@ -24,7 +24,6 @@ package org.qifu.base.model;
 import java.util.Map;
 
 import org.qifu.base.exception.ControllerException;
-import org.qifu.util.OgnlContextDefaultMemberAccessBuildUtils;
 
 import ognl.Ognl;
 import ognl.OgnlException;
@@ -70,7 +69,7 @@ public class CheckControllerFieldHandler<T> {
 			return this;
 		}
 		try {
-			Object val = Ognl.getValue(expression, OgnlContextDefaultMemberAccessBuildUtils.newOgnlContext(), paramObj);
+			Object val = Ognl.getValue(expression, paramObj);
 			if ( val instanceof Boolean && (Boolean) val ) {
 				this.result.getCheckFields().put(id, message);
 			}
