@@ -28,7 +28,6 @@ import org.qifu.base.model.YesNo;
 import org.qifu.base.properties.BaseInfoConfigProperties;
 import org.qifu.base.service.impl.BaseUserDetailsService;
 import org.qifu.core.support.BaseAuthenticationSuccessHandler;
-import org.qifu.core.support.BaseLoginUrlAuthenticationEntryPoint;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -38,8 +37,6 @@ import org.springframework.security.config.Customizer;
 import org.springframework.security.config.annotation.authentication.configuration.AuthenticationConfiguration;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
-import org.springframework.security.config.http.SessionCreationPolicy;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.rememberme.JdbcTokenRepositoryImpl;
@@ -105,7 +102,6 @@ public class WebSecurityConfig {
             .loginPage(CoreAppConstants.SYS_PAGE_LOGIN) // 设置登录页面
             .loginProcessingUrl("/login") // 登录请求 URL
             .successHandler(baseAuthenticationSuccessHandler) // 设置成功处理器
-            .successForwardUrl("/index") // 登录成功后跳转 URL
             .permitAll() // 允许所有人访问登录页面
         );
         
@@ -124,43 +120,6 @@ public class WebSecurityConfig {
         
         return http.build();
     }    
-    
-//    @Bean
-//    protected SecurityFilterChain filterChain(HttpSecurity http) throws Exception {  
-//    	//http.cors().configurationSource(request -> new CorsConfiguration().applyPermitDefaultValues());
-//    	http.headers().frameOptions().sameOrigin();
-//    	http.cors().and().csrf().disable()
-//                .formLogin()
-//                .loginPage( CoreAppConstants.SYS_PAGE_LOGIN )
-//                .loginProcessingUrl("/login")             
-//                .permitAll()
-//                //.defaultSuccessUrl("/index", true)
-//                .successHandler(baseAuthenticationSuccessHandler)
-//                .and()
-//                .authorizeRequests()
-//                .antMatchers( CoreAppConstants.getWebConfiginterceptorExcludePathPatterns() )                
-//                .permitAll()
-//                .anyRequest()
-//                .authenticated();
-//    	
-//        // ------------------------------------------------------------
-//        // for rember-me use , 2023-01-07 add
-//        if (YesNo.YES.equals(this.baseInfoConfigProperties.getEnableAlwaysRememberMe())) {
-//        	http
-//            .rememberMe() 
-//            .key(this.getRememberMeKeyName()) 
-//            .alwaysRemember(true)
-//            .tokenRepository(persistentTokenRepository()) 
-//            .tokenValiditySeconds( getTokenValiditySeconds() ) 
-//            //.rememberMeCookieName( Constants.APP_SITE_CURRENTID_COOKIE_NAME )
-//            .userDetailsService(baseUserDetailsService)
-//            .authenticationSuccessHandler(baseAuthenticationSuccessHandler);
-//        }
-//        // ------------------------------------------------------------
-//            	
-//    	http.exceptionHandling().authenticationEntryPoint(new BaseLoginUrlAuthenticationEntryPoint( CoreAppConstants.SYS_PAGE_LOGIN ));
-//    	//http.sessionManagement().invalidSessionUrl( CoreAppConstants.SYS_PAGE_TAB_LOGIN_AGAIN );
-//    }
     
     // for rember-me use , 2023-01-07 add
     @Bean
