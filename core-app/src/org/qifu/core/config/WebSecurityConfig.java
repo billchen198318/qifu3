@@ -86,8 +86,9 @@ public class WebSecurityConfig {
     
     @Bean
     protected SecurityFilterChain filterChain(HttpSecurity http) throws Exception {   
+    	http.headers().frameOptions().sameOrigin();
     	http.cors(Customizer.withDefaults()).csrf(csrf -> csrf.disable())
-    		.sessionManagement( sessMgr -> sessMgr.sessionCreationPolicy(SessionCreationPolicy.STATELESS) )
+    		//.sessionManagement( sessMgr -> sessMgr.sessionCreationPolicy(SessionCreationPolicy.STATELESS) )
     		.authorizeHttpRequests(auth -> {
     			//auth.requestMatchers(antMatcher(CoreAppConstants.SYS_PAGE_LOGIN)).permitAll();
     			for (String par : CoreAppConstants.getWebConfiginterceptorExcludePathPatterns()) {

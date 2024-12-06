@@ -79,7 +79,7 @@ public class TemplateUtils {
 	private static String processTemplate(String resource, Map<String, Object> params) throws Exception {
 		StringTemplateLoader templateLoader = new StringTemplateLoader();
 		templateLoader.putTemplate("sysTemplate", resource);
-		Configuration cfg = new Configuration( Configuration.VERSION_2_3_21 );
+		Configuration cfg = new Configuration( Configuration.getVersion() );
 		cfg.setTemplateLoader(templateLoader);
 		Template template = cfg.getTemplate("sysTemplate", Constants.BASE_ENCODING);
 		Writer out = new StringWriter();
@@ -165,7 +165,7 @@ public class TemplateUtils {
 	public static String processTemplate(String name, ClassLoader classLoader, String templateResource, Map<String, Object> parameter) throws Exception {
 		StringTemplateLoader templateLoader = new StringTemplateLoader();
 		templateLoader.putTemplate("resourceTemplate", getResourceSrc(classLoader, templateResource) );
-		Configuration cfg = new Configuration( Configuration.VERSION_2_3_21 );
+		Configuration cfg = new Configuration( Configuration.getVersion() );
 		cfg.setTemplateLoader(templateLoader);
 		Template template = cfg.getTemplate("resourceTemplate", Constants.BASE_ENCODING);
 		Writer out = new StringWriter();

@@ -101,7 +101,7 @@ public class MenuSupportUtils {
 		paramMap.put("prog", prog);
 		StringTemplateLoader templateLoader = new StringTemplateLoader();
 		templateLoader.putTemplate("resourceTemplate", _MODAL_TEMPLATE_STR );
-		Configuration cfg = new Configuration( Configuration.VERSION_2_3_21 );
+		Configuration cfg = new Configuration( Configuration.getVersion() );
 		cfg.setTemplateLoader(templateLoader);
 		Template template = cfg.getTemplate("resourceTemplate", Constants.BASE_ENCODING);
 		Writer out = new StringWriter();

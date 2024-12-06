@@ -48,7 +48,7 @@
 
 
 <!-- ##################### Modal for Program ##################### -->
-${menuResult.modalHtmlData}
+${menuResult.modalHtmlData?string}
 <!-- ##################### Modal for Program ##################### -->  
   
   
@@ -72,7 +72,7 @@ ${menuResult.modalHtmlData}
     
       <ul class="app-menu">
       
-        ${menuResult.navItemHtmlData}
+        ${menuResult.navItemHtmlData?string}
         
         
        	<li><a class="app-menu__item" href="#" onclick="addTab('CORE_PROG999D9999Q', null);"><i class="app-menu__icon fa fa-info-circle"></i><span class="app-menu__label">About</span></a></li>
@@ -105,9 +105,9 @@ ${menuResult.modalHtmlData}
 <script type="text/javascript">
 var _m_PAGE_CHANGE_URL_PARAM = _qifu_pageInTabIframeParamName;
 
-${menuResult.javascriptData}
+${menuResult.javascriptData?string}
 
-${iconJavascriptData}
+${iconJavascriptData?string}
 
 function getIconUrlFromOid(oid) {
 	var iconUrl = '';

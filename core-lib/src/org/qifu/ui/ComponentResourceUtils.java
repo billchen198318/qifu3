@@ -80,7 +80,7 @@ public class ComponentResourceUtils {
 	public static String generatorResource(Class<?> c, String type, String metaInfFile, Map<String, Object> params) throws Exception {
 		StringTemplateLoader templateLoader = new StringTemplateLoader();
 		templateLoader.putTemplate("resourceTemplate", getResourceSrc(c, type, metaInfFile) );
-		Configuration cfg = new Configuration( Configuration.VERSION_2_3_21 );
+		Configuration cfg = new Configuration( Configuration.getVersion() );
 		cfg.setTemplateLoader(templateLoader);
 		Template template = cfg.getTemplate("resourceTemplate", Constants.BASE_ENCODING);
 		Writer out = new StringWriter();
