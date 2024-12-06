@@ -86,42 +86,43 @@ public class WebSecurityConfig {
     
     @Bean
     protected SecurityFilterChain filterChain(HttpSecurity http) throws Exception {   
-    	http.headers().frameOptions().sameOrigin();
-    	http.cors(Customizer.withDefaults()).csrf(csrf -> csrf.disable())
-    		//.sessionManagement( sessMgr -> sessMgr.sessionCreationPolicy(SessionCreationPolicy.STATELESS) )
-    		.authorizeHttpRequests(auth -> {
-    			//auth.requestMatchers(antMatcher(CoreAppConstants.SYS_PAGE_LOGIN)).permitAll();
-    			for (String par : CoreAppConstants.getWebConfiginterceptorExcludePathPatterns()) {
-    				auth.requestMatchers(antMatcher(par)).permitAll();
-    			}
-    			auth.anyRequest().authenticated();
-    	}).formLogin((form) -> form
-    			.loginPage(CoreAppConstants.SYS_PAGE_LOGIN)
-    			.loginProcessingUrl("/login")
-    			.successHandler(baseAuthenticationSuccessHandler)  	
-    			.successForwardUrl("/index")
-    			.permitAll()
-    	).logout((logout) -> logout.permitAll());
-    	
-    	// ------------------------------------------------------------
-    	// for rember-me use , 2023-01-07 add
-    	if (YesNo.YES.equals(this.baseInfoConfigProperties.getEnableAlwaysRememberMe())) {
-    		http
-    			.rememberMe() 
-    			.key(this.getRememberMeKeyName()) 
-    			.alwaysRemember(true)
-    			.tokenRepository(persistentTokenRepository()) 
-    			.tokenValiditySeconds( getTokenValiditySeconds() ) 
-    			//.userDetailsService(baseUserDetailsService)
-    			.authenticationSuccessHandler(baseAuthenticationSuccessHandler);
-    	}
-    	// ------------------------------------------------------------    	
-		/*
-    	http.exceptionHandling(exeConfig -> {
-		    exeConfig.authenticationEntryPoint(new BaseLoginUrlAuthenticationEntryPoint( CoreAppConstants.SYS_PAGE_LOGIN ));
-		});
-		*/
-    	return http.build();
+        // 配置 HTTP 安全头
+        http.headers().frameOptions().sameOrigin();
+        
+        // 配置 CORS 和 CSRF
+        http.cors(Customizer.withDefaults()).csrf(csrf -> csrf.disable());
+        
+        // 配置请求授权
+        http.authorizeHttpRequests(auth -> {
+            for (String par : CoreAppConstants.getWebConfiginterceptorExcludePathPatterns()) {
+                auth.requestMatchers(antMatcher(par)).permitAll();
+            }
+            auth.anyRequest().authenticated(); // 其他请求需认证
+        });
+        
+        // 配置表单登录
+        http.formLogin(form -> form
+            .loginPage(CoreAppConstants.SYS_PAGE_LOGIN) // 设置登录页面
+            .loginProcessingUrl("/login") // 登录请求 URL
+            .successHandler(baseAuthenticationSuccessHandler) // 设置成功处理器
+            .successForwardUrl("/index") // 登录成功后跳转 URL
+            .permitAll() // 允许所有人访问登录页面
+        );
+        
+        // 配置注销
+        http.logout(logout -> logout.permitAll());
+        
+        // 配置 remember-me
+        if (YesNo.YES.equals(this.baseInfoConfigProperties.getEnableAlwaysRememberMe())) {
+            http.rememberMe()
+                .key(this.getRememberMeKeyName())
+                .alwaysRemember(true)
+                .tokenRepository(persistentTokenRepository())
+                .tokenValiditySeconds(getTokenValiditySeconds())
+                .authenticationSuccessHandler(baseAuthenticationSuccessHandler); // 配置成功处理器
+        }
+        
+        return http.build();
     }    
     
 //    @Bean
