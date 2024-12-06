@@ -87,6 +87,9 @@ public abstract class BaseControllerSupport {
 	PageVariableConfigProperties pageVariableConfigProperties;
 	
 	public String getPageRedirect(String url) {
+		if (url.startsWith("/")) {
+			return "redirect:" + url;
+		}
 		return "redirect:/" + url;
 	}	
 	

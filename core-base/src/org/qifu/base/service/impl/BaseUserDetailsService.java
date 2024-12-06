@@ -28,6 +28,7 @@ import org.qifu.base.model.DefaultResult;
 import org.qifu.base.model.YesNo;
 import org.qifu.base.model.ZeroKeyProvide;
 import org.qifu.base.properties.LdapLoginConfigProperties;
+import org.qifu.base.properties.MockEnableConfigProperties;
 import org.qifu.core.entity.TbAccount;
 import org.qifu.core.model.User;
 import org.qifu.core.service.IAccountService;
@@ -70,6 +71,9 @@ public class BaseUserDetailsService implements UserDetailsService {
     @Autowired
     HttpServletRequest request;
     
+	@Autowired
+	MockEnableConfigProperties mockEnableConfigProperties;    
+    
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
         logger.info("login account: {}", username);
@@ -77,10 +81,20 @@ public class BaseUserDetailsService implements UserDetailsService {
         	logger.warn("account value blank.");
         	throw new UsernameNotFoundException( BaseSystemMessage.parameterBlank() );
         }
+        if (YesNo.YES.equals(mockEnableConfigProperties.getLoginEnable())) {
+        	return this.loadFromMock(username);
+        }
         if (!YesNo.YES.equals(ldapLoginConfigProperties.getLoginEnable())) {
         	return this.loadFromDB(username);
         }
         return this.loadFromLDAP(username);
+    }
+    
+    private UserDetails loadFromMock(String username) throws UsernameNotFoundException {
+    	// 要再補上去 TB_SYS_CODE 找 mock role
+		User user = new User(ZeroKeyProvide.OID_KEY, username, passwordEncoder.encode("mock_pass"), YesNo.YES);
+		user.setByLdap(YesNo.YES);
+    	return user;  	
     }
     
     private UserDetails loadFromLDAP(String username) throws UsernameNotFoundException {

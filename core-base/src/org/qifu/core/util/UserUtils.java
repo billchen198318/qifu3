@@ -42,7 +42,11 @@ public class UserUtils {
 	
 	private static User backgroundUser = null;
 	
+	private static ThreadLocal<String> byMock = new ThreadLocal<String>();
+	private static ThreadLocal<String> byMockId = new ThreadLocal<String>();
+	
 	static {
+		notByMock();
 		TbUserRole backgroundUserRole1 = new TbUserRole();
 		backgroundUserRole1.setOid(ZeroKeyProvide.OID_KEY);
 		backgroundUserRole1.setAccount(Constants.SYSTEM_BACKGROUND_USER);
@@ -57,6 +61,20 @@ public class UserUtils {
 		backgroundRoleList.add(backgroundUserRole2);
 		backgroundUser = new User(ZeroKeyProvide.OID_KEY, Constants.SYSTEM_BACKGROUND_USER, "", YesNo.YES, backgroundRoleList);
 	}
+	
+	public static void hasLoginByMock(String mockId) {
+		byMock.set(YesNo.YES);
+		byMockId.set(mockId);
+	}
+	
+	public static void notByMock() {
+		byMock.set(YesNo.NO);
+		byMockId.set("");
+	}
+	
+	public static boolean checkUserLoginByMock() {
+		return YesNo.YES.equals(byMock.get());
+	}		
 	
 	public static BaseUserInfo setUserInfoForUserLocalUtils() {
 		User user = getCurrentUser();

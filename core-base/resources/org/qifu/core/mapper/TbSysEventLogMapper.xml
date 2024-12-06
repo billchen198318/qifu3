@@ -28,7 +28,7 @@
 		AND SYS_ID = #{sysId,jdbcType=VARCHAR}
 	</if>
 	<if test="user != null and user != ''.toString() ">
-		AND "USER" = #{user,jdbcType=VARCHAR}
+		AND USER = #{user,jdbcType=VARCHAR}
 	</if>			
 	<if test="orderBy != null and orderBy != ''.toString() and sortType != null and sortType != ''.toString() ">
 		ORDER BY  ${orderBy} ${sortType}
@@ -45,7 +45,7 @@
 		AND SYS_ID = #{sysId,jdbcType=VARCHAR}
 	</if>
 	<if test="user != null and user != ''.toString() ">
-		AND "USER" = #{user,jdbcType=VARCHAR}
+		AND USER = #{user,jdbcType=VARCHAR}
 	</if>	
 		
 	<include refid="org.qifu.core.mapper.DB1Config.sql2"/>
@@ -58,7 +58,7 @@
 		AND SYS_ID = #{sysId,jdbcType=VARCHAR}
 	</if>
 	<if test="user != null and user != ''.toString() ">
-		AND "USER" = #{user,jdbcType=VARCHAR}
+		AND USER = #{user,jdbcType=VARCHAR}
 	</if>	
   </select>  
   
@@ -69,7 +69,7 @@
         OID,
       </if>
       <if test="user != null">
-        "USER",
+        USER,
       </if>
       <if test="sysId != null">
         SYS_ID,
@@ -128,7 +128,7 @@
     update <include refid="org.qifu.core.mapper.DB1Config.schema"/>tb_sys_event_log
     <set>
       <if test="user != null">
-        "USER" = #{user,jdbcType=VARCHAR},
+        USER = #{user,jdbcType=VARCHAR},
       </if>
       <if test="sysId != null">
         SYS_ID = #{sysId,jdbcType=VARCHAR},

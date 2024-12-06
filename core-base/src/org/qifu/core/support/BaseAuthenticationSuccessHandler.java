@@ -34,6 +34,7 @@ import org.qifu.base.Constants;
 import org.qifu.base.model.DefaultResult;
 import org.qifu.base.model.ScriptTypeCode;
 import org.qifu.base.model.YesNo;
+import org.qifu.base.properties.MockEnableConfigProperties;
 import org.qifu.core.entity.TbRolePermission;
 import org.qifu.core.entity.TbSysLoginLog;
 import org.qifu.core.entity.TbUserRole;
@@ -67,9 +68,14 @@ public class BaseAuthenticationSuccessHandler implements AuthenticationSuccessHa
     
     @Autowired
     IRolePermissionService<TbRolePermission, String> rolePermissionService;	
+    
+	@Autowired
+	MockEnableConfigProperties mockEnableConfigProperties;       
 	
 	@Override
 	public void onAuthenticationSuccess(HttpServletRequest request, HttpServletResponse response, Authentication authentication) throws IOException, ServletException {
+		// 要補上 mock 的處理方式
+		
 		UserDetails user = (UserDetails) authentication.getPrincipal();
 		try {
 			if (user instanceof User) {
@@ -88,6 +94,7 @@ public class BaseAuthenticationSuccessHandler implements AuthenticationSuccessHa
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
+		
 		response.sendRedirect("/index");
 	}
 	

@@ -104,6 +104,7 @@ public class CoreAppConstants {
 			/* for ControllerAuthorityCheckInterceptor no to check */
 			SYS_PAGE_TAB_LOGIN_AGAIN,
 			"/login",
+			"/mockLoginPage",
 			SYS_PAGE_LOGIN,
 			"/logout",
 			"/error",

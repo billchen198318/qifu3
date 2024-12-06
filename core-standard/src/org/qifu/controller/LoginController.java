@@ -21,15 +21,34 @@
  */
 package org.qifu.controller;
 
+import java.io.IOException;
+import java.util.HashMap;
+import java.util.Map;
+
+import org.apache.commons.lang3.StringUtils;
 import org.qifu.base.controller.BaseControllerSupport;
+import org.qifu.base.exception.ServiceException;
+import org.qifu.base.model.YesNo;
+import org.qifu.base.properties.MockEnableConfigProperties;
+import org.qifu.core.entity.TbSysCode;
+import org.qifu.core.service.ISysCodeService;
+import org.qifu.core.util.UserUtils;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletResponse;
 
 @Controller
 public class LoginController extends BaseControllerSupport {
+	
+	@Autowired
+	MockEnableConfigProperties mockEnableConfigProperties;
+	
+	@Autowired
+	ISysCodeService<TbSysCode, String> sysCodeService;
 	
 	@RequestMapping("/loginPage")
 	public String loginPage(ModelMap mm, HttpServletRequest request) {
@@ -41,5 +60,36 @@ public class LoginController extends BaseControllerSupport {
 		}
 		return PAGE_SYS_LOGIN;
 	}
+	
+	private boolean hasMockCode(String mockId) throws ServiceException, Exception {
+		Map<String, Object> param = new HashMap<String, Object>();
+		param.put("param1", mockId);
+		return sysCodeService.count(param) > 0;
+	}
+	
+	@RequestMapping("/mockLoginPage")
+	public String mockLogin(ModelMap mm, HttpServletRequest request, HttpServletResponse response) throws IOException {
+		if (!YesNo.YES.equals(mockEnableConfigProperties.getLoginEnable())) {
+			return PAGE_SYS_LOGIN;
+		}
+		String mockId = request.getParameter("mockId");
+		String uId = request.getParameter("uId");
+		if (StringUtils.isBlank(mockId) || StringUtils.isBlank(uId)) {
+			return PAGE_SYS_LOGIN;
+		}
+		try {
+			if (this.hasMockCode(mockId)) {
+				mm.put("uId", uId);
+				mm.put("mPw", "mock_pass");
+				UserUtils.hasLoginByMock(mockId);
+				return "view/mock_login";
+			}
+		} catch (ServiceException se) {
+			se.printStackTrace();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return PAGE_SYS_LOGIN;
+	}	
 	
 }
