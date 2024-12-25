@@ -5,6 +5,11 @@
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
+	
+	<meta name="_csrf" content="${_csrf.token}"/>
+	<!-- default header name is X-CSRF-TOKEN -->
+	<meta name="_csrf_header" content="${_csrf.headerName}"/>
+	    
     <!-- Main CSS-->
     <link rel="stylesheet" type="text/css" href="${qifu_basePath}css/main.css">
     <!-- Font-icon css-->

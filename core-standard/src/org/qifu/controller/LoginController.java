@@ -40,6 +40,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import jakarta.servlet.http.HttpSession;
 
 @Controller
 public class LoginController extends BaseControllerSupport {
@@ -60,6 +61,17 @@ public class LoginController extends BaseControllerSupport {
 		}
 		return PAGE_SYS_LOGIN;
 	}
+	
+	// 暫時為了啟用 http csrf csrfTokenRepository 配置這個method, 登出用
+	@RequestMapping("/logout")
+	public String logout(ModelMap mm, HttpServletRequest request) {
+		mm.put("errMsg", "");
+		HttpSession session = request.getSession(false);
+	    if (session != null) {
+	        session.invalidate();
+	    }
+		return PAGE_SYS_LOGIN;
+	}	
 	
 	private boolean hasMockCode(String mockId) throws ServiceException, Exception {
 		Map<String, Object> param = new HashMap<String, Object>();

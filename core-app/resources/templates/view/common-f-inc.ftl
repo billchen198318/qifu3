@@ -1,4 +1,9 @@
 <#macro commonFormHeadResource>
+	
+	<meta name="_csrf" content="${_csrf.token}"/>
+	<!-- default header name is X-CSRF-TOKEN -->
+	<meta name="_csrf_header" content="${_csrf.headerName}"/>
+	
 <script type="text/javascript" src="${qifu_basePath}js/popper.min.js?ver=${qifu_jsVerBuild}"></script>
 <script type="text/javascript" src="${qifu_basePath}js/jquery-3.5.1.js?ver=${qifu_jsVerBuild}"></script>
 <link rel="stylesheet" href="${qifu_basePath}css/main.css?ver=${qifu_jsVerBuild}" >

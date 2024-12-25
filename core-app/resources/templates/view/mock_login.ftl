@@ -7,6 +7,7 @@
   </head>
   <body>
         <form id="loginForm" class="login-form" method="post" action="/login">
+          <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>	
           <div style="display: none;">
             <input class="form-control" type="text" name="username" id="username" placeholder="Account" maxlength="24" value="${uId}">
           </div>

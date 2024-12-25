@@ -44,6 +44,9 @@ function()
  */
 
 function xhrSendParameterForQueryGrid(xhrUrl, jsonParam, successFn, errorFn, selfPleaseWaitShow) {
+	var token = $("meta[name='_csrf']").attr("content");
+	var header = $("meta[name='_csrf_header']").attr("content");	
+	
 	if (null == selfPleaseWaitShow || _qifu_success_flag != selfPleaseWaitShow) {
 		parent.showPleaseWaitForQueryGrid();
 	} else {
@@ -57,6 +60,9 @@ function xhrSendParameterForQueryGrid(xhrUrl, jsonParam, successFn, errorFn, sel
 	    data : jsonParam,
 	    cache: _qifu_jqXhrCache,
 	    async: _qifu_jqXhrAsync,
+		beforeSend: function(xhr) {
+		    xhr.setRequestHeader(header, token);
+		},
 	    success : function(data, textStatus) {
 	    	if (null == selfPleaseWaitShow || _qifu_success_flag != selfPleaseWaitShow) {
 	    		parent.hidePleaseWaitForQueryGrid();
@@ -94,6 +100,9 @@ function xhrSendParameterForQueryGrid(xhrUrl, jsonParam, successFn, errorFn, sel
 }
 
 function xhrSendParameter(xhrUrl, jsonParam, successFn, errorFn, selfPleaseWaitShow) {
+	var token = $("meta[name='_csrf']").attr("content");
+	var header = $("meta[name='_csrf_header']").attr("content");	
+		
 	if (null == selfPleaseWaitShow || _qifu_success_flag != selfPleaseWaitShow) {
 		parent.showPleaseWait();
 	} else {
@@ -107,6 +116,9 @@ function xhrSendParameter(xhrUrl, jsonParam, successFn, errorFn, selfPleaseWaitS
 	    data : jsonParam,
 	    cache: _qifu_jqXhrCache,
 	    async: _qifu_jqXhrAsync,
+		beforeSend: function(xhr) {
+		    xhr.setRequestHeader(header, token);
+		},
 	    success : function(data, textStatus) {
 	    	if (null == selfPleaseWaitShow || _qifu_success_flag != selfPleaseWaitShow) {
 	    		parent.hidePleaseWait();
@@ -144,6 +156,9 @@ function xhrSendParameter(xhrUrl, jsonParam, successFn, errorFn, selfPleaseWaitS
 }
 
 function xhrSendForm(xhrUrl, formId, successFn, errorFn, selfPleaseWaitShow) {
+	var token = $("meta[name='_csrf']").attr("content");
+	var header = $("meta[name='_csrf_header']").attr("content");	
+		
 	if (null == selfPleaseWaitShow || _qifu_success_flag != selfPleaseWaitShow) {
 		parent.showPleaseWait();
 	} else {
@@ -157,6 +172,9 @@ function xhrSendForm(xhrUrl, formId, successFn, errorFn, selfPleaseWaitShow) {
 	    data : $("#"+formId).serialize(),
 	    cache: _qifu_jqXhrCache,
 	    async: _qifu_jqXhrAsync,
+		beforeSend: function(xhr) {
+		    xhr.setRequestHeader(header, token);
+		},
 	    success : function(data, textStatus) {
 	    	if (null == selfPleaseWaitShow || _qifu_success_flag != selfPleaseWaitShow) {
 	    		parent.hidePleaseWait();
@@ -194,6 +212,9 @@ function xhrSendForm(xhrUrl, formId, successFn, errorFn, selfPleaseWaitShow) {
 }
 
 function xhrSendParameterNoPleaseWait(xhrUrl, jsonParam, successFn, errorFn) {
+	var token = $("meta[name='_csrf']").attr("content");
+	var header = $("meta[name='_csrf_header']").attr("content");	
+			
 	$.ajax({
 		type : _qifu_jqXhrType,
 	    url : xhrUrl,
@@ -202,6 +223,9 @@ function xhrSendParameterNoPleaseWait(xhrUrl, jsonParam, successFn, errorFn) {
 	    data : jsonParam,
 	    cache: _qifu_jqXhrCache,
 	    async: false, // _qifu_jqXhrAsync
+		beforeSend: function(xhr) {
+		    xhr.setRequestHeader(header, token);
+		},
 	    success : function(data, textStatus) { 	    	
 			if (data==null || (typeof data=='undefined') ) {
 				alert('Unexpected error!');
@@ -229,6 +253,9 @@ function xhrSendParameterNoPleaseWait(xhrUrl, jsonParam, successFn, errorFn) {
 }
 
 function xhrSendFormNoPleaseWait(xhrUrl, formId, successFn, errorFn) {
+	var token = $("meta[name='_csrf']").attr("content");
+	var header = $("meta[name='_csrf_header']").attr("content");	
+			
 	$.ajax({
 		type : _qifu_jqXhrType,
 	    url : xhrUrl,
@@ -237,6 +264,9 @@ function xhrSendFormNoPleaseWait(xhrUrl, formId, successFn, errorFn) {
 	    data : $("#"+formId).serialize(),
 	    cache: _qifu_jqXhrCache,
 	    async: false, // _qifu_jqXhrAsync
+		beforeSend: function(xhr) {
+		    xhr.setRequestHeader(header, token);
+		},
 	    success : function(data, textStatus) {   	
 			if (data==null || (typeof data=='undefined') ) {
 				alert('Unexpected error!');

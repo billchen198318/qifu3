@@ -39,10 +39,16 @@ import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
+import org.springframework.security.web.authentication.logout.HeaderWriterLogoutHandler;
 import org.springframework.security.web.authentication.rememberme.JdbcTokenRepositoryImpl;
 import org.springframework.security.web.authentication.rememberme.PersistentTokenBasedRememberMeServices;
 import org.springframework.security.web.authentication.rememberme.PersistentTokenRepository;
+import org.springframework.security.web.csrf.CookieCsrfTokenRepository;
+import org.springframework.security.web.header.writers.ClearSiteDataHeaderWriter;
+import org.springframework.security.web.header.writers.ClearSiteDataHeaderWriter.Directive;
 import org.springframework.web.servlet.config.annotation.EnableWebMvc;
+
+import jakarta.servlet.http.HttpServletResponse;
 
 import static org.springframework.security.web.util.matcher.AntPathRequestMatcher.antMatcher;
 
@@ -84,10 +90,10 @@ public class WebSecurityConfig {
     @Bean
     protected SecurityFilterChain filterChain(HttpSecurity http) throws Exception {   
         // 配置 HTTP 安全头
-        http.headers().frameOptions().sameOrigin();
+        http.headers(header -> header.frameOptions(option -> option.sameOrigin()));
         
         // 配置 CORS 和 CSRF
-        http.cors(Customizer.withDefaults()).csrf(csrf -> csrf.disable());
+        http.cors(Customizer.withDefaults()).csrf(csrf -> csrf.ignoringRequestMatchers("/logout").csrfTokenRepository(CookieCsrfTokenRepository.withHttpOnlyFalse()));
         
         // 配置请求授权
         http.authorizeHttpRequests(auth -> {
@@ -106,16 +112,34 @@ public class WebSecurityConfig {
         );
         
         // 配置注销
-        http.logout(logout -> logout.permitAll());
+        http.logout(logout -> logout
+        		.invalidateHttpSession(true)
+        		.deleteCookies("JSESSIONID", "XSRF-TOKEN")
+        		.addLogoutHandler(new HeaderWriterLogoutHandler(new ClearSiteDataHeaderWriter(Directive.CACHE,Directive.COOKIES,Directive.EXECUTION_CONTEXTS,Directive.STORAGE)))
+        		.logoutUrl("/logout")
+        		.logoutSuccessUrl("/loginPage")
+        		.permitAll()
+        );
         
         // 配置 remember-me
         if (YesNo.YES.equals(this.baseInfoConfigProperties.getEnableAlwaysRememberMe())) {
+        	http.rememberMe(rember -> 
+        		rember
+        		.key(this.getRememberMeKeyName())
+        		.alwaysRemember(true) 
+        		.tokenRepository(persistentTokenRepository())
+        		.tokenValiditySeconds(getTokenValiditySeconds())
+        		.authenticationSuccessHandler(baseAuthenticationSuccessHandler) // 配置成功处理器
+        	);
+        	
+        	/*
             http.rememberMe()
                 .key(this.getRememberMeKeyName())
                 .alwaysRemember(true)
                 .tokenRepository(persistentTokenRepository())
                 .tokenValiditySeconds(getTokenValiditySeconds())
                 .authenticationSuccessHandler(baseAuthenticationSuccessHandler); // 配置成功处理器
+            */
         }
         
         return http.build();
